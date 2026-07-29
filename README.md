@@ -149,7 +149,7 @@ npm run cloudflare:proxy:apply
 npm run cloudflare:hsts:plan
 npm run cloudflare:hsts:apply
 
-# 按主机清除 manifest.dpdns.org 的 Cloudflare 缓存
+# 按主机清除 manifest.dpdns.org 的 Cloudflare 缓存，并保留已启用的 HSTS
 npm run cloudflare:purge
 ```
 
