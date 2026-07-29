@@ -64,6 +64,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
    每次签发会实际写出 `public/free/YYYYMMDD/clash.yaml` 和 `v2ray.txt`,而不是只写
    两个占位 URL。Clash 文件保留 TUIC;V2Ray 文件只转换该订阅生态兼容的
    `vmess/vless/trojan/ss`。请求采用 45 秒超时并自动重试一次,单源失败不泄露请求头。
+   2026-07-30 GitHub Actions 实测 V2Nodes 新加坡来源取得 15 条分享链接;与 BestClash
+   合并签发后共有 31 个 Clash 节点、30 条 V2Ray 兼容链接。
 4. **部分验证 — 深链与 375 宽度。**
    Edge 375×812 实测:页面整体 `scrollWidth=375`,sticky 导航滚动 900px 后仍
    `top=0`;明细表容器 `331px`、内容 `420px`,可横向滚到 `89px`。
@@ -79,8 +81,6 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 - GitHub Pages workflow 已首次部署成功;`manifest.dpdns.org` 目前仍缺少 DNS 记录,
   需要通过 Cloudflare API 写入 CNAME 后继续验证 DNS、Pages 证书与 HTTPS 强制跳转。
-- V2Nodes 新加坡适配器已启用并进入真实抓取路径,但 2026-07-30 本地网络访问该站时
-  被对端重置连接(`ECONNRESET`);需要由 GitHub Actions 再验证一次其服务器网络可达性。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
