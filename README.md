@@ -86,6 +86,9 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 已知未验证项
 
+- DNSSEC 当前保持关闭。`manifest.dpdns.org` 是子区，而父区 `dpdns.org` 目前未发布
+  DNSSEC 委派；建立完整信任链需要父区运营方先启用 DNSSEC，并写入 Cloudflare
+  为子区生成的 DS。仅用本区域 Token 单边开启不能完成端到端 DNSSEC。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
