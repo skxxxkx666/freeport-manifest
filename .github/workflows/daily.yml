@@ -2,26 +2,25 @@ name: Daily manifest
 
 on:
   schedule:
-    - cron: "0 20 * * *"   # 20:00 UTC === 次日 04:00 UTC+8
+    - cron: "0 20 * * *" # 20:00 UTC === 次日 04:00 UTC+8
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
-  group: pages
+  group: daily-manifest
   cancel-in-progress: false
 
 jobs:
   issue:
     runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.gen.outputs.changed }}
+    timeout-minutes: 20
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24
           cache: npm
@@ -29,46 +28,34 @@ jobs:
       - run: npm ci
       - run: npm test
 
-      - name: 拉取节点并生成今日运单
+      - name: 安装固定版本的 Mihomo
+        shell: bash
+        run: |
+          mkdir -p .tools
+          curl --fail --location --retry 3 \
+            --output .tools/mihomo.gz \
+            https://github.com/MetaCubeX/mihomo/releases/download/v1.19.29/mihomo-linux-amd64-compatible-v1.19.29.gz
+          echo "5612e698e96c8b8ad15abc4c0a4f098eba9234354b4f248cb97f2528e215b094  .tools/mihomo.gz" | sha256sum --check
+          gzip --decompress --stdout .tools/mihomo.gz > .tools/mihomo
+          chmod +x .tools/mihomo
+          echo "MIHOMO_BIN=$PWD/.tools/mihomo" >> "$GITHUB_ENV"
+
+      - name: 拉取、实测并生成今日运单
         id: gen
         env:
           SOURCES: ${{ secrets.SUB_SOURCES }}
           SITE_URL: ${{ vars.SITE_URL }}
           BASE_PATH: ${{ vars.BASE_PATH }}
+          REQUIRE_HEALTH_CHECK: "true"
+          HEALTH_MIN_NODES: "5"
+          HEALTH_MIN_RATIO: "0.2"
         run: node scripts/issue-manifest.mjs
 
       - name: 提交
         if: steps.gen.outputs.changed == 'true'
         run: |
-          git config user.name  "manifest-bot"
+          git config user.name "manifest-bot"
           git config user.email "bot@users.noreply.github.com"
           git add src/content/subs public/free
           git commit -m "issue: $(date -u -d '+8 hours' +%Y-%m-%d) manifest"
           git push
-
-  deploy:
-    needs: issue
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: main
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run check
-      - run: npm run build
-        env:
-          SITE_URL: ${{ vars.SITE_URL }}
-          BASE_PATH: ${{ vars.BASE_PATH }}
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist
-      - id: deployment
-        uses: actions/deploy-pages@v5

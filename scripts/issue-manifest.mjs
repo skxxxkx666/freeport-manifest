@@ -3,10 +3,15 @@
 
 import { createHash } from "node:crypto";
 import { appendFileSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
+import {
+  assertProbeThreshold,
+  probeProxies,
+  summarizeProbeResults
+} from "./probe-nodes.mjs";
 
 const tz = 8 * 60 * 60 * 1000;
 const today = new Date(Date.now() + tz).toISOString().slice(0, 10);
@@ -15,6 +20,7 @@ const shareProtocols = new Set(["vmess", "vless", "trojan", "ss"]);
 const clashProtocols = new Set([...shareProtocols, "tuic"]);
 const nodeUriPattern = /(?:vmess|vless|trojan|ss):\/\/[^\s"'<>[\]{}]+/gi;
 const defaultTimeoutMs = 45_000;
+const defaultMaxResponseBytes = 5_000_000;
 const defaultSourcesPath = "config/sources.json";
 
 const normalizeSource = (entry) => {
@@ -24,7 +30,7 @@ const normalizeSource = (entry) => {
   const url = source.url.trim();
   try {
     const protocol = new URL(url).protocol;
-    if (!["https:", "http:", "data:"].includes(protocol)) return;
+    if (!["https:", "data:"].includes(protocol)) return;
   } catch {
     return;
   }
@@ -106,6 +112,12 @@ const stableStringify = (value) => {
 const fingerprint = (value) =>
   createHash("sha256").update(stableStringify(value)).digest("hex").slice(0, 20);
 
+export const proxyFingerprint = (value) => {
+  const normalized = { ...value };
+  delete normalized.name;
+  return fingerprint(normalized);
+};
+
 const validClashProxy = (value) => {
   if (!value || typeof value !== "object" || Array.isArray(value)) return;
   const protocol = String(value.type ?? "").toLowerCase();
@@ -118,7 +130,7 @@ const validClashProxy = (value) => {
 const clashNode = (value) => {
   const proxy = validClashProxy(value);
   if (!proxy) return;
-  return `${proxy.type}://clash/${fingerprint(proxy)}#${encodeURIComponent(proxy.name)}`;
+  return `${proxy.type}://clash/${proxyFingerprint(proxy)}#${encodeURIComponent(proxy.name)}`;
 };
 
 const decodeBase64 = (value, { strict = true } = {}) => {
@@ -146,7 +158,7 @@ const decodeBase64 = (value, { strict = true } = {}) => {
 const dedupeProxies = (proxies) => {
   const seen = new Set();
   return proxies.filter((proxy) => {
-    const key = fingerprint(proxy);
+    const key = proxyFingerprint(proxy);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -219,22 +231,73 @@ const sourceLabel = (source) => {
   }
 };
 
-const requestText = async (source, fetchImpl, timeoutMs) => {
+const readResponseText = async (response, maxBytes) => {
+  const declaredSize = Number(response.headers.get("content-length"));
+  if (Number.isFinite(declaredSize) && declaredSize > maxBytes) {
+    throw new Error(`响应超过 ${maxBytes} 字节限制`);
+  }
+  if (!response.body) return "";
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let size = 0;
+  let text = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel();
+      throw new Error(`响应超过 ${maxBytes} 字节限制`);
+    }
+    text += decoder.decode(value, { stream: true });
+  }
+  return text + decoder.decode();
+};
+
+const redirectStatuses = new Set([301, 302, 303, 307, 308]);
+
+const requestText = async (
+  source,
+  fetchImpl,
+  timeoutMs,
+  maxBytes = defaultMaxResponseBytes
+) => {
   const headers = new Headers({
     accept: "text/plain, text/html, application/json, application/yaml, text/yaml, */*",
     "user-agent": "freeport-manifest/1.0",
     ...source.headers
   });
+  const hasPrivateHeaders = Object.keys(source.headers ?? {}).length > 0;
   let lastError;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const response = await fetchImpl(source.url, {
-        redirect: "follow",
-        headers,
-        signal: AbortSignal.timeout(timeoutMs)
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.text();
+      let currentUrl = source.url;
+      for (let redirect = 0; redirect <= 5; redirect += 1) {
+        const response = await fetchImpl(currentUrl, {
+          redirect: "manual",
+          headers,
+          signal: AbortSignal.timeout(timeoutMs)
+        });
+        if (redirectStatuses.has(response.status) && response.headers.get("location")) {
+          if (redirect === 5) throw new Error("重定向次数超过 5 次");
+          const nextUrl = new URL(response.headers.get("location"), currentUrl);
+          if (nextUrl.protocol !== "https:") {
+            throw new Error("来源重定向必须保持 HTTPS");
+          }
+          if (
+            hasPrivateHeaders &&
+            nextUrl.origin !== new URL(currentUrl).origin
+          ) {
+            throw new Error("带鉴权来源不允许跨源重定向");
+          }
+          await response.body?.cancel();
+          currentUrl = nextUrl.href;
+          continue;
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return readResponseText(response, maxBytes);
+      }
     } catch (error) {
       lastError = error;
       if (attempt === 1) {
@@ -285,6 +348,23 @@ export function parseV2NodesDetail(html) {
   );
 }
 
+const mapConcurrent = async (items, concurrency, worker) => {
+  const results = new Array(items.length);
+  let cursor = 0;
+  const runners = Array.from(
+    { length: Math.min(Math.max(concurrency, 1), items.length) },
+    async () => {
+      while (cursor < items.length) {
+        const index = cursor;
+        cursor += 1;
+        results[index] = await worker(items[index], index);
+      }
+    }
+  );
+  await Promise.all(runners);
+  return results;
+};
+
 const fetchV2NodesCountry = async (source, options) => {
   if (!source.allowRedistribution) {
     console.error(
@@ -295,20 +375,29 @@ const fetchV2NodesCountry = async (source, options) => {
 
   const index = await requestText(source, options.fetchImpl, options.timeoutMs);
   const detailUrls = parseV2NodesIndex(index, source.url).slice(0, source.maxItems ?? 20);
-  const nodes = [];
-  for (const url of detailUrls) {
+  let detailFailures = 0;
+  const pages = await mapConcurrent(detailUrls, 4, async (url) => {
     try {
       const html = await requestText(
         { url, headers: source.headers },
         options.fetchImpl,
         options.timeoutMs
       );
-      nodes.push(...parseV2NodesDetail(html));
+      return parseV2NodesDetail(html);
     } catch (error) {
+      detailFailures += 1;
       console.error(`来源 ${sourceLabel(source)} 的详情页拉取失败 (${error.message})`);
+      return [];
     }
-  }
-  return { nodes: dedupe(nodes), proxies: [] };
+  });
+  return {
+    nodes: dedupe(pages.flat()),
+    proxies: [],
+    meta: {
+      detailTotal: detailUrls.length,
+      detailFailures
+    }
+  };
 };
 
 export async function fetchSourcePayloads(
@@ -316,25 +405,47 @@ export async function fetchSourcePayloads(
   { fetchImpl = fetch, timeoutMs = defaultTimeoutMs } = {}
 ) {
   const payload = { nodes: [], proxies: [] };
+  const reports = [];
   for (const source of sources) {
     if (source.enabled === false) continue;
+    const id = sourceLabel(source);
     try {
       const current =
         source.type === "v2nodes-country"
           ? await fetchV2NodesCountry(source, { fetchImpl, timeoutMs })
           : parseSourcePayload(await requestText(source, fetchImpl, timeoutMs));
       mergePayload(payload, current);
+      reports.push({
+        id,
+        status: current.meta?.detailFailures ? "partial" : "ok",
+        nodeCount: current.nodes.length,
+        proxyCount: current.proxies.length,
+        detailTotal: current.meta?.detailTotal,
+        detailFailures: current.meta?.detailFailures,
+        payload: {
+          nodes: current.nodes,
+          proxies: current.proxies
+        }
+      });
       console.log(
-        `来源 ${sourceLabel(source)}：${current.proxies.length} 个 Clash 节点，${current.nodes.length} 条分享链接`
+        `来源 ${id}：${current.proxies.length} 个 Clash 节点，${current.nodes.length} 条分享链接`
       );
     } catch (error) {
       const reason = error instanceof Error ? error.message : "UnknownError";
-      console.error(`来源 ${sourceLabel(source)} 拉取失败 (${reason})`);
+      reports.push({
+        id,
+        status: "failed",
+        nodeCount: 0,
+        proxyCount: 0,
+        reason
+      });
+      console.error(`来源 ${id} 拉取失败 (${reason})`);
     }
   }
   return {
     nodes: dedupe(payload.nodes),
-    proxies: dedupeProxies(payload.proxies)
+    proxies: dedupeProxies(payload.proxies),
+    reports
   };
 }
 
@@ -353,7 +464,37 @@ const proxyName = (proxy, fallback) => String(proxy.name ?? fallback).trim() || 
 const encodedFragment = (name) => `#${encodeURIComponent(name)}`;
 const hostPort = (server, port) => `${String(server).includes(":") ? `[${server}]` : server}:${port}`;
 
+const networkOptionsSupported = (proxy) => {
+  const network = String(proxy.network ?? "tcp");
+  if (!["tcp", "ws", "grpc"].includes(network)) return false;
+  if (network === "ws") {
+    const options = proxy["ws-opts"] ?? {};
+    if (
+      Object.keys(options).some((name) => !["path", "headers"].includes(name))
+    ) {
+      return false;
+    }
+    if (
+      Object.keys(options.headers ?? {}).some(
+        (name) => name.toLowerCase() !== "host"
+      )
+    ) {
+      return false;
+    }
+  }
+  if (
+    network === "grpc" &&
+    Object.keys(proxy["grpc-opts"] ?? {}).some(
+      (name) => name !== "grpc-service-name"
+    )
+  ) {
+    return false;
+  }
+  return true;
+};
+
 const addNetworkParams = (params, proxy) => {
+  if (!networkOptionsSupported(proxy)) return false;
   const network = String(proxy.network ?? "tcp");
   params.set("type", network);
   if (network === "ws") {
@@ -366,6 +507,7 @@ const addNetworkParams = (params, proxy) => {
     const serviceName = proxy["grpc-opts"]?.["grpc-service-name"];
     if (serviceName) params.set("serviceName", String(serviceName));
   }
+  return true;
 };
 
 export function clashProxyToUri(proxy) {
@@ -375,6 +517,7 @@ export function clashProxyToUri(proxy) {
 
   if (normalized.type === "vmess") {
     if (!normalized.uuid) return;
+    if (!networkOptionsSupported(normalized)) return;
     const network = String(normalized.network ?? "tcp");
     const ws = normalized["ws-opts"] ?? {};
     const grpc = normalized["grpc-opts"] ?? {};
@@ -391,23 +534,33 @@ export function clashProxyToUri(proxy) {
       host: String(ws.headers?.Host ?? ws.headers?.host ?? ""),
       path: String(ws.path ?? grpc["grpc-service-name"] ?? ""),
       tls: normalized.tls ? "tls" : "",
-      sni: String(normalized.servername ?? normalized.sni ?? "")
+      sni: String(normalized.servername ?? normalized.sni ?? ""),
+      alpn: Array.isArray(normalized.alpn) ? normalized.alpn.join(",") : "",
+      fp: String(normalized["client-fingerprint"] ?? ""),
+      allowInsecure: normalized["skip-cert-verify"] ? "1" : ""
     };
     return `vmess://${Buffer.from(JSON.stringify(payload)).toString("base64")}`;
   }
 
   if (normalized.type === "ss") {
     if (!normalized.cipher || normalized.password === undefined) return;
+    if (normalized.plugin || normalized["plugin-opts"]) return;
     const userInfo = base64Url(`${normalized.cipher}:${normalized.password}`);
     return `ss://${userInfo}@${hostPort(normalized.server, normalized.port)}${encodedFragment(name)}`;
   }
 
   const params = new URLSearchParams();
-  addNetworkParams(params, normalized);
+  if (!addNetworkParams(params, normalized)) return;
   const sni = normalized.servername ?? normalized.sni;
   if (sni) params.set("sni", String(sni));
   if (normalized["client-fingerprint"]) {
     params.set("fp", String(normalized["client-fingerprint"]));
+  }
+  if (Array.isArray(normalized.alpn) && normalized.alpn.length) {
+    params.set("alpn", normalized.alpn.join(","));
+  }
+  if (normalized["skip-cert-verify"] === true) {
+    params.set("allowInsecure", "1");
   }
 
   if (normalized.type === "vless") {
@@ -475,6 +628,13 @@ export function nodeUriToClashProxy(node, index = 1) {
         proxy.tls = true;
         if (value.sni) proxy.servername = String(value.sni);
       }
+      if (value.allowInsecure === true || value.allowInsecure === "1") {
+        proxy["skip-cert-verify"] = true;
+      }
+      if (value.fp) proxy["client-fingerprint"] = String(value.fp);
+      if (value.alpn) {
+        proxy.alpn = String(value.alpn).split(",").filter(Boolean);
+      }
       if (value.net === "ws") {
         proxy["ws-opts"] = {
           ...(value.path ? { path: String(value.path) } : {}),
@@ -537,6 +697,12 @@ export function nodeUriToClashProxy(node, index = 1) {
     if (security === "tls" || security === "reality") proxy.tls = true;
     if (params.get("sni")) proxy.servername = params.get("sni");
     if (params.get("fp")) proxy["client-fingerprint"] = params.get("fp");
+    if (["1", "true"].includes(String(params.get("allowInsecure")).toLowerCase())) {
+      proxy["skip-cert-verify"] = true;
+    }
+    if (params.get("alpn")) {
+      proxy.alpn = params.get("alpn").split(",").filter(Boolean);
+    }
 
     if (protocol === "vless") {
       proxy.uuid = decodeURIComponent(url.username);
@@ -566,15 +732,29 @@ const uniqueProxyNames = (proxies) => {
 };
 
 export function buildSubscriptionPayload(payload) {
+  const uriByProxyFingerprint = new Map();
   const converted = payload.nodes
-    .map((node, index) => nodeUriToClashProxy(node, index + 1))
+    .map((node, index) => {
+      const proxy = nodeUriToClashProxy(node, index + 1);
+      if (proxy && !uriByProxyFingerprint.has(proxyFingerprint(proxy))) {
+        uriByProxyFingerprint.set(proxyFingerprint(proxy), node);
+      }
+      return proxy;
+    })
     .filter(Boolean);
+  for (const proxy of payload.proxies) {
+    const uri = clashProxyToUri(proxy);
+    if (uri && !uriByProxyFingerprint.has(proxyFingerprint(proxy))) {
+      uriByProxyFingerprint.set(proxyFingerprint(proxy), uri);
+    }
+  }
   const proxies = uniqueProxyNames(dedupeProxies([...payload.proxies, ...converted]));
-  const shareUris = dedupe([
-    ...payload.nodes,
-    ...payload.proxies.map(clashProxyToUri).filter(Boolean)
-  ]);
-  return { proxies, shareUris };
+  const shareUris = dedupe(
+    proxies
+      .map((proxy) => uriByProxyFingerprint.get(proxyFingerprint(proxy)))
+      .filter(Boolean)
+  );
+  return { proxies, shareUris, uriByProxyFingerprint };
 }
 
 export function renderClashConfig(proxies) {
@@ -617,16 +797,44 @@ export function renderClashConfig(proxies) {
 export const protoOf = (node) => node.slice(0, node.indexOf(":"));
 
 export const regionOf = (node) => {
-  let tag = node.split("#")[1] ?? "";
+  let tag = String(node).includes("#")
+    ? String(node).split("#").at(-1)
+    : String(node);
   try {
     tag = decodeURIComponent(tag);
   } catch {
     /* 保留原始标签，避免单个错误转义中断整批签发 */
   }
-  if (/香港|HK|Hong/i.test(tag)) return "HK";
-  if (/日本|JP|Japan/i.test(tag)) return "JP";
-  if (/新加坡|SG|Singapore/i.test(tag)) return "SG";
-  if (/美国|US|United/i.test(tag)) return "US";
+
+  const flag = tag.match(/[\u{1F1E6}-\u{1F1FF}]{2}/u)?.[0];
+  if (flag) {
+    return [...flag]
+      .map((character) =>
+        String.fromCharCode(character.codePointAt(0) - 0x1f1e6 + 65)
+      )
+      .join("");
+  }
+  const prefix = tag.match(/^\s*([a-z]{2})(?:\||[-_: ])/i)?.[1]?.toUpperCase();
+  if (prefix && prefix !== "XX") return prefix;
+
+  const namedRegions = [
+    ["HK", /香港|Hong\s*Kong|\bHK\b/i],
+    ["JP", /日本|Japan|\bJP\b/i],
+    ["SG", /新加坡|Singapore|\bSG\b/i],
+    ["US", /美国|United\s*States|\bUS\b/i],
+    ["TW", /台湾|Taiwan|\bTW\b/i],
+    ["KR", /韩国|Korea|\bKR\b/i],
+    ["DE", /德国|Germany|\bDE\b/i],
+    ["SE", /瑞典|Sweden|\bSE\b/i],
+    ["GB", /英国|United\s*Kingdom|\bGB\b|\bUK\b/i],
+    ["FR", /法国|France|\bFR\b/i],
+    ["NL", /荷兰|Netherlands|\bNL\b/i],
+    ["CA", /加拿大|Canada|\bCA\b/i],
+    ["AU", /澳大利亚|Australia|\bAU\b/i]
+  ];
+  for (const [region, pattern] of namedRegions) {
+    if (pattern.test(tag)) return region;
+  }
   return "OTHER";
 };
 
@@ -652,6 +860,137 @@ const writeIfChanged = async (path, content) => {
   return true;
 };
 
+export async function expireOlderManifests({
+  contentDir = "src/content/subs",
+  currentDate = today
+} = {}) {
+  let files;
+  try {
+    files = await readdir(contentDir);
+  } catch (error) {
+    if (error?.code === "ENOENT") return 0;
+    throw error;
+  }
+
+  let changed = 0;
+  for (const file of files) {
+    const date = file.match(/^(\d{4}-\d{2}-\d{2})\.md$/)?.[1];
+    if (!date || date >= currentDate) continue;
+    const path = `${contentDir}/${file}`;
+    const previous = await readFile(path, "utf8");
+    let next = previous;
+    if (/^expired:\s*false\s*$/m.test(previous)) {
+      next = previous.replace(/^expired:\s*false\s*$/m, "expired: true");
+    } else if (!/^expired:/m.test(previous)) {
+      next = previous.replace(/\n---\s*$/, "\nexpired: true\n---\n");
+    }
+    if (next !== previous && (await writeIfChanged(path, next))) changed += 1;
+  }
+  return changed;
+}
+
+const sourceProvenance = (reports) => {
+  const sourcesByProxy = new Map();
+  for (const report of reports) {
+    if (!report.payload) continue;
+    const built = buildSubscriptionPayload(report.payload);
+    for (const proxy of built.proxies) {
+      const key = proxyFingerprint(proxy);
+      const sourceIds = sourcesByProxy.get(key) ?? new Set();
+      sourceIds.add(report.id);
+      sourcesByProxy.set(key, sourceIds);
+    }
+  }
+  return sourcesByProxy;
+};
+
+const publicSourceReports = (reports) =>
+  reports.map((report) => ({
+    id: report.id,
+    status: report.status,
+    nodeCount: report.nodeCount,
+    proxyCount: report.proxyCount,
+    ...(Number.isInteger(report.detailTotal)
+      ? {
+          detailTotal: report.detailTotal,
+          detailFailures: report.detailFailures
+        }
+      : {})
+  }));
+
+const positiveNumber = (value, fallback) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
+export const buildHealthReport = ({
+  summary,
+  tested,
+  sources,
+  sourcesByProxy,
+  proxies,
+  thresholds
+}) => {
+  const resultByName = new Map(summary.results.map((result) => [result.name, result]));
+  return {
+    schemaVersion: 1,
+    manifest: `FP-${compact}-01`,
+    status: tested ? "tested" : "skipped",
+    testedAt: summary.testedAt,
+    thresholds,
+    summary: {
+      candidateCount: summary.candidateCount,
+      healthyCount: summary.healthyCount,
+      failedCount: summary.failedCount,
+      aliveRatio: summary.aliveRatio,
+      latencyMs: summary.latencyMs,
+      failureReasons: summary.failureReasons
+    },
+    sources: publicSourceReports(sources),
+    nodes: proxies.map((proxy) => {
+      const key = proxyFingerprint(proxy);
+      const result = resultByName.get(proxy.name);
+      return {
+        id: key,
+        type: proxy.type,
+        sourceIds: [...(sourcesByProxy.get(key) ?? [])].sort(),
+        alive: tested ? Boolean(result?.alive) : null,
+        ...(Number.isFinite(result?.delayMs) ? { delayMs: result.delayMs } : {}),
+        ...(Number.isFinite(result?.speedMbps)
+          ? {
+              speedMbps: result.speedMbps,
+              speedSampleBytes: result.speedSampleBytes
+            }
+          : {}),
+        ...(result?.speedSampleStatus
+          ? {
+              speedSampleStatus: result.speedSampleStatus,
+              speedSampleBytes: result.speedSampleBytes
+            }
+          : {}),
+        ...(!result?.alive && result?.reason ? { reason: result.reason } : {})
+      };
+    })
+  };
+};
+
+const appendRunSummary = ({ summary, reports, publishedCount, tested }) => {
+  if (!process.env.GITHUB_STEP_SUMMARY) return;
+  const degraded = reports.filter((report) => report.status !== "ok");
+  appendFileSync(
+    process.env.GITHUB_STEP_SUMMARY,
+    [
+      "## 每日舱单签发",
+      "",
+      `- 健康检查：${tested ? "已执行" : "未执行"}`,
+      `- 候选 / 存活 / 发布：${summary.candidateCount} / ${summary.healthyCount} / ${publishedCount}`,
+      `- 存活率：${(summary.aliveRatio * 100).toFixed(1)}%`,
+      `- 来源状态：${degraded.length ? degraded.map((item) => `${item.id}=${item.status}`).join("，") : "全部正常"}`,
+      ""
+    ].join("\n")
+  );
+};
+
 const setChangedOutput = (changed) => {
   if (process.env.GITHUB_OUTPUT) {
     appendFileSync(process.env.GITHUB_OUTPUT, `changed=${changed}\n`);
@@ -661,18 +1000,55 @@ const setChangedOutput = (changed) => {
 async function main() {
   const sources = await loadSourceSpecs();
   const fetched = await fetchSourcePayloads(sources);
-  const { proxies, shareUris } = buildSubscriptionPayload(fetched);
-  if (!proxies.length || !shareUris.length) {
-    console.error("没有拉到可签发的 Clash 与 V2Ray 节点，今日不签发");
+  const built = buildSubscriptionPayload(fetched);
+  const { proxies } = built;
+  const requireHealthCheck = process.env.REQUIRE_HEALTH_CHECK === "true";
+  if (!proxies.length || !built.shareUris.length) {
     setChangedOutput(false);
-    return;
+    throw new Error("没有拉到可签发的 Clash 与 V2Ray 节点，今日签发失败");
+  }
+
+  const thresholds = {
+    minimumHealthy: Math.floor(
+      positiveNumber(process.env.HEALTH_MIN_NODES, 5)
+    ),
+    minimumRatio: positiveNumber(process.env.HEALTH_MIN_RATIO, 0.2)
+  };
+  const tested = Boolean(process.env.MIHOMO_BIN);
+  if (requireHealthCheck && !tested) {
+    throw new Error("REQUIRE_HEALTH_CHECK=true，但未配置 MIHOMO_BIN");
+  }
+  const summary = tested
+    ? await probeProxies(proxies)
+    : summarizeProbeResults(
+        proxies.map((proxy) => ({
+          name: proxy.name,
+          type: proxy.type,
+          alive: true,
+          delayMs: null
+        }))
+      );
+  if (tested) assertProbeThreshold(summary, thresholds);
+
+  const resultByName = new Map(
+    summary.results.map((result) => [result.name, result])
+  );
+  const publishedProxies = tested
+    ? proxies.filter((proxy) => resultByName.get(proxy.name)?.alive)
+    : proxies;
+  const shareUris = dedupe(
+    publishedProxies
+      .map((proxy) => built.uriByProxyFingerprint.get(proxyFingerprint(proxy)))
+      .filter(Boolean)
+  );
+  if (!publishedProxies.length || !shareUris.length) {
+    throw new Error("健康检查后没有可同时签发的 Clash 与 V2Ray 节点");
   }
 
   const artifactDir = `public/free/${compact}`;
-  const artifactNodes = proxies.map(clashNode).filter(Boolean);
   const counts = new Map();
-  for (const node of artifactNodes) {
-    const key = `${regionOf(node)}|${protoOf(node)}`;
+  for (const proxy of publishedProxies) {
+    const key = `${regionOf(proxy.name)}|${proxy.type}`;
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
 
@@ -681,11 +1057,15 @@ async function main() {
       const [region, protocol] = key.split("|");
       return { region, protocol, count };
     })
-    .filter((item) => item.region !== "OTHER")
-    .sort((a, b) => b.count - a.count);
+    .sort(
+      (a, b) =>
+        (a.region === "OTHER") - (b.region === "OTHER") ||
+        b.count - a.count ||
+        a.region.localeCompare(b.region)
+    );
 
   const regions = [...new Set(breakdown.map((item) => item.region))];
-  const protocolList = [...new Set(proxies.map((proxy) => proxy.type))];
+  const protocolList = [...new Set(publishedProxies.map((proxy) => proxy.type))];
   const breakdownBlock = breakdown.length
     ? `breakdown:\n${breakdown
         .map(
@@ -694,31 +1074,72 @@ async function main() {
         )
         .join("\n")}\n`
     : "";
+  const degradedSources = fetched.reports.filter(
+    (report) => report.status !== "ok"
+  );
+  const noteParts = [
+    tested
+      ? `发布前实测 ${summary.healthyCount}/${summary.candidateCount} 个候选节点可用`
+      : "本次未执行发布前连通性检查"
+  ];
+  if (degradedSources.length) {
+    noteParts.push(
+      `来源降级：${degradedSources
+        .map((report) => `${report.id}(${report.status})`)
+        .join("、")}`
+    );
+  }
+  const healthUrl = publicSubscriptionUrl("health.json");
   const frontmatter = `---
 date: ${today}
 serial: "01"
 issuedAt: "${today}T04:00:00+08:00"
 clash: "${publicSubscriptionUrl("clash.yaml")}"
 v2ray: "${publicSubscriptionUrl("v2ray.txt")}"
-nodeCount: ${proxies.length}
+nodeCount: ${publishedProxies.length}
 regions: ${JSON.stringify(regions)}
 protocols: ${JSON.stringify(protocolList)}
-${breakdownBlock}expired: false
+${breakdownBlock}${tested ? `alive: ${summary.aliveRatio}\ntestedAt: "${summary.testedAt}"\n` : ""}health: "${healthUrl}"
+note: ${JSON.stringify(noteParts.join("；"))}
+expired: false
 ---
 `;
 
+  const sourcesByProxy = sourceProvenance(fetched.reports);
+  const report = buildHealthReport({
+    summary,
+    tested,
+    sources: fetched.reports,
+    sourcesByProxy,
+    proxies,
+    thresholds
+  });
   const changes = await Promise.all([
-    writeIfChanged(`${artifactDir}/clash.yaml`, renderClashConfig(proxies)),
+    writeIfChanged(
+      `${artifactDir}/clash.yaml`,
+      renderClashConfig(publishedProxies)
+    ),
     writeIfChanged(
       `${artifactDir}/v2ray.txt`,
       `${Buffer.from(`${shareUris.join("\n")}\n`, "utf8").toString("base64")}\n`
     ),
+    writeIfChanged(
+      `${artifactDir}/health.json`,
+      `${JSON.stringify(report, null, 2)}\n`
+    ),
     writeIfChanged(`src/content/subs/${today}.md`, frontmatter)
   ]);
-  const changed = changes.some(Boolean);
+  const expiredCount = await expireOlderManifests();
+  const changed = changes.some(Boolean) || expiredCount > 0;
   setChangedOutput(changed);
+  appendRunSummary({
+    summary,
+    reports: fetched.reports,
+    publishedCount: publishedProxies.length,
+    tested
+  });
   console.log(
-    `签发 FP-${compact}-01 —— Clash ${proxies.length} 件，V2Ray ${shareUris.length} 件${changed ? "" : "（无变化）"}`
+    `签发 FP-${compact}-01 —— 候选 ${proxies.length} 件，Clash ${publishedProxies.length} 件，V2Ray ${shareUris.length} 件，过期 ${expiredCount} 份${changed ? "" : "（无变化）"}`
   );
 }
 

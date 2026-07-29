@@ -1,9 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
+  buildHealthReport,
   buildSubscriptionPayload,
   clashProxyToUri,
   dedupe,
+  expireOlderManifests,
+  fetchSourcePayloads,
   fetchSources,
   nodeUriToClashProxy,
   parseNodes,
@@ -13,6 +19,7 @@ import {
   parseV2NodesDetail,
   parseV2NodesIndex,
   protoOf,
+  proxyFingerprint,
   regionOf,
   renderClashConfig
 } from "./issue-manifest.mjs";
@@ -122,7 +129,51 @@ test("fetchSources applies secret JSON headers and merges decoded responses", as
     "ss://gamma#US"
   ]);
   assert.equal(calls[0].options.headers.get("authorization"), "Bearer secret");
-  assert.equal(calls[0].options.redirect, "follow");
+  assert.equal(calls[0].options.redirect, "manual");
+});
+
+test("sources require HTTPS and authenticated redirects stay on the same origin", async () => {
+  assert.deepEqual(parseSourceSpecs("http://plain.example/sub"), []);
+
+  const calls = [];
+  const payload = await fetchSourcePayloads(
+    [
+      {
+        id: "private",
+        url: "https://private.example/sub",
+        headers: { Authorization: "Bearer secret" }
+      }
+    ],
+    {
+      fetchImpl: async (url) => {
+        calls.push(url);
+        return new Response("", {
+          status: 302,
+          headers: { location: "https://other.example/sub" }
+        });
+      }
+    }
+  );
+
+  assert.equal(calls.length, 2);
+  assert.equal(payload.reports[0].status, "failed");
+  assert.deepEqual(payload.nodes, []);
+});
+
+test("source response size is capped before reading the body", async () => {
+  const payload = await fetchSourcePayloads(
+    [{ id: "large", url: "https://large.example/sub", headers: {} }],
+    {
+      fetchImpl: async () =>
+        new Response("small", {
+          status: 200,
+          headers: { "content-length": "5000001" }
+        })
+    }
+  );
+
+  assert.equal(payload.reports[0].status, "failed");
+  assert.match(payload.reports[0].reason, /响应超过/);
 });
 
 test("source payload preserves Clash objects for real artifact generation", () => {
@@ -162,6 +213,57 @@ test("Clash proxies convert to share links and back", () => {
   assert.equal(vmessRoundTrip.uuid, vmess.uuid);
   assert.equal(ssRoundTrip.server, ss.server);
   assert.equal(ssRoundTrip.password, ss.password);
+  assert.equal(
+    clashProxyToUri({
+      ...vmess,
+      network: "ws",
+      "ws-opts": {
+        path: "/",
+        headers: {
+          Host: "jp.example.com",
+          "User-Agent": "required"
+        }
+      }
+    }),
+    undefined
+  );
+});
+
+test("Trojan conversion preserves TLS options and rejects lossy WS headers", () => {
+  const trojan = {
+    name: "SG Trojan",
+    type: "trojan",
+    server: "sg.example.com",
+    port: 443,
+    password: "secret",
+    tls: true,
+    servername: "edge.example.com",
+    network: "ws",
+    "ws-opts": {
+      path: "/free",
+      headers: { Host: "edge.example.com" }
+    },
+    alpn: ["h2", "http/1.1"],
+    "skip-cert-verify": true
+  };
+  const roundTrip = nodeUriToClashProxy(clashProxyToUri(trojan));
+
+  assert.equal(roundTrip["skip-cert-verify"], true);
+  assert.deepEqual(roundTrip.alpn, trojan.alpn);
+  assert.equal(roundTrip["ws-opts"].headers.Host, "edge.example.com");
+  assert.equal(
+    clashProxyToUri({
+      ...trojan,
+      "ws-opts": {
+        ...trojan["ws-opts"],
+        headers: {
+          ...trojan["ws-opts"].headers,
+          "User-Agent": "required"
+        }
+      }
+    }),
+    undefined
+  );
 });
 
 test("V2Nodes adapter extracts detail URLs and HTML-encoded node links", () => {
@@ -202,4 +304,99 @@ test("subscription payload emits valid Clash YAML and base share links", () => {
   assert.equal(payload.shareUris.length, 1);
   assert.equal(config.proxies.length, 2);
   assert.deepEqual(config.rules, ["MATCH,🚢 FREEPORT"]);
+});
+
+test("same connection with different labels is published once", () => {
+  const first = {
+    name: "label one",
+    type: "trojan",
+    server: "same.example.com",
+    port: 443,
+    password: "secret"
+  };
+  const payload = buildSubscriptionPayload({
+    nodes: [],
+    proxies: [first, { ...first, name: "label two" }]
+  });
+
+  assert.equal(payload.proxies.length, 1);
+  assert.equal(payload.shareUris.length, 1);
+});
+
+test("region metadata handles flags, prefixes and unknown labels", () => {
+  assert.equal(regionOf("🇸🇬 Singapore"), "SG");
+  assert.equal(regionOf("de|Frankfurt"), "DE");
+  assert.equal(regionOf("unclassified"), "OTHER");
+});
+
+test("older manifests expire without changing the current manifest", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "freeport-manifests-"));
+  try {
+    const oldPath = join(directory, "2026-07-29.md");
+    const currentPath = join(directory, "2026-07-30.md");
+    await Promise.all([
+      writeFile(oldPath, "---\nexpired: false\n---\n", "utf8"),
+      writeFile(currentPath, "---\nexpired: false\n---\n", "utf8")
+    ]);
+
+    assert.equal(
+      await expireOlderManifests({
+        contentDir: directory,
+        currentDate: "2026-07-30"
+      }),
+      1
+    );
+    assert.match(await readFile(oldPath, "utf8"), /expired: true/);
+    assert.match(await readFile(currentPath, "utf8"), /expired: false/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("public health reports omit proxy names and source failure details", () => {
+  const proxy = {
+    name: "private node label",
+    type: "trojan",
+    server: "example.com",
+    port: 443,
+    password: "secret"
+  };
+  const key = proxyFingerprint(proxy);
+  const report = buildHealthReport({
+    summary: {
+      testedAt: "2026-07-30T00:00:00.000Z",
+      candidateCount: 1,
+      healthyCount: 0,
+      failedCount: 1,
+      aliveRatio: 0,
+      latencyMs: null,
+      failureReasons: { timeout: 1 },
+      results: [
+        {
+          name: proxy.name,
+          type: proxy.type,
+          alive: false,
+          reason: "timeout"
+        }
+      ]
+    },
+    tested: true,
+    sources: [
+      {
+        id: "source-a",
+        status: "failed",
+        nodeCount: 0,
+        proxyCount: 0,
+        reason: "Bearer source-secret"
+      }
+    ],
+    sourcesByProxy: new Map([[key, new Set(["source-a"])]]),
+    proxies: [proxy],
+    thresholds: { minimumHealthy: 5, minimumRatio: 0.2 }
+  });
+  const serialized = JSON.stringify(report);
+
+  assert.equal(report.nodes[0].id, key);
+  assert.equal(report.nodes[0].reason, "timeout");
+  assert.doesNotMatch(serialized, /private node label|source-secret|example\.com/);
 });

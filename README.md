@@ -34,39 +34,52 @@ src/
   styles/theme.css              @theme token 表
 scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
+scripts/probe-nodes.mjs         用 Mihomo 做发布前连通性、延迟与小流量测速
 scripts/cloudflare-dns.mjs      Cloudflare DNS 幂等协调器
 scripts/cloudflare-zone.mjs     Cloudflare 区域安全基线 plan/apply 管理器
 scripts/*.test.mjs              Node Test Runner 工程测试
 config/sources.json             默认公开来源与授权门控
-.github/workflows/daily.yml     每日 cron 签发 + 构建 + 部署 Pages
-public/free/YYYYMMDD/           每日 Clash / V2Ray 真实订阅产物
+.github/workflows/ci.yml        push / PR 测试、检查与构建
+.github/workflows/daily.yml     每日 cron 拉取、实测、签发并提交
+.github/workflows/deploy.yml    main 推送后独立部署 Pages + 可选 CF 清缓存
+public/free/YYYYMMDD/           每日 Clash / V2Ray 订阅与脱敏健康报告
 public/fonts/                   得意黑子集(≤ 50KB)
 ```
 
 ## 验证状态
 
-2026-07-29 验证记录(只改后端/工程文件,未改前端布局或样式):
+2026-07-30 验证记录(只改后端/工程文件,未改前端布局或样式):
 
 1. **已验证 — Astro 7.1 最新技术栈。**
-   当前使用 Astro 7.1.5、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
+   当前使用 Astro 7.1.6、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(24/24)、
+   本地已通过 `npm ci`;`npm test`(34/34)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
+   TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
+   `^5 || ^6`,所以暂不做不兼容升级。
 2. **已解决 — `site` / `base` 无占位值。**
    `scripts/deployment-config.mjs` 在 Actions 中读取 `GITHUB_REPOSITORY`,自动得到
    `https://<owner>.github.io` 与 `/<repository>`;用户/组织主页仓库自动使用 `/`。
    `SITE_URL`、`BASE_PATH` repository variables 可覆盖为自定义域名或特殊 Pages 地址。
    生产仓库已设置 `SITE_URL=https://manifest.dpdns.org`、`BASE_PATH=/`,并在
    GitHub Pages workflow 中完成根路径构建和首次部署。
-3. **已解决 — 真实来源与订阅交付。**
+3. **已解决 — 真实来源、发布前实测与订阅交付。**
    默认通过 GitHub Contents API 读取 `PuddinCat/BestClash` 的 Clash YAML;响应仍兼容明文 URI、
    base64/base64url、JSON API(含嵌套 base64)和 Clash YAML/JSON `proxies`。
-   每次签发会实际写出 `public/free/YYYYMMDD/clash.yaml` 和 `v2ray.txt`,而不是只写
-   两个占位 URL。Clash 文件保留 TUIC;V2Ray 文件只转换该订阅生态兼容的
-   `vmess/vless/trojan/ss`。请求采用 45 秒超时并自动重试一次,单源失败不泄露请求头。
-   2026-07-30 GitHub Actions 实测 V2Nodes 新加坡来源取得 15 条分享链接;与 BestClash
-   合并签发后共有 31 个 Clash 节点、30 条 V2Ray 兼容链接。
-4. **部分验证 — 深链与 375 宽度。**
+   每次签发先由固定版本 Mihomo 对所有候选做两个 204 目标的连通性与延迟测试,
+   再对最低延迟的 3 个节点各做 250 KB 小流量下载采样。只有实测存活节点会进入
+   `clash.yaml` 和 `v2ray.txt`;至少需要 5 个且候选存活率不低于 20%,否则整次签发失败并
+   保留线上上一版。`health.json` 记录来源状态、脱敏节点哈希、延迟、失败分类和测速结果。
+   V2Ray 转换现已保留 `skip-cert-verify`、ALPN、SNI、fingerprint 等关键 TLS 字段;
+   遇到自定义 WS header、SS plugin 等无法无损表达的 Clash 配置时跳过该 V2 链接,
+   不再发布表面可导入但实际失真的链接。
+4. **已验证 — 当前订阅连通性与小流量测速。**
+   2026-07-30 使用官方 Mihomo 1.19.29 对现有 31 个 Clash 候选做双目标测试。
+   较长测试快照为 8/31 存活;本轮短时复核为 5/31 存活,延迟 187–336 ms。
+   本轮最低延迟 3 节点的 100 KB 样本全部下载成功,约 0.505–0.689 Mbps;
+   较长审计中 8 个存活节点的 500 KB 样本也全部成功。该数据只证明测试时刻可用,
+   不是带宽承诺,也说明免费上游存在明显分钟级波动。
+5. **部分验证 — 深链与 375 宽度。**
    Edge 375×812 实测:页面整体 `scrollWidth=375`,sticky 导航滚动 900px 后仍
    `top=0`;明细表容器 `331px`、内容 `420px`,可横向滚到 `89px`。
    导航会换成约 4 行且总高 `155px`,功能正常但占屏较高;截图见
@@ -74,14 +87,18 @@ public/fonts/                   得意黑子集(≤ 50KB)
    本机 `clash://` 已注册到 Clash Verge,生成的 URL 参数编码正确;
    `clashmeta://`、`sub://`、`shadowrocket://` 未注册,仍需装有对应客户端的
    Android/iOS 真机完成实际唤起与导入验证。
-5. **已验证 — 生产域名与 Cloudflare 安全基线。**
+6. **已验证 — 生产域名与 Cloudflare 安全基线。**
    `manifest.dpdns.org` 已通过 GitHub Pages 签发自定义域名证书并强制 HTTPS;
    Cloudflare CNAME 已切换 Proxied。实际请求已验证 HTTP 301、HTTPS 200、TLS 1.3、
    `X-Content-Type-Options: nosniff`，首页、今日页及两种订阅文件均为 200。
    区域使用完全（严格）、最低 TLS 1.2、6 个月 HSTS（不含子域、不预加载）和
    Cloudflare Managed Free Ruleset。按主机清除缓存的 API 权限也已实测成功，
    最终 `cloudflare:hsts:plan` 全部为 `unchanged`。
-6. `src/content/subs/` 里 2026-05-29 ~ 2026-07-27 共 13 份是**示例存根**(`expired: true`),
+7. **已解决 — 历史状态与统计完整性。**
+   每次签发会自动把早于当天的真实运单标成 `expired: true`;区域统计不再丢弃
+   `OTHER`,因此 `breakdown` 合计与 `nodeCount` 一致。来源部分失败会以
+   `partial/failed` 写进脱敏健康报告和运单备注,不再静默降级。
+8. `src/content/subs/` 里 2026-05-29 ~ 2026-07-27 共 13 份是**示例存根**(`expired: true`),
    用来让 `/archive` 有内容可看。上线前删掉,或留着当回归样本。
 
 ## 已知未验证项
@@ -93,8 +110,15 @@ public/fonts/                   得意黑子集(≤ 50KB)
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
   `shadowrocket://` 仍需安装对应客户端的手机真机验证。
-- 生成文件已完成结构校验与 round-trip 测试,尚需在真实 Mihomo 与 V2Ray 客户端各导入
-  一次并验证连通性。免费上游节点随时可能失效,构建成功不等于节点可用。
+- Clash 订阅已在官方 Mihomo 1.19.29 完成真实加载、连通性、延迟和下载采样;
+  V2Ray 文本已通过转换 round-trip 测试,但仍需在真实 V2Ray/Shadowrocket 客户端导入一次。
+- V2Nodes 条款所需的复制/再分发许可仍需运营者自行留存书面证据。代码中的
+  `allowRedistribution: true` 只是技术开关,不构成授权。
+- 曾在对话中公开过的 Cloudflare Token 必须视为已泄露并撤销。创建替代 Token 后,
+  还需将它保存为仓库 Secret `CLOUDFLARE_API_TOKEN`,部署工作流才会自动清缓存。
+- Cloudflare 清除的是本 zone 的缓存;GitHub Pages/Fastly 当前给静态文件约
+  `max-age=600`,无法用 Cloudflare Token 主动清除该上游缓存,同日重签最多可能延迟约
+  10 分钟可见。
 
 ## 部署与来源配置
 
@@ -152,7 +176,7 @@ npm run cloudflare:proxy:apply
 npm run cloudflare:hsts:plan
 npm run cloudflare:hsts:apply
 
-# 按主机清除 manifest.dpdns.org 的 Cloudflare 缓存，并保留已启用的 HSTS
+# 按主机清除 manifest.dpdns.org 的 Cloudflare 缓存,并保留已启用的 HSTS
 npm run cloudflare:purge
 ```
 
@@ -188,6 +212,20 @@ https://public-one.example/sub https://public-two.example/sub
   ]
 }
 ```
+
+所有来源只接受 HTTPS(测试 fixture 可用 `data:`),响应上限 5 MB。生成器手动处理最多
+5 次重定向;带自定义鉴权 header 的来源禁止跨源重定向,避免凭据被转发到其他主机。
+单个来源失败不会泄露 header,只在健康报告中公开来源 ID、状态和条目数。
+
+每日签发、持续集成和部署彼此独立:
+
+- `daily.yml` 只在定时/手动触发时下载经过 SHA-256 校验的 Mihomo 1.19.29,
+  拉取来源、实测节点并提交新产物。
+- `ci.yml` 在每个 push/PR 执行测试、Astro 检查和完整构建。
+- `deploy.yml` 在 `main` 推送后构建并部署当次精确提交;若仓库存在新的
+  `CLOUDFLARE_API_TOKEN` Secret,部署成功后按主机清除 Cloudflare 缓存。
+
+三条工作流均有超时、最小权限和并发保护,第三方 Action 固定到已核验 commit SHA。
 
 ### 来源许可边界
 

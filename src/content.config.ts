@@ -20,6 +20,8 @@ const subs = defineCollection({
       .array(z.object({ region: z.string(), protocol: z.string(), count: z.number() }))
       .optional(),
     alive: z.number().min(0).max(1).optional(),
+    testedAt: z.string().optional(),
+    health: z.url().optional(),
     note: z.string().optional(),
     expired: z.boolean().default(false)
   })
