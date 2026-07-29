@@ -2,24 +2,25 @@
   "schemaVersion": 1,
   "manifest": "FP-20260730-01",
   "status": "tested",
-  "testedAt": "2026-07-29T20:24:42.828Z",
+  "testedAt": "2026-07-29T20:30:30.154Z",
   "thresholds": {
     "minimumHealthy": 5,
     "minimumRatio": 0.2
   },
   "summary": {
     "candidateCount": 31,
-    "healthyCount": 27,
-    "failedCount": 4,
-    "aliveRatio": 0.8709677419354839,
+    "healthyCount": 24,
+    "failedCount": 7,
+    "aliveRatio": 0.7741935483870968,
     "latencyMs": {
-      "min": 15,
-      "median": 188,
-      "p95": 633,
-      "max": 854
+      "min": 40,
+      "median": 207,
+      "p95": 982,
+      "max": 1194
     },
     "failureReasons": {
-      "timeout": 4
+      "other": 4,
+      "timeout": 3
     }
   },
   "sources": [
@@ -46,7 +47,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 129
+      "delayMs": 284
     },
     {
       "id": "abab9ff8ac2f9524e50e",
@@ -55,7 +56,10 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 188
+      "delayMs": 152,
+      "speedMbps": 0.987,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "fe09e5d804ea0f10e743",
@@ -64,7 +68,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 229
+      "delayMs": 186
     },
     {
       "id": "99b1c47a53c71f3dc223",
@@ -73,7 +77,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 120
+      "delayMs": 194
     },
     {
       "id": "73867592ac821937f21e",
@@ -82,7 +86,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 854
+      "delayMs": 1040
     },
     {
       "id": "86644a8f4d49939efdb9",
@@ -91,7 +95,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 290
+      "delayMs": 232
     },
     {
       "id": "ac739e0c2c1cc1011d28",
@@ -99,8 +103,8 @@
       "sourceIds": [
         "bestclash"
       ],
-      "alive": true,
-      "delayMs": 67
+      "alive": false,
+      "reason": "other"
     },
     {
       "id": "9a3ec62fd10fab445581",
@@ -108,8 +112,8 @@
       "sourceIds": [
         "bestclash"
       ],
-      "alive": true,
-      "delayMs": 177
+      "alive": false,
+      "reason": "other"
     },
     {
       "id": "9ed02294d3c3e81eb5e5",
@@ -118,7 +122,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 133
+      "delayMs": 408
     },
     {
       "id": "f1e8583c309a75a50b2a",
@@ -127,7 +131,10 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 126
+      "delayMs": 159,
+      "speedMbps": 1.41,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "fe27a6b46dcdc2d9d326",
@@ -136,7 +143,7 @@
         "bestclash"
       ],
       "alive": true,
-      "delayMs": 153
+      "delayMs": 249
     },
     {
       "id": "539a4c65c8c53a979a87",
@@ -144,8 +151,8 @@
       "sourceIds": [
         "bestclash"
       ],
-      "alive": true,
-      "delayMs": 124
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "a206dbf52805ffea8b42",
@@ -154,7 +161,7 @@
         "bestclash"
       ],
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "49c673d2108f0044b7a3",
@@ -181,7 +188,16 @@
         "bestclash"
       ],
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
+    },
+    {
+      "id": "a7e9c6f2944da642b2fa",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "alive": true,
+      "delayMs": 653
     },
     {
       "id": "5a683e9807a7ce49d326",
@@ -190,9 +206,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 19,
-      "speedSampleStatus": "failed",
-      "speedSampleBytes": 250000
+      "delayMs": 196
     },
     {
       "id": "0a876980ac5cf5ddf63b",
@@ -201,7 +215,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 221
+      "delayMs": 193
     },
     {
       "id": "48754529e653c0355de7",
@@ -210,7 +224,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 22
+      "delayMs": 213
     },
     {
       "id": "156c42896e0d42d31120",
@@ -219,9 +233,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 15,
-      "speedSampleStatus": "failed",
-      "speedSampleBytes": 250000
+      "delayMs": 204
     },
     {
       "id": "7b9851f223701cd5ad1f",
@@ -230,8 +242,8 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 19,
-      "speedSampleStatus": "failed",
+      "delayMs": 40,
+      "speedSampleStatus": "request-failed",
       "speedSampleBytes": 250000
     },
     {
@@ -241,7 +253,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 218
+      "delayMs": 171
     },
     {
       "id": "b56ab2e1db15113fc041",
@@ -250,7 +262,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 19
+      "delayMs": 562
     },
     {
       "id": "6c6543f5eb37c2d12315",
@@ -259,7 +271,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 204
+      "delayMs": 315
     },
     {
       "id": "115d82c1404b82fc6845",
@@ -268,7 +280,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 219
+      "delayMs": 191
     },
     {
       "id": "1209295338ba8380d34d",
@@ -277,7 +289,10 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 217
+      "delayMs": 190,
+      "speedMbps": 1.51,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "a441b3f641f15c2693a3",
@@ -286,7 +301,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 217
+      "delayMs": 191
     },
     {
       "id": "c5099dd3d27925291a53",
@@ -295,7 +310,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 211
+      "delayMs": 1194
     },
     {
       "id": "985ade41e6c06addcd32",
@@ -304,7 +319,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 227
+      "delayMs": 209
     },
     {
       "id": "7f3b490e645f0fc9772f",
@@ -313,16 +328,7 @@
         "v2nodes-sg"
       ],
       "alive": true,
-      "delayMs": 206
-    },
-    {
-      "id": "da99baa2780e19a51664",
-      "type": "ss",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "alive": true,
-      "delayMs": 780
+      "delayMs": 406
     }
   ]
 }
