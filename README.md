@@ -35,6 +35,8 @@ src/
 scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
 scripts/probe-nodes.mjs         用 Mihomo 做发布前连通性、延迟与小流量测速
+scripts/check-seo.mjs           构建后逐页验证 SEO 元数据与 sitemap
+scripts/indexnow.mjs            部署后通知 IndexNow 抓取核心页面
 scripts/cloudflare-dns.mjs      Cloudflare DNS 幂等协调器
 scripts/cloudflare-zone.mjs     Cloudflare 区域安全基线 plan/apply 管理器
 scripts/*.test.mjs              Node Test Runner 工程测试
@@ -43,6 +45,7 @@ config/sources.json             默认公开来源与授权门控
 .github/workflows/daily.yml     每 12 小时拉取、实测、签发并提交
 .github/workflows/deploy.yml    main 推送后独立部署 Pages + 可选 CF 清缓存
 public/free/YYYYMMDD/           每日 Clash / V2Ray 订阅与脱敏健康报告
+public/og-card.png              1200×630 搜索与社交分享预览图
 public/fonts/                   得意黑子集(≤ 50KB)
 ```
 
@@ -53,7 +56,7 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.6、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地已通过 `npm ci`;`npm test`(35/35)、
+   本地已通过 `npm ci`;`npm test`(38/38)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
    TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
    `^5 || ^6`,所以暂不做不兼容升级。
@@ -229,6 +232,29 @@ https://public-one.example/sub https://public-two.example/sub
   `CLOUDFLARE_API_TOKEN` Secret,部署成功后按主机清除 Cloudflare 缓存。
 
 三条工作流均有超时、最小权限和并发保护,第三方 Action 固定到已核验 commit SHA。
+
+## 搜索引擎优化
+
+生产构建会自动生成 `sitemap-index.xml` 与 `sitemap-0.xml`,并在 `robots.txt` 和每页
+`<head>` 中声明 sitemap。首页、今日订阅、往期索引、FAQ、升舱页允许索引;
+404 与按日期生成的失效存根使用 `noindex,follow` 并从 sitemap 排除,避免大量相似页面
+稀释有效内容。`/free/` 下的原始订阅文件在 robots 中禁止抓取。
+
+每个可索引页面都有独立的 title、description、canonical、Open Graph、Twitter Card
+和 JSON-LD。首页正文与 FAQ 自然覆盖“免费 Clash 订阅”“Mihomo 节点”“V2Ray 订阅”
+“v2rayN”“Shadowrocket”“Clash Verge”等真实查询词,不使用无效的 `meta keywords`
+或关键词堆砌。部署成功后会通过 IndexNow 主动通知 Bing 等参与搜索引擎。
+
+构建后执行:
+
+```bash
+npm run seo:check
+```
+
+脚本会检查元数据唯一性、canonical 与 `og:url` 一致性、JSON-LD、索引规则、核心语义
+和 sitemap 内容。Google 仍需站长在 Search Console 验证域名并提交
+`https://manifest.dpdns.org/sitemap-index.xml`;技术配置只能确保可发现和可抓取,
+不能保证具体关键词排名或收录时间。
 
 ### 来源许可边界
 

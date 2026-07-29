@@ -2,8 +2,56 @@
 import "../styles/theme.css";
 import { url } from "../lib/waybill";
 
-interface Props { title: string; description?: string; }
-const { title, description = "自由港每日放行清单 —— 每天一份免费 Clash / V2Ray 订阅。" } = Astro.props;
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown>;
+}
+const {
+  title,
+  description = "舱单 MANIFEST 每 12 小时聚合并实测公开免费节点，提供 Clash、Mihomo 与 V2Ray 订阅。",
+  noindex = false,
+  schema = {}
+} = Astro.props;
+const siteName = "舱单 MANIFEST";
+const documentTitle = `${title}｜${siteName}`;
+const site = Astro.site ?? new URL(Astro.url.origin);
+const canonicalUrl = new URL(Astro.url.pathname, site);
+canonicalUrl.search = "";
+canonicalUrl.hash = "";
+const canonical = canonicalUrl.href;
+const siteUrl = new URL(import.meta.env.BASE_URL, site).href;
+const socialImage = new URL(url("og-card.png"), site).href;
+const sitemapUrl = new URL(url("sitemap-index.xml"), site).href;
+const robots = noindex
+  ? "noindex,follow"
+  : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: siteName,
+      alternateName: ["免费订阅舱单", "MANIFEST"],
+      description:
+        "每 12 小时更新的免费 Clash、Mihomo 与 V2Ray 节点订阅公益站。",
+      inLanguage: "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: documentTitle,
+      description,
+      inLanguage: "zh-CN",
+      isPartOf: { "@id": `${siteUrl}#website` },
+      ...schema
+    }
+  ]
+}).replace(/</g, "\\u003c");
 
 const nav = [
   { label: "首页", path: "", code: "/" },
@@ -23,9 +71,34 @@ const noise =
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title} —— 舱单 MANIFEST</title>
+  <title>{documentTitle}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content={robots} />
+  <meta name="googlebot" content={robots} />
+  <meta name="theme-color" content="#FBFAF7" />
+  <meta name="color-scheme" content="light" />
+  <link rel="canonical" href={canonical} />
+  <link rel="sitemap" type="application/xml" href={sitemapUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={documentTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={socialImage} />
+  <meta property="og:image:secure_url" content={socialImage} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="舱单 MANIFEST 免费 Clash、Mihomo 与 V2Ray 订阅" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={documentTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={socialImage} />
+  <meta name="twitter:image:alt" content="舱单 MANIFEST 免费订阅舱单" />
   <link rel="icon" type="image/svg+xml" href={url("favicon.svg")} />
+  <link rel="apple-touch-icon" sizes="180x180" href={url("apple-touch-icon.png")} />
+  <script is:inline type="application/ld+json" set:html={jsonLd} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link

@@ -3,7 +3,21 @@ import Shell from "../components/Shell.astro";
 import FaqAccordion from "../components/islands/FaqAccordion.tsx";
 import { FAQ } from "../lib/faq";
 ---
-<Shell title="常见问题">
+<Shell
+  title="免费 Clash 与 V2Ray 订阅常见问题"
+  description="免费 Clash、Mihomo、V2Ray 订阅常见问题：更新频率、节点失效、v2rayN、Shadowrocket、Clash Verge 导入与安全说明。"
+  schema={{
+    "@type": "FAQPage",
+    mainEntity: FAQ.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer
+      }
+    }))
+  }}
+>
   <div>
     <div data-rise style="padding:26px 20px 20px;border-bottom:1px solid #C9C2CE">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:6px">FAQ / 常见问题</div>

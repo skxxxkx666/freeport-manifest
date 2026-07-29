@@ -17,7 +17,17 @@ const wbType =
 const miniLabel = "font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:5px";
 const th = "text-align:left;padding:9px 12px;border-bottom:1px solid #C9C2CE;font-size:10px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;font-weight:500";
 ---
-<Shell title="今日舱单">
+<Shell
+  title="今日免费 Clash 与 V2Ray 订阅"
+  description={`领取今日免费 Clash、Mihomo 与 V2Ray 订阅：${d.nodeCount} 个发布前实测节点，覆盖 ${d.regions.join("、")}，每 12 小时更新。`}
+  schema={{
+    dateModified: d.testedAt ?? d.issuedAt,
+    about: [
+      { "@type": "Thing", name: "免费 Clash 订阅" },
+      { "@type": "Thing", name: "免费 V2Ray 节点" }
+    ]
+  }}
+>
   <div>
     <div data-rise style="padding:26px 20px 20px;border-bottom:1px solid #C9C2CE">
       <div style="display:flex;flex-wrap:wrap;gap:22px;justify-content:space-between;align-items:flex-start">

@@ -18,7 +18,11 @@ const no = waybillNo(d.date, d.serial);
 const urlBox = "border:1px solid #C9C2CE;background:#FBFAF7;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#6B6478;overflow-wrap:anywhere";
 const disabled = "border:1px solid #C9C2CE;background:#E6E3DE;color:#A9A3B2;font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:12px 20px;cursor:not-allowed";
 ---
-<Shell title={`存根 ${no}`}>
+<Shell
+  title={`免费订阅历史存根 ${d.date}`}
+  description={`${d.date} 的免费 Clash 与 V2Ray 订阅历史存根，包含 ${d.nodeCount} 个节点记录；链接已失效，请使用今日订阅。`}
+  noindex={true}
+>
   <div>
     <div data-rise style="display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 20px;background:#F3E4E3;border-bottom:1px solid #C9C2CE;border-left:3px solid #B8342C">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;letter-spacing:.02em;color:#2A2333">

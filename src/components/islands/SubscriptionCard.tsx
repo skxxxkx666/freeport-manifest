@@ -21,7 +21,6 @@ const SHEET: Record<Ply, { code: string; name: string; bg: string }> = {
   v2ray: { code: "03 PINK", name: "粉联 V2RAY", bg: "#F6E3E4" }
 };
 
-const label = "font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:5px";
 
 export default function SubscriptionCard(p: Props) {
   const [ply, setPly] = useState<Ply>("clash");
