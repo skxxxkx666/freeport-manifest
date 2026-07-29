@@ -40,7 +40,7 @@ scripts/cloudflare-zone.mjs     Cloudflare 区域安全基线 plan/apply 管理�
 scripts/*.test.mjs              Node Test Runner 工程测试
 config/sources.json             默认公开来源与授权门控
 .github/workflows/ci.yml        push / PR 测试、检查与构建
-.github/workflows/daily.yml     每日 cron 拉取、实测、签发并提交
+.github/workflows/daily.yml     每 12 小时拉取、实测、签发并提交
 .github/workflows/deploy.yml    main 推送后独立部署 Pages + 可选 CF 清缓存
 public/free/YYYYMMDD/           每日 Clash / V2Ray 订阅与脱敏健康报告
 public/fonts/                   得意黑子集(≤ 50KB)
@@ -218,9 +218,10 @@ https://public-one.example/sub https://public-two.example/sub
 5 次重定向;带自定义鉴权 header 的来源禁止跨源重定向,避免凭据被转发到其他主机。
 单个来源失败不会泄露 header,只在健康报告中公开来源 ID、状态和条目数。
 
-每日签发、持续集成和部署彼此独立:
+定时签发、持续集成和部署彼此独立。GitHub Actions 每天北京时间 04:00 和 16:00
+自动运行,不依赖本地电脑开机:
 
-- `daily.yml` 只在定时/手动触发时下载经过 SHA-256 校验的 Mihomo 1.19.29,
+- `daily.yml` 每 12 小时或手动触发时下载经过 SHA-256 校验的 Mihomo 1.19.29,
   拉取来源、实测节点并提交新产物;提交后显式触发 CI 与部署,避免 GitHub 内置
   `GITHUB_TOKEN` 的防递归规则让机器人 push 被普通工作流忽略。
 - `ci.yml` 在每个 push/PR 执行测试、Astro 检查和完整构建。
