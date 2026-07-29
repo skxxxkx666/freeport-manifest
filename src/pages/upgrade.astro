@@ -1,0 +1,47 @@
+---
+import Shell from "../components/Shell.astro";
+import CompareTable from "../components/CompareTable.astro";
+import PlanCards from "../components/PlanCards.astro";
+import CopyCode from "../components/islands/CopyCode.tsx";
+
+const label = "font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:12px";
+const title = "font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:clamp(26px,4.6cqw,38px);letter-spacing:.04em;line-height:1.05";
+---
+<Shell title="登机升舱">
+  <div>
+    <div data-rise style="padding:28px 20px 22px;border-bottom:1px solid #C9C2CE">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:6px">UPGRADE / 登机升舱</div>
+      <div style="position:relative;margin-bottom:12px">
+        <div aria-hidden="true" style={`position:absolute;left:0;top:0;transform:translate(1.5px,1.5px);opacity:.18;color:#2C6E7A;pointer-events:none;${title}`}>登机升舱</div>
+        <h1 style={`position:relative;margin:0;color:#1258D8;${title}`}>登机升舱</h1>
+      </div>
+      <p style="margin:0;max-width:40em;font-size:15px;line-height:1.75;color:#2A2333;text-wrap:pretty">
+        免费联是公开来源的聚合,能用但不可控。登机联是自由港的自建线路,持续维护。以下是两者的实际差别。
+      </p>
+    </div>
+
+    <div data-rise style="padding:22px 20px 26px;border-bottom:1px solid #C9C2CE">
+      <div style={label}>COMPARISON / 两联对照</div>
+      <CompareTable />
+    </div>
+
+    <div data-rise style="padding:22px 20px 26px;border-bottom:1px solid #C9C2CE">
+      <div style={label}>FARES / 四档舱位</div>
+      <PlanCards accentTop={true} />
+    </div>
+
+    <div data-rise style="padding:22px 20px 26px;border-bottom:1px solid #C9C2CE">
+      <div style={label}>DISCOUNT / 折扣码</div>
+      <CopyCode client:visible />
+    </div>
+
+    <div data-rise style="padding:22px 20px 30px">
+      <div style={label}>BOARDING / 登机入口</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a href="https://cn.freedomport.cc" target="_blank" rel="noopener" style="border:1px solid #1258D8;background:#1258D8;color:#FBFAF7;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:14px 24px;text-transform:uppercase">前往自由港官网 ↗</a>
+        <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener" style="border:1px solid #1258D8;background:transparent;color:#1258D8;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:14px 24px;text-transform:uppercase">加入 TELEGRAM 群组</a>
+      </div>
+      <div style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#6B6478">使用教程 WIKI.FREEDOMPORT.CC</div>
+    </div>
+  </div>
+</Shell>

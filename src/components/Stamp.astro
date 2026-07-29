@@ -1,0 +1,24 @@
+---
+interface Props { size?: number; date?: string; rotate?: number; }
+const { size = 132, date, rotate = -5 } = Astro.props;
+const ring = "M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0";
+const plane =
+  "M50 27 L55.5 45 L73 57 L73 60.5 L54 55.5 L53 68 L59.5 74 L59.5 77 L50 74 L40.5 77 L40.5 74 L47 68 L46 55.5 L27 60.5 L27 57 L44.5 45 Z";
+const id = "ring-" + Math.random().toString(36).slice(2, 8);
+---
+<div style={`mix-blend-mode:multiply;transform:rotate(${rotate}deg);display:flex;flex-direction:column;align-items:center;gap:3px`}>
+  <svg width={size} height={size} viewBox="0 0 100 100" role="img" aria-label="自由港 MANIFEST 图章">
+    <defs><path id={id} d={ring}></path></defs>
+    <circle cx="50" cy="50" r="47" fill="none" stroke="#7B3F9D" stroke-width="2.2" opacity=".9"></circle>
+    <circle cx="50" cy="50" r="42.5" fill="none" stroke="#7B3F9D" stroke-width="1" opacity=".75"></circle>
+    <text font-family="IBM Plex Mono, monospace" font-size="7.4" letter-spacing="1.6" fill="#7B3F9D" opacity=".92">
+      <textPath href={"#" + id} startOffset="6%">FREEDOMPORT · 自由港 · MANIFEST ·</textPath>
+    </text>
+    <path d={plane} fill="#7B3F9D" opacity=".92"></path>
+  </svg>
+  {date && (
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.16em;color:#7B3F9D;line-height:1">
+      {date.replace(/-/g, ".")}
+    </div>
+  )}
+</div>

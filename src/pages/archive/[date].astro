@@ -1,0 +1,74 @@
+---
+import type { GetStaticPaths } from "astro";
+import Shell from "../../components/Shell.astro";
+import WaybillHead from "../../components/WaybillHead.astro";
+import FieldGrid from "../../components/FieldGrid.astro";
+import { allSubs, checkCode, type Sub } from "../../lib/subs";
+import { url, waybillNo } from "../../lib/waybill";
+
+interface Props { data: Sub["data"]; }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const subs = await allSubs();
+  return subs.map((s) => ({ params: { date: s.data.date }, props: { data: s.data } }));
+};
+
+const { data: d } = Astro.props as Props;
+const no = waybillNo(d.date, d.serial);
+const urlBox = "border:1px solid #C9C2CE;background:#FBFAF7;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#6B6478;overflow-wrap:anywhere";
+const disabled = "border:1px solid #C9C2CE;background:#E6E3DE;color:#A9A3B2;font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:12px 20px;cursor:not-allowed";
+---
+<Shell title={`存根 ${no}`}>
+  <div>
+    <div data-rise style="display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 20px;background:#F3E4E3;border-bottom:1px solid #C9C2CE;border-left:3px solid #B8342C">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;letter-spacing:.02em;color:#2A2333">
+        此运单已于签发日次日失效,仅作存根查阅。订阅链接可能已无法使用。
+      </div>
+      <a href={url("today")} style="flex:0 0 auto;border:1px solid #2A2333;background:#2A2333;color:#FBFAF7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;padding:10px 17px;text-transform:uppercase">领取今日 /TODAY</a>
+    </div>
+
+    <div data-rise style="position:relative;padding:26px 20px 28px">
+      <div aria-hidden="true" style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-14deg);z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.82">
+        <div style="border:4px double #B8342C;padding:12px 30px 10px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:clamp(28px,5cqw,44px);letter-spacing:.12em;color:#B8342C;line-height:1.05">已失效</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1.5cqw,14px);letter-spacing:.34em;color:#B8342C;text-align:center">EXPIRED</div>
+        </div>
+      </div>
+
+      <WaybillHead no={no} label="WAYBILL NO. / 运单号(存根)" muted={true} />
+
+      <div style="margin-bottom:16px">
+        <FieldGrid
+          fields={[
+            { label: "ISSUED / 签发时间", value: `${d.date} ${d.issuedAt.slice(11, 16)}` },
+            { label: "STATUS / 状态", value: "已失效 EXPIRED", color: "#B8342C" },
+            { label: "PIECES / 件数", value: `${d.nodeCount} PCS` },
+            { label: "ORIGIN / 始发", value: d.regions.join(" ") },
+            { label: "COMMODITY / 品类", value: d.protocols.join(" ") },
+            { label: "CHECK / 校验位", value: checkCode(d.date, d.serial) }
+          ]}
+        />
+      </div>
+
+      <div style="border:1px solid #C9C2CE;background:#F6F4EF;padding:14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:8px">
+          SUBSCRIPTION URL / 订阅链接(存根保留)
+        </div>
+        <div style="display:grid;gap:8px">
+          <div style={urlBox}>{d.clash}</div>
+          <div style={urlBox}>{d.v2ray}</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
+          <span aria-disabled="true" style={disabled + ";letter-spacing:.1em;text-transform:uppercase"}>复制订阅 COPY</span>
+          <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>一键导入</span>
+          <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>二维码 QR</span>
+        </div>
+        <div style="margin-top:12px;border-top:1px solid #C9C2CE;padding-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#6B6478">
+          存根不提供取用功能。链接文本保留以便查阅历史记录。
+        </div>
+      </div>
+
+      <a href={url("archive")} style="display:inline-block;margin-top:16px;border:1px solid #2A2333;background:transparent;color:#2A2333;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;padding:11px 19px;text-transform:uppercase">← 返回存根索引</a>
+    </div>
+  </div>
+</Shell>

@@ -1,0 +1,16 @@
+---
+import Shell from "../components/Shell.astro";
+import FaqAccordion from "../components/islands/FaqAccordion.tsx";
+import { FAQ } from "../lib/faq";
+---
+<Shell title="常见问题">
+  <div>
+    <div data-rise style="padding:26px 20px 20px;border-bottom:1px solid #C9C2CE">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:6px">FAQ / 常见问题</div>
+      <h1 style="margin:0;font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:clamp(26px,4.4cqw,36px);letter-spacing:.04em">常见问题</h1>
+    </div>
+    <div data-rise>
+      <FaqAccordion client:visible items={FAQ} />
+    </div>
+  </div>
+</Shell>

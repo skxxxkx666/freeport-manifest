@@ -1,0 +1,118 @@
+---
+import "../styles/theme.css";
+import { url } from "../lib/waybill";
+
+interface Props { title: string; description?: string; }
+const { title, description = "自由港每日放行清单 —— 每天一份免费 Clash / V2Ray 订阅。" } = Astro.props;
+
+const nav = [
+  { label: "首页", path: "", code: "/" },
+  { label: "今日舱单", path: "today", code: "/today" },
+  { label: "往期", path: "archive", code: "/archive" },
+  { label: "升舱", path: "upgrade", code: "/upgrade", blue: true },
+  { label: "FAQ", path: "faq", code: "" }
+];
+const here = Astro.url.pathname.replace(import.meta.env.BASE_URL, "").replace(/\/$/, "");
+const active = (p: string) => here === p || (p !== "" && here.startsWith(p));
+
+const noise =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22/></filter><rect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22/></svg>\")";
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} —— 舱单 MANIFEST</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href={url("favicon.svg")} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div style="min-height:100vh;background:#EDEAE3;position:relative">
+    <div
+      aria-hidden="true"
+      style={`position:fixed;inset:0;pointer-events:none;z-index:60;mix-blend-mode:multiply;opacity:.025;background-image:${noise}`}
+    >
+    </div>
+
+    <div style="position:sticky;top:0;z-index:40;background:#FBFAF7;border-bottom:1px solid #C9C2CE">
+      <div style="max-width:1120px;margin:0 auto;padding:0 18px;display:flex;align-items:stretch;justify-content:space-between;gap:14px">
+        <a href={url("")} style="display:flex;align-items:center;gap:10px;padding:11px 0">
+          <span style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:21px;letter-spacing:.06em">舱单</span>
+          <span style="width:1px;align-self:stretch;background:#C9C2CE"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6B6478;text-transform:uppercase">MANIFEST</span>
+        </a>
+        <nav style="display:flex;align-items:center;flex-wrap:wrap;gap:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">
+          {nav.map((n) => (
+            <a
+              href={url(n.path)}
+              style={`border-bottom:2px solid ${active(n.path) ? (n.blue ? "#1258D8" : "#7B3F9D") : "transparent"};color:${n.blue ? "#1258D8" : "#2A2333"};padding:10px 11px`}
+            >
+              {n.label}{" "}
+              <span style={`color:${n.blue ? "#5A7FC4" : "#6B6478"}`}>{n.code}</span>
+            </a>
+          ))}
+          <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener" style="border-bottom:2px solid transparent;color:#2A2333;padding:10px 11px">
+            教程 <span style="color:#6B6478">WIKI ↗</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;padding:0 0 60px">
+      <div style="width:100%;max-width:1120px;background:#FBFAF7;border-left:1px solid #C9C2CE;border-right:1px solid #C9C2CE;container-type:inline-size">
+        <div aria-hidden="true" style="height:14px;background:#EDEAE3;background-image:repeating-radial-gradient(circle at 9px 7px, #EDEAE3 0 3px, #FBFAF7 3px 9px);background-size:18px 14px;border-bottom:1px solid #C9C2CE"></div>
+
+        <slot />
+
+        <footer style="border-top:1px solid #C9C2CE;background:#F1EFE9;padding:22px 20px 26px">
+          <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:17px;letter-spacing:.06em">舱单</span>
+              <span style="width:1px;height:16px;background:#C9C2CE"></span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;color:#6B6478;text-transform:uppercase">MANIFEST</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:#6B6478;text-transform:uppercase">
+              <a href={url("archive")}>/ARCHIVE 往期存根</a>
+              <a href={url("upgrade")}>/UPGRADE 登机升舱</a>
+              <a href={url("faq")}>/FAQ 常见问题</a>
+              <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener">TELEGRAM 群组 ↗</a>
+              <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener">WIKI 使用教程 ↗</a>
+            </div>
+          </div>
+          <div style="margin-top:16px;border-top:1px dashed #C9C2CE;padding-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.85;color:#6B6478;max-width:62em">
+            免责声明:本站仅聚合公开来源的网络加速配置,用于跨境访问的技术测试与国际线路连通性验证。不提供可用性、速度或存活时间的任何保障,亦不对第三方节点的行为负责。请遵守所在地法律法规。
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // §11 滚动进入:opacity 0→1 + translateY(8px),220ms ease-out,错峰 40ms
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          let i = 0;
+          for (const en of entries) {
+            if (!en.isIntersecting) continue;
+            (en.target as HTMLElement).style.animation = `om-rise 220ms ease-out ${i++ * 40}ms both`;
+            io.unobserve(en.target);
+          }
+        },
+        { rootMargin: "0px 0px -6% 0px", threshold: 0.02 }
+      );
+      for (const el of document.querySelectorAll<HTMLElement>("[data-rise]")) {
+        el.style.opacity = "0";
+        io.observe(el);
+      }
+    }
+  </script>
+</body>
+</html>

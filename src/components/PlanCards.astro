@@ -1,0 +1,31 @@
+---
+interface Props { accentTop?: boolean; }
+const { accentTop = false } = Astro.props;
+
+const plans = [
+  { code: "E", name: "体验版 · 不限时流量包", price: "¥9.90 永久", data: "100GB 一次性,永不过期,用完即止", route: "CN2 / 9929 / CMI", devices: "1 台", who: "轻度日常、备用线路" },
+  { code: "B", name: "基础版", price: "¥15.00 / 月", data: "200GB,每月 1 号重置", route: "CN2 / 9929 / CMI", devices: "2 台", who: "跨境办公、轻量 AI" },
+  { code: "S", name: "标准版", price: "¥37.50 / 月", data: "600GB,每月 1 号重置", route: "CN2 / 9929 / CMI + ★原生节点(部分优先)", devices: "3 台", who: "高频 AI、中度外贸" },
+  { code: "A", name: "外贸 AI 版", price: "¥53.33 / 月", data: "1.5TB,每月 1 号重置", route: "CN2 / 9929 / CMI + ★原生节点优先", devices: "5 台", who: "重度 AI、外贸多账号高频" }
+];
+const rowLabel =
+  "font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:#A9A3B2;padding-top:3px;flex:0 0 44px";
+---
+<div style="display:flex;gap:1px;overflow-x:auto;background:#C9C2CE;border:1px solid #C9C2CE">
+  {plans.map((p) => (
+    <div style={`background:#FBFAF7;flex:1 1 232px;min-width:232px;padding:15px 15px 17px;display:flex;flex-direction:column;gap:10px${accentTop ? ";border-top:3px solid #1258D8" : ""}`}>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase">CLASS {p.code}</div>
+      <div style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:600;font-size:18px;letter-spacing:.03em;line-height:1.25">{p.name}</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px;color:#1258D8;letter-spacing:-.01em">{p.price}</div>
+      <div style="border-top:1px solid #C9C2CE;padding-top:10px;display:grid;gap:7px">
+        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>流量</span><span>{p.data}</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>线路</span><span>{p.route}</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>设备</span><span>{p.devices}</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>人群</span><span style="color:#6B6478">{p.who}</span></div>
+      </div>
+    </div>
+  ))}
+</div>
+<div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#A9A3B2">
+  线路覆盖:香港 / 新加坡 / 日本 / 美国
+</div>

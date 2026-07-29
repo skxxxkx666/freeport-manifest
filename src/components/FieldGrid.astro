@@ -1,0 +1,16 @@
+---
+// 方格单元 + 左上角字段标签。flex-wrap 保证每一行被格子铺满,格线永远闭合。
+export interface Field { label: string; value: string; wide?: boolean; color?: string; }
+interface Props { fields: Field[]; basis?: number; }
+const { fields, basis = 152 } = Astro.props;
+---
+<div style="display:flex;flex-wrap:wrap;border-top:1px solid #C9C2CE;border-left:1px solid #C9C2CE">
+  {fields.map((f) => (
+    <div style={`flex:${f.wide ? "2 1 320px" : `1 1 ${basis}px`};min-width:0;padding:9px 11px 11px;border-right:1px solid #C9C2CE;border-bottom:1px solid #C9C2CE`}>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:5px">
+        {f.label}
+      </div>
+      <div style={`font-family:'IBM Plex Mono',monospace;font-size:13px;color:${f.color ?? "#2A2333"}`}>{f.value}</div>
+    </div>
+  ))}
+</div>

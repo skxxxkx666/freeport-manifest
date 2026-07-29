@@ -1,0 +1,79 @@
+/* 舱单 MANIFEST —— design token。
+   §4 的原文写的是 Tailwind v4 的 @theme{},但全站是内联样式、零 utility class,
+   带一个 Tailwind 只会引入 v3/v4 语法版本陷阱,所以落成普通 CSS 自定义属性。
+   token 名与 §4 完全一致。 */
+
+:root {
+  /* 复写纸联单 —— 底色系 */
+  --color-copy-white:  #FBFAF7;  /* 正本联,页面主底 */
+  --color-copy-pink:   #F6E3E4;  /* 粉联 —— V2Ray 区 */
+  --color-copy-green:  #E2EDE0;  /* 绿联 —— Clash 区 */
+  --color-copy-blue:   #DEE7F1;  /* 蓝联 —— 归档区 */
+  --color-copy-buff:   #F2E7CE;  /* 黄联 —— 预留,教程已外链至 wiki */
+
+  /* 油墨 */
+  --color-ink:         #2A2333;  /* 紫黑主墨 */
+  --color-ink-soft:    #6B6478;  /* 次级文字、页脚免责声明 */
+  --color-ink-faint:   #A9A3B2;  /* 字段标签、表头、辅助计数(见 CLAUDE.md 的对比度裁决) */
+  --color-rule:        #C9C2CE;  /* 格线,1px 实线,不用发丝线 */
+
+  /* 图章 */
+  --color-stamp:       #7B3F9D;  /* 章紫 */
+  --color-stamp-red:   #B8342C;  /* 章红,仅「已失效」「无此运单」 */
+
+  /* 自由港官方蓝 —— 只在升舱区出现 */
+  --color-port-blue:   #1258D8;
+  --color-port-blue-d: #0B3A93;
+
+  /* 字族 */
+  --font-cn: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  --font-display: "Smiley Sans", "Archivo Narrow", var(--font-cn);
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; border-radius: 0; box-shadow: none; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-copy-white);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+body { font-family: var(--font-cn); }
+
+a { color: var(--color-ink); text-decoration: none; }
+a:hover { color: var(--color-stamp); }
+:focus-visible { outline: 2px solid var(--color-stamp); outline-offset: 2px; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* 中文大标题:得意黑(Smiley Sans Oblique)。
+   完整字体 1.10MB —— 只装子集产物(213 字形 / 32KB),生成命令见 README。
+   正文与字段标签不用它,走系统栈。 */
+@font-face {
+  font-family: "Smiley Sans";
+  src: url("/fonts/smiley-sans-subset.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* §7 唯一的重头戏:复制成功的盖章 */
+@keyframes stamp-slam {
+  0%   { transform: rotate(-6deg) scale(1.9); opacity: 0; }
+  60%  { opacity: 1; }
+  100% { transform: rotate(-6deg) scale(1); opacity: 1; }
+}
+@keyframes stamp-pulse {
+  0%, 100% { transform: rotate(-5deg) scale(.96); opacity: .55; }
+  50%      { transform: rotate(-5deg) scale(1.03); opacity: 1; }
+}
+/* §11 滚动进入 —— 名字必须与 Shell.astro 里的一致 */
+@keyframes om-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
