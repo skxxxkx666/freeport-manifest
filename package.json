@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test scripts/*.test.mjs"
+    "test": "node --test scripts/*.test.mjs",
+    "cloudflare:plan": "node scripts/cloudflare-dns.mjs",
+    "cloudflare:apply": "node scripts/cloudflare-dns.mjs --apply"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

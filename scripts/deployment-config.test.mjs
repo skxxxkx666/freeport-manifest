@@ -23,19 +23,19 @@ test("custom site and base override GitHub defaults", () => {
   assert.deepEqual(
     deploymentTarget({
       GITHUB_REPOSITORY: "freedomport/manifest",
-      SITE_URL: "https://manifest.freedomport.cc/",
+      SITE_URL: "https://manifest.dpdns.org/",
       BASE_PATH: "/release/"
     }),
     {
-      site: "https://manifest.freedomport.cc",
+      site: "https://manifest.dpdns.org",
       base: "/release"
     }
   );
 });
 
 test("custom domains and local builds default to root base", () => {
-  assert.deepEqual(deploymentTarget({ SITE_URL: "https://manifest.freedomport.cc/" }), {
-    site: "https://manifest.freedomport.cc",
+  assert.deepEqual(deploymentTarget({ SITE_URL: "https://manifest.dpdns.org/" }), {
+    site: "https://manifest.dpdns.org",
     base: "/"
   });
   assert.deepEqual(deploymentTarget({}), {

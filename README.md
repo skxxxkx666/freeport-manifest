@@ -34,6 +34,7 @@ src/
   styles/theme.css              @theme token 表
 scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
+scripts/cloudflare-dns.mjs      Cloudflare DNS plan/apply API 管理器
 scripts/*.test.mjs              Node Test Runner 工程测试
 config/sources.json             默认公开来源与授权门控
 .github/workflows/daily.yml     每日 cron 签发 + 构建 + 部署 Pages
@@ -74,7 +75,7 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 已知未验证项
 
-- GitHub Pages 首次部署、`manifest.freedomport.cc` DNS 与 TLS 证书需要在仓库推送后做
+- GitHub Pages 首次部署、`manifest.dpdns.org` DNS 与 TLS 证书需要在仓库推送后做
   线上闭环验证。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
@@ -85,19 +86,34 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 部署与来源配置
 
-生产域名统一使用 `manifest.freedomport.cc`;站点与订阅同源,订阅路径为
+生产域名统一使用 `manifest.dpdns.org`;站点与订阅同源,订阅路径为
 `/free/YYYYMMDD/clash.yaml` 和 `/free/YYYYMMDD/v2ray.txt`。仓库变量设置为:
 
 ```text
-Repository variable SITE_URL=https://manifest.freedomport.cc
+Repository variable SITE_URL=https://manifest.dpdns.org
 Repository variable BASE_PATH=/
 ```
 
-`public/CNAME` 已提交。Cloudflare DNS 还需要添加 DNS-only CNAME:
+`manifest.dpdns.org` 本身是委派给 Cloudflare 的 zone apex。`public/CNAME` 已提交;
+Cloudflare DNS 需要在这个 zone 内添加 DNS-only CNAME(Cloudflare 自动做 apex
+flattening):
 
 ```text
-manifest -> skxxxkx666.github.io
+@  CNAME  skxxxkx666.github.io  proxied=false  ttl=auto
 ```
+
+Cloudflare 一律走 API,不使用控制台手工修改。创建一个仅限
+`manifest.dpdns.org` zone 的 `DNS Write` API token,通过环境变量注入,不要写进仓库:
+
+```powershell
+$env:CLOUDFLARE_API_TOKEN="<scoped-token>"
+npm run cloudflare:plan
+npm run cloudflare:apply
+```
+
+`cloudflare:plan` 只读;`cloudflare:apply` 幂等创建或更新 CNAME。若同名存在 A/AAAA
+等冲突记录,脚本会停止并要求人工判断,不会擅自删除。可选
+`CLOUDFLARE_ZONE_ID` 用于跳过 zone 查询。
 
 默认来源在 `config/sources.json`,不设置 secret 也能签发。`SUB_SOURCES` secret 用于追加
 其他来源,仍可使用旧格式:
@@ -150,7 +166,9 @@ npm run build
 - **岛只有五个**,列在上表。其余全部静态 `.astro`,不要为了省事把整页做成岛。
 - **字体**:中文正文纯系统栈,不加载 webfont。得意黑只用于中文大标题,且必须子集化到 `public/fonts/smiley-sans-subset.woff2`,产物 ≤ 50KB。
 - **二维码**在客户端用 `qrcode` 生成,不引任何第三方图片接口。
-- **教程不在本站**。所有教程入口(导航、首页第 02/03 步、页脚)直接外链 <https://wiki.freedomport.cc/>,带 `target="_blank" rel="noopener"`。不要新建 `/tutorial` 路由。
+- **教程不在本站**。所有教程入口(导航、首页第 02/03 步、页脚)直接外链
+  <https://wiki.freedomport.cc/>,带 `target="_blank" rel="noopener"`。这是公益站为
+  FreedomPort 主站保留的教程/广告入口,不是本站部署域名;不要新建 `/tutorial` 路由。
 - **可选字段判空后再渲染**:`breakdown` 没有就整块不渲染,不要显示空状态占位。
 
 ## 页面清单(已实现)

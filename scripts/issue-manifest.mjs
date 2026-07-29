@@ -631,7 +631,7 @@ export const regionOf = (node) => {
 };
 
 const publicSubscriptionUrl = (fileName, env = process.env) => {
-  const site = String(env.SUB_PUBLIC_BASE_URL || env.SITE_URL || "https://manifest.freedomport.cc")
+  const site = String(env.SUB_PUBLIC_BASE_URL || env.SITE_URL || "https://manifest.dpdns.org")
     .trim()
     .replace(/\/+$/, "");
   const base = String(env.BASE_PATH ?? "").trim().replace(/^\/+|\/+$/g, "");
