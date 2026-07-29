@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const apiBase = "https://api.cloudflare.com/client/v4";
 
-const apiRequest = async (
+export const apiRequest = async (
   path,
   { token, fetchImpl = fetch, method = "GET", body } = {}
 ) => {
@@ -24,7 +24,7 @@ const apiRequest = async (
   return payload.result;
 };
 
-const zoneIdFor = async ({ token, zoneId, zoneName, fetchImpl }) => {
+export const zoneIdFor = async ({ token, zoneId, zoneName, fetchImpl }) => {
   if (zoneId) return zoneId;
   const zones = await apiRequest(
     `/zones?name=${encodeURIComponent(zoneName)}&status=active&per_page=50`,
@@ -42,6 +42,7 @@ export async function reconcileCloudflareDns({
   zoneName = "manifest.dpdns.org",
   recordName = "manifest.dpdns.org",
   target = "skxxxkx666.github.io",
+  proxied = false,
   apply = false,
   fetchImpl = fetch
 } = {}) {
@@ -67,13 +68,13 @@ export async function reconcileCloudflareDns({
     name: recordName,
     content: target,
     ttl: 1,
-    proxied: false,
+    proxied,
     comment: "Managed by freeport-manifest"
   };
   const current = records[0];
   const matches =
     current?.content?.replace(/\.$/, "").toLowerCase() === target.toLowerCase() &&
-    current?.proxied === false &&
+    current?.proxied === proxied &&
     current?.ttl === 1;
 
   if (matches) {
@@ -103,10 +104,12 @@ async function main() {
     zoneName: process.env.CLOUDFLARE_ZONE_NAME,
     recordName: process.env.CLOUDFLARE_RECORD_NAME,
     target: process.env.CLOUDFLARE_RECORD_TARGET,
+    proxied:
+      process.argv.includes("--proxied") || process.env.CLOUDFLARE_PROXIED === "true",
     apply: process.argv.includes("--apply")
   });
   console.log(
-    `${result.applied ? "已执行" : "计划"}: ${result.action} ${result.desired.name} CNAME ${result.desired.content} (DNS only)`
+    `${result.applied ? "已执行" : "计划"}: ${result.action} ${result.desired.name} CNAME ${result.desired.content} (${result.desired.proxied ? "Proxied" : "DNS only"})`
   );
 }
 

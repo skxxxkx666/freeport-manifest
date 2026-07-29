@@ -34,7 +34,8 @@ src/
   styles/theme.css              @theme token 表
 scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
-scripts/cloudflare-dns.mjs      Cloudflare DNS plan/apply API 管理器
+scripts/cloudflare-dns.mjs      Cloudflare DNS 幂等协调器
+scripts/cloudflare-zone.mjs     Cloudflare 区域安全基线 plan/apply 管理器
 scripts/*.test.mjs              Node Test Runner 工程测试
 config/sources.json             默认公开来源与授权门控
 .github/workflows/daily.yml     每日 cron 签发 + 构建 + 部署 Pages
@@ -49,8 +50,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.5、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(18/18)、
-   `npm run check`(0 error)和 `npm run build`(21 pages)均通过。
+   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(22/22)、
+   `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
 2. **已解决 — `site` / `base` 无占位值。**
    `scripts/deployment-config.mjs` 在 Actions 中读取 `GITHUB_REPOSITORY`,自动得到
    `https://<owner>.github.io` 与 `/<repository>`;用户/组织主页仓库自动使用 `/`。
@@ -78,6 +79,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 - GitHub Pages workflow 已首次部署成功;`manifest.dpdns.org` 目前仍缺少 DNS 记录,
   需要通过 Cloudflare API 写入 CNAME 后继续验证 DNS、Pages 证书与 HTTPS 强制跳转。
+- V2Nodes 新加坡适配器已启用并进入真实抓取路径,但 2026-07-30 本地网络访问该站时
+  被对端重置连接(`ECONNRESET`);需要由 GitHub Actions 再验证一次其服务器网络可达性。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
@@ -96,27 +99,59 @@ Repository variable BASE_PATH=/
 ```
 
 `manifest.dpdns.org` 本身是委派给 Cloudflare 的 zone apex。`public/CNAME` 已提交;
-Cloudflare DNS 需要在这个 zone 内添加 DNS-only CNAME(Cloudflare 自动做 apex
-flattening):
+Cloudflare DNS 使用 CNAME flattening 指向 GitHub Pages。首次接入先保持 DNS only,
+待 GitHub Pages 签发并启用 HTTPS 后再切换 Proxied,否则橙云可能阻断 GitHub 的首次
+域名校验:
 
 ```text
 @  CNAME  skxxxkx666.github.io  proxied=false  ttl=auto
 ```
 
-Cloudflare 一律走 API,不使用控制台手工修改。创建一个仅限
-`manifest.dpdns.org` zone 的 API token:授予 `Zone Read` 与 `DNS Edit`,让脚本自动
-查询 zone ID;若只授予 `DNS Edit`,则还需同时提供 `CLOUDFLARE_ZONE_ID`。Token 通过
-环境变量注入,不要写进仓库:
+Cloudflare 一律走 API,不使用控制台手工修改。原来的 `Zone Read` + `DNS Edit`
+只能查询区域和修改 DNS,不足以配置 TLS 与安全基线。新版中文 Token 页面中把资源
+范围设为“包括 → 特定区域 → `manifest.dpdns.org`”,至少授予以下四项:
+
+```text
+区域 → 区域 → 读取
+区域 → DNS → 编辑
+区域 → 区域设置 → 编辑
+区域 → SSL 和证书 → 编辑
+```
+
+英文新版 API 文档可能把“编辑”显示为 `Write`,含义相同。若后续还要通过 API 管理
+自定义 WAF、安全响应头或主动清缓存,再为同一个特定区域增加:
+
+```text
+区域 → 区域 WAF → 编辑
+区域 → 转换规则 → 编辑
+区域 → 缓存清除
+```
+
+Token 通过环境变量注入,不要写进仓库。编排器分三阶段执行:
 
 ```powershell
 $env:CLOUDFLARE_API_TOKEN="<scoped-token>"
+
+# 1. 只读计划并写入 DNS-only CNAME + 区域安全基线
 npm run cloudflare:plan
 npm run cloudflare:apply
+
+# 2. GitHub Pages 证书生效并强制 HTTPS 后,切换橙云
+npm run cloudflare:proxy:plan
+npm run cloudflare:proxy:apply
+
+# 3. HTTPS 稳定后最后启用 6 个月 HSTS,不含子域且不预加载
+npm run cloudflare:hsts:plan
+npm run cloudflare:hsts:apply
 ```
 
-`cloudflare:plan` 只读;`cloudflare:apply` 幂等创建或更新 CNAME。若同名存在 A/AAAA
-等冲突记录,脚本会停止并要求人工判断,不会擅自删除。可选
-`CLOUDFLARE_ZONE_ID` 用于跳过 zone 查询。
+所有 `plan` 命令只读;所有 `apply` 命令幂等。若同名存在 A/AAAA 等冲突记录,脚本会
+停止并要求人工判断,不会擅自删除。可选 `CLOUDFLARE_ZONE_ID` 用于跳过区域查询。
+安全基线使用“SSL/TLS → 概述 → 完全（严格）”,并启用 Universal SSL、始终使用
+HTTPS、最低 TLS 1.2、TLS 1.3、自动 HTTPS 重写、HTTP/2、HTTP/3 与 Brotli。
+0-RTT、Rocket Loader、浏览器完整性检查和热链保护保持关闭:前两者分别避免重放与
+Astro 脚本改写,后两者避免误伤 Clash/Mihomo/V2Ray 等非浏览器订阅客户端。
+HSTS 不会在首轮应用时提前开启。
 
 默认来源在 `config/sources.json`,不设置 secret 也能签发。`SUB_SOURCES` secret 用于追加
 其他来源,仍可使用旧格式:
@@ -147,9 +182,10 @@ https://public-one.example/sub https://public-two.example/sub
 - BestClash README 明确提供 `proxies.yaml` 作为免费订阅地址,但仓库当前没有声明
   SPDX/开源许可证;本项目保留来源标识,使用前仍应自行评估其上游节点许可与风险。
 - V2Nodes 的国家页需要逐个访问详情页才能取得分享链接。适配器已经实现,但其服务条款
-  写明仅限个人非商业使用,且未经书面许可不得复制或分发站点内容,因此
-  `v2nodes-sg` 默认 `enabled: false`。只有取得书面授权后才可同时设置
-  `"enabled": true` 和 `"allowRedistribution": true`;不要仅为绕过门控而开启。
+  写明仅限个人非商业使用,且未经书面许可不得复制或分发站点内容。当前已按站点运营者
+  的明确指示为 `v2nodes-sg` 设置 `"enabled": true` 与
+  `"allowRedistribution": true`;运营者仍需自行确认授权有效。若未获许可,应将任一
+  开关设为 `false` 以停止抓取与再分发。
 
 本地与 CI 的固定验证顺序:
 

@@ -11,8 +11,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test scripts/*.test.mjs",
-    "cloudflare:plan": "node scripts/cloudflare-dns.mjs",
-    "cloudflare:apply": "node scripts/cloudflare-dns.mjs --apply"
+    "cloudflare:plan": "node scripts/cloudflare-zone.mjs",
+    "cloudflare:apply": "node scripts/cloudflare-zone.mjs --apply",
+    "cloudflare:proxy:plan": "node scripts/cloudflare-zone.mjs --proxied",
+    "cloudflare:proxy:apply": "node scripts/cloudflare-zone.mjs --proxied --apply",
+    "cloudflare:hsts:plan": "node scripts/cloudflare-zone.mjs --proxied --hsts",
+    "cloudflare:hsts:apply": "node scripts/cloudflare-zone.mjs --proxied --hsts --apply"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",
