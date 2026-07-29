@@ -43,6 +43,10 @@ const hstsValue = (enabled) => ({
   }
 });
 
+const managedWafPhase = "http_request_firewall_managed";
+const managedWafName = "Cloudflare Managed Free Ruleset";
+const managedWafDescription = "Execute Cloudflare Managed Free Ruleset";
+
 const matchesDesired = (current, desired) => {
   if (desired && typeof desired === "object" && !Array.isArray(desired)) {
     if (!current || typeof current !== "object" || Array.isArray(current)) return false;
@@ -51,6 +55,120 @@ const matchesDesired = (current, desired) => {
     );
   }
   return current === desired;
+};
+
+const managedWafRule = (rulesetId) => ({
+  action: "execute",
+  action_parameters: { id: rulesetId },
+  expression: "true",
+  description: managedWafDescription,
+  enabled: true
+});
+
+export const reconcileManagedWaf = async ({
+  token,
+  zoneId,
+  apply,
+  fetchImpl
+}) => {
+  const rulesets = await apiRequest(`/zones/${zoneId}/rulesets`, {
+    token,
+    fetchImpl
+  });
+  const managedRulesets = rulesets.filter(
+    (ruleset) =>
+      ruleset.kind === "managed" &&
+      ruleset.phase === managedWafPhase &&
+      ruleset.name === managedWafName
+  );
+  if (managedRulesets.length !== 1) {
+    throw new Error(`Cloudflare 中必须恰好存在一个 ${managedWafName}`);
+  }
+
+  const desired = managedWafRule(managedRulesets[0].id);
+  const entrypoints = rulesets.filter(
+    (ruleset) =>
+      ruleset.kind === "zone" && ruleset.phase === managedWafPhase
+  );
+  if (entrypoints.length > 1) {
+    throw new Error(`Cloudflare 中存在多个 ${managedWafPhase} 区域入口规则集`);
+  }
+
+  if (!entrypoints.length) {
+    if (!apply) {
+      return {
+        action: "create-entrypoint",
+        applied: false,
+        rulesetId: managedRulesets[0].id
+      };
+    }
+    await apiRequest(`/zones/${zoneId}/rulesets`, {
+      token,
+      fetchImpl,
+      method: "POST",
+      body: {
+        name: "Managed WAF entry point ruleset",
+        description: "Managed by freeport-manifest",
+        kind: "zone",
+        phase: managedWafPhase,
+        rules: [desired]
+      }
+    });
+    return {
+      action: "create-entrypoint",
+      applied: true,
+      rulesetId: managedRulesets[0].id
+    };
+  }
+
+  const entrypoint = await apiRequest(
+    `/zones/${zoneId}/rulesets/${entrypoints[0].id}`,
+    { token, fetchImpl }
+  );
+  const deployments = (entrypoint.rules ?? []).filter(
+    (rule) => rule.action_parameters?.id === managedRulesets[0].id
+  );
+  if (deployments.length > 1) {
+    throw new Error(`${managedWafName} 被重复部署，拒绝自动修改`);
+  }
+
+  const current = deployments[0];
+  const matches =
+    current?.action === desired.action &&
+    current?.expression === desired.expression &&
+    current?.enabled !== false;
+  if (matches) {
+    return {
+      action: "unchanged",
+      applied: false,
+      rulesetId: managedRulesets[0].id
+    };
+  }
+
+  const action = current ? "update-rule" : "add-rule";
+  if (!apply) {
+    return {
+      action,
+      applied: false,
+      rulesetId: managedRulesets[0].id
+    };
+  }
+  await apiRequest(
+    current
+      ? `/zones/${zoneId}/rulesets/${entrypoint.id}/rules/${current.id}`
+      : `/zones/${zoneId}/rulesets/${entrypoint.id}/rules`,
+    {
+      token,
+      fetchImpl,
+      method: current ? "PATCH" : "POST",
+      body: desired
+    }
+  );
+  return {
+    action,
+    applied: true,
+    rulesetId: managedRulesets[0].id
+  };
 };
 
 const reconcileUniversalSsl = async ({
@@ -185,6 +303,14 @@ export async function reconcileCloudflareZone({
       })
     );
   }
+  const managedWaf = proxied
+    ? await reconcileManagedWaf({
+        token,
+        zoneId: resolvedZoneId,
+        apply,
+        fetchImpl
+      })
+    : { action: "not-requested", applied: false };
   let cachePurge = { action: "not-requested", applied: false };
   if (purgeCache) {
     cachePurge = { action: "purge-host", applied: false, host: zoneName };
@@ -205,6 +331,7 @@ export async function reconcileCloudflareZone({
     dns,
     universalSsl,
     settings: zoneSettings,
+    managedWaf,
     cachePurge
   };
 }
@@ -217,6 +344,11 @@ const printResult = (result) => {
   console.log(`- Universal SSL: ${result.universalSsl.action}`);
   for (const setting of result.settings) {
     console.log(`- ${setting.label}: ${setting.action}`);
+  }
+  if (result.managedWaf.action !== "not-requested") {
+    console.log(
+      `- Cloudflare 免费托管 WAF: ${result.managedWaf.action}${result.managedWaf.applied ? " (applied)" : ""}`
+    );
   }
   if (result.cachePurge.action !== "not-requested") {
     console.log(

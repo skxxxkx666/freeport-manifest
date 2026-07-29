@@ -50,7 +50,7 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.5、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(23/23)、
+   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(24/24)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
 2. **已解决 — `site` / `base` 无占位值。**
    `scripts/deployment-config.mjs` 在 Actions 中读取 `GITHUB_REPOSITORY`,自动得到
@@ -74,13 +74,18 @@ public/fonts/                   得意黑子集(≤ 50KB)
    本机 `clash://` 已注册到 Clash Verge,生成的 URL 参数编码正确;
    `clashmeta://`、`sub://`、`shadowrocket://` 未注册,仍需装有对应客户端的
    Android/iOS 真机完成实际唤起与导入验证。
-5. `src/content/subs/` 里 2026-05-29 ~ 2026-07-27 共 13 份是**示例存根**(`expired: true`),
+5. **已验证 — 生产域名与 Cloudflare 安全基线。**
+   `manifest.dpdns.org` 已通过 GitHub Pages 签发自定义域名证书并强制 HTTPS;
+   Cloudflare CNAME 已切换 Proxied。实际请求已验证 HTTP 301、HTTPS 200、TLS 1.3、
+   `X-Content-Type-Options: nosniff`，首页、今日页及两种订阅文件均为 200。
+   区域使用完全（严格）、最低 TLS 1.2、6 个月 HSTS（不含子域、不预加载）和
+   Cloudflare Managed Free Ruleset。按主机清除缓存的 API 权限也已实测成功，
+   最终 `cloudflare:hsts:plan` 全部为 `unchanged`。
+6. `src/content/subs/` 里 2026-05-29 ~ 2026-07-27 共 13 份是**示例存根**(`expired: true`),
    用来让 `/archive` 有内容可看。上线前删掉,或留着当回归样本。
 
 ## 已知未验证项
 
-- GitHub Pages workflow 已首次部署成功;`manifest.dpdns.org` 目前仍缺少 DNS 记录,
-  需要通过 Cloudflare API 写入 CNAME 后继续验证 DNS、Pages 证书与 HTTPS 强制跳转。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
@@ -124,7 +129,7 @@ Cloudflare 一律走 API,不使用控制台手工修改。原来的 `Zone Read` 
 ```text
 区域 → 区域 WAF → 编辑
 区域 → 转换规则 → 编辑
-区域 → 缓存清除
+区域 → 清除缓存 → 清除
 ```
 
 Token 通过环境变量注入,不要写进仓库。编排器分三阶段执行:
@@ -136,7 +141,7 @@ $env:CLOUDFLARE_API_TOKEN="<scoped-token>"
 npm run cloudflare:plan
 npm run cloudflare:apply
 
-# 2. GitHub Pages 证书生效并强制 HTTPS 后,切换橙云
+# 2. GitHub Pages 证书生效并强制 HTTPS 后,切换橙云并部署免费托管 WAF
 npm run cloudflare:proxy:plan
 npm run cloudflare:proxy:apply
 
@@ -154,7 +159,8 @@ npm run cloudflare:purge
 HTTPS、最低 TLS 1.2、TLS 1.3、自动 HTTPS 重写、HTTP/2、HTTP/3 与 Brotli。
 0-RTT、Rocket Loader、浏览器完整性检查和热链保护保持关闭:前两者分别避免重放与
 Astro 脚本改写,后两者避免误伤 Clash/Mihomo/V2Ray 等非浏览器订阅客户端。
-HSTS 不会在首轮应用时提前开启。
+HSTS 不会在首轮应用时提前开启。WAF 使用所有套餐均可用的
+Cloudflare Managed Free Ruleset 默认动作，不增加浏览器质询。
 
 默认来源在 `config/sources.json`,不设置 secret 也能签发。`SUB_SOURCES` secret 用于追加
 其他来源,仍可使用旧格式:

@@ -15,6 +15,16 @@ const driftedCloudflare = (calls, { editable = true } = {}) =>
   async (url, options) => {
     calls.push({ url, options });
     if (url.includes("/zones?")) return jsonResponse([{ id: "zone-1" }]);
+    if (url.endsWith("/rulesets") && options.method === "GET") {
+      return jsonResponse([
+        {
+          id: "free-waf-1",
+          name: "Cloudflare Managed Free Ruleset",
+          kind: "managed",
+          phase: "http_request_firewall_managed"
+        }
+      ]);
+    }
     if (url.includes("/dns_records") && options.method === "GET") {
       return jsonResponse([]);
     }
@@ -56,6 +66,20 @@ test("Cloudflare zone apply writes DNS, Universal SSL, and editable settings", a
   assert.equal(result.dns.applied, true);
   assert.equal(result.universalSsl.applied, true);
   assert.ok(result.settings.every((setting) => setting.applied));
+  assert.equal(result.managedWaf.action, "create-entrypoint");
+  assert.equal(result.managedWaf.applied, true);
+  const waf = calls.find(
+    (call) => call.url.endsWith("/rulesets") && call.options.method === "POST"
+  );
+  assert.deepEqual(JSON.parse(waf.options.body).rules, [
+    {
+      action: "execute",
+      action_parameters: { id: "free-waf-1" },
+      expression: "true",
+      description: "Execute Cloudflare Managed Free Ruleset",
+      enabled: true
+    }
+  ]);
   assert.equal(
     calls.filter((call) => call.options.method === "PATCH").length,
     baselineZoneSettings.length + 2
@@ -77,6 +101,85 @@ test("Cloudflare zone apply reports plan-locked settings without mutating them",
     ).length,
     0
   );
+});
+
+test("Cloudflare WAF reconciliation is idempotent when already deployed", async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    if (url.includes("/zones?")) return jsonResponse([{ id: "zone-1" }]);
+    if (url.includes("/dns_records")) {
+      return jsonResponse([
+        {
+          id: "dns-1",
+          type: "CNAME",
+          content: "skxxxkx666.github.io",
+          proxied: true,
+          ttl: 1
+        }
+      ]);
+    }
+    if (url.endsWith("/ssl/universal/settings")) {
+      return jsonResponse({ enabled: true });
+    }
+    if (url.includes("/settings/")) {
+      const id = url.split("/").at(-1);
+      const setting = baselineZoneSettings.find((item) => item.id === id);
+      return jsonResponse({
+        value:
+          setting?.value ??
+          {
+            strict_transport_security: {
+              enabled: false,
+              include_subdomains: false,
+              max_age: 0,
+              nosniff: true,
+              preload: false
+            }
+          }
+      });
+    }
+    if (url.endsWith("/rulesets")) {
+      return jsonResponse([
+        {
+          id: "free-waf-1",
+          name: "Cloudflare Managed Free Ruleset",
+          kind: "managed",
+          phase: "http_request_firewall_managed"
+        },
+        {
+          id: "entrypoint-1",
+          name: "zone",
+          kind: "zone",
+          phase: "http_request_firewall_managed"
+        }
+      ]);
+    }
+    if (url.endsWith("/rulesets/entrypoint-1")) {
+      return jsonResponse({
+        id: "entrypoint-1",
+        rules: [
+          {
+            id: "rule-1",
+            action: "execute",
+            action_parameters: { id: "free-waf-1" },
+            expression: "true",
+            enabled: true
+          }
+        ]
+      });
+    }
+    return jsonResponse({});
+  };
+
+  const result = await reconcileCloudflareZone({
+    token: "secret",
+    proxied: true,
+    fetchImpl
+  });
+
+  assert.equal(result.managedWaf.action, "unchanged");
+  assert.ok(calls.every((call) => call.options.method === "GET"));
 });
 
 test("HSTS cannot be enabled before the proxied stage", async () => {
