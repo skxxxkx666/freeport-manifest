@@ -85,3 +85,25 @@ test("HSTS cannot be enabled before the proxied stage", async () => {
     /必须先使用 --proxied/
   );
 });
+
+test("cache purge is restricted to the proxied stage and the managed hostname", async () => {
+  await assert.rejects(
+    reconcileCloudflareZone({ token: "secret", purgeCache: true }),
+    /必须先使用 --proxied/
+  );
+
+  const calls = [];
+  const result = await reconcileCloudflareZone({
+    token: "secret",
+    proxied: true,
+    purgeCache: true,
+    apply: true,
+    fetchImpl: driftedCloudflare(calls)
+  });
+  const purge = calls.find((call) => call.url.endsWith("/purge_cache"));
+  assert.equal(result.cachePurge.applied, true);
+  assert.equal(purge.options.method, "POST");
+  assert.deepEqual(JSON.parse(purge.options.body), {
+    hosts: ["manifest.dpdns.org"]
+  });
+});

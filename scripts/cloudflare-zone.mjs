@@ -135,11 +135,15 @@ export async function reconcileCloudflareZone({
   target = "skxxxkx666.github.io",
   proxied = false,
   enableHsts = false,
+  purgeCache = false,
   apply = false,
   fetchImpl = fetch
 } = {}) {
   if (enableHsts && !proxied) {
     throw new Error("启用 HSTS 前必须先使用 --proxied");
+  }
+  if (purgeCache && !proxied) {
+    throw new Error("清除 Cloudflare 缓存前必须先使用 --proxied");
   }
 
   const dns = await reconcileCloudflareDns({
@@ -181,13 +185,27 @@ export async function reconcileCloudflareZone({
       })
     );
   }
+  let cachePurge = { action: "not-requested", applied: false };
+  if (purgeCache) {
+    cachePurge = { action: "purge-host", applied: false, host: zoneName };
+    if (apply) {
+      await apiRequest(`/zones/${resolvedZoneId}/purge_cache`, {
+        token,
+        fetchImpl,
+        method: "POST",
+        body: { hosts: [zoneName] }
+      });
+      cachePurge.applied = true;
+    }
+  }
 
   return {
     zoneId: resolvedZoneId,
     stage: enableHsts ? "hsts" : proxied ? "proxied" : "dns-only",
     dns,
     universalSsl,
-    settings: zoneSettings
+    settings: zoneSettings,
+    cachePurge
   };
 }
 
@@ -199,6 +217,11 @@ const printResult = (result) => {
   console.log(`- Universal SSL: ${result.universalSsl.action}`);
   for (const setting of result.settings) {
     console.log(`- ${setting.label}: ${setting.action}`);
+  }
+  if (result.cachePurge.action !== "not-requested") {
+    console.log(
+      `- 清除缓存 (${result.cachePurge.host}): ${result.cachePurge.applied ? "applied" : "planned"}`
+    );
   }
 };
 
@@ -213,6 +236,7 @@ async function main() {
       process.argv.includes("--proxied") || process.env.CLOUDFLARE_PROXIED === "true",
     enableHsts:
       process.argv.includes("--hsts") || process.env.CLOUDFLARE_ENABLE_HSTS === "true",
+    purgeCache: process.argv.includes("--purge-cache"),
     apply: process.argv.includes("--apply")
   });
   printResult(result);

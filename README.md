@@ -50,7 +50,7 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.5、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(22/22)、
+   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(23/23)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
 2. **已解决 — `site` / `base` 无占位值。**
    `scripts/deployment-config.mjs` 在 Actions 中读取 `GITHUB_REPOSITORY`,自动得到
@@ -143,6 +143,9 @@ npm run cloudflare:proxy:apply
 # 3. HTTPS 稳定后最后启用 6 个月 HSTS,不含子域且不预加载
 npm run cloudflare:hsts:plan
 npm run cloudflare:hsts:apply
+
+# 按主机清除 manifest.dpdns.org 的 Cloudflare 缓存
+npm run cloudflare:purge
 ```
 
 所有 `plan` 命令只读;所有 `apply` 命令幂等。若同名存在 A/AAAA 等冲突记录,脚本会
