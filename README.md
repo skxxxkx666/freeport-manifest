@@ -49,15 +49,16 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.5、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   `npm test`(10/10)、`npm run check`(0 error)和 `npm run build`(20 pages)均通过。
+   本地与 GitHub Actions 的 Linux runner 均已通过 `npm ci`;`npm test`(18/18)、
+   `npm run check`(0 error)和 `npm run build`(21 pages)均通过。
 2. **已解决 — `site` / `base` 无占位值。**
    `scripts/deployment-config.mjs` 在 Actions 中读取 `GITHUB_REPOSITORY`,自动得到
    `https://<owner>.github.io` 与 `/<repository>`;用户/组织主页仓库自动使用 `/`。
    `SITE_URL`、`BASE_PATH` repository variables 可覆盖为自定义域名或特殊 Pages 地址。
-   已用 `FreedomPort/freeport-manifest` 构建并确认所有内部资源/链接带
-   `/freeport-manifest/` 前缀。
+   生产仓库已设置 `SITE_URL=https://manifest.dpdns.org`、`BASE_PATH=/`,并在
+   GitHub Pages workflow 中完成根路径构建和首次部署。
 3. **已解决 — 真实来源与订阅交付。**
-   默认从 `PuddinCat/BestClash` 的 raw YAML 拉取;响应仍兼容明文 URI、
+   默认通过 GitHub Contents API 读取 `PuddinCat/BestClash` 的 Clash YAML;响应仍兼容明文 URI、
    base64/base64url、JSON API(含嵌套 base64)和 Clash YAML/JSON `proxies`。
    每次签发会实际写出 `public/free/YYYYMMDD/clash.yaml` 和 `v2ray.txt`,而不是只写
    两个占位 URL。Clash 文件保留 TUIC;V2Ray 文件只转换该订阅生态兼容的
@@ -75,8 +76,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 已知未验证项
 
-- GitHub Pages 首次部署、`manifest.dpdns.org` DNS 与 TLS 证书需要在仓库推送后做
-  线上闭环验证。
+- GitHub Pages workflow 已首次部署成功;`manifest.dpdns.org` 目前仍缺少 DNS 记录,
+  需要通过 Cloudflare API 写入 CNAME 后继续验证 DNS、Pages 证书与 HTTPS 强制跳转。
 - 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
   真机验证。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
