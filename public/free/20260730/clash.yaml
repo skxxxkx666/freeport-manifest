@@ -143,14 +143,56 @@ proxies:
     server: 211.99.97.8
     type: ss
     udp: true
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
-    type: vmess
-    server: 149.88.23.202
-    port: 18000
-    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
-    alterId: 0
-    cipher: auto
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
+    type: vless
+    server: 172.67.149.60
+    port: 443
     udp: true
+    network: ws
+    ws-opts:
+      path: /id-tksi
+      headers:
+        Host: support.zoom.us.yxls.eu.cc
+    tls: true
+    servername: support.zoom.us.yxls.eu.cc
+    uuid: 5aafc2be-9348-4dec-b896-f4a91253bbca
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-15056567
+    type: vless
+    server: 3.0.111.82
+    port: 12972
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.apple.com
+    client-fingerprint: chrome
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+  - name: 🇸🇬[www.v2nodes.com] Trojan VPN-SG-15000774
+    type: trojan
+    server: 167.150.100.133
+    port: 450
+    udp: true
+    network: tcp
+    tls: true
+    servername: grape-power-sg.roxa.org
+    client-fingerprint: chrome
+    password: 0_Oms89nH82l_Ki813_Nxmw81_Rbt_Jq190Kl_m
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-5222
+    type: vless
+    server: 108.162.192.161
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fdip
+      headers:
+        Host: learn00.evany.de5.net
+    tls: true
+    servername: learn00.evany.de5.net
+    uuid: 29ca503d-e6b8-4509-b666-48133f450857
   - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1556
     type: vless
     server: 108.162.195.58
@@ -165,6 +207,14 @@ proxies:
     servername: learn00.evany.de5.net
     client-fingerprint: random
     uuid: 29ca503d-e6b8-4509-b666-48133f450857
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
+    type: vmess
+    server: 149.88.23.202
+    port: 18000
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+    alterId: 0
+    cipher: auto
+    udp: true
   - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1915
     type: vless
     server: 91.193.59.246
@@ -178,19 +228,6 @@ proxies:
     tls: true
     servername: vlso.1d.mom
     uuid: a1de0630-5786-48a0-84f6-dc6f2de10d6d
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-5222
-    type: vless
-    server: 108.162.192.161
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
   - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-9406
     type: vless
     server: alist.sm.uy
@@ -299,46 +336,6 @@ proxies:
     servername: vlso.1d.mom
     client-fingerprint: chrome
     uuid: a1de0630-5786-48a0-84f6-dc6f2de10d6d
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
-    type: vless
-    server: 172.67.149.60
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /id-tksi
-      headers:
-        Host: support.zoom.us.yxls.eu.cc
-    tls: true
-    servername: support.zoom.us.yxls.eu.cc
-    uuid: 5aafc2be-9348-4dec-b896-f4a91253bbca
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2504
-    type: vless
-    server: 91.193.58.15
-    port: 2083
-    udp: true
-    network: ws
-    ws-opts:
-      path: /socks5=888:888@8.210.127.248:1080
-      headers:
-        Host: vlso.1d.mom
-    tls: true
-    servername: vlso.1d.mom
-    uuid: a1de0630-5786-48a0-84f6-dc6f2de10d6d
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2062
-    type: vless
-    server: 162.159.36.117
-    port: 2087
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip=tw.william.us.ci!txt
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    client-fingerprint: random
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
 proxy-groups:
   - name: 🚢 FREEPORT
     type: select
@@ -361,10 +358,13 @@ proxy-groups:
       - de|4ffc|puddincat07@Telegram
       - ec|11a8|puddincat07@Telegram
       - cn|0b51|puddincat07@Telegram
-      - 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1556
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1915
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇸🇬[www.v2nodes.com] Trojan VPN-SG-15000774
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-5222
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1556
+      - 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1915
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-9406
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1531
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2775
@@ -373,9 +373,6 @@ proxy-groups:
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2776
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3262
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-4130
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2504
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2062
   - name: ♻️ AUTO
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -398,10 +395,13 @@ proxy-groups:
       - de|4ffc|puddincat07@Telegram
       - ec|11a8|puddincat07@Telegram
       - cn|0b51|puddincat07@Telegram
-      - 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1556
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1915
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇸🇬[www.v2nodes.com] Trojan VPN-SG-15000774
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-5222
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1556
+      - 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
+      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1915
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-9406
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1531
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2775
@@ -410,8 +410,5 @@ proxy-groups:
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2776
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3262
       - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-4130
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2055
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2504
-      - 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2062
 rules:
   - MATCH,🚢 FREEPORT
