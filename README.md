@@ -104,7 +104,9 @@ flattening):
 ```
 
 Cloudflare 一律走 API,不使用控制台手工修改。创建一个仅限
-`manifest.dpdns.org` zone 的 `DNS Write` API token,通过环境变量注入,不要写进仓库:
+`manifest.dpdns.org` zone 的 API token:授予 `Zone Read` 与 `DNS Edit`,让脚本自动
+查询 zone ID;若只授予 `DNS Edit`,则还需同时提供 `CLOUDFLARE_ZONE_ID`。Token 通过
+环境变量注入,不要写进仓库:
 
 ```powershell
 $env:CLOUDFLARE_API_TOKEN="<scoped-token>"
