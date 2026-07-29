@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
+      actions: write
       contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -59,3 +60,11 @@ jobs:
           git add src/content/subs public/free
           git commit -m "issue: $(date -u -d '+8 hours' +%Y-%m-%d) manifest"
           git push
+
+      - name: 验证并部署机器人提交
+        if: steps.gen.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run ci.yml --ref main
+          gh workflow run deploy.yml --ref main

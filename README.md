@@ -53,7 +53,7 @@ public/fonts/                   得意黑子集(≤ 50KB)
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.6、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地已通过 `npm ci`;`npm test`(34/34)、
+   本地已通过 `npm ci`;`npm test`(35/35)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
    TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
    `^5 || ^6`,所以暂不做不兼容升级。
@@ -67,7 +67,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
    默认通过 GitHub Contents API 读取 `PuddinCat/BestClash` 的 Clash YAML;响应仍兼容明文 URI、
    base64/base64url、JSON API(含嵌套 base64)和 Clash YAML/JSON `proxies`。
    每次签发先由固定版本 Mihomo 对所有候选做两个 204 目标的连通性与延迟测试,
-   再对最低延迟的 3 个节点各做 250 KB 小流量下载采样。只有实测存活节点会进入
+   再优先按协议分散选择候选,最多尝试 8 个节点,直到取得 3 个成功的 250 KB 小流量
+   下载样本。只有实测存活节点会进入
    `clash.yaml` 和 `v2ray.txt`;至少需要 5 个且候选存活率不低于 20%,否则整次签发失败并
    保留线上上一版。`health.json` 记录来源状态、脱敏节点哈希、延迟、失败分类和测速结果。
    V2Ray 转换现已保留 `skip-cert-verify`、ALPN、SNI、fingerprint 等关键 TLS 字段;
@@ -220,7 +221,8 @@ https://public-one.example/sub https://public-two.example/sub
 每日签发、持续集成和部署彼此独立:
 
 - `daily.yml` 只在定时/手动触发时下载经过 SHA-256 校验的 Mihomo 1.19.29,
-  拉取来源、实测节点并提交新产物。
+  拉取来源、实测节点并提交新产物;提交后显式触发 CI 与部署,避免 GitHub 内置
+  `GITHUB_TOKEN` 的防递归规则让机器人 push 被普通工作流忽略。
 - `ci.yml` 在每个 push/PR 执行测试、Astro 检查和完整构建。
 - `deploy.yml` 在 `main` 推送后构建并部署当次精确提交;若仓库存在新的
   `CLOUDFLARE_API_TOKEN` Secret,部署成功后按主机清除 Cloudflare 缓存。

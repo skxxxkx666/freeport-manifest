@@ -45,6 +45,27 @@ const mapConcurrent = async (items, concurrency, worker) => {
   return results;
 };
 
+export const selectSpeedCandidates = (results, maximumAttempts = 8) => {
+  const sorted = results
+    .filter((result) => result.alive)
+    .sort((a, b) => a.delayMs - b.delayMs);
+  const selected = [];
+  const remaining = [];
+  const protocols = new Set();
+  for (const result of sorted) {
+    if (protocols.has(result.type)) {
+      remaining.push(result);
+    } else {
+      protocols.add(result.type);
+      selected.push(result);
+    }
+  }
+  return [...selected, ...remaining].slice(
+    0,
+    Math.max(0, Math.floor(maximumAttempts))
+  );
+};
+
 export const probeFailureReason = (message = "") => {
   const value = String(message).toLowerCase();
   if (/timeout|deadline exceeded|aborted/.test(value)) return "timeout";
@@ -285,6 +306,14 @@ const runSpeedSample = async ({
       windowsHide: true
     }
   );
+  if (command.error?.code === "ETIMEDOUT" || command.status === 28) {
+    result.speedSampleStatus = "timeout";
+    return;
+  }
+  if (command.error || command.status !== 0) {
+    result.speedSampleStatus = "request-failed";
+    return;
+  }
   const [status, downloaded, bytesPerSecond] = String(command.stdout)
     .trim()
     .split("\t")
@@ -306,6 +335,7 @@ export async function probeProxies(
     retryTimeoutMs = 12000,
     concurrency = 16,
     speedSampleSize = 3,
+    speedSampleMaxAttempts = 8,
     speedSampleBytes = 250_000,
     speedTimeoutSeconds = 15
   } = {}
@@ -367,10 +397,11 @@ export async function probeProxies(
       result.alive ? result : retryByName.get(result.name) ?? result
     );
 
-    const speedCandidates = results
-      .filter((result) => result.alive)
-      .sort((a, b) => a.delayMs - b.delayMs)
-      .slice(0, speedSampleSize);
+    const speedCandidates = selectSpeedCandidates(
+      results,
+      speedSampleSize > 0 ? speedSampleMaxAttempts : 0
+    );
+    let successfulSpeedSamples = 0;
     for (const result of speedCandidates) {
       await runSpeedSample({
         result,
@@ -380,6 +411,8 @@ export async function probeProxies(
         bytes: speedSampleBytes,
         timeoutSeconds: speedTimeoutSeconds
       });
+      if (result.speedSampleStatus === "ok") successfulSpeedSamples += 1;
+      if (successfulSpeedSamples >= speedSampleSize) break;
     }
     return summarizeProbeResults(results);
   } finally {

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   assertProbeThreshold,
   probeFailureReason,
+  selectSpeedCandidates,
   summarizeProbeResults
 } from "./probe-nodes.mjs";
 
@@ -56,4 +57,22 @@ test("probe failures are normalized without exposing endpoints", () => {
   assert.equal(probeFailureReason("context deadline exceeded"), "timeout");
   assert.equal(probeFailureReason("x509 certificate error"), "tls-or-handshake");
   assert.equal(probeFailureReason("connect: connection refused"), "connection-refused");
+});
+
+test("speed samples prefer protocol diversity before retrying one protocol", () => {
+  const candidates = selectSpeedCandidates(
+    [
+      { name: "vless-fast", type: "vless", alive: true, delayMs: 20 },
+      { name: "vless-second", type: "vless", alive: true, delayMs: 30 },
+      { name: "trojan", type: "trojan", alive: true, delayMs: 60 },
+      { name: "ss", type: "ss", alive: true, delayMs: 80 },
+      { name: "dead", type: "vmess", alive: false, delayMs: null }
+    ],
+    4
+  );
+
+  assert.deepEqual(
+    candidates.map((candidate) => candidate.name),
+    ["vless-fast", "trojan", "ss", "vless-second"]
+  );
 });
