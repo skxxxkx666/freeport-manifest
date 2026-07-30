@@ -2,12 +2,12 @@
 interface Props { label?: string; }
 const { label = "—— 沿虚线撕开,以下为登机联 ——" } = Astro.props;
 ---
-<div style="position:relative;padding:26px 20px;background:#FBFAF7">
-  <div aria-hidden="true" style="position:absolute;left:-1px;top:50%;margin-top:-9px;width:10px;height:18px;background:radial-gradient(circle at 0% 50%, #EDEAE3 0 9px, transparent 9px)"></div>
-  <div aria-hidden="true" style="position:absolute;right:-1px;top:50%;margin-top:-9px;width:10px;height:18px;background:radial-gradient(circle at 100% 50%, #EDEAE3 0 9px, transparent 9px)"></div>
+<div style="position:relative;padding:26px 20px;background:var(--color-copy-white)">
+  <div aria-hidden="true" style="position:absolute;left:-1px;top:50%;margin-top:-9px;width:10px;height:18px;background:radial-gradient(circle at 0% 50%, var(--color-desk) 0 9px, transparent 9px)"></div>
+  <div aria-hidden="true" style="position:absolute;right:-1px;top:50%;margin-top:-9px;width:10px;height:18px;background:radial-gradient(circle at 100% 50%, var(--color-desk) 0 9px, transparent 9px)"></div>
   <div style="display:flex;align-items:center;gap:12px">
-    <div style="flex:1;border-top:1px dashed #A9A3B2"></div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#6B6478;white-space:nowrap">{label}</div>
-    <div style="flex:1;border-top:1px dashed #A9A3B2"></div>
+    <div style="flex:1;border-top:1px dashed var(--color-ink-faint)"></div>
+    <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;color:var(--color-ink-soft);white-space:nowrap">{label}</div>
+    <div style="flex:1;border-top:1px dashed var(--color-ink-faint)"></div>
   </div>
 </div>

@@ -9,23 +9,27 @@ const plans = [
   { code: "A", name: "外贸 AI 版", price: "¥53.33 / 月", data: "1.5TB,每月 1 号重置", route: "CN2 / 9929 / CMI + ★原生节点优先", devices: "5 台", who: "重度 AI、外贸多账号高频" }
 ];
 const rowLabel =
-  "font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:#A9A3B2;padding-top:3px;flex:0 0 44px";
+  "font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;color:var(--color-ink-faint);padding-top:3px;flex:0 0 44px";
 ---
-<div style="display:flex;gap:1px;overflow-x:auto;background:#C9C2CE;border:1px solid #C9C2CE">
+{/* 布局(display/gap/overflow/flex-basis)全部交给 theme.css 的 .wb-plans —— 媒体查询
+    压不过内联样式,窄屏拆卡才生效。只有 accentTop 这个每次调用不同的值留在内联。 */}
+<div class="wb-plans">
   {plans.map((p) => (
-    <div style={`background:#FBFAF7;flex:1 1 232px;min-width:232px;padding:15px 15px 17px;display:flex;flex-direction:column;gap:10px${accentTop ? ";border-top:3px solid #1258D8" : ""}`}>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase">CLASS {p.code}</div>
-      <div style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:600;font-size:18px;letter-spacing:.03em;line-height:1.25">{p.name}</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px;color:#1258D8;letter-spacing:-.01em">{p.price}</div>
-      <div style="border-top:1px solid #C9C2CE;padding-top:10px;display:grid;gap:7px">
+    <div style={accentTop ? "border-top:3px solid var(--color-port-blue)" : undefined}>
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase">CLASS {p.code}</div>
+      <div style="font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:.03em;line-height:1.25">{p.name}</div>
+      <div style="font-family:var(--font-mono);font-weight:600;font-size:26px;color:var(--color-port-blue);letter-spacing:-.01em">{p.price}</div>
+      <div style="border-top:1px solid var(--color-rule);padding-top:10px;display:grid;gap:7px">
         <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>流量</span><span>{p.data}</span></div>
         <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>线路</span><span>{p.route}</span></div>
         <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>设备</span><span>{p.devices}</span></div>
-        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>人群</span><span style="color:#6B6478">{p.who}</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;line-height:1.55"><span style={rowLabel}>人群</span><span style="color:var(--color-ink-soft)">{p.who}</span></div>
       </div>
     </div>
   ))}
 </div>
-<div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#A9A3B2">
+{/* 此前用淡墨,实测 2.13:1。这是说明性句子不是字段标签,按 CLAUDE.md 裁决
+    该用次墨 —— 而且首页 index.astro 里同一句话的另一份拷贝本来就是次墨。 */}
+<div style="margin-top:10px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--color-ink-soft)">
   线路覆盖:香港 / 新加坡 / 日本 / 美国
 </div>

@@ -4,13 +4,13 @@ export interface Field { label: string; value: string; wide?: boolean; color?: s
 interface Props { fields: Field[]; basis?: number; }
 const { fields, basis = 152 } = Astro.props;
 ---
-<div style="display:flex;flex-wrap:wrap;border-top:1px solid #C9C2CE;border-left:1px solid #C9C2CE">
+<div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule)">
   {fields.map((f) => (
-    <div style={`flex:${f.wide ? "2 1 320px" : `1 1 ${basis}px`};min-width:0;padding:9px 11px 11px;border-right:1px solid #C9C2CE;border-bottom:1px solid #C9C2CE`}>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:5px">
+    <div style={`flex:${f.wide ? "2 1 320px" : `1 1 ${basis}px`};min-width:0;padding:9px 11px 11px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)`}>
+      <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:5px">
         {f.label}
       </div>
-      <div style={`font-family:'IBM Plex Mono',monospace;font-size:13px;color:${f.color ?? "#2A2333"}`}>{f.value}</div>
+      <div style={`font-family:var(--font-mono);font-size:13px;color:${f.color ?? "var(--color-ink)"}`}>{f.value}</div>
     </div>
   ))}
 </div>

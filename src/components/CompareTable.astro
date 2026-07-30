@@ -1,4 +1,8 @@
 ---
+// 结构与配色走 theme.css 的 .wb-compare —— 窄屏拆卡需要媒体查询,内联样式装不下。
+// data-th 在拆卡后补回列名,否则读者看不出哪一格是免费联、哪一格是登机联。
+const FREE = "FREE / 免费联(本站)";
+const PAID = "BOARDING / 登机联(自由港)";
 const rows: [string, string, string][] = [
   ["节点来源", "公开聚合,不可控", "自建 + BGP 专线优化"],
   ["线路类型", "混杂,多为公共中转", "CN2 / 9929 / CMI,高档含原生节点"],
@@ -10,24 +14,22 @@ const rows: [string, string, string][] = [
   ["Telegram", "常断连", "专门优化"],
   ["价格", "免费", "¥9.90 起"]
 ];
-const th =
-  "text-align:left;padding:10px 12px;border-bottom:1px solid #C9C2CE;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500";
 ---
-<div style="overflow-x:auto;border:1px solid #C9C2CE">
-  <table style="width:100%;min-width:540px;font-size:14px;border-collapse:collapse">
+<div class="wb-compare">
+  <table>
     <thead>
-      <tr style="background:#F1EFE9">
-        <th style={th + ";color:#A9A3B2;width:26%"}>ITEM</th>
-        <th style={th + ";color:#A9A3B2;border-left:1px solid #C9C2CE"}>FREE / 免费联(本站)</th>
-        <th style={th + ";color:#1258D8;border-left:1px solid #C9C2CE"}>BOARDING / 登机联(自由港)</th>
+      <tr>
+        <th style="width:26%">ITEM</th>
+        <th>{FREE}</th>
+        <th>{PAID}</th>
       </tr>
     </thead>
     <tbody>
-      {rows.map(([item, free, paid], i) => (
-        <tr style={`background:${i % 2 ? "rgba(222,231,241,.3)" : "transparent"}`}>
-          <td style="padding:9px 12px;border-bottom:1px solid #E2DEE5;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.04em;color:#6B6478">{item}</td>
-          <td style="padding:9px 12px;border-bottom:1px solid #E2DEE5;border-left:1px solid #C9C2CE">{free}</td>
-          <td style="padding:9px 12px;border-bottom:1px solid #E2DEE5;border-left:1px solid #C9C2CE;color:#0B3A93">{paid}</td>
+      {rows.map(([item, free, paid]) => (
+        <tr>
+          <td>{item}</td>
+          <td data-th={FREE}>{free}</td>
+          <td data-th={PAID}>{paid}</td>
         </tr>
       ))}
     </tbody>

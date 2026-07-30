@@ -2,7 +2,7 @@
 import Shell from "../components/Shell.astro";
 import { url } from "../lib/waybill";
 
-const btn = "font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
+const btn = "font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
 ---
 <Shell
   title="页面不存在"
@@ -10,20 +10,22 @@ const btn = "font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing
   noindex={true}
 >
   <div>
-    <div data-rise style="padding:52px 20px 60px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
-      <div aria-hidden="true" style="mix-blend-mode:multiply;transform:rotate(-7deg)">
-        <div style="border:4px double #B8342C;padding:14px 32px 12px">
-          <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:clamp(28px,5cqw,44px);letter-spacing:.12em;color:#B8342C;line-height:1.05">无此运单</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1.5cqw,14px);letter-spacing:.3em;color:#B8342C">NOT FOUND</div>
+    <div style="padding:52px 20px 60px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+      {/* 原本整块 aria-hidden —— 读屏用户完全听不到「无此运单」,
+          而这正是本页唯一要传达的信息。图章是视觉形式,不是装饰。 */}
+      <div style="mix-blend-mode:multiply;transform:rotate(-7deg)">
+        <div style="border:4px double var(--color-stamp-red);padding:14px 32px 12px">
+          <h1 style="margin:0;font-family:var(--font-mono);font-weight:600;font-size:clamp(28px,5cqw,44px);letter-spacing:.12em;color:var(--color-stamp-red);line-height:1.05">无此运单</h1>
+          <div style="font-family:var(--font-mono);font-size:clamp(11px,1.5cqw,14px);letter-spacing:.3em;color:var(--color-stamp-red)">NOT FOUND</div>
         </div>
       </div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase">ERROR 404 / 查无此号</div>
-      <p style="margin:0;max-width:30em;font-size:15px;line-height:1.75;color:#6B6478;text-wrap:pretty">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase">ERROR 404 / 查无此号</div>
+      <p style="margin:0;max-width:30em;font-size:15px;line-height:1.75;color:var(--color-ink-soft);text-wrap:pretty">
         这个地址没有对应的运单。可能是链接抄漏了一位,也可能这份存根从未签发。
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-        <a href={url("today")} style={`border:1px solid #2A2333;background:#2A2333;color:#FBFAF7;${btn}`}>领取今日订阅 /TODAY</a>
-        <a href={url("archive")} style={`border:1px solid #2A2333;background:transparent;color:#2A2333;${btn}`}>往期存根 /ARCHIVE</a>
+        <a href={url("today")} class="wb-btn" style={`border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);${btn}`}>领取今日订阅 /TODAY</a>
+        <a href={url("archive")} class="wb-btn-ghost" style={`border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);${btn}`}>往期存根 /ARCHIVE</a>
       </div>
     </div>
   </div>

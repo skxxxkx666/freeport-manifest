@@ -20,10 +20,24 @@
   /* 图章 */
   --color-stamp:       #7B3F9D;  /* 章紫 */
   --color-stamp-red:   #B8342C;  /* 章红,仅「已失效」「无此运单」 */
+  --color-ink-press:   #1C1622;  /* 主墨压深一档 —— 只用于主按钮 hover,DESIGN.md 组件规格里早已写明 */
 
   /* 自由港官方蓝 —— 只在升舱区出现 */
   --color-port-blue:   #1258D8;
   --color-port-blue-d: #0B3A93;
+  --color-port-blue-f: #5A7FC4;  /* 官方蓝淡 —— 只在已是官方蓝的元素内部当次级文字 */
+
+  /* 以下 10 个在设计文档里一直有名字,却从未写进 :root,全站靠字面量硬编码。
+     命名沿用本文件既有风格(§4 口径),与 DESIGN.md 前置元数据的键名对照见该文档。 */
+  --color-desk:        #EDEAE3;  /* 柜台米 —— 单据之外的桌面 */
+  --color-band:        #F1EFE9;  /* 账带 —— 页脚、表头、功能带 */
+  --color-notice:      #F6F4EF;  /* 通知底 */
+  --color-veil:        #F3F1EC;  /* 放行帘 —— 3 秒遮罩 */
+  --color-rule-soft:   #E2DEE5;  /* 软格线 —— 表格行内分隔,比 --color-rule 更轻 */
+  --color-misprint:    #2C6E7A;  /* 套印墨绿 —— 只做 opacity .18 的错位影层,不作实色 */
+  --color-void-bg:     #F3E4E3;  /* 作废红衬底 */
+  --color-copy-blue-d: #D3DEEC;  /* 蓝联深 —— 存根索引的月份分组带 */
+  --color-disabled:    #E6E3DE;  /* 失效底 —— 存根页已失效按钮 */
 
   /* 字族 */
   --font-cn: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
@@ -53,7 +67,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 @font-face {
   font-family: "Smiley Sans";
   src: url("/fonts/smiley-sans-subset.ttf") format("truetype");
-  font-weight: 400;
+  /* 得意黑只有一个字重。声明 400 会让浏览器对 CSS 里的 600/700 合成假粗体 ——
+     Chromium 是原地加粗(字宽不变),笔画撑进固定字身框,「港」「清」「单」这类
+     密集字的字腔直接糊死。声明覆盖全范围,浏览器就用真字形,不再合成。
+     后果:得意黑的 600 与 700 在视觉上完全相同,层级由字号与大小写承担,不由字重。 */
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -68,12 +86,246 @@ table { border-collapse: collapse; border-spacing: 0; }
   0%, 100% { transform: rotate(-5deg) scale(.96); opacity: .55; }
   50%      { transform: rotate(-5deg) scale(1.03); opacity: 1; }
 }
-/* §11 滚动进入 —— 名字必须与 Shell.astro 里的一致 */
-@keyframes om-rise {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
+/* 交互反馈 —— 鼠标移上去的状态。
+   实测改前:全站 105 个可交互元素中 75 个 hover 毫无变化,只有页脚 6 个链接有反应。
+   成因不是设计决定,是技术必然:本项目约定「样式全内联」,而 :hover 是伪类,
+   只能写在样式表里;同时内联声明压过任何选择器,所以 hover 值必须用 !important
+   夺回来。这是那条约定的代价,不是随意使用 !important。
+   以下每一条的目标值都来自 DESIGN.md 的 Components 章节 —— 规格一直有,只是没实现。
+   只用颜色,无位移、无阴影、无渐变(那三样是 DESIGN.md 明令禁止的)。 */
+a, button, summary {
+  transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out;
+}
+
+/* 主按钮:底色压深一档 */
+.wb-btn:hover { background: var(--color-ink-press) !important; border-color: var(--color-ink-press) !important; }
+/* 幽灵按钮:填成实心,字变白 —— 「油墨即将转印」 */
+.wb-btn-ghost:hover { background: var(--color-ink) !important; color: var(--color-copy-white) !important; }
+/* 官方蓝按钮,只在升舱路径上 */
+.wb-btn-port:hover { background: var(--color-port-blue-d) !important; border-color: var(--color-port-blue-d) !important; }
+.wb-btn-port-ghost:hover { background: var(--color-port-blue) !important; color: var(--color-copy-white) !important; }
+/* 文字链接:章紫 */
+.wb-link:hover, .wb-nav > a:hover { color: var(--color-stamp) !important; }
+/* 可点的整行 / 卡:底色浅一档 */
+.wb-row:hover { background: var(--color-band) !important; }
+.wb-faq > summary:hover { background: var(--color-band); }
+/* 换联标签与筛选片 */
+.wb-tab:hover { background: var(--color-band) !important; }
+/* 折扣码图章:双线框内填一层通知底,multiply 之下读作「印泥沾上了」 */
+.wb-stamp-btn > div { transition: background-color 120ms ease-out; }
+.wb-stamp-btn:hover > div { background: var(--color-notice); }
+
+/* 四档舱位 —— 窄屏纵向堆叠。
+   实测 375px 下横向溢出 600px(scrollWidth 931 / clientWidth 331),可见的只有
+   CLASS E 一张半,三档月付完全在屏外,且无滚动条无指示。本站成功定义是升舱转化,
+   等于移动端 75% 的购买决策面隐藏且不可发现,价格锚还被钉在最便宜的一次性包上。
+   对照表已因同一失败模式在 ≤640px 拆卡,这里复用同一判断。 */
+.wb-plans {
+  display: flex; gap: 1px; overflow-x: auto;
+  background: var(--color-rule); border: 1px solid var(--color-rule);
+}
+.wb-plans > div {
+  background: var(--color-copy-white); flex: 1 1 232px; min-width: 232px;
+  padding: 15px 15px 17px; display: flex; flex-direction: column; gap: 10px;
+}
+@media (max-width: 640px) {
+  .wb-plans { display: block; overflow-x: visible; }
+  .wb-plans > div { min-width: 0; border-bottom: 1px solid var(--color-rule); }
+  .wb-plans > div:last-child { border-bottom: 0; }
+}
+
+/* FAQ —— 原生 details/summary。视觉与原 React 手风琴一致,但零 JS 可用。
+   序号沿用 numeral 角色(26px 章紫),与首页 PROCEDURE 的 01/02/03 同装置同值。 */
+.wb-faq { border-bottom: 1px solid var(--color-rule); }
+.wb-faq:last-child { border-bottom: 0; }
+.wb-faq > summary {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 14px 18px; cursor: pointer; list-style: none;
+}
+.wb-faq > summary::-webkit-details-marker { display: none; }
+.wb-faq[open] > summary { background: var(--color-band); }
+.wb-faq > summary:focus-visible { outline: 2px solid var(--color-stamp); outline-offset: -2px; }
+.wb-faq-n {
+  flex: 0 0 auto; font-family: var(--font-mono); font-weight: 600;
+  font-size: 26px; line-height: 1; color: var(--color-stamp);
+}
+.wb-faq-q {
+  flex: 1 1 auto; font-family: var(--font-display); font-weight: 600;
+  font-size: 16px; letter-spacing: .02em; line-height: 1.4;
+}
+/* 加减号用 CSS 生成,避免 JS 维护状态 */
+.wb-faq-mark {
+  flex: 0 0 auto; font-family: var(--font-mono); font-size: 15px;
+  line-height: 1; color: var(--color-stamp);
+}
+.wb-faq-mark::before { content: "+"; }
+.wb-faq[open] .wb-faq-mark::before { content: "−"; }
+.wb-faq-a {
+  padding: 0 18px 16px 46px; background: var(--color-notice);
+  border-top: 1px solid var(--color-rule);
+}
+.wb-faq-a > p {
+  margin: 14px 0 0; max-width: 44em; font-size: 14px;
+  line-height: 1.75; color: var(--color-ink); text-wrap: pretty;
+}
+
+/* 展开过渡 —— 用 grid-template-rows 0fr→1fr,不直接动 height。
+   animate.md 明令避免动 height/width/top/left 这类驱动布局的属性。
+   曲线用 cubic-bezier(.16,1,.3,1):自然减速的「确定抵达」,不是回弹。
+   (回弹只属于图章 —— 见 stamp-slam) */
+.wb-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms cubic-bezier(.16, 1, .3, 1);
+}
+.wb-reveal > * {
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 240ms;
+}
+.wb-reveal[data-open="true"] { grid-template-rows: 1fr; }
+.wb-reveal[data-open="true"] > * { visibility: visible; transition-delay: 0s; }
+
+/* 顶栏 —— 媒体查询写不进内联样式,与 @keyframes 同理在此收口。
+   只有结构进这里,当前项下划线颜色仍由 Shell.astro 内联计算。
+
+   窄屏(≤640px):品牌与导航拆成上下两行,导航压成单行不换行,路径码隐藏。
+   实测(Chromium/生产构建):改前 375px 下带路径码约 4 行 / 顶栏 155px;
+   改后六项总宽 300px,375px 单行容纳且不触发横向滚动,顶栏降到 89px。
+   overflow-x 是 320px 与大字号设置下的兜底 —— 320px 下确实会滚 18px,
+   末项裁切正好提示可滑动。复现:npm run measure:mobile */
+.wb-head {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--color-copy-white);
+  border-bottom: 1px solid var(--color-rule);
+}
+.wb-head-in {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 18px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 14px;
+}
+.wb-brand { display: flex; align-items: center; gap: 10px; padding: 11px 0; }
+.wb-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.wb-nav > a { border-bottom: 2px solid transparent; padding: 10px 11px; }
+
+/* 桌面与单据 —— 宽屏上多出来的空间归单据(用户裁决:纸变宽)。
+   窄屏单据满幅(桌面不可见);≥768px 起两侧留出桌面,单据流体增长到 1400px 封顶。
+   1920 下:单据 1400 / 两侧各 260(改前 1120 / 各 400)。
+   cqw 全部相对 .wb-sheet,所以单据变宽,展示字阶随之长大 —— 两者必须一起改,
+   只放宽容器会得到一张更大更空的纸。 */
+.wb-desk { display: flex; justify-content: center; padding: 0 0 60px; }
+.wb-sheet {
+  width: 100%;
+  max-width: 1400px;
+  background: var(--color-copy-white);
+  border-left: 1px solid var(--color-rule);
+  border-right: 1px solid var(--color-rule);
+  container-type: inline-size;
+}
+@media (min-width: 768px) {
+  .wb-desk { padding: 0 clamp(24px, 4vw, 200px) 60px; }
+}
+
+/* Hero 两栏 —— 改前用 justify-content:space-between + flex:0 0 auto,
+   剩余空间全变成正文与图章之间的空洞(1440 下约 400px)。
+   栅格让图章列有实际宽度,空间被分配而不是被剩下。 */
+.wb-hero { display: grid; gap: 22px; align-items: start; }
+@media (min-width: 768px) {
+  /* 右栏用 auto:图章只占它需要的宽度,剩下全归左栏 —— 用 fr 给右栏固定份额会
+     在宽屏上把多余空间留在图章两侧,洞只是换了个地方。图章靠右贴边,像真的盖在角上。 */
+  .wb-hero { grid-template-columns: minmax(0, 1fr) minmax(180px, auto); gap: 32px; }
+  .wb-hero > :last-child { justify-self: end; }
+}
+
+/* 两联对照表 —— 窄屏按行拆卡。
+   桌面保持真表格(min-width 540px);≤640px 下 540px 落进 331px 容器要横滚 209px,
+   而这三列装的是真句子,压缩只会换行成一团,所以改版式而不是改宽度。
+   thead 视觉隐藏但保留给读屏,单元格标题由 data-th 补回。 */
+.wb-compare { overflow-x: auto; border: 1px solid var(--color-rule); }
+.wb-compare table { width: 100%; min-width: 540px; font-size: 14px; border-collapse: collapse; }
+.wb-compare th {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 400; color: var(--color-ink-faint);
+}
+.wb-compare thead tr { background: var(--color-band); }
+.wb-compare th + th, .wb-compare td + td { border-left: 1px solid var(--color-rule); }
+.wb-compare th:last-child { color: var(--color-port-blue); }
+.wb-compare td { padding: 9px 12px; border-bottom: 1px solid var(--color-rule-soft); }
+.wb-compare td:first-child {
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em; color: var(--color-ink-soft);
+}
+.wb-compare td:last-child { color: var(--color-port-blue-d); }
+.wb-compare tbody tr:nth-child(even) { background: rgba(222, 231, 241, .3); }
+
+@media (max-width: 640px) {
+  .wb-compare { overflow-x: visible; }
+  .wb-compare table { min-width: 0; display: block; }
+  .wb-compare thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .wb-compare tbody { display: block; }
+  .wb-compare tbody tr { display: block; border-bottom: 1px solid var(--color-rule); }
+  .wb-compare tbody tr:last-child { border-bottom: 0; }
+  .wb-compare td { display: block; border: 0; border-left: 0 !important; padding: 9px 13px; }
+  /* 项目名做卡头 */
+  .wb-compare td:first-child {
+    background: var(--color-band); border-bottom: 1px solid var(--color-rule);
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-ink-faint);
+  }
+  /* 值前补回列名,不然拆卡后读者不知道哪列是哪列 */
+  .wb-compare td:not(:first-child)::before {
+    content: attr(data-th); display: block; margin-bottom: 4px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--color-ink-faint);
+  }
+  .wb-compare td:last-child::before { color: var(--color-port-blue); }
+  .wb-compare td:nth-child(2) { border-bottom: 1px dashed var(--color-rule) !important; }
+}
+
+@media (max-width: 640px) {
+  .wb-head-in { flex-direction: column; align-items: stretch; gap: 0; padding: 0 14px; }
+  .wb-brand { padding: 9px 0; }
+  .wb-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    border-top: 1px solid var(--color-rule);
+    margin: 0 -14px;   /* 出血到屏幕两侧,滑动时边缘不留悬空白边 */
+    padding: 0 14px;
+  }
+  .wb-nav::-webkit-scrollbar { display: none; }
+  .wb-nav > a {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    min-height: 44px;  /* 触摸目标下限 */
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+  .wb-nav-code { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  /* 延迟也要归零 —— .wb-reveal 收起时靠 240ms 的 transition-delay 推迟 visibility,
+     只压缩 duration 会让内容在减弱动效下反而多停留 240ms 才消失。 */
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0s !important;
+  }
 }

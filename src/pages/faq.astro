@@ -1,6 +1,6 @@
 ---
 import Shell from "../components/Shell.astro";
-import FaqAccordion from "../components/islands/FaqAccordion.tsx";
+import FaqList from "../components/FaqList.astro";
 import { FAQ } from "../lib/faq";
 ---
 <Shell
@@ -19,12 +19,16 @@ import { FAQ } from "../lib/faq";
   }}
 >
   <div>
-    <div data-rise style="padding:26px 20px 20px;border-bottom:1px solid #C9C2CE">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:6px">FAQ / 常见问题</div>
-      <h1 style="margin:0;font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:clamp(26px,4.4cqw,36px);letter-spacing:.04em">常见问题</h1>
+    <div style="padding:26px 20px 20px;border-bottom:1px solid var(--color-rule)">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:6px">FAQ / 常见问题</div>
+      {/* 套印错位:此前只有首页与升舱页的 h1 有,这两页悄悄退出了签名装置 */}
+      <div style="position:relative">
+        <div aria-hidden="true" style="position:absolute;left:0;top:0;transform:translate(1.5px,1.5px);opacity:.18;color:var(--color-misprint);pointer-events:none;font-family:var(--font-display);font-weight:700;font-size:clamp(26px,2.8cqw,38px);letter-spacing:.04em">常见问题</div>
+        <h1 style="position:relative;margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(26px,2.8cqw,38px);letter-spacing:.04em">常见问题</h1>
+      </div>
     </div>
-    <div data-rise>
-      <FaqAccordion client:visible items={FAQ} />
+    <div>
+      <FaqList items={FAQ} />
     </div>
   </div>
 </Shell>

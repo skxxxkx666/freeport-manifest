@@ -36,6 +36,7 @@ scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
 scripts/probe-nodes.mjs         用 Mihomo 做发布前连通性、延迟与小流量测速
 scripts/check-seo.mjs           构建后逐页验证 SEO 元数据与 sitemap
+scripts/measure-mobile.mjs      Playwright 实测窄屏布局(顶栏高/换行数/溢出/sticky)
 scripts/indexnow.mjs            部署后通知 IndexNow 抓取核心页面
 scripts/cloudflare-dns.mjs      Cloudflare DNS 幂等协调器
 scripts/cloudflare-zone.mjs     Cloudflare 区域安全基线 plan/apply 管理器
@@ -83,11 +84,43 @@ public/fonts/                   得意黑子集(≤ 50KB)
    本轮最低延迟 3 节点的 100 KB 样本全部下载成功,约 0.505–0.689 Mbps;
    较长审计中 8 个存活节点的 500 KB 样本也全部成功。该数据只证明测试时刻可用,
    不是带宽承诺,也说明免费上游存在明显分钟级波动。
-5. **部分验证 — 深链与 375 宽度。**
-   Edge 375×812 实测:页面整体 `scrollWidth=375`,sticky 导航滚动 900px 后仍
-   `top=0`;明细表容器 `331px`、内容 `420px`,可横向滚到 `89px`。
-   导航会换成约 4 行且总高 `155px`,功能正常但占屏较高;截图见
+5. **已解决 — 窄屏布局。部分验证 — 深链。**
+   顶栏在 ≤640px 拆成品牌行 + 导航行,导航单行不换行、路径码隐藏、每项
+   `min-height:44px`;明细表 `min-width` 从与数据无关的 `420px` 收到 `260px`
+   (breakdown 实际最长值 `OTHER` / `trojan`,自然内容宽约 210px)。
+
+   `node scripts/measure-mobile.mjs` 对生产构建的 Chromium 实测(2026-07-30):
+
+   | 视口 | 顶栏高 | 导航行数 | 触摸目标 | 页面横向溢出 | 明细表溢出 | 滚动 900px 后 sticky |
+   |---|---|---|---|---|---|---|
+   | 375×812 | `89px` | 1 | `44px` | 无 | 无(331/331) | `top=0` |
+   | 320×568 | `89px` | 1 | `44px` | 无 | 无(276/276) | `top=0` |
+   | 1280×900 | `48px` | 1 | `36px` | 无 | 无 | `top=0` |
+
+   顶栏由 `155px` 降到 `89px`。320px 下导航仍会横向滚 18px,这是刻意保留的兜底,
+   末项被裁切正好提示可滑动。截图见
    [`output/playwright/today-375.png`](output/playwright/today-375.png)。
+
+   宽屏实测(2026-07-31,单据改流体宽度 + Hero 栅格后):
+
+   | 视口 | 单据宽 | 占屏 | 单侧桌面 | h1 | 运单号 | 对照表溢出 |
+   |---|---|---|---|---|---|---|
+   | 1280 | `1178px` | 92% | 51px | 33px | 49px | 无 |
+   | 1440 | `1325px` | 92% | 58px | 37px | 56px | 无 |
+   | 1920 | `1400px` | 73% | 260px | 38px | 56px | 无 |
+
+   改前恒为 `1120px`:1920 下只占 58%、两侧各 400px,且 1280 以上字号完全不再变化。
+   Hero 改成 `minmax(0,1fr) minmax(180px,auto)` 栅格、图章靠右贴边,正文与图章之间的
+   空洞由约 400px 降到 80px。两联对照表在 `≤640px` 改为按行拆卡,375 下由横滚 209px
+   变为零溢出。明细表限宽 `560px`,不再把 2–6 字符的短值拉满 1360px。
+
+   **字号只小幅上调,不随容器等比放大。** 中途曾把运单号推到 72px、h1 推到 48px,
+   结果是把稀疏的版面放大而非填满,反而更难看 —— 已回退。宽度多出来时正确的用法是
+   装更多信息:首页概况栏由 4 格补到 6 格(新增实测存活率与校验位)并入运单抬头,
+   不再单占一条全宽横带。判据写在 DESIGN.md 的 The Dense Sheet Rule。
+   仍需 iOS Safari / Android Chrome 真机复核 —— Chromium headless 不覆盖
+   Safari 的 sticky 与 `env(safe-area-inset-*)` 行为。
+
    本机 `clash://` 已注册到 Clash Verge,生成的 URL 参数编码正确;
    `clashmeta://`、`sub://`、`shadowrocket://` 未注册,仍需装有对应客户端的
    Android/iOS 真机完成实际唤起与导入验证。
@@ -110,8 +143,11 @@ public/fonts/                   得意黑子集(≤ 50KB)
 - DNSSEC 当前保持关闭。`manifest.dpdns.org` 是子区，而父区 `dpdns.org` 目前未发布
   DNSSEC 委派；建立完整信任链需要父区运营方先启用 DNSSEC，并写入 Cloudflare
   为子区生成的 DS。仅用本区域 Token 单边开启不能完成端到端 DNSSEC。
-- 375×812 已在桌面 Edge 仿真通过,但 sticky 导航仍需 iOS Safari / Android Chrome
-  真机验证。
+- 375×812 / 320×568 已用 Playwright + Chromium 对生产构建实测通过(数据见验证状态 §5),
+  但 sticky 顶栏与安全区仍需 iOS Safari / Android Chrome 真机复核。
+- Hero 栅格、单据流体宽度与对照表拆卡是 2026-07-31 的改动,仅在 Chromium 实测。
+  `word-break: auto-phrase`(步骤卡中文断词)目前只有 Chromium 系支持,Safari 与
+  Firefox 会静默忽略并退回默认断行 —— 属渐进增强,不影响可读性。
 - `clash://` 已在 Windows Clash Verge 验证;`clashmeta://`、`sub://`、
   `shadowrocket://` 仍需安装对应客户端的手机真机验证。
 - Clash 订阅已在官方 Mihomo 1.19.29 完成真实加载、连通性、延迟和下载采样;

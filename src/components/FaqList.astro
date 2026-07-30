@@ -1,0 +1,24 @@
+---
+// 原生 details/summary 取代 React 手风琴岛。
+// 原实现关掉 JS 后七条答案一条都读不到(innerText 从完整篇幅塌到 368 字符),
+// 而 DESIGN.md 的 The Still Paper Rule 写着判据「禁用 JavaScript 后,整页内容必须全部可见」。
+// 它同时让 Chrome/Edge 的 Ctrl+F 找不到答案 —— FAQ 是带着具体疑问搜进来的落点,
+// 扫读与页内查找正是它最该支持的两种行为。
+// 换成原生元素后:零 JS 可展开、Ctrl+F 自动展开命中项、键盘语义与 aria-expanded 免费。
+interface Props { items: [string, string][]; }
+const { items } = Astro.props;
+---
+<div>
+  {items.map(([q, a], i) => (
+    <details class="wb-faq">
+      <summary>
+        <span class="wb-faq-n">{String(i + 1).padStart(2, "0")}</span>
+        <span class="wb-faq-q">{q}</span>
+        <span class="wb-faq-mark" aria-hidden="true"></span>
+      </summary>
+      <div class="wb-faq-a">
+        <p>{a}</p>
+      </div>
+    </details>
+  ))}
+</div>

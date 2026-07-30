@@ -15,37 +15,51 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const { data: d } = Astro.props as Props;
 const no = waybillNo(d.date, d.serial);
-const urlBox = "border:1px solid #C9C2CE;background:#FBFAF7;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#6B6478;overflow-wrap:anywhere";
-const disabled = "border:1px solid #C9C2CE;background:#E6E3DE;color:#A9A3B2;font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:12px 20px;cursor:not-allowed";
+
+// 状态模型此前只有「存在/不存在」两态,而数据有三态。expired 标志位一直没被读取,
+// 结果当天的运单在这一页被无条件盖上失效红章,meta 还对搜索引擎宣告自己是死链。
+// 作废红在本系统里被训练成「这张单子不能用了」—— 训练得越成功,误用伤害越大。
+const expired = d.expired !== false;
+
+const urlBox = "border:1px solid var(--color-rule);background:var(--color-copy-white);padding:11px 13px;font-family:var(--font-mono);font-size:12.5px;color:var(--color-ink-soft);overflow-wrap:anywhere";
+const disabled = "border:1px solid var(--color-rule);background:var(--color-disabled);color:var(--color-ink-faint);font-family:var(--font-mono);font-size:12.5px;padding:12px 20px;cursor:not-allowed";
 ---
 <Shell
-  title={`免费订阅历史存根 ${d.date}`}
-  description={`${d.date} 的免费 Clash 与 V2Ray 订阅历史存根，包含 ${d.nodeCount} 个节点记录；链接已失效，请使用今日订阅。`}
+  title={expired ? `免费订阅历史存根 ${d.date}` : `今日免费订阅存根 ${d.date}`}
+  description={expired
+    ? `${d.date} 的免费 Clash 与 V2Ray 订阅历史存根，包含 ${d.nodeCount} 个节点记录；链接已失效，请使用今日订阅。`
+    : `${d.date} 的免费 Clash 与 V2Ray 订阅存根，包含 ${d.nodeCount} 个实测节点；这是当前生效的运单，可前往今日舱单取用。`}
   noindex={true}
 >
   <div>
-    <div data-rise style="display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 20px;background:#F3E4E3;border-bottom:1px solid #C9C2CE;border-left:3px solid #B8342C">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;letter-spacing:.02em;color:#2A2333">
-        此运单已于签发日次日失效,仅作存根查阅。订阅链接可能已无法使用。
+    <div style={`display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--color-rule);background:${expired ? "var(--color-void-bg)" : "var(--color-notice)"};border-left:3px solid ${expired ? "var(--color-stamp-red)" : "var(--color-stamp)"}`}>
+      <div style="font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink)">
+        {expired
+          ? "此运单已于签发日次日失效,仅作存根查阅。订阅链接可能已无法使用。"
+          : "此运单为当前生效的运单,尚未失效。前往今日舱单即可直接取用。"}
       </div>
-      <a href={url("today")} style="flex:0 0 auto;border:1px solid #2A2333;background:#2A2333;color:#FBFAF7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;padding:10px 17px;text-transform:uppercase">领取今日 /TODAY</a>
+      <a href={url("today")} class="wb-btn" style="flex:0 0 auto;border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:10px 17px;text-transform:uppercase">领取今日 /TODAY</a>
     </div>
 
-    <div data-rise style="position:relative;padding:26px 20px 28px">
-      <div aria-hidden="true" style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-14deg);z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.82">
-        <div style="border:4px double #B8342C;padding:12px 30px 10px">
-          <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:clamp(28px,5cqw,44px);letter-spacing:.12em;color:#B8342C;line-height:1.05">已失效</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1.5cqw,14px);letter-spacing:.34em;color:#B8342C;text-align:center">EXPIRED</div>
+    <div style="position:relative;padding:26px 20px 28px">
+      {expired && (
+        <div aria-hidden="true" style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-14deg);z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.82">
+          <div style="border:4px double var(--color-stamp-red);padding:12px 30px 10px">
+            <div style="font-family:var(--font-mono);font-weight:600;font-size:clamp(28px,5cqw,44px);letter-spacing:.12em;color:var(--color-stamp-red);line-height:1.05">已失效</div>
+            <div style="font-family:var(--font-mono);font-size:clamp(11px,1.5cqw,14px);letter-spacing:.34em;color:var(--color-stamp-red);text-align:center">EXPIRED</div>
+          </div>
         </div>
-      </div>
+      )}
 
-      <WaybillHead no={no} label="WAYBILL NO. / 运单号(存根)" muted={true} />
+      <WaybillHead no={no} label={expired ? "WAYBILL NO. / 运单号(存根)" : "WAYBILL NO. / 运单号(当前生效)"} muted={expired} />
 
       <div style="margin-bottom:16px">
         <FieldGrid
           fields={[
             { label: "ISSUED / 签发时间", value: `${d.date} ${d.issuedAt.slice(11, 16)}` },
-            { label: "STATUS / 状态", value: "已失效 EXPIRED", color: "#B8342C" },
+            expired
+              ? { label: "STATUS / 状态", value: "已失效 EXPIRED", color: "var(--color-stamp-red)" }
+              : { label: "STATUS / 状态", value: "当前生效 CURRENT", color: "var(--color-stamp)" },
             { label: "PIECES / 件数", value: `${d.nodeCount} PCS` },
             { label: "ORIGIN / 始发", value: d.regions.join(" ") },
             { label: "COMMODITY / 品类", value: d.protocols.join(" ") },
@@ -54,8 +68,8 @@ const disabled = "border:1px solid #C9C2CE;background:#E6E3DE;color:#A9A3B2;font
         />
       </div>
 
-      <div style="border:1px solid #C9C2CE;background:#F6F4EF;padding:14px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:8px">
+      <div style="border:1px solid var(--color-rule);background:var(--color-notice);padding:14px">
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:8px">
           SUBSCRIPTION URL / 订阅链接(存根保留)
         </div>
         <div style="display:grid;gap:8px">
@@ -63,16 +77,24 @@ const disabled = "border:1px solid #C9C2CE;background:#E6E3DE;color:#A9A3B2;font
           <div style={urlBox}>{d.v2ray}</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-          <span aria-disabled="true" style={disabled + ";letter-spacing:.1em;text-transform:uppercase"}>复制订阅 COPY</span>
-          <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>一键导入</span>
-          <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>二维码 QR</span>
+          {expired ? (
+            <>
+              <span aria-disabled="true" style={disabled + ";letter-spacing:.1em;text-transform:uppercase"}>复制订阅 COPY</span>
+              <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>一键导入</span>
+              <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>二维码 QR</span>
+            </>
+          ) : (
+            <a href={url("today")} class="wb-btn" style="border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:12px 20px;text-transform:uppercase">前往今日舱单取用 /TODAY</a>
+          )}
         </div>
-        <div style="margin-top:12px;border-top:1px solid #C9C2CE;padding-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#6B6478">
-          存根不提供取用功能。链接文本保留以便查阅历史记录。
+        <div style="margin-top:12px;border-top:1px solid var(--color-rule);padding-top:10px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;color:var(--color-ink-soft)">
+          {expired
+            ? "存根不提供取用功能。链接文本保留以便查阅历史记录。"
+            : "存根页只作记录查阅。取用、一键导入与二维码都在今日舱单页。"}
         </div>
       </div>
 
-      <a href={url("archive")} style="display:inline-block;margin-top:16px;border:1px solid #2A2333;background:transparent;color:#2A2333;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;padding:11px 19px;text-transform:uppercase">← 返回存根索引</a>
+      <a href={url("archive")} class="wb-btn-ghost" style="display:inline-block;margin-top:16px;border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:11px 19px;text-transform:uppercase">← 返回存根索引</a>
     </div>
   </div>
 </Shell>

@@ -4,7 +4,7 @@ import Stamp from "../components/Stamp.astro";
 import TearLine from "../components/TearLine.astro";
 import CompareTable from "../components/CompareTable.astro";
 import PlanCards from "../components/PlanCards.astro";
-import { latestSub } from "../lib/subs";
+import { latestSub, checkCode } from "../lib/subs";
 import { FAQ } from "../lib/faq";
 import { url, waybillNo } from "../lib/waybill";
 
@@ -14,20 +14,25 @@ const d = sub.data;
 const no = waybillNo(d.date, d.serial);
 
 const wbType =
-  "font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:clamp(30px,7.4cqw,60px);letter-spacing:-.02em;line-height:1;white-space:nowrap";
-const label = "font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase";
-const cellLabel = "font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:#A9A3B2;text-transform:uppercase;margin-bottom:8px";
-const cell = "flex:1 1 150px;min-width:0;padding:12px 13px 14px;border-right:1px solid #C9C2CE;border-bottom:1px solid #C9C2CE";
-const stepCell = "flex:1 1 210px;min-width:0;padding:14px 14px 12px;display:flex;flex-direction:column;gap:8px;min-height:132px;border-right:1px solid #C9C2CE;border-bottom:1px solid #C9C2CE";
-const stepLink = "margin-top:auto;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:#2A2333;border-top:1px solid #C9C2CE;padding-top:9px";
-const btnPrimary = "border:1px solid #2A2333;background:#2A2333;color:#FBFAF7;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
-const btnGhost = "border:1px solid #2A2333;background:transparent;color:#2A2333;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
-const h2 = "margin:0 0 14px;font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:23px;letter-spacing:.04em";
+  "font-family:var(--font-mono);font-weight:600;font-size:clamp(28px,4.2cqw,56px);letter-spacing:-.02em;line-height:1;white-space:nowrap";
+const label = "font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase";
+const cellLabel = "font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:8px";
+const cell = "flex:1 1 150px;min-width:0;padding:12px 13px 14px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)";
+const stepCell = "flex:1 1 210px;min-width:0;padding:14px 14px 12px;display:flex;flex-direction:column;gap:7px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)";
+const stepLink = "margin-top:auto;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink);border-top:1px solid var(--color-rule);padding-top:9px";
+const btnPrimary = "border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
+const btnGhost = "border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
+const h2 = "margin:0 0 14px;font-family:var(--font-display);font-weight:700;font-size:23px;letter-spacing:.04em";
 
+// 三步此前都不可执行:02 只说「按平台选一个」却不说怎么选,03 漏了导入后
+// 必须手动更新一次订阅(FAQ 里最高频的失败原因)。以下事实全部来自 lib/faq.ts,
+// 只是搬到用户真正需要它的位置,没有新增任何主张。
 const steps = [
-  { n: "01", t: "复制订阅", d: "在今日舱单页取一条订阅链接,Clash 与 V2Ray 各一联。", href: url("today"), cta: "→ /TODAY", ext: false },
-  { n: "02", t: "打开客户端", d: "Clash Verge Rev、Shadowrocket、v2rayN 等,按平台选一个。", href: "https://wiki.freedomport.cc/", cta: "WIKI.FREEDOMPORT.CC ↗", ext: true },
-  { n: "03", t: "导入并选择节点", d: "粘贴链接更新配置,挑一个延迟低的节点开始使用。", href: "https://wiki.freedomport.cc/", cta: "WIKI.FREEDOMPORT.CC ↗", ext: true }
+  { n: "01", t: "复制订阅", d: "在今日舱单页复制一条链接。绿联给 Clash 系客户端,粉联给 V2Ray 系。", href: url("today"), cta: "→ 今日舱单 /TODAY", ext: false },
+  // 「对」不在得意黑 101 字子集内,会静默回退到系统体(系统体有真粗体,视觉上明显更粗)。
+  // 改标题文案前先跑 npm run check:glyphs。
+  { n: "02", t: "选择客户端", d: "桌面用 Clash Verge Rev,安卓用 Clash Meta,iOS 用 Shadowrocket(走粉联)。", href: "https://wiki.freedomport.cc/", cta: "安装教程 WIKI ↗", ext: true },
+  { n: "03", t: "导入并更新一次", d: "粘贴链接新建订阅后,务必手动点一次「更新订阅」,再挑一个延迟低的节点。", href: url("faq"), cta: "→ 导入后没有节点? /FAQ", ext: false }
 ];
 ---
 <Shell
@@ -42,106 +47,119 @@ const steps = [
   }}
 >
   <div>
-    <div data-rise style="padding:34px 20px 26px;border-bottom:1px solid #C9C2CE">
-      <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start;justify-content:space-between">
-        <div style="flex:1 1 300px;min-width:0">
+    <div style="padding:34px 20px 26px;border-bottom:1px solid var(--color-rule)">
+      <div class="wb-hero">
+        <div style="min-width:0">
           <div style={label + ";margin-bottom:6px"}>WAYBILL NO. / 运单号</div>
           <div style="position:relative;margin-bottom:14px">
-            <div aria-hidden="true" style={`position:absolute;left:0;top:0;transform:translate(1.5px,1.5px);opacity:.18;color:#2C6E7A;pointer-events:none;${wbType}`}>{no}</div>
+            <div aria-hidden="true" style={`position:absolute;left:0;top:0;transform:translate(1.5px,1.5px);opacity:.18;color:var(--color-misprint);pointer-events:none;${wbType}`}>{no}</div>
             <div style={`position:relative;${wbType}`}>{no}</div>
           </div>
 
-          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px">
-            <h1 style="margin:0;font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:clamp(30px,6vw,42px);letter-spacing:.04em;line-height:1.05">舱单</h1>
-            <span style="font-size:14px;color:#6B6478;letter-spacing:.06em">自由港每日放行清单</span>
-          </div>
-          <p style="margin:10px 0 20px;max-width:38em;font-size:15px;line-height:1.75;color:#2A2333;text-wrap:pretty">
+          <h1 style="margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:clamp(26px,2.8cqw,38px);letter-spacing:.04em;line-height:1.05;text-wrap:balance">自由港每日放行清单</h1>
+          <p style="margin:10px 0 20px;max-width:42em;font-size:15px;line-height:1.75;color:var(--color-ink);text-wrap:pretty;word-break:auto-phrase">
             每 12 小时更新免费 Clash、Mihomo 与 V2Ray 订阅。公开来源聚合并经过连通性实测,随取随用,不需要注册。
           </p>
 
           <div style="display:flex;flex-wrap:wrap;gap:10px">
-            <a href={url("today")} style={btnPrimary}>领取今日订阅 <span style="opacity:.55">/TODAY</span></a>
-            <a href={url("archive")} style={btnGhost}>查看往期 <span style="color:#6B6478">/ARCHIVE</span></a>
+            <a href={url("today")} class="wb-btn" style={btnPrimary}>领取今日订阅 <span style="opacity:.55">/TODAY</span></a>
+            <a href={url("archive")} class="wb-btn-ghost" style={btnGhost}>查看往期 <span style="color:var(--color-ink-soft)">/ARCHIVE</span></a>
           </div>
         </div>
 
-        <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px">
           <Stamp size={132} date={d.date} rotate={-5} />
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:#A9A3B2;text-transform:uppercase">ISSUED / 今日已更新</div>
+          <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;color:var(--color-ink-faint);text-transform:uppercase">ISSUED / 今日已更新</div>
         </div>
       </div>
 
-      <div style="margin-top:24px;border:1px solid #C9C2CE;border-left:3px solid #7B3F9D;background:#F6F4EF;padding:11px 14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;letter-spacing:.02em;color:#2A2333">
+      {/* 概况栏并入运单抬头 —— 单开一条全宽横带会让 4 个格子在宽屏上各占 340px
+          却只装一个短值,单据被做成海报。抬头本来就该是密的。 */}
+      <div style={label + ";margin:22px 0 8px"}>SUMMARY / 今日概况</div>
+      <div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule)">
+        <div style={cell}>
+          <div style={cellLabel}>ISSUED / 签发时间</div>
+          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{d.issuedAt.slice(11, 16)} <span style="font-size:11px;color:var(--color-ink-soft)">UTC+8</span></div>
+        </div>
+        <div style={cell}>
+          <div style={cellLabel}>PIECES / 节点件数</div>
+          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{d.nodeCount} <span style="font-size:11px;color:var(--color-ink-soft)">PCS</span></div>
+        </div>
+        <div style={cell}>
+          <div style={cellLabel}>ORIGIN / 覆盖地区</div>
+          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:.02em">{d.regions.join(" ")}</div>
+        </div>
+        <div style={cell}>
+          <div style={cellLabel}>COMMODITY / 协议</div>
+          <div style="font-family:var(--font-mono);font-size:19px;line-height:1.5;letter-spacing:.02em">{d.protocols.join(" ")}</div>
+        </div>
+        {/* 存活率是本站的核心主张(实测存活才发布),首页此前完全没有露出。
+            它同时把概况栏从 4 格补到 6 格,宽屏下不再是几个短值泡在大格子里。 */}
+        {d.alive !== undefined && (
+          <div style={cell}>
+            <div style={cellLabel}>ALIVE / 实测存活率</div>
+            <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{Math.round(d.alive * 100)}<span style="font-size:11px;color:var(--color-ink-soft)">%</span></div>
+          </div>
+        )}
+        <div style={cell}>
+          <div style={cellLabel}>CHECK / 校验位</div>
+          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{checkCode(d.date, d.serial)}</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;max-width:58em;border:1px solid var(--color-rule);border-left:3px solid var(--color-stamp);background:var(--color-notice);padding:11px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink)">
         免费节点来自公开来源,随时可能失效或降速,不提供任何可用性保障。
       </div>
     </div>
 
-    <div data-rise style="padding:22px 20px 26px;border-bottom:1px solid #C9C2CE">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:12px">SUMMARY / 今日概况</div>
-      <div style="display:flex;flex-wrap:wrap;border-top:1px solid #C9C2CE;border-left:1px solid #C9C2CE">
-        <div style={cell}>
-          <div style={cellLabel}>ISSUED / 签发时间</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;letter-spacing:-.01em">{d.issuedAt.slice(11, 16)} <span style="font-size:11px;color:#6B6478">UTC+8</span></div>
-        </div>
-        <div style={cell}>
-          <div style={cellLabel}>PIECES / 节点件数</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;letter-spacing:-.01em">{d.nodeCount} <span style="font-size:11px;color:#6B6478">PCS</span></div>
-        </div>
-        <div style={cell}>
-          <div style={cellLabel}>ORIGIN / 覆盖地区</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;letter-spacing:.02em">{d.regions.join(" ")}</div>
-        </div>
-        <div style={cell}>
-          <div style={cellLabel}>COMMODITY / 协议</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.5;letter-spacing:.02em">{d.protocols.join(" ")}</div>
-        </div>
-      </div>
-    </div>
-
-    <div data-rise style="padding:22px 20px 26px;border-bottom:1px solid #C9C2CE">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:12px">PROCEDURE / 怎么用</div>
-      <div style="display:flex;flex-wrap:wrap;border-top:1px solid #C9C2CE;border-left:1px solid #C9C2CE">
+    {/* 黄联 —— DESIGN.md 把 copy-buff 预留给「教程联」,这里是全站唯一的教程区,
+        正是它的用途。此前整个首页六个区块全部透明,只有一个底色,是「太平」的根因。 */}
+    <div style="padding:22px 20px 26px;background:var(--color-copy-buff);border-bottom:1px solid var(--color-rule)">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:12px">PROCEDURE / 怎么用</div>
+      <div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule)">
         {steps.map((s) => (
           <div style={stepCell}>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:#7B3F9D;line-height:1">{s.n}</div>
-            <div style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:600;font-size:19px;letter-spacing:.03em">{s.t}</div>
-            <p style="margin:0;font-size:14px;line-height:1.7;color:#6B6478">{s.d}</p>
-            <a href={s.href} style={stepLink} target={s.ext ? "_blank" : undefined} rel={s.ext ? "noopener" : undefined}>{s.cta}</a>
+            <div style="font-family:var(--font-mono);font-size:26px;font-weight:600;color:var(--color-stamp);line-height:1">{s.n}</div>
+            <div style="font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:.03em">{s.t}</div>
+            <p style="margin:0;font-size:14px;line-height:1.7;color:var(--color-ink-soft);text-wrap:pretty;word-break:auto-phrase">{s.d}</p>
+            <a href={s.href} class="wb-link" style={stepLink} target={s.ext ? "_blank" : undefined} rel={s.ext ? "noopener" : undefined}>{s.cta}</a>
           </div>
         ))}
       </div>
     </div>
 
-    <div data-rise><TearLine /></div>
+    <div><TearLine /></div>
 
-    <div data-rise style="padding:6px 20px 28px">
+    {/* 撕线以下是登机联的推介区:对照 + 套餐共用账带底色,合成一个色块,
+        中间不加格线 —— 它们是同一件事的两半。 */}
+    <div style="padding:20px 20px 22px;background:var(--color-band)">
       <div style={label + ";margin-bottom:6px"}>COMPARISON / 两联对照</div>
       <h2 style={h2}>免费联 vs 登机联</h2>
       <CompareTable />
-      <div style="margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#6B6478">线路覆盖:香港 / 新加坡 / 日本 / 美国</div>
+      <div style="margin-top:9px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--color-ink-soft)">线路覆盖:香港 / 新加坡 / 日本 / 美国</div>
     </div>
 
-    <div data-rise style="padding:0 20px 30px">
+    <div style="padding:0 20px 30px;background:var(--color-band);border-bottom:1px solid var(--color-rule)">
       <div style={label + ";margin-bottom:6px"}>FARES / 套餐速览</div>
       <h2 style={h2}>四档舱位</h2>
       <PlanCards />
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
-        <a href="https://cn.freedomport.cc" target="_blank" rel="noopener" style="border:1px solid #1258D8;background:#1258D8;color:#FBFAF7;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">前往自由港官网 ↗</a>
-        <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener" style="border:1px solid #1258D8;background:transparent;color:#1258D8;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">加入 TELEGRAM 群组</a>
+        <a href="https://cn.freedomport.cc" target="_blank" rel="noopener" class="wb-btn-port" style="border:1px solid var(--color-port-blue);background:var(--color-port-blue);color:var(--color-copy-white);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">前往自由港官网 ↗</a>
+        <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener" class="wb-btn-port-ghost" style="border:1px solid var(--color-port-blue);background:transparent;color:var(--color-port-blue);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">加入 TELEGRAM 群组</a>
       </div>
     </div>
 
-    <div data-rise style="padding:0 20px 30px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A9A3B2;text-transform:uppercase;margin-bottom:12px">FAQ / 常见问题(前三条)</div>
-      <div style="border:1px solid #C9C2CE">
+    <div style="padding:24px 20px 30px">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:12px">FAQ / 常见问题(前三条)</div>
+      <div style="border:1px solid var(--color-rule)">
         {FAQ.slice(0, 3).map(([q, a], i) => (
-          <div style={`padding:13px 14px${i < 2 ? ";border-bottom:1px solid #C9C2CE" : ""}`}>
-            <div style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:600;font-size:16px;letter-spacing:.02em;margin-bottom:6px">{q}</div>
-            <p style="margin:0;font-size:14px;line-height:1.7;color:#6B6478">{a}</p>
+          <div style={`padding:13px 14px${i < 2 ? ";border-bottom:1px solid var(--color-rule)" : ""}`}>
+            <div style="font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:.02em;margin-bottom:6px">{q}</div>
+            <p style="margin:0;font-size:14px;line-height:1.7;color:var(--color-ink-soft)">{a}</p>
           </div>
         ))}
       </div>
-      <a href={url("faq")} style="display:inline-block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:#2A2333">→ 查看完整 FAQ /FAQ</a>
+      <a href={url("faq")} class="wb-link" style="display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink)">→ 查看完整 FAQ /FAQ</a>
     </div>
   </div>
 </Shell>

@@ -101,57 +101,67 @@ const noise =
   <script is:inline type="application/ld+json" set:html={jsonLd} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Archivo Narrow 已移出下载:它只是 Smiley Sans 的回退,而子集实测覆盖全部
+       52 个拉丁字母与 10 个数字(见 DESIGN.md),因此一个字形都不会渲染。
+       字体名保留在 font-family 栈里 —— 本机装了就用,不装也不产生请求。
+       IBM Plex Mono 500 全站仅 2 处表头使用,已并入 400。7 个字重文件降到 2 个。 -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
     rel="stylesheet"
   />
 </head>
 <body>
-  <div style="min-height:100vh;background:#EDEAE3;position:relative">
+  <div style="min-height:100vh;background:var(--color-desk);position:relative">
     <div
       aria-hidden="true"
-      style={`position:fixed;inset:0;pointer-events:none;z-index:60;mix-blend-mode:multiply;opacity:.025;background-image:${noise}`}
+      style={`position:fixed;inset:0;pointer-events:none;z-index:60;mix-blend-mode:multiply;opacity:.07;background-image:${noise}`}
     >
     </div>
 
-    <div style="position:sticky;top:0;z-index:40;background:#FBFAF7;border-bottom:1px solid #C9C2CE">
-      <div style="max-width:1120px;margin:0 auto;padding:0 18px;display:flex;align-items:stretch;justify-content:space-between;gap:14px">
-        <a href={url("")} style="display:flex;align-items:center;gap:10px;padding:11px 0">
-          <span style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:21px;letter-spacing:.06em">舱单</span>
-          <span style="width:1px;align-self:stretch;background:#C9C2CE"></span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6B6478;text-transform:uppercase">MANIFEST</span>
+    <div class="wb-head">
+      <div class="wb-head-in">
+        <a href={url("")} class="wb-brand">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:.06em">舱单</span>
+          <span style="width:1px;align-self:stretch;background:var(--color-rule)"></span>
+          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--color-ink-soft);text-transform:uppercase">MANIFEST</span>
         </a>
-        <nav style="display:flex;align-items:center;flex-wrap:wrap;gap:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">
+        <nav class="wb-nav">
           {nav.map((n) => (
             <a
               href={url(n.path)}
-              style={`border-bottom:2px solid ${active(n.path) ? (n.blue ? "#1258D8" : "#7B3F9D") : "transparent"};color:${n.blue ? "#1258D8" : "#2A2333"};padding:10px 11px`}
+              style={`border-bottom-color:${active(n.path) ? (n.blue ? "var(--color-port-blue)" : "var(--color-stamp)") : "transparent"};color:${n.blue ? "var(--color-port-blue)" : "var(--color-ink)"}`}
             >
               {n.label}{" "}
-              <span style={`color:${n.blue ? "#5A7FC4" : "#6B6478"}`}>{n.code}</span>
+              {/* 路径码统一用次墨。--color-port-blue-f 自带注释「只在已是官方蓝的元素
+                  内部当次级文字」,而这里是纸底,实测 3.82:1,是 token 用在自己禁止的位置。 */}
+              <span class="wb-nav-code" style="color:var(--color-ink-soft)">{n.code}</span>
             </a>
           ))}
-          <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener" style="border-bottom:2px solid transparent;color:#2A2333;padding:10px 11px">
-            教程 <span style="color:#6B6478">WIKI ↗</span>
+          <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener" style="color:var(--color-ink)">
+            教程 <span class="wb-nav-code" style="color:var(--color-ink-soft)">WIKI</span> <span style="color:var(--color-ink-soft)">↗</span>
           </a>
         </nav>
       </div>
     </div>
 
-    <div style="display:flex;justify-content:center;padding:0 0 60px">
-      <div style="width:100%;max-width:1120px;background:#FBFAF7;border-left:1px solid #C9C2CE;border-right:1px solid #C9C2CE;container-type:inline-size">
-        <div aria-hidden="true" style="height:14px;background:#EDEAE3;background-image:repeating-radial-gradient(circle at 9px 7px, #EDEAE3 0 3px, #FBFAF7 3px 9px);background-size:18px 14px;border-bottom:1px solid #C9C2CE"></div>
+    <div class="wb-desk">
+      <div class="wb-sheet">
+        <div aria-hidden="true" style="height:14px;background:var(--color-desk);background-image:repeating-radial-gradient(circle at 9px 7px, var(--color-desk) 0 3px, var(--color-copy-white) 3px 9px);background-size:18px 14px;border-bottom:1px solid var(--color-rule)"></div>
 
         <slot />
 
-        <footer style="border-top:1px solid #C9C2CE;background:#F1EFE9;padding:22px 20px 26px">
+        {/* 底部齿孔。此前只有顶部有,单据看起来是从纸卷上撕下但没撕断。
+            两端都打孔,它才是一张完整的、可归档的单据;页脚随之读作存根边。 */}
+        <div aria-hidden="true" style="height:14px;background:var(--color-desk);background-image:repeating-radial-gradient(circle at 9px 7px, var(--color-desk) 0 3px, var(--color-copy-white) 3px 9px);background-size:18px 14px;border-top:1px solid var(--color-rule)"></div>
+
+        <footer style="border-top:1px solid var(--color-rule);background:var(--color-band);padding:22px 20px 26px">
           <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between">
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-family:'Smiley Sans','Archivo Narrow','PingFang SC',sans-serif;font-weight:700;font-size:17px;letter-spacing:.06em">舱单</span>
-              <span style="width:1px;height:16px;background:#C9C2CE"></span>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;color:#6B6478;text-transform:uppercase">MANIFEST</span>
+              <span style="font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:.06em">舱单</span>
+              <span style="width:1px;height:16px;background:var(--color-rule)"></span>
+              <span style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;color:var(--color-ink-soft);text-transform:uppercase">MANIFEST</span>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:#6B6478;text-transform:uppercase">
+            <div style="display:flex;flex-wrap:wrap;gap:18px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink-soft);text-transform:uppercase">
               <a href={url("archive")}>/ARCHIVE 往期存根</a>
               <a href={url("upgrade")}>/UPGRADE 登机升舱</a>
               <a href={url("faq")}>/FAQ 常见问题</a>
@@ -159,7 +169,7 @@ const noise =
               <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener">WIKI 使用教程 ↗</a>
             </div>
           </div>
-          <div style="margin-top:16px;border-top:1px dashed #C9C2CE;padding-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.85;color:#6B6478;max-width:62em">
+          <div style="margin-top:16px;border-top:1px dashed var(--color-rule);padding-top:12px;font-family:var(--font-mono);font-size:10.5px;line-height:1.85;color:var(--color-ink-soft);max-width:62em">
             免责声明:本站仅聚合公开来源的网络加速配置,用于跨境访问的技术测试与国际线路连通性验证。不提供可用性、速度或存活时间的任何保障,亦不对第三方节点的行为负责。请遵守所在地法律法规。
           </div>
         </footer>
@@ -167,25 +177,10 @@ const noise =
     </div>
   </div>
 
-  <script>
-    // §11 滚动进入:opacity 0→1 + translateY(8px),220ms ease-out,错峰 40ms
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          let i = 0;
-          for (const en of entries) {
-            if (!en.isIntersecting) continue;
-            (en.target as HTMLElement).style.animation = `om-rise 220ms ease-out ${i++ * 40}ms both`;
-            io.unobserve(en.target);
-          }
-        },
-        { rootMargin: "0px 0px -6% 0px", threshold: 0.02 }
-      );
-      for (const el of document.querySelectorAll<HTMLElement>("[data-rise]")) {
-        el.style.opacity = "0";
-        io.observe(el);
-      }
-    }
-  </script>
+  {/* 滚动入场已移除,理由见 DESIGN.md 的 The Still Paper Rule。
+      要点:每个区块同一个淡入上移是公认反模式,且原实现由 JS 先设 opacity:0
+      再靠 IntersectionObserver 揭开,内容默认隐藏 —— 打印、Ctrl+F 跳转、
+      IO 回调抛错都会让整段永远不显示。
+      属性保留,现在只是顶层区块的标记,无 JS 无 CSS 读取它。 */}
 </body>
 </html>
