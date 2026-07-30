@@ -6,7 +6,7 @@ import CompareTable from "../components/CompareTable.astro";
 import PlanCards from "../components/PlanCards.astro";
 import { latestSub, checkCode } from "../lib/subs";
 import { FAQ } from "../lib/faq";
-import { url, waybillNo } from "../lib/waybill";
+import { chinaTime, url, waybillNo } from "../lib/waybill";
 
 const sub = await latestSub();
 if (!sub) throw new Error("没有任何运单,先跑 scripts/issue-manifest.mjs");
@@ -79,7 +79,7 @@ const steps = [
       <div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule)">
         <div style={cell}>
           <div style={cellLabel}>ISSUED / 签发时间</div>
-          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{d.issuedAt.slice(11, 16)} <span style="font-size:11px;color:var(--color-ink-soft)">UTC+8</span></div>
+          <div style="font-family:var(--font-mono);font-size:19px;letter-spacing:-.01em">{chinaTime(d.issuedAt)} <span style="font-size:11px;color:var(--color-ink-soft)">UTC+8</span></div>
         </div>
         <div style={cell}>
           <div style={cellLabel}>PIECES / 节点件数</div>

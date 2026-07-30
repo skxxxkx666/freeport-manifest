@@ -1,0 +1,24 @@
+---
+import { untilNextIssue } from "../lib/waybill";
+---
+
+<div
+  data-update-countdown
+  role="timer"
+  aria-label="距离下次签发"
+  style="font-family:var(--font-mono);font-size:14px;color:var(--color-stamp)"
+>
+  {untilNextIssue()}
+</div>
+
+<script>
+  import { untilNextIssue } from "../lib/waybill";
+
+  const update = () => {
+    document.querySelectorAll<HTMLElement>("[data-update-countdown]").forEach((timer) => {
+      timer.textContent = untilNextIssue();
+    });
+  };
+  update();
+  window.setInterval(update, 1000);
+</script>

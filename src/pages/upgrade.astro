@@ -2,7 +2,7 @@
 import Shell from "../components/Shell.astro";
 import CompareTable from "../components/CompareTable.astro";
 import PlanCards from "../components/PlanCards.astro";
-import CopyCode from "../components/islands/CopyCode.tsx";
+import CopyCode from "../components/CopyCode.astro";
 
 const label = "font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:12px";
 const title = "font-family:var(--font-display);font-weight:700;font-size:clamp(26px,2.8cqw,38px);letter-spacing:.04em;line-height:1.05";
@@ -24,24 +24,24 @@ const title = "font-family:var(--font-display);font-weight:700;font-size:clamp(2
     </div>
 
     <div style="padding:22px 20px 26px;border-bottom:1px solid var(--color-rule)">
-      <div style={label}>COMPARISON / 两联对照</div>
+      <h2 style={label + ";margin-top:0;font-weight:400"}>COMPARISON / 两联对照</h2>
       <CompareTable />
     </div>
 
     {/* 套餐 + 折扣码 + 登机入口是同一条转化动作,合成一个账带色块;
         上方的两联对照留在正本联,形成「说明 → 行动」的色调分层。 */}
     <div style="padding:22px 20px 26px;background:var(--color-band)">
-      <div style={label}>FARES / 四档舱位</div>
+      <h2 style={label + ";margin-top:0;font-weight:400"}>FARES / 四档舱位</h2>
       <PlanCards accentTop={true} />
     </div>
 
     <div style="padding:22px 20px 26px;background:var(--color-band)">
-      <div style={label}>DISCOUNT / 折扣码</div>
-      <CopyCode client:visible />
+      <h2 style={label + ";margin-top:0;font-weight:400"}>DISCOUNT / 折扣码</h2>
+      <CopyCode />
     </div>
 
     <div style="padding:22px 20px 30px;background:var(--color-band)">
-      <div style={label}>BOARDING / 登机入口</div>
+      <h2 style={label + ";margin-top:0;font-weight:400"}>BOARDING / 登机入口</h2>
       <div style="display:flex;flex-wrap:wrap;gap:10px">
         <a href="https://cn.freedomport.cc" target="_blank" rel="noopener" class="wb-btn-port" style="border:1px solid var(--color-port-blue);background:var(--color-port-blue);color:var(--color-copy-white);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:14px 24px;text-transform:uppercase">前往自由港官网 ↗</a>
         <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener" class="wb-btn-port-ghost" style="border:1px solid var(--color-port-blue);background:transparent;color:var(--color-port-blue);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:14px 24px;text-transform:uppercase">加入 TELEGRAM 群组</a>

@@ -10,6 +10,37 @@ export const monthOf = (date: string) => date.slice(0, 7);
 
 export const monthLabel = (m: string) => `${m.slice(0, 4)} 年 ${m.slice(5)} 月`;
 
+const chinaParts = (value: string) => {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return { date: value.slice(0, 10), time: value.slice(11, 16) };
+  }
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23"
+    })
+      .formatToParts(date)
+      .map(({ type, value: part }) => [type, part])
+  );
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    time: `${parts.hour}:${parts.minute}`
+  };
+};
+
+export const chinaTime = (value: string) => chinaParts(value).time;
+
+export const chinaDateTime = (value: string) => {
+  const parts = chinaParts(value);
+  return `${parts.date} ${parts.time}`;
+};
+
 /** 移动端订阅链接中段截断 */
 export const truncateUrl = (u: string, head = 34, tail = 12) =>
   u.length <= head + tail ? u : `${u.slice(0, head)}…${u.slice(-tail)}`;

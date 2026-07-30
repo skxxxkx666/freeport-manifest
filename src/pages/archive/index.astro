@@ -1,6 +1,6 @@
 ---
 import Shell from "../../components/Shell.astro";
-import ArchiveFilter from "../../components/islands/ArchiveFilter.tsx";
+import ArchiveFilter from "../../components/ArchiveFilter.astro";
 import { allSubs } from "../../lib/subs";
 import { url } from "../../lib/waybill";
 
@@ -34,7 +34,7 @@ const stubs = subs.map((s) => ({
       </p>
     </div>
     <div>
-      <ArchiveFilter client:visible stubs={stubs} />
+      <ArchiveFilter stubs={stubs} />
     </div>
   </div>
 </Shell>

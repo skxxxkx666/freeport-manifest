@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import { deploymentTarget } from "./scripts/deployment-config.mjs";
 
@@ -10,7 +9,6 @@ export default defineConfig({
   base,
   trailingSlash: "ignore",
   integrations: [
-    react(),
     sitemap({
       filter: (page) => {
         const path = new URL(page).pathname.replace(/\/+$/, "");

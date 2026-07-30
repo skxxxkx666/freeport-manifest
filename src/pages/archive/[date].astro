@@ -4,7 +4,7 @@ import Shell from "../../components/Shell.astro";
 import WaybillHead from "../../components/WaybillHead.astro";
 import FieldGrid from "../../components/FieldGrid.astro";
 import { allSubs, checkCode, type Sub } from "../../lib/subs";
-import { url, waybillNo } from "../../lib/waybill";
+import { chinaDateTime, url, waybillNo } from "../../lib/waybill";
 
 interface Props { data: Sub["data"]; }
 
@@ -56,7 +56,7 @@ const disabled = "border:1px solid var(--color-rule);background:var(--color-disa
       <div style="margin-bottom:16px">
         <FieldGrid
           fields={[
-            { label: "ISSUED / 签发时间", value: `${d.date} ${d.issuedAt.slice(11, 16)}` },
+            { label: "ISSUED / 签发时间", value: chinaDateTime(d.issuedAt) },
             expired
               ? { label: "STATUS / 状态", value: "已失效 EXPIRED", color: "var(--color-stamp-red)" }
               : { label: "STATUS / 状态", value: "当前生效 CURRENT", color: "var(--color-stamp)" },
@@ -69,9 +69,9 @@ const disabled = "border:1px solid var(--color-rule);background:var(--color-disa
       </div>
 
       <div style="border:1px solid var(--color-rule);background:var(--color-notice);padding:14px">
-        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:8px">
+        <h2 style="margin:0 0 8px;font-family:var(--font-mono);font-size:9.5px;font-weight:400;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase">
           SUBSCRIPTION URL / 订阅链接(存根保留)
-        </div>
+        </h2>
         <div style="display:grid;gap:8px">
           <div style={urlBox}>{d.clash}</div>
           <div style={urlBox}>{d.v2ray}</div>

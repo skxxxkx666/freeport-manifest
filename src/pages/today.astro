@@ -2,10 +2,10 @@
 import Shell from "../components/Shell.astro";
 import Stamp from "../components/Stamp.astro";
 import TearLine from "../components/TearLine.astro";
-import SubscriptionCard from "../components/islands/SubscriptionCard.tsx";
-import UpdateCountdown from "../components/islands/UpdateCountdown.tsx";
+import SubscriptionCard from "../components/SubscriptionCard.astro";
+import UpdateCountdown from "../components/UpdateCountdown.astro";
 import { latestSub, checkCode, remarkOf } from "../lib/subs";
-import { url, waybillNo } from "../lib/waybill";
+import { chinaDateTime, url, waybillNo } from "../lib/waybill";
 
 const sub = await latestSub();
 if (!sub) throw new Error("没有任何运单");
@@ -41,11 +41,11 @@ const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color
           <div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule);max-width:520px">
             <div style="flex:1 1 150px;min-width:0;padding:9px 11px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)">
               <div style={miniLabel}>ISSUED / 签发时间</div>
-              <div style="font-family:var(--font-mono);font-size:14px">{d.date} {d.issuedAt.slice(11, 16)}</div>
+              <div style="font-family:var(--font-mono);font-size:14px">{chinaDateTime(d.issuedAt)}</div>
             </div>
             <div style="flex:1 1 150px;min-width:0;padding:9px 11px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)">
               <div style={miniLabel}>NEXT ISSUE / 下次更新</div>
-              <UpdateCountdown client:idle />
+              <UpdateCountdown />
             </div>
           </div>
         </div>
@@ -55,7 +55,6 @@ const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color
 
     <div>
       <SubscriptionCard
-        client:load
         clash={d.clash}
         v2ray={d.v2ray}
         nodeCount={d.nodeCount}
@@ -72,7 +71,7 @@ const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color
         PIECES / 件数 仍然显示着数字 —— 用户看到一个件数却找不到明细,
         既没有解释也不知道是不是页面坏了。 */}
     <div style="padding:20px;border-bottom:1px solid var(--color-rule)">
-      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:10px">BREAKDOWN / 节点明细</div>
+      <h2 style="margin:0 0 10px;font-family:var(--font-mono);font-size:10px;font-weight:400;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase">BREAKDOWN / 节点明细</h2>
       {(!d.breakdown || d.breakdown.length === 0) && (
         <div style="max-width:560px;border:1px solid var(--color-rule);background:var(--color-notice);padding:14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink-soft)">
           本次签发未附地区与协议明细。上方的件数与订阅链接不受影响,可以正常取用。
@@ -116,7 +115,7 @@ const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color
     <div style="padding:4px 20px 30px">
       <div style="border:1px solid var(--color-rule);padding:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
         <div style="flex:1 1 260px;min-width:0">
-          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-port-blue);text-transform:uppercase;margin-bottom:7px">BOARDING PASS / 登机联</div>
+          <h2 style="margin:0 0 7px;font-family:var(--font-mono);font-size:10px;font-weight:400;letter-spacing:.14em;color:var(--color-port-blue);text-transform:uppercase">BOARDING PASS / 登机联</h2>
           <p style="margin:0;font-size:14px;line-height:1.7;color:var(--color-ink);text-wrap:pretty">
             免费联够用,但线路混杂、随时失效;要稳定的 CN2 / 9929 / CMI 与流媒体、AI 应用,登机联从 ¥9.90 起。
           </p>

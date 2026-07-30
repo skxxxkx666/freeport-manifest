@@ -1,0 +1,77 @@
+---
+interface Props {
+  code?: string;
+}
+
+const { code = "FREEDOM2026" } = Astro.props;
+---
+
+<div data-copy-code-root style="display:flex;flex-wrap:wrap;gap:18px 22px;align-items:center">
+  <button
+    type="button"
+    data-copy-code={code}
+    aria-label={`复制折扣码 ${code}`}
+    class="wb-stamp-btn"
+    style="appearance:none;background:transparent;border:0;padding:0;cursor:pointer;flex:0 0 auto;mix-blend-mode:multiply;transform:rotate(-2deg)"
+  >
+    <div style="border:2.6px solid var(--color-stamp);padding:4px">
+      <div style="border:1px solid var(--color-stamp);padding:11px 20px 9px;display:grid;gap:4px;justify-items:center">
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.24em;color:var(--color-stamp);text-transform:uppercase">DISCOUNT CODE</div>
+        <div style="font-family:var(--font-mono);font-weight:600;font-size:clamp(21px,3.2cqw,29px);letter-spacing:.1em;color:var(--color-stamp);line-height:1.1">{code}</div>
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;color:var(--color-stamp)">点击复制</div>
+      </div>
+    </div>
+  </button>
+  <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:10px">
+    <p style="margin:0;font-size:14px;line-height:1.7;color:var(--color-ink-soft);text-wrap:pretty">
+      在自由港官网下单时,于结算页的优惠码一栏粘贴此码。适用于全部四档套餐。
+    </p>
+    <div data-copy-code-stamp hidden aria-hidden="true" style="width:fit-content;mix-blend-mode:multiply;animation:stamp-slam 180ms cubic-bezier(.2,.9,.3,1.2) both">
+      <div style="border:2px solid var(--color-stamp);padding:5px 12px 4px">
+        <div style="font-family:var(--font-mono);font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--color-stamp);line-height:1.1">已复制</div>
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.24em;color:var(--color-stamp)">COPIED</div>
+      </div>
+    </div>
+    <div data-copy-code-status class="wb-sr-only" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+  const writeClipboard = async (value: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    const copied = (
+      document as unknown as { execCommand(commandId: string): boolean }
+    ).execCommand("copy");
+    area.remove();
+    if (!copied) throw new Error("copy failed");
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-copy-code-root]").forEach((root) => {
+    const button = root.querySelector<HTMLButtonElement>("[data-copy-code]");
+    const stamp = root.querySelector<HTMLElement>("[data-copy-code-stamp]");
+    const status = root.querySelector<HTMLElement>("[data-copy-code-status]");
+    button?.addEventListener("click", async () => {
+      try {
+        await writeClipboard(button.dataset.copyCode ?? "");
+        if (stamp) {
+          stamp.hidden = true;
+          requestAnimationFrame(() => {
+            stamp.hidden = false;
+          });
+        }
+        if (status) status.textContent = "折扣码已复制";
+      } catch {
+        if (status) status.textContent = "复制失败，请手动选择折扣码";
+      }
+    });
+  });
+</script>

@@ -21,12 +21,11 @@ src/
     Stamp.astro                 橡皮图章(圆形双线 + 飞机剪影 + 日期位)
     CompareTable.astro          免费联 vs 登机联
     PlanCards.astro             四档舱位
-    islands/
-      SubscriptionCard.tsx      client:load     换联 / 3 秒解锁 / 复制 / 盖章 / 二维码
-      UpdateCountdown.tsx       client:idle     下次签发倒计时
-      ArchiveFilter.tsx         client:visible  年月筛选(纯前端过滤,不走路由)
-      FaqAccordion.tsx          client:visible  FAQ 展开
-      CopyCode.tsx              client:visible  折扣码复制
+    SubscriptionCard.astro      原生渐进增强:换联 / 3 秒解锁 / 复制 / 盖章 / 按需二维码
+    UpdateCountdown.astro       原生下次签发倒计时
+    ArchiveFilter.astro         原生年月筛选(无 JS 时仍显示全部)
+    FaqList.astro               原生 details / summary
+    CopyCode.astro              原生折扣码复制
   content.config.ts             Astro Content Layer + glob loader + Zod 4
   content/
     subs/2026-07-28.md          每日运单,由 Actions 生成
@@ -56,10 +55,11 @@ public/fonts/                   得意黑子集(≤ 50KB)
 2026-07-31 验证记录:
 
 1. **已验证 — Astro 7.1 最新技术栈。**
-   当前使用 Astro 7.1.6、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
-   Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地已通过 `npm ci`;`npm test`(42/42)、
-   `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
+   当前使用 Astro 7.1.6、Vite 8.1.5、TypeScript 6.0.3、
+   Node 24 LTS 和 Astro Content Layer;交互由 Astro 原生组件与小型 DOM 脚本实现,
+   不再加载 React 运行时。生产依赖 `npm audit --omit=dev` 为 0 漏洞。
+   本地已通过 `npm ci`;`npm test`(43/43)、
+   `npm run check`(0 error)和 `npm run build`(23 pages)均通过。
    TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
    `^5 || ^6`,所以暂不做不兼容升级。
 2. **已解决 — `site` / `base` 无占位值。**
@@ -142,6 +142,15 @@ public/fonts/                   得意黑子集(≤ 50KB)
    `partial/failed` 写进脱敏健康报告和运单备注,不再静默降级。
 8. `src/content/subs/` 里 2026-05-29 ~ 2026-07-27 共 13 份是**示例存根**(`expired: true`),
    用来让 `/archive` 有内容可看。上线前删掉,或留着当回归样本。
+9. **已验证 — 新前端对齐、渐进增强与打印。**
+   1503px 视口下顶栏与单据左右边界误差小于 `0.02px`,品牌与首页 H1 的内容边线
+   误差同样小于 `0.02px`;375px 下无页面横向溢出,导航保持单行、44px 触摸目标和
+   sticky `top=0`。`/today` 首次只请求 `5234B` 交互脚本,二维码库 `23515B`
+   仅在用户点开二维码后加载;改造前该页首次加载约 `217KB` JavaScript。
+   `/archive` 与 `/upgrade` 不再加载 React 运行时。复制、换联、二维码、月份筛选、
+   3 秒放行帘和无 JavaScript 内容回退均通过 Playwright 实测。全站已加入打印样式,
+   打印时隐藏 sticky 导航和纸纹,并展开 FAQ 答案;页面标题层级补齐为真实 H2。
+   签发时间统一按 `Asia/Shanghai` 格式化,不再把 UTC 时间误标成 UTC+8。
 
 ## 已知未验证项
 
@@ -358,7 +367,8 @@ src/pages/404.astro              无此运单 NOT FOUND 红章
 ```
 
 组件:`Shell` `Stamp` `FieldGrid` `TearLine` `WaybillHead` `CompareTable` `PlanCards`
-岛:`SubscriptionCard`(client:load) `UpdateCountdown`(client:idle) `ArchiveFilter` `FaqAccordion` `CopyCode`(client:visible)
+`SubscriptionCard` `UpdateCountdown` `ArchiveFilter` `FaqList` `CopyCode`
+（全部为 Astro / 原生渐进增强,无 React hydration）
 数据:`lib/subs.ts`(collection 读取 + 校验位)、`lib/faq.ts`、`lib/waybill.ts`
 
 **格线规则(踩过的坑,别改回去):** 所有方格单元用 `display:flex;flex-wrap:wrap` +

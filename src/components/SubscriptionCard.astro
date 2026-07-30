@@ -1,0 +1,366 @@
+---
+import { deepLinks } from "../lib/waybill";
+
+interface Props {
+  clash: string;
+  v2ray: string;
+  nodeCount: number;
+  regions: string[];
+  protocols: string[];
+  checkCode: string;
+  remark?: string;
+  date: string;
+  revealSeconds?: number;
+}
+
+const p = Astro.props;
+const fields = [
+  ["CARRIER / 承运方", "公开来源聚合"],
+  ["ORIGIN / 始发", p.regions.join(" ")],
+  ["PIECES / 件数", `${p.nodeCount} PCS`],
+  ["COMMODITY / 品类", p.protocols.join(" ")],
+  ["CHECK / 校验位", p.checkCode],
+  ...(p.remark ? [["REMARKS / 备注", p.remark]] : [])
+];
+const links = {
+  clash: deepLinks("clash", p.clash),
+  v2ray: deepLinks("v2ray", p.v2ray)
+};
+---
+
+<section
+  data-subscription-card
+  data-clash={p.clash}
+  data-v2ray={p.v2ray}
+  data-date={p.date}
+  data-node-count={p.nodeCount}
+  data-reveal-seconds={p.revealSeconds ?? 3}
+  aria-labelledby="subscription-heading"
+  style="position:relative;background:var(--color-copy-green);border-bottom:1px solid var(--color-rule);transition:background 240ms cubic-bezier(.16,1,.3,1)"
+>
+  <div style="display:flex;align-items:stretch;border-bottom:1px solid var(--color-rule);background:var(--color-band)">
+    <div style="display:flex;align-items:center;padding:0 14px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;border-right:1px solid var(--color-rule)">
+      COPY / 换联
+    </div>
+    <button
+      type="button"
+      class="wb-tab"
+      data-ply-tab="clash"
+      aria-pressed="true"
+      style="appearance:none;border:0;border-right:1px solid var(--color-rule);background:var(--color-copy-green);color:var(--color-ink);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:13px 18px;cursor:pointer;text-transform:uppercase;font-weight:600"
+    >
+      CLASH <span style="font-family:var(--font-cn);letter-spacing:.04em">绿联</span>
+    </button>
+    <button
+      type="button"
+      class="wb-tab"
+      data-ply-tab="v2ray"
+      aria-pressed="false"
+      style="appearance:none;border:0;border-right:1px solid var(--color-rule);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:13px 18px;cursor:pointer;text-transform:uppercase;font-weight:400"
+    >
+      V2RAY <span style="font-family:var(--font-cn);letter-spacing:.04em">粉联</span>
+    </button>
+  </div>
+
+  <div style="padding:20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <div data-sheet-label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--color-ink-soft);text-transform:uppercase">
+        SHEET 02 GREEN / 绿联 CLASH
+      </div>
+      <div data-local-count hidden style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--color-ink-soft)"></div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;border-top:1px solid var(--color-rule);border-left:1px solid var(--color-rule);margin-bottom:16px">
+      {fields.map(([label, value], i) => (
+        <div style={`flex:${p.remark && i === fields.length - 1 ? "2 1 320px" : "1 1 152px"};min-width:0;padding:9px 11px 11px;border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule)`}>
+          <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:5px">{label}</div>
+          <div style="font-family:var(--font-mono);font-size:13px">{value}</div>
+        </div>
+      ))}
+    </div>
+
+    <div style="position:relative;border:1px solid var(--color-rule);background:var(--color-copy-white)">
+      <div data-subscription-actions style="padding:14px">
+        <h2 id="subscription-heading" style="margin:0 0 8px;font-family:var(--font-mono);font-size:9.5px;font-weight:400;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase">
+          SUBSCRIPTION URL / 订阅链接
+        </h2>
+        <div style="display:flex;flex-wrap:wrap;gap:1px;background:var(--color-rule);border:1px solid var(--color-rule);margin-bottom:12px">
+          <div
+            data-subscription-url
+            title={p.clash}
+            style="background:var(--color-copy-white);flex:1 1 240px;min-width:0;padding:12px 13px;font-family:var(--font-mono);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
+          >
+            {p.clash}
+          </div>
+          <button
+            type="button"
+            data-copy-subscription
+            class="wb-btn"
+            style="appearance:none;border:0;background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:12px 20px;cursor:pointer;text-transform:uppercase;flex:1 1 auto"
+          >
+            复制订阅 COPY
+          </button>
+        </div>
+
+        <div data-deep-links="clash" style="display:flex;flex-wrap:wrap;gap:10px">
+          {links.clash.map((link) => (
+            <a href={link.href} class="wb-btn-ghost" style="border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;padding:11px 18px">
+              一键导入 {link.client}
+            </a>
+          ))}
+          <button
+            type="button"
+            data-qr-toggle
+            aria-expanded="false"
+            aria-controls="subscription-qr"
+            class="wb-btn-ghost"
+            style="appearance:none;border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;padding:11px 18px;cursor:pointer"
+          >
+            二维码 QR
+          </button>
+        </div>
+
+        <div data-deep-links="v2ray" hidden style="display:flex;flex-wrap:wrap;gap:10px">
+          {links.v2ray.map((link) => (
+            <a href={link.href} class="wb-btn-ghost" style="border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;padding:11px 18px">
+              一键导入 {link.client}
+            </a>
+          ))}
+          <button
+            type="button"
+            data-qr-toggle
+            aria-expanded="false"
+            aria-controls="subscription-qr"
+            class="wb-btn-ghost"
+            style="appearance:none;border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;padding:11px 18px;cursor:pointer"
+          >
+            二维码 QR
+          </button>
+        </div>
+
+        <div style="margin-top:9px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;color:var(--color-ink-soft)">
+          点「一键导入」没反应,说明这台设备没装对应客户端。改用上方「复制订阅」手动粘贴。
+        </div>
+
+        <div id="subscription-qr" class="wb-reveal" data-qr-panel data-open="false">
+          <div>
+            <div style="margin-top:12px;border:1px solid var(--color-rule);padding:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+              <canvas data-qr-canvas width="148" height="148" style="display:block;width:148px;height:148px;image-rendering:pixelated"></canvas>
+              <div data-qr-error hidden style="width:148px;height:148px;border:1px solid var(--color-rule);background-image:repeating-linear-gradient(45deg,var(--color-desk) 0 5px,var(--color-copy-white) 5px 10px);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-family:var(--font-mono);font-size:10px;line-height:1.8;color:var(--color-ink-soft)">
+                二维码不可用<br />请改用复制链接
+              </div>
+              <div data-qr-caption style="font-family:var(--font-mono);font-size:10.5px;line-height:1.8;letter-spacing:.06em;color:var(--color-ink-soft)">
+                QR / 扫码取用<br />绿联 CLASH · {p.nodeCount} PCS
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;border-top:1px solid var(--color-rule);padding-top:10px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;color:var(--color-ink-soft)">
+          免费节点由公开来源聚合,随时可能失效,不提供任何保障。
+        </div>
+
+        <div data-cleared-stamp hidden aria-hidden="true" style="display:flex;justify-content:flex-end;margin-top:6px">
+          <div style="mix-blend-mode:multiply;animation:stamp-slam 180ms cubic-bezier(.2,.9,.3,1.2) both">
+            <div style="border:2.4px solid var(--color-stamp);padding:7px 14px 6px;opacity:.92">
+              <div style="font-family:var(--font-mono);font-weight:600;font-size:17px;letter-spacing:.1em;color:var(--color-stamp);line-height:1.1">已放行</div>
+              <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.24em;color:var(--color-stamp)">CLEARED</div>
+            </div>
+          </div>
+        </div>
+        <div data-copy-status class="wb-sr-only" role="status" aria-live="polite"></div>
+      </div>
+
+      <div
+        data-clearance-veil
+        hidden
+        role="status"
+        aria-live="polite"
+        style="position:absolute;inset:0;background:var(--color-veil);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:5"
+      >
+        <div style="mix-blend-mode:multiply;animation:stamp-pulse 900ms ease-in-out infinite">
+          <svg width="76" height="76" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#7B3F9D" stroke-width="2.4" opacity=".85"></circle>
+            <circle cx="50" cy="50" r="41" fill="none" stroke="#7B3F9D" stroke-width="1" opacity=".6"></circle>
+            <path d="M50 27 L55.5 45 L73 57 L73 60.5 L54 55.5 L53 68 L59.5 74 L59.5 77 L50 74 L40.5 77 L40.5 74 L47 68 L46 55.5 L27 60.5 L27 57 L44.5 45 Z" fill="#7B3F9D" opacity=".85"></path>
+          </svg>
+        </div>
+        <div data-clearance-count style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;color:var(--color-stamp);text-transform:uppercase">
+          正在放行… {p.revealSeconds ?? 3}S
+        </div>
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--color-ink-soft)">
+          放行后即可复制订阅链接
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Ply = "clash" | "v2ray";
+
+  const writeClipboard = async (value: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    const copied = (
+      document as unknown as { execCommand(commandId: string): boolean }
+    ).execCommand("copy");
+    area.remove();
+    if (!copied) throw new Error("copy failed");
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-subscription-card]").forEach((root) => {
+    let ply: Ply = "clash";
+    let qrOpen = false;
+    let count = 0;
+    const storeKey = `manifest-cleared-${(root.dataset.date ?? "").replaceAll("-", "")}`;
+    const subs = {
+      clash: root.dataset.clash ?? "",
+      v2ray: root.dataset.v2ray ?? ""
+    };
+    const details = {
+      clash: { label: "SHEET 02 GREEN / 绿联 CLASH", caption: "QR / 扫码取用\n绿联 CLASH" },
+      v2ray: { label: "SHEET 03 PINK / 粉联 V2RAY", caption: "QR / 扫码取用\n粉联 V2RAY" }
+    };
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[data-ply-tab]")];
+    const linkPanels = [...root.querySelectorAll<HTMLElement>("[data-deep-links]")];
+    const qrButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-qr-toggle]")];
+    const qrPanel = root.querySelector<HTMLElement>("[data-qr-panel]");
+    const qrCanvas = root.querySelector<HTMLCanvasElement>("[data-qr-canvas]");
+    const qrError = root.querySelector<HTMLElement>("[data-qr-error]");
+    const qrCaption = root.querySelector<HTMLElement>("[data-qr-caption]");
+    const sheetLabel = root.querySelector<HTMLElement>("[data-sheet-label]");
+    const urlText = root.querySelector<HTMLElement>("[data-subscription-url]");
+    const countText = root.querySelector<HTMLElement>("[data-local-count]");
+    const cleared = root.querySelector<HTMLElement>("[data-cleared-stamp]");
+    const copyStatus = root.querySelector<HTMLElement>("[data-copy-status]");
+    const actions = root.querySelector<HTMLElement>("[data-subscription-actions]");
+    const veil = root.querySelector<HTMLElement>("[data-clearance-veil]");
+    const veilCount = root.querySelector<HTMLElement>("[data-clearance-count]");
+
+    try {
+      count = Number.parseInt(localStorage.getItem(storeKey) ?? "0", 10) || 0;
+    } catch {
+      count = 0;
+    }
+
+    const renderCount = () => {
+      if (!countText) return;
+      countText.hidden = count === 0;
+      countText.textContent = count ? `本机今日已放行 ${count} 次` : "";
+    };
+
+    const closeQr = () => {
+      qrOpen = false;
+      if (qrPanel) qrPanel.dataset.open = "false";
+      for (const button of qrButtons) {
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = "二维码 QR";
+      }
+    };
+
+    const setPly = (next: Ply) => {
+      ply = next;
+      root.style.background = next === "clash" ? "var(--color-copy-green)" : "var(--color-copy-pink)";
+      for (const tab of tabs) {
+        const active = tab.dataset.plyTab === next;
+        tab.setAttribute("aria-pressed", String(active));
+        tab.style.background = active
+          ? next === "clash"
+            ? "var(--color-copy-green)"
+            : "var(--color-copy-pink)"
+          : "transparent";
+        tab.style.fontWeight = active ? "600" : "400";
+      }
+      for (const panel of linkPanels) panel.hidden = panel.dataset.deepLinks !== next;
+      if (sheetLabel) sheetLabel.textContent = details[next].label;
+      if (urlText) {
+        urlText.textContent = subs[next];
+        urlText.title = subs[next];
+      }
+      if (qrCaption) qrCaption.innerText = `${details[next].caption} · ${root.dataset.nodeCount ?? "0"} PCS`;
+      if (cleared) cleared.hidden = true;
+      closeQr();
+    };
+
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => setPly(tab.dataset.plyTab as Ply));
+    }
+
+    root.querySelector<HTMLButtonElement>("[data-copy-subscription]")?.addEventListener("click", async () => {
+      try {
+        await writeClipboard(subs[ply]);
+        if (cleared) {
+          cleared.hidden = true;
+          requestAnimationFrame(() => {
+            cleared.hidden = false;
+          });
+        }
+        count += 1;
+        try {
+          localStorage.setItem(storeKey, String(count));
+        } catch {
+          // 隐私模式下只保留本次页面计数。
+        }
+        renderCount();
+        if (copyStatus) copyStatus.textContent = "订阅链接已复制";
+      } catch {
+        if (copyStatus) copyStatus.textContent = "复制失败，请手动选择订阅链接";
+      }
+    });
+
+    for (const button of qrButtons) {
+      button.addEventListener("click", async () => {
+        qrOpen = !qrOpen;
+        if (qrPanel) qrPanel.dataset.open = String(qrOpen);
+        for (const item of qrButtons) {
+          item.setAttribute("aria-expanded", String(qrOpen));
+          item.textContent = qrOpen ? "收起二维码 QR" : "二维码 QR";
+        }
+        if (!qrOpen || !qrCanvas || !qrError) return;
+        try {
+          const { default: QRCode } = await import("qrcode");
+          await QRCode.toCanvas(qrCanvas, subs[ply], {
+            width: 148,
+            margin: 1,
+            color: { dark: "#2A2333", light: "#FBFAF7" }
+          });
+          qrCanvas.hidden = false;
+          qrError.hidden = true;
+        } catch {
+          qrCanvas.hidden = true;
+          qrError.hidden = false;
+        }
+      });
+    }
+
+    const seconds = Math.max(0, Number(root.dataset.revealSeconds) || 0);
+    if (seconds && actions && veil && veilCount) {
+      let left = seconds;
+      actions.inert = true;
+      actions.setAttribute("aria-busy", "true");
+      veil.hidden = false;
+      veilCount.textContent = `正在放行… ${left}S`;
+      const timer = window.setInterval(() => {
+        left -= 1;
+        veilCount.textContent = `正在放行… ${Math.max(0, left)}S`;
+        if (left <= 0) {
+          window.clearInterval(timer);
+          veil.hidden = true;
+          actions.inert = false;
+          actions.removeAttribute("aria-busy");
+        }
+      }, 1000);
+    }
+
+    renderCount();
+  });
+</script>
