@@ -16,6 +16,7 @@ const wbType =
   "font-family:var(--font-mono);font-weight:600;font-size:clamp(28px,4.2cqw,56px);letter-spacing:-.02em;line-height:1;white-space:nowrap";
 const miniLabel = "font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:5px";
 const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color-rule);font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;font-weight:400";
+const breakdownWidth = "width:clamp(560px,60cqw,760px);max-width:100%";
 ---
 <Shell
   title="今日免费 Clash 与 V2Ray 订阅"
@@ -73,15 +74,15 @@ const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color
     <div style="padding:20px;border-bottom:1px solid var(--color-rule)">
       <h2 style="margin:0 0 10px;font-family:var(--font-mono);font-size:10px;font-weight:400;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase">BREAKDOWN / 节点明细</h2>
       {(!d.breakdown || d.breakdown.length === 0) && (
-        <div style="max-width:560px;border:1px solid var(--color-rule);background:var(--color-notice);padding:14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink-soft)">
+        <div style={breakdownWidth + ";border:1px solid var(--color-rule);background:var(--color-notice);padding:14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink-soft)"}>
           本次签发未附地区与协议明细。上方的件数与订阅链接不受影响,可以正常取用。
         </div>
       )}
       {d.breakdown && d.breakdown.length > 0 && (
         <div>
-        {/* 限宽:三列装的是 2–6 字符的短值,拉满 1360px 会让 COUNT 列飘到离
-            PROTOCOL 450px 远的地方。数据表应该贴合数据,不是贴合容器。 */}
-        <div style="overflow-x:auto;border:1px solid var(--color-rule);max-width:560px">
+        {/* 不拉满 1360px,但也不锁死在窄版时期的 560px。随单据从 560px
+            增长到 760px 后封顶,手机则由 max-width:100% 自动收满可用宽度。 */}
+        <div style={breakdownWidth + ";overflow-x:auto;border:1px solid var(--color-rule)"}>
           <table style="width:100%;min-width:260px;font-family:var(--font-mono);font-size:13px;border-collapse:collapse">
             <thead>
               <tr style="background:var(--color-band)">
