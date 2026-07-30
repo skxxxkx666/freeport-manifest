@@ -2,7 +2,7 @@ name: Daily manifest
 
 on:
   schedule:
-    - cron: "0 8,20 * * *" # 08:00 / 20:00 UTC === 16:00 / 次日 04:00 UTC+8
+    - cron: "17 8,20 * * *" # 避开 GitHub 整点高峰；16:17 / 次日 04:17 UTC+8
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   issue:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     permissions:
       actions: write
       contents: write
@@ -48,9 +48,21 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           BASE_PATH: ${{ vars.BASE_PATH }}
           REQUIRE_HEALTH_CHECK: "true"
-          HEALTH_MIN_NODES: "5"
-          HEALTH_MIN_RATIO: "0.2"
+          HEALTH_MIN_NODES: "10"
+          HEALTH_MIN_RATIO: "0.1"
+          HEALTH_MAX_CANDIDATES: "200"
+          HEALTH_MAX_PUBLISHED: "120"
+          HEALTH_MAX_LATENCY_MS: "2500"
+          HEALTH_SPEED_SAMPLES: "12"
+          HEALTH_SPEED_ATTEMPTS: "20"
         run: node scripts/issue-manifest.mjs
+
+      - name: 验证完整 Mihomo 配置
+        if: steps.gen.outputs.changed == 'true'
+        shell: bash
+        run: |
+          mkdir -p .tools/validate
+          "$MIHOMO_BIN" -t -d .tools/validate -f public/free/latest/clash.yaml
 
       - name: 提交
         if: steps.gen.outputs.changed == 'true'
