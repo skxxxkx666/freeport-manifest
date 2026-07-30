@@ -4,6 +4,7 @@
 import { createHash } from "node:crypto";
 import { appendFileSync } from "node:fs";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { isIP } from "node:net";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
@@ -22,6 +23,9 @@ const nodeUriPattern = /(?:vmess|vless|trojan|ss):\/\/[^\s"'<>[\]{}]+/gi;
 const defaultTimeoutMs = 45_000;
 const defaultMaxResponseBytes = 5_000_000;
 const defaultSourcesPath = "config/sources.json";
+const defaultCandidateLimit = 200;
+const defaultPublishedLimit = 120;
+const defaultMaxLatencyMs = 2500;
 
 const normalizeSource = (entry) => {
   const source = typeof entry === "string" ? { url: entry } : entry;
@@ -47,6 +51,9 @@ const normalizeSource = (entry) => {
   if (typeof source.type === "string" && source.type.trim()) normalized.type = source.type.trim();
   if (source.enabled === false) normalized.enabled = false;
   if (source.allowRedistribution === true) normalized.allowRedistribution = true;
+  if (typeof source.license === "string" && source.license.trim()) {
+    normalized.license = source.license.trim();
+  }
   if (Number.isInteger(source.maxItems) && source.maxItems > 0) {
     normalized.maxItems = Math.min(source.maxItems, 100);
   }
@@ -118,13 +125,78 @@ export const proxyFingerprint = (value) => {
   return fingerprint(normalized);
 };
 
+const unsafeIpv4 = (address) => {
+  const [a, b] = address.split(".").map(Number);
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 0) ||
+    (a === 192 && b === 168) ||
+    (a === 198 && [18, 19].includes(b)) ||
+    a >= 224
+  );
+};
+
+const unsafeIpv6 = (address) => {
+  const value = address.toLowerCase();
+  return (
+    value === "::" ||
+    value === "::1" ||
+    /^f[cd]/.test(value) ||
+    /^fe[89ab]/.test(value) ||
+    /^ff/.test(value) ||
+    value.startsWith("2001:db8:")
+  );
+};
+
+export const safeProxyServer = (server) => {
+  const value = String(server ?? "").trim();
+  if (
+    !value ||
+    value.length > 253 ||
+    /[\s/@]/.test(value) ||
+    /(^|\.)(localhost|local|lan|home\.arpa)$/i.test(value)
+  ) {
+    return false;
+  }
+  const family = isIP(value);
+  if (family === 4) return !unsafeIpv4(value);
+  if (family === 6) return !unsafeIpv6(value);
+  return /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(
+    value
+  );
+};
+
 const validClashProxy = (value) => {
   if (!value || typeof value !== "object" || Array.isArray(value)) return;
   const protocol = String(value.type ?? "").toLowerCase();
   const name = String(value.name ?? "").trim();
   const port = Number(value.port);
-  if (!clashProtocols.has(protocol) || !name || !value.server || !Number.isInteger(port)) return;
-  return { ...value, type: protocol, name, port };
+  if (
+    !clashProtocols.has(protocol) ||
+    !name ||
+    name.length > 180 ||
+    !safeProxyServer(value.server) ||
+    !Number.isInteger(port) ||
+    port < 1 ||
+    port > 65535 ||
+    value["dialer-proxy"] ||
+    value["interface-name"] ||
+    value["routing-mark"]
+  ) {
+    return;
+  }
+  return {
+    ...value,
+    type: protocol,
+    name,
+    server: String(value.server).trim(),
+    port
+  };
 };
 
 const clashNode = (value) => {
@@ -168,6 +240,35 @@ const dedupeProxies = (proxies) => {
 const mergePayload = (target, source) => {
   target.nodes.push(...source.nodes);
   target.proxies.push(...source.proxies);
+};
+
+export const limitSourcePayload = (payload, maximumItems) => {
+  const limit = Number.isInteger(maximumItems) && maximumItems > 0
+    ? maximumItems
+    : Number.POSITIVE_INFINITY;
+  const selected = { nodes: [], proxies: [], ...(payload.meta ? { meta: payload.meta } : {}) };
+  let nodeIndex = 0;
+  let proxyIndex = 0;
+  while (
+    selected.nodes.length + selected.proxies.length < limit &&
+    (nodeIndex < payload.nodes.length || proxyIndex < payload.proxies.length)
+  ) {
+    if (
+      proxyIndex < payload.proxies.length &&
+      selected.nodes.length + selected.proxies.length < limit
+    ) {
+      selected.proxies.push(payload.proxies[proxyIndex]);
+      proxyIndex += 1;
+    }
+    if (
+      nodeIndex < payload.nodes.length &&
+      selected.nodes.length + selected.proxies.length < limit
+    ) {
+      selected.nodes.push(payload.nodes[nodeIndex]);
+      nodeIndex += 1;
+    }
+  }
+  return selected;
 };
 
 const collectStructuredPayload = (value, payload, depth, seen = new WeakSet()) => {
@@ -410,16 +511,21 @@ export async function fetchSourcePayloads(
     if (source.enabled === false) continue;
     const id = sourceLabel(source);
     try {
-      const current =
+      const discovered =
         source.type === "v2nodes-country"
           ? await fetchV2NodesCountry(source, { fetchImpl, timeoutMs })
           : parseSourcePayload(await requestText(source, fetchImpl, timeoutMs));
+      const current = limitSourcePayload(discovered, source.maxItems);
       mergePayload(payload, current);
       reports.push({
         id,
         status: current.meta?.detailFailures ? "partial" : "ok",
         nodeCount: current.nodes.length,
         proxyCount: current.proxies.length,
+        discoveredNodeCount: discovered.nodes.length,
+        discoveredProxyCount: discovered.proxies.length,
+        maxItems: source.maxItems,
+        license: source.license,
         detailTotal: current.meta?.detailTotal,
         detailFailures: current.meta?.detailFailures,
         payload: {
@@ -428,7 +534,10 @@ export async function fetchSourcePayloads(
         }
       });
       console.log(
-        `来源 ${id}：${current.proxies.length} 个 Clash 节点，${current.nodes.length} 条分享链接`
+        `来源 ${id}：采用 ${current.proxies.length} 个 Clash 节点、${current.nodes.length} 条分享链接` +
+          (source.maxItems
+            ? `（发现 ${discovered.proxies.length + discovered.nodes.length}，上限 ${source.maxItems}）`
+            : "")
       );
     } catch (error) {
       const reason = error instanceof Error ? error.message : "UnknownError";
@@ -722,12 +831,36 @@ export function nodeUriToClashProxy(node, index = 1) {
   }
 }
 
+const reservedProxyNames = new Set([
+  "DIRECT",
+  "REJECT",
+  "REJECT-DROP",
+  "PASS",
+  "COMPATIBLE",
+  "🚢 FREEPORT",
+  "♻️ AUTO",
+  "🛟 FALLBACK",
+  "💬 TELEGRAM",
+  "🛡️ ADS",
+  "🇭🇰 香港",
+  "🇸🇬 新加坡",
+  "🇯🇵 日本",
+  "🇹🇼 台湾",
+  "🇺🇸 美国",
+  "🇪🇺 欧洲",
+  "🌍 其他地区"
+]);
+
 const uniqueProxyNames = (proxies) => {
   const names = new Map();
   return proxies.map((proxy) => {
-    const count = (names.get(proxy.name) ?? 0) + 1;
-    names.set(proxy.name, count);
-    return count === 1 ? proxy : { ...proxy, name: `${proxy.name} · ${count}` };
+    const baseName = reservedProxyNames.has(proxy.name)
+      ? `节点 · ${proxy.name}`
+      : proxy.name;
+    const count = (names.get(baseName) ?? 0) + 1;
+    names.set(baseName, count);
+    const name = count === 1 ? baseName : `${baseName} · ${count}`;
+    return name === proxy.name ? proxy : { ...proxy, name };
   });
 };
 
@@ -759,6 +892,64 @@ export function buildSubscriptionPayload(payload) {
 
 export function renderClashConfig(proxies) {
   const names = proxies.map((proxy) => proxy.name);
+  const healthCheck = {
+    url: "https://www.gstatic.com/generate_204",
+    interval: 300,
+    timeout: 5000,
+    "expected-status": 204,
+    lazy: true,
+    "max-failed-times": 2
+  };
+  const regionDefinitions = [
+    { name: "🇭🇰 香港", codes: ["HK"] },
+    { name: "🇸🇬 新加坡", codes: ["SG"] },
+    { name: "🇯🇵 日本", codes: ["JP"] },
+    { name: "🇹🇼 台湾", codes: ["TW"] },
+    { name: "🇺🇸 美国", codes: ["US"] },
+    { name: "🇪🇺 欧洲", codes: ["DE", "FR", "NL", "GB", "SE"] }
+  ];
+  const assignedRegions = new Set(regionDefinitions.flatMap((item) => item.codes));
+  const regionGroups = regionDefinitions
+    .map((definition) => ({
+      name: definition.name,
+      type: "url-test",
+      ...healthCheck,
+      tolerance: 100,
+      proxies: proxies
+        .filter((proxy) => definition.codes.includes(regionOf(proxy.name)))
+        .map((proxy) => proxy.name)
+    }))
+    .filter((group) => group.proxies.length);
+  const otherNames = proxies
+    .filter((proxy) => !assignedRegions.has(regionOf(proxy.name)))
+    .map((proxy) => proxy.name);
+  if (otherNames.length) {
+    regionGroups.push({
+      name: "🌍 其他地区",
+      type: "url-test",
+      ...healthCheck,
+      tolerance: 100,
+      proxies: otherNames
+    });
+  }
+  const regionGroupNames = regionGroups.map((group) => group.name);
+  const telegramChoices = [
+    "🚢 FREEPORT",
+    ...["🇸🇬 新加坡", "🇭🇰 香港", "🇺🇸 美国"].filter((name) =>
+      regionGroupNames.includes(name)
+    ),
+    "♻️ AUTO",
+    "DIRECT"
+  ];
+  const ruleProvider = (name, behavior) => ({
+    type: "http",
+    behavior,
+    format: "yaml",
+    url: `https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/${name}.txt`,
+    path: `./ruleset/${name}.yaml`,
+    interval: 86400,
+    "size-limit": 10_000_000
+  });
   return stringifyYaml(
     {
       "mixed-port": 7890,
@@ -768,30 +959,143 @@ export function renderClashConfig(proxies) {
       ipv6: true,
       "unified-delay": true,
       "tcp-concurrent": true,
+      "etag-support": true,
       profile: {
         "store-selected": true,
         "store-fake-ip": true
+      },
+      sniffer: {
+        enable: true,
+        "force-dns-mapping": true,
+        "parse-pure-ip": true,
+        "override-destination": true,
+        sniff: {
+          HTTP: {
+            ports: ["80", "8080-8880"],
+            "override-destination": true
+          },
+          TLS: { ports: ["443", "8443"] },
+          QUIC: { ports: ["443", "8443"] }
+        },
+        "skip-domain": ["Mijia Cloud", "+.push.apple.com"]
+      },
+      dns: {
+        enable: true,
+        ipv6: true,
+        listen: "127.0.0.1:1053",
+        "enhanced-mode": "fake-ip",
+        "fake-ip-range": "198.18.0.1/16",
+        "fake-ip-filter-mode": "rule",
+        "fake-ip-filter": [
+          "RULE-SET,private,real-ip",
+          "RULE-SET,direct,real-ip",
+          "DOMAIN-SUFFIX,lan,real-ip",
+          "DOMAIN-SUFFIX,local,real-ip",
+          "MATCH,fake-ip"
+        ],
+        "use-hosts": true,
+        "use-system-hosts": true,
+        "respect-rules": true,
+        "default-nameserver": ["223.5.5.5", "119.29.29.29"],
+        nameserver: [
+          "https://dns.alidns.com/dns-query",
+          "https://doh.pub/dns-query"
+        ],
+        "proxy-server-nameserver": [
+          "https://dns.alidns.com/dns-query",
+          "https://doh.pub/dns-query"
+        ],
+        "direct-nameserver": [
+          "https://dns.alidns.com/dns-query",
+          "https://doh.pub/dns-query"
+        ],
+        "nameserver-policy": {
+          "rule-set:private": [
+            "https://dns.alidns.com/dns-query",
+            "https://doh.pub/dns-query"
+          ],
+          "rule-set:direct": [
+            "https://dns.alidns.com/dns-query",
+            "https://doh.pub/dns-query"
+          ],
+          "rule-set:proxy": [
+            "https://1.1.1.1/dns-query",
+            "https://dns.google/dns-query"
+          ]
+        }
       },
       proxies,
       "proxy-groups": [
         {
           name: "🚢 FREEPORT",
           type: "select",
-          proxies: ["♻️ AUTO", "DIRECT", ...names]
+          proxies: [
+            "♻️ AUTO",
+            "🛟 FALLBACK",
+            ...regionGroupNames,
+            "DIRECT",
+            ...names
+          ]
         },
         {
           name: "♻️ AUTO",
           type: "url-test",
-          url: "https://www.gstatic.com/generate_204",
-          interval: 300,
-          tolerance: 80,
+          ...healthCheck,
+          tolerance: 100,
           proxies: names
+        },
+        {
+          name: "🛟 FALLBACK",
+          type: "fallback",
+          ...healthCheck,
+          proxies: names
+        },
+        ...regionGroups,
+        {
+          name: "💬 TELEGRAM",
+          type: "select",
+          proxies: telegramChoices
+        },
+        {
+          name: "🛡️ ADS",
+          type: "select",
+          proxies: ["REJECT", "DIRECT"]
         }
       ],
-      rules: ["MATCH,🚢 FREEPORT"]
+      "rule-providers": {
+        applications: ruleProvider("applications", "classical"),
+        private: ruleProvider("private", "domain"),
+        reject: ruleProvider("reject", "domain"),
+        icloud: ruleProvider("icloud", "domain"),
+        apple: ruleProvider("apple", "domain"),
+        google: ruleProvider("google", "domain"),
+        proxy: ruleProvider("proxy", "domain"),
+        direct: ruleProvider("direct", "domain"),
+        lancidr: ruleProvider("lancidr", "ipcidr"),
+        cncidr: ruleProvider("cncidr", "ipcidr"),
+        telegramcidr: ruleProvider("telegramcidr", "ipcidr")
+      },
+      rules: [
+        "RULE-SET,applications,DIRECT",
+        "RULE-SET,private,DIRECT",
+        "RULE-SET,reject,🛡️ ADS",
+        "RULE-SET,icloud,DIRECT",
+        "RULE-SET,apple,DIRECT",
+        "RULE-SET,google,🚢 FREEPORT",
+        "RULE-SET,proxy,🚢 FREEPORT",
+        "RULE-SET,direct,DIRECT",
+        "RULE-SET,lancidr,DIRECT,no-resolve",
+        "RULE-SET,cncidr,DIRECT,no-resolve",
+        "RULE-SET,telegramcidr,💬 TELEGRAM,no-resolve",
+        "MATCH,🚢 FREEPORT"
+      ]
     },
     { lineWidth: 0 }
   );
+}
+
+export function renderClashProvider(proxies) {
+  return stringifyYaml({ proxies }, { lineWidth: 0 });
 }
 
 export const protoOf = (node) => node.slice(0, node.indexOf(":"));
@@ -838,12 +1142,72 @@ export const regionOf = (node) => {
   return "OTHER";
 };
 
-const publicSubscriptionUrl = (fileName, env = process.env) => {
+export function selectDiverseProxies(proxies, maximumItems = defaultCandidateLimit) {
+  const limit = Math.max(0, Math.floor(maximumItems));
+  if (proxies.length <= limit) return [...proxies];
+  const buckets = new Map();
+  for (const proxy of proxies) {
+    const key = `${regionOf(proxy.name)}\0${proxy.type}`;
+    const bucket = buckets.get(key) ?? [];
+    bucket.push(proxy);
+    buckets.set(key, bucket);
+  }
+  const selected = [];
+  let round = 0;
+  while (selected.length < limit) {
+    let added = false;
+    for (const bucket of buckets.values()) {
+      if (round < bucket.length) {
+        selected.push(bucket[round]);
+        added = true;
+        if (selected.length >= limit) break;
+      }
+    }
+    if (!added) break;
+    round += 1;
+  }
+  return selected;
+}
+
+export function selectPublishedProxies(
+  proxies,
+  results,
+  {
+    maximumItems = defaultPublishedLimit,
+    maximumLatencyMs = defaultMaxLatencyMs
+  } = {}
+) {
+  const resultByName = new Map(results.map((result) => [result.name, result]));
+  const healthy = proxies
+    .filter((proxy) => {
+      const result = resultByName.get(proxy.name);
+      return (
+        result?.alive &&
+        Number.isFinite(result.delayMs) &&
+        result.delayMs <= maximumLatencyMs
+      );
+    })
+    .sort((a, b) => {
+      const resultA = resultByName.get(a.name);
+      const resultB = resultByName.get(b.name);
+      const speedA = Number.isFinite(resultA?.speedMbps) ? resultA.speedMbps : -1;
+      const speedB = Number.isFinite(resultB?.speedMbps) ? resultB.speedMbps : -1;
+      return (
+        (speedB >= 0) - (speedA >= 0) ||
+        speedB - speedA ||
+        resultA.delayMs - resultB.delayMs ||
+        proxyFingerprint(a).localeCompare(proxyFingerprint(b))
+      );
+    });
+  return selectDiverseProxies(healthy, maximumItems);
+}
+
+export const publicSubscriptionUrl = (fileName, env = process.env) => {
   const site = String(env.SUB_PUBLIC_BASE_URL || env.SITE_URL || "https://manifest.dpdns.org")
     .trim()
     .replace(/\/+$/, "");
   const base = String(env.BASE_PATH ?? "").trim().replace(/^\/+|\/+$/g, "");
-  const path = `${base ? `/${base}` : ""}/free/${compact}/${fileName}`;
+  const path = `${base ? `/${base}` : ""}/free/latest/${fileName}`;
   return new URL(path, `${site}/`).href;
 };
 
@@ -910,6 +1274,14 @@ const publicSourceReports = (reports) =>
     status: report.status,
     nodeCount: report.nodeCount,
     proxyCount: report.proxyCount,
+    ...(Number.isInteger(report.discoveredNodeCount)
+      ? {
+          discoveredNodeCount: report.discoveredNodeCount,
+          discoveredProxyCount: report.discoveredProxyCount
+        }
+      : {}),
+    ...(Number.isInteger(report.maxItems) ? { maxItems: report.maxItems } : {}),
+    ...(report.license ? { license: report.license } : {}),
     ...(Number.isInteger(report.detailTotal)
       ? {
           detailTotal: report.detailTotal,
@@ -929,19 +1301,23 @@ export const buildHealthReport = ({
   sources,
   sourcesByProxy,
   proxies,
-  thresholds
+  thresholds,
+  publishedProxies = [],
+  qualityLimits
 }) => {
   const resultByName = new Map(summary.results.map((result) => [result.name, result]));
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     manifest: `FP-${compact}-01`,
     status: tested ? "tested" : "skipped",
     testedAt: summary.testedAt,
     thresholds,
+    ...(qualityLimits ? { qualityLimits } : {}),
     summary: {
       candidateCount: summary.candidateCount,
       healthyCount: summary.healthyCount,
       failedCount: summary.failedCount,
+      publishedCount: publishedProxies.length,
       aliveRatio: summary.aliveRatio,
       latencyMs: summary.latencyMs,
       failureReasons: summary.failureReasons
@@ -1001,7 +1377,17 @@ async function main() {
   const sources = await loadSourceSpecs();
   const fetched = await fetchSourcePayloads(sources);
   const built = buildSubscriptionPayload(fetched);
-  const { proxies } = built;
+  const candidateLimit = Math.floor(
+    positiveNumber(process.env.HEALTH_MAX_CANDIDATES, defaultCandidateLimit)
+  );
+  const publishedLimit = Math.floor(
+    positiveNumber(process.env.HEALTH_MAX_PUBLISHED, defaultPublishedLimit)
+  );
+  const maximumLatencyMs = positiveNumber(
+    process.env.HEALTH_MAX_LATENCY_MS,
+    defaultMaxLatencyMs
+  );
+  const proxies = selectDiverseProxies(built.proxies, candidateLimit);
   const requireHealthCheck = process.env.REQUIRE_HEALTH_CHECK === "true";
   if (!proxies.length || !built.shareUris.length) {
     setChangedOutput(false);
@@ -1019,7 +1405,14 @@ async function main() {
     throw new Error("REQUIRE_HEALTH_CHECK=true，但未配置 MIHOMO_BIN");
   }
   const summary = tested
-    ? await probeProxies(proxies)
+    ? await probeProxies(proxies, {
+        speedSampleSize: Math.floor(
+          positiveNumber(process.env.HEALTH_SPEED_SAMPLES, 12)
+        ),
+        speedSampleMaxAttempts: Math.floor(
+          positiveNumber(process.env.HEALTH_SPEED_ATTEMPTS, 20)
+        )
+      })
     : summarizeProbeResults(
         proxies.map((proxy) => ({
           name: proxy.name,
@@ -1030,19 +1423,24 @@ async function main() {
       );
   if (tested) assertProbeThreshold(summary, thresholds);
 
-  const resultByName = new Map(
-    summary.results.map((result) => [result.name, result])
-  );
   const publishedProxies = tested
-    ? proxies.filter((proxy) => resultByName.get(proxy.name)?.alive)
-    : proxies;
+    ? selectPublishedProxies(proxies, summary.results, {
+        maximumItems: publishedLimit,
+        maximumLatencyMs
+      })
+    : selectDiverseProxies(proxies, publishedLimit);
   const shareUris = dedupe(
     publishedProxies
       .map((proxy) => built.uriByProxyFingerprint.get(proxyFingerprint(proxy)))
       .filter(Boolean)
   );
-  if (!publishedProxies.length || !shareUris.length) {
-    throw new Error("健康检查后没有可同时签发的 Clash 与 V2Ray 节点");
+  if (
+    publishedProxies.length < thresholds.minimumHealthy ||
+    shareUris.length < thresholds.minimumHealthy
+  ) {
+    throw new Error(
+      `质量过滤后仅剩 Clash ${publishedProxies.length} / V2Ray ${shareUris.length} 个节点`
+    );
   }
 
   const artifactDir = `public/free/${compact}`;
@@ -1093,7 +1491,7 @@ async function main() {
   const frontmatter = `---
 date: ${today}
 serial: "01"
-issuedAt: "${today}T04:00:00+08:00"
+issuedAt: "${new Date().toISOString()}"
 clash: "${publicSubscriptionUrl("clash.yaml")}"
 v2ray: "${publicSubscriptionUrl("v2ray.txt")}"
 nodeCount: ${publishedProxies.length}
@@ -1112,21 +1510,27 @@ expired: false
     sources: fetched.reports,
     sourcesByProxy,
     proxies,
-    thresholds
+    thresholds,
+    publishedProxies,
+    qualityLimits: {
+      candidateLimit,
+      publishedLimit,
+      maximumLatencyMs
+    }
   });
+  const clashContent = renderClashConfig(publishedProxies);
+  const providerContent = renderClashProvider(publishedProxies);
+  const v2rayContent = `${Buffer.from(`${shareUris.join("\n")}\n`, "utf8").toString("base64")}\n`;
+  const healthContent = `${JSON.stringify(report, null, 2)}\n`;
   const changes = await Promise.all([
-    writeIfChanged(
-      `${artifactDir}/clash.yaml`,
-      renderClashConfig(publishedProxies)
-    ),
-    writeIfChanged(
-      `${artifactDir}/v2ray.txt`,
-      `${Buffer.from(`${shareUris.join("\n")}\n`, "utf8").toString("base64")}\n`
-    ),
-    writeIfChanged(
-      `${artifactDir}/health.json`,
-      `${JSON.stringify(report, null, 2)}\n`
-    ),
+    writeIfChanged(`${artifactDir}/clash.yaml`, clashContent),
+    writeIfChanged(`${artifactDir}/provider.yaml`, providerContent),
+    writeIfChanged(`${artifactDir}/v2ray.txt`, v2rayContent),
+    writeIfChanged(`${artifactDir}/health.json`, healthContent),
+    writeIfChanged("public/free/latest/clash.yaml", clashContent),
+    writeIfChanged("public/free/latest/provider.yaml", providerContent),
+    writeIfChanged("public/free/latest/v2ray.txt", v2rayContent),
+    writeIfChanged("public/free/latest/health.json", healthContent),
     writeIfChanged(`src/content/subs/${today}.md`, frontmatter)
   ]);
   const expiredCount = await expireOlderManifests();

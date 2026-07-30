@@ -11,6 +11,7 @@ import {
   expireOlderManifests,
   fetchSourcePayloads,
   fetchSources,
+  limitSourcePayload,
   nodeUriToClashProxy,
   parseNodes,
   parseSourceBody,
@@ -20,8 +21,13 @@ import {
   parseV2NodesIndex,
   protoOf,
   proxyFingerprint,
+  publicSubscriptionUrl,
   regionOf,
-  renderClashConfig
+  renderClashConfig,
+  renderClashProvider,
+  safeProxyServer,
+  selectDiverseProxies,
+  selectPublishedProxies
 } from "./issue-manifest.mjs";
 import { parse as parseYaml } from "yaml";
 
@@ -176,6 +182,35 @@ test("source response size is capped before reading the body", async () => {
   assert.match(payload.reports[0].reason, /响应超过/);
 });
 
+test("source quotas cap combined Clash and share-link candidates", () => {
+  const limited = limitSourcePayload(
+    {
+      proxies: [{ name: "one" }, { name: "two" }, { name: "three" }],
+      nodes: ["vless://one", "vless://two", "vless://three"]
+    },
+    4
+  );
+
+  assert.deepEqual(limited.proxies.map((proxy) => proxy.name), ["one", "two"]);
+  assert.deepEqual(limited.nodes, ["vless://one", "vless://two"]);
+});
+
+test("unsafe local proxy destinations and invalid ports are rejected", () => {
+  assert.equal(safeProxyServer("1.1.1.1"), true);
+  assert.equal(safeProxyServer("edge.example.com"), true);
+  assert.equal(safeProxyServer("127.0.0.1"), false);
+  assert.equal(safeProxyServer("192.168.1.8"), false);
+  assert.equal(safeProxyServer("node.local"), false);
+
+  const payload = parseSourcePayload(`
+proxies:
+  - { name: "safe", type: trojan, server: edge.example.com, port: 443, password: pass }
+  - { name: "loopback", type: trojan, server: 127.0.0.1, port: 443, password: pass }
+  - { name: "bad-port", type: trojan, server: edge.example.com, port: 70000, password: pass }
+`);
+  assert.deepEqual(payload.proxies.map((proxy) => proxy.name), ["safe"]);
+});
+
 test("source payload preserves Clash objects for real artifact generation", () => {
   const payload = parseSourcePayload(`
 proxies:
@@ -303,7 +338,56 @@ test("subscription payload emits valid Clash YAML and base share links", () => {
   assert.equal(payload.proxies.length, 2);
   assert.equal(payload.shareUris.length, 1);
   assert.equal(config.proxies.length, 2);
-  assert.deepEqual(config.rules, ["MATCH,🚢 FREEPORT"]);
+  assert.equal(config.rules.at(-1), "MATCH,🚢 FREEPORT");
+  assert.equal(config["rule-providers"].proxy.behavior, "domain");
+  assert.equal(config["rule-providers"].cncidr.behavior, "ipcidr");
+  assert.match(
+    config["rule-providers"].proxy.url,
+    /Loyalsoldier\/clash-rules@release\/proxy\.txt/
+  );
+  assert.equal(config.dns["fake-ip-filter-mode"], "rule");
+  assert.equal(config.sniffer.enable, true);
+  assert.ok(
+    config["proxy-groups"].some((group) => group.name === "🛟 FALLBACK")
+  );
+  assert.equal(parseYaml(renderClashProvider(payload.proxies)).proxies.length, 2);
+});
+
+test("candidate and publishing limits preserve protocol and region diversity", () => {
+  const proxies = [
+    { name: "SG one", type: "vless" },
+    { name: "SG two", type: "vless" },
+    { name: "US one", type: "trojan" },
+    { name: "JP one", type: "ss" }
+  ];
+  assert.deepEqual(
+    selectDiverseProxies(proxies, 3).map((proxy) => proxy.name),
+    ["SG one", "US one", "JP one"]
+  );
+
+  const results = [
+    { name: "SG one", alive: true, delayMs: 150 },
+    { name: "SG two", alive: true, delayMs: 80, speedMbps: 3 },
+    { name: "US one", alive: true, delayMs: 200 },
+    { name: "JP one", alive: true, delayMs: 3000 }
+  ];
+  assert.deepEqual(
+    selectPublishedProxies(proxies, results, {
+      maximumItems: 2,
+      maximumLatencyMs: 2500
+    }).map((proxy) => proxy.name),
+    ["SG two", "US one"]
+  );
+});
+
+test("public subscription URLs remain stable across manifest dates", () => {
+  assert.equal(
+    publicSubscriptionUrl("clash.yaml", {
+      SITE_URL: "https://manifest.dpdns.org",
+      BASE_PATH: "/"
+    }),
+    "https://manifest.dpdns.org/free/latest/clash.yaml"
+  );
 });
 
 test("same connection with different labels is published once", () => {

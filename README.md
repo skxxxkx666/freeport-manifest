@@ -44,19 +44,20 @@ config/sources.json             默认公开来源与授权门控
 .github/workflows/ci.yml        push / PR 测试、检查与构建
 .github/workflows/daily.yml     每 12 小时拉取、实测、签发并提交
 .github/workflows/deploy.yml    main 推送后独立部署 Pages + 可选 CF 清缓存
-public/free/YYYYMMDD/           每日 Clash / V2Ray 订阅与脱敏健康报告
+public/free/YYYYMMDD/           每次签发的 Clash / provider / V2Ray 历史快照
+public/free/latest/             客户端长期订阅的滚动地址与脱敏健康报告
 public/og-card.png              1200×630 搜索与社交分享预览图
 public/fonts/                   得意黑子集(≤ 50KB)
 ```
 
 ## 验证状态
 
-2026-07-30 验证记录(只改后端/工程文件,未改前端布局或样式):
+2026-07-31 验证记录:
 
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.6、Vite 8.1.5、React 19.2.8、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地已通过 `npm ci`;`npm test`(38/38)、
+   本地已通过 `npm ci`;`npm test`(42/42)、
    `npm run check`(0 error)和 `npm run build`(22 pages)均通过。
    TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
    `^5 || ^6`,所以暂不做不兼容升级。
@@ -67,22 +68,27 @@ public/fonts/                   得意黑子集(≤ 50KB)
    生产仓库已设置 `SITE_URL=https://manifest.dpdns.org`、`BASE_PATH=/`,并在
    GitHub Pages workflow 中完成根路径构建和首次部署。
 3. **已解决 — 真实来源、发布前实测与订阅交付。**
-   默认通过 GitHub Contents API 读取 `PuddinCat/BestClash` 的 Clash YAML;响应仍兼容明文 URI、
-   base64/base64url、JSON API(含嵌套 base64)和 Clash YAML/JSON `proxies`。
-   每次签发先由固定版本 Mihomo 对所有候选做两个 204 目标的连通性与延迟测试,
-   再优先按协议分散选择候选,最多尝试 8 个节点,直到取得 3 个成功的 250 KB 小流量
-   下载样本。只有实测存活节点会进入
-   `clash.yaml` 和 `v2ray.txt`;至少需要 5 个且候选存活率不低于 20%,否则整次签发失败并
-   保留线上上一版。`health.json` 记录来源状态、脱敏节点哈希、延迟、失败分类和测速结果。
+   默认读取 BestClash、V2Nodes 新加坡、`Au1rxx/free-vpn-subscriptions` 和
+   `Barabama/FreeNodes`;后两个来源声明 MIT 许可并分别限制为 80/60 个候选。
+   响应仍兼容明文 URI、base64/base64url、JSON API(含嵌套 base64)和 Clash YAML/JSON
+   `proxies`。每次签发先由固定版本 Mihomo 对所有候选做两个 204 目标的连通性与延迟
+   测试,再优先按协议分散选择候选,最多尝试 20 个节点,直到取得 12 个成功的 250 KB
+   小流量下载样本。生成前拒绝内网、环回、链路本地、非法端口和带危险出站覆盖字段的
+   节点。全局最多实测 200 个候选并发布 120 个,延迟超过 2500 ms 的节点不会进入产物。
+   只有实测存活节点会进入 `clash.yaml`、`provider.yaml` 和 `v2ray.txt`;至少需要 10 个
+   且候选存活率不低于 10%,否则整次签发失败并保留线上上一版。大型聚合源的低命中项
+   只消耗测试预算,不会进入产物。`health.json` 记录来源
+   状态、脱敏节点哈希、延迟、失败分类和测速结果。
    V2Ray 转换现已保留 `skip-cert-verify`、ALPN、SNI、fingerprint 等关键 TLS 字段;
    遇到自定义 WS header、SS plugin 等无法无损表达的 Clash 配置时跳过该 V2 链接,
    不再发布表面可导入但实际失真的链接。
-4. **已验证 — 当前订阅连通性与小流量测速。**
-   2026-07-30 使用官方 Mihomo 1.19.29 对现有 31 个 Clash 候选做双目标测试。
-   较长测试快照为 8/31 存活;本轮短时复核为 5/31 存活,延迟 187–336 ms。
-   本轮最低延迟 3 节点的 100 KB 样本全部下载成功,约 0.505–0.689 Mbps;
-   较长审计中 8 个存活节点的 500 KB 样本也全部成功。该数据只证明测试时刻可用,
-   不是带宽承诺,也说明免费上游存在明显分钟级波动。
+4. **已验证 — 升级前线上订阅基线。**
+   2026-07-31 04:21 使用官方 Mihomo 1.19.29 从本机网络重新测试线上 20 个节点,
+   4/20 存活(20%),延迟中位数 259 ms,其中 3 个完成 250 KB 下载样本。
+   该结果说明静态订阅服务可用,但旧节点池已明显衰减;数据只证明测试时刻和测试网络
+   可用,不是带宽承诺。扩源后同机端到端签发从 167 个去重候选筛出 Clash 21 个、
+   V2Ray 20 个,延迟中位数 296 ms,12 个节点完成 250 KB 下载样本;完整 `clash.yaml`
+   已通过 Mihomo 配置测试。后续结果以 `public/free/latest/health.json` 为准。
 5. **部分验证 — 深链与 375 宽度。**
    Edge 375×812 实测:页面整体 `scrollWidth=375`,sticky 导航滚动 900px 后仍
    `top=0`;明细表容器 `331px`、内容 `420px`,可横向滚到 `89px`。
@@ -126,8 +132,17 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 部署与来源配置
 
-生产域名统一使用 `manifest.dpdns.org`;站点与订阅同源,订阅路径为
-`/free/YYYYMMDD/clash.yaml` 和 `/free/YYYYMMDD/v2ray.txt`。仓库变量设置为:
+生产域名统一使用 `manifest.dpdns.org`;站点与订阅同源。客户端应长期使用:
+
+```text
+https://manifest.dpdns.org/free/latest/clash.yaml
+https://manifest.dpdns.org/free/latest/provider.yaml
+https://manifest.dpdns.org/free/latest/v2ray.txt
+https://manifest.dpdns.org/free/latest/health.json
+```
+
+`provider.yaml` 只包含节点,适合已有自定义规则的 Mihomo 用户;`clash.yaml` 是完整配置。
+`/free/YYYYMMDD/` 只作历史快照,不应作为客户端长期订阅地址。仓库变量设置为:
 
 ```text
 Repository variable SITE_URL=https://manifest.dpdns.org
@@ -217,11 +232,12 @@ https://public-one.example/sub https://public-two.example/sub
 }
 ```
 
-所有来源只接受 HTTPS(测试 fixture 可用 `data:`),响应上限 5 MB。生成器手动处理最多
+所有来源只接受 HTTPS(测试 fixture 可用 `data:`),响应上限 5 MB。`maxItems` 同时限制
+Clash 对象和分享链接的总数,防止大型聚合源拖垮 Runner 与客户端。生成器手动处理最多
 5 次重定向;带自定义鉴权 header 的来源禁止跨源重定向,避免凭据被转发到其他主机。
 单个来源失败不会泄露 header,只在健康报告中公开来源 ID、状态和条目数。
 
-定时签发、持续集成和部署彼此独立。GitHub Actions 每天北京时间 04:00 和 16:00
+定时签发、持续集成和部署彼此独立。GitHub Actions 每天北京时间 04:17 和 16:17
 自动运行,不依赖本地电脑开机:
 
 - `daily.yml` 每 12 小时或手动触发时下载经过 SHA-256 校验的 Mihomo 1.19.29,
@@ -265,6 +281,11 @@ npm run seo:check
   的明确指示为 `v2nodes-sg` 设置 `"enabled": true` 与
   `"allowRedistribution": true`;运营者仍需自行确认授权有效。若未获许可,应将任一
   开关设为 `false` 以停止抓取与再分发。
+- `Au1rxx/free-vpn-subscriptions` 与 `Barabama/FreeNodes` 仓库均声明 MIT 许可;
+  本项目保留来源 ID、条目数和许可标识,并对其产物再次做独立 Mihomo 实测。
+- 完整 Clash 配置通过 HTTP RULE-SET 引用 GPL-3.0 的
+  `Loyalsoldier/clash-rules`,不复制或修改其规则文件;配置采用该项目推荐的白名单顺序:
+  应用/私网/中国大陆直连、广告拒绝、代理域名与 Telegram 走代理、其余默认代理。
 
 本地与 CI 的固定验证顺序:
 
