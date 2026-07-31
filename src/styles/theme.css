@@ -254,6 +254,15 @@ a, button, summary {
   .wb-head-in { width: calc(100% - clamp(48px, 8vw, 400px)); }
 }
 
+/* 节点明细 —— 宽屏一行容纳连续两条记录,窄屏保持一条一行。
+   宽出来的纸用于提高信息密度,而不是拉长三个短字段之间的距离。 */
+.wb-breakdown-wide { display: none; }
+.wb-breakdown-narrow { display: block; }
+@media (min-width: 768px) {
+  .wb-breakdown-wide { display: block; }
+  .wb-breakdown-narrow { display: none; }
+}
+
 /* Hero 两栏 —— 改前用 justify-content:space-between + flex:0 0 auto,
    剩余空间全变成正文与图章之间的空洞(1440 下约 400px)。
    栅格让图章列有实际宽度,空间被分配而不是被剩下。 */
