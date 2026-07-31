@@ -254,13 +254,193 @@ a, button, summary {
   .wb-head-in { width: calc(100% - clamp(48px, 8vw, 400px)); }
 }
 
-/* 节点明细 —— 宽屏一行容纳连续两条记录,窄屏保持一条一行。
-   宽出来的纸用于提高信息密度,而不是拉长三个短字段之间的距离。 */
-.wb-breakdown-wide { display: none; }
-.wb-breakdown-narrow { display: block; }
-@media (min-width: 768px) {
-  .wb-breakdown-wide { display: block; }
-  .wb-breakdown-narrow { display: none; }
+/* 地区放行簿 —— 先按地区合并协议,再用两栏纸面网格排版。
+   旗帜只作来源标签的视觉索引;OTHER 和无对应 SVG 的标签使用中性地球图标。 */
+.wb-breakdown-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.wb-breakdown-heading > h2 {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  color: var(--color-ink-faint);
+}
+.wb-breakdown-heading > span {
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--color-ink-faint);
+  white-space: nowrap;
+}
+.wb-breakdown-board { border: 1px solid var(--color-rule); }
+.wb-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background: var(--color-rule);
+  list-style: none;
+}
+.wb-breakdown-region {
+  min-width: 0;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: minmax(128px, .78fr) minmax(0, 1.22fr) 62px;
+  align-items: stretch;
+  background: var(--color-copy-white);
+}
+.wb-breakdown-region:nth-child(4n + 3),
+.wb-breakdown-region:nth-child(4n + 4) {
+  background: rgba(222, 231, 241, .3);
+}
+.wb-breakdown-region:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.wb-region-mark {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-right: 1px solid var(--color-rule-soft);
+}
+.wb-region-flag {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 21px;
+  border: 1px solid var(--color-rule);
+  background: var(--color-copy-white);
+  overflow: hidden;
+}
+.wb-region-flag > svg { display: block; width: 100%; height: 100%; }
+.wb-region-unknown {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  color: var(--color-ink-soft);
+}
+.wb-region-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  font-family: var(--font-mono);
+}
+.wb-region-copy > strong {
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: .08em;
+}
+.wb-region-copy > span {
+  overflow: hidden;
+  color: var(--color-ink-faint);
+  font-family: var(--font-cn);
+  font-size: 10px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wb-region-protocols {
+  min-width: 0;
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 13px;
+  margin: 0;
+  padding: 10px 12px;
+  list-style: none;
+  font-family: var(--font-mono);
+}
+.wb-region-protocols > li {
+  min-width: 68px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 9px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--color-rule-soft);
+}
+.wb-region-protocols span {
+  color: var(--color-ink-soft);
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.wb-region-protocols data {
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.wb-region-total {
+  display: grid;
+  place-content: center;
+  gap: 3px;
+  border-left: 1px solid var(--color-rule);
+  background: var(--color-band);
+  text-align: center;
+  font-family: var(--font-mono);
+}
+.wb-region-total > strong {
+  color: var(--color-stamp);
+  font-size: 20px;
+  line-height: 1;
+}
+.wb-region-total > span {
+  color: var(--color-ink-faint);
+  font-size: 8.5px;
+  letter-spacing: .14em;
+}
+.wb-breakdown-total {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 13px;
+  border-top: 1px solid var(--color-rule);
+  background: var(--color-band);
+  font-family: var(--font-mono);
+}
+.wb-breakdown-total > span {
+  color: var(--color-ink-faint);
+  font-size: 9.5px;
+  letter-spacing: .13em;
+}
+.wb-breakdown-total > strong {
+  color: var(--color-ink);
+  font-size: 17px;
+}
+.wb-breakdown-total small {
+  color: var(--color-ink-faint);
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: .14em;
+}
+.wb-breakdown-note {
+  margin: 8px 0 0;
+  color: var(--color-ink-soft);
+  font-size: 11px;
+  line-height: 1.55;
+}
+@media (max-width: 767px) {
+  .wb-breakdown-grid { grid-template-columns: minmax(0, 1fr); }
+  .wb-breakdown-region {
+    grid-template-columns: minmax(102px, .72fr) minmax(0, 1.28fr) 50px;
+    min-height: 70px;
+  }
+  .wb-breakdown-region:last-child:nth-child(odd) { grid-column: auto; }
+  .wb-region-mark { gap: 8px; padding: 9px; }
+  .wb-region-flag { flex-basis: 24px; width: 24px; height: 18px; }
+  .wb-region-unknown { flex-basis: 24px; width: 24px; height: 24px; }
+  .wb-region-copy > strong { font-size: 13px; }
+  .wb-region-copy > span { font-size: 9px; }
+  .wb-region-protocols { gap: 5px 9px; padding: 8px 9px; }
+  .wb-region-protocols > li { min-width: 60px; }
+  .wb-region-total > strong { font-size: 17px; }
 }
 
 /* Hero 两栏 —— 改前用 justify-content:space-between + flex:0 0 auto,

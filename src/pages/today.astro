@@ -4,6 +4,7 @@ import Stamp from "../components/Stamp.astro";
 import TearLine from "../components/TearLine.astro";
 import SubscriptionCard from "../components/SubscriptionCard.astro";
 import UpdateCountdown from "../components/UpdateCountdown.astro";
+import RegionMark from "../components/RegionMark.astro";
 import { latestSub, checkCode, remarkOf } from "../lib/subs";
 import { chinaDateTime, url, waybillNo } from "../lib/waybill";
 
@@ -15,12 +16,15 @@ const no = waybillNo(d.date, d.serial);
 const wbType =
   "font-family:var(--font-mono);font-weight:600;font-size:clamp(28px,4.2cqw,56px);letter-spacing:-.02em;line-height:1;white-space:nowrap";
 const miniLabel = "font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;margin-bottom:5px";
-const th = "text-align:left;padding:9px 12px;border-bottom:1px solid var(--color-rule);font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase;font-weight:400";
 const breakdown = d.breakdown ?? [];
-const breakdownPairs = Array.from(
-  { length: Math.ceil(breakdown.length / 2) },
-  (_, i) => [breakdown[i * 2], breakdown[i * 2 + 1]]
-);
+const regionBreakdown = [...new Set(breakdown.map((row) => row.region))].map((region) => {
+  const protocols = breakdown.filter((row) => row.region === region);
+  return {
+    region,
+    protocols,
+    total: protocols.reduce((sum, row) => sum + row.count, 0)
+  };
+});
 ---
 <Shell
   title="今日免费 Clash 与 V2Ray 订阅"
@@ -76,81 +80,52 @@ const breakdownPairs = Array.from(
         PIECES / 件数 仍然显示着数字 —— 用户看到一个件数却找不到明细,
         既没有解释也不知道是不是页面坏了。 */}
     <div style="padding:20px;border-bottom:1px solid var(--color-rule)">
-      <h2 style="margin:0 0 10px;font-family:var(--font-mono);font-size:10px;font-weight:400;letter-spacing:.14em;color:var(--color-ink-faint);text-transform:uppercase">BREAKDOWN / 节点明细</h2>
+      <div class="wb-breakdown-heading">
+        <h2>BREAKDOWN / 地区放行簿</h2>
+        {breakdown.length > 0 && (
+          <span>{regionBreakdown.length} REGIONS · {breakdown.length} ENTRIES</span>
+        )}
+      </div>
       {breakdown.length === 0 && (
         <div style="width:100%;border:1px solid var(--color-rule);background:var(--color-notice);padding:14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;letter-spacing:.02em;color:var(--color-ink-soft)">
           本次签发未附地区与协议明细。上方的件数与订阅链接不受影响,可以正常取用。
         </div>
       )}
       {breakdown.length > 0 && (
-        <div>
-        {/* 桌面把连续两条明细排在同一行,让放宽后的单据装更多信息而不是装空白。
-            平板与手机仍由下方三列表按原始顺序逐条显示。 */}
-        <div class="wb-breakdown-wide" style="overflow-x:auto;border:1px solid var(--color-rule)">
-          <table style="width:100%;min-width:620px;font-family:var(--font-mono);font-size:13px;border-collapse:collapse">
-            <caption class="wb-sr-only">节点地区、协议与数量明细，桌面双栏排列</caption>
-            <thead>
-              <tr style="background:var(--color-band)">
-                <th scope="col" style={th}>region</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule)"}>protocol</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule);text-align:right"}>count</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule)"}>region</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule)"}>protocol</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule);text-align:right"}>count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {breakdownPairs.map(([left, right], i) => (
-                <tr style={`background:${i % 2 ? "rgba(222,231,241,.3)" : "transparent"}`}>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);letter-spacing:.06em">{left.region}</td>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);color:var(--color-ink-soft)">{left.protocol}</td>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);text-align:right">{left.count}</td>
-                  {right ? (
-                    <>
-                      <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);letter-spacing:.06em">{right.region}</td>
-                      <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);color:var(--color-ink-soft)">{right.protocol}</td>
-                      <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);text-align:right">{right.count}</td>
-                    </>
-                  ) : (
-                    <td colspan="3" aria-hidden="true" style="border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule)"></td>
-                  )}
-                </tr>
-              ))}
-              <tr style="background:var(--color-band)">
-                <td colspan="5" style="padding:8px 12px;font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase">total</td>
-                <td style="padding:8px 12px;border-left:1px solid var(--color-rule);text-align:right;font-weight:600">{d.nodeCount}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="wb-breakdown-board">
+          <ul class="wb-breakdown-grid" aria-label="按来源地区汇总的节点协议与数量">
+            {regionBreakdown.map((group) => (
+              <li class="wb-breakdown-region">
+                <RegionMark code={group.region} />
+                <ul
+                  class="wb-region-protocols"
+                  aria-label={`${group.region} 协议构成`}
+                >
+                  {group.protocols.map((row) => (
+                    <li>
+                      <span>{row.protocol}</span>
+                      <data value={row.count}>{row.count}</data>
+                    </li>
+                  ))}
+                </ul>
+                <div
+                  class="wb-region-total"
+                  aria-label={`${group.region} 合计 ${group.total} 个节点`}
+                >
+                  <strong>{group.total}</strong>
+                  <span>PCS</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div class="wb-breakdown-total">
+            <span>TOTAL RELEASED / 已放行总数</span>
+            <strong>{d.nodeCount} <small>PCS</small></strong>
+          </div>
         </div>
-
-        <div class="wb-breakdown-narrow" style="overflow-x:auto;border:1px solid var(--color-rule)">
-          <table style="width:100%;min-width:260px;font-family:var(--font-mono);font-size:13px;border-collapse:collapse">
-            <caption class="wb-sr-only">节点地区、协议与数量明细</caption>
-            <thead>
-              <tr style="background:var(--color-band)">
-                <th scope="col" style={th}>region</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule)"}>protocol</th>
-                <th scope="col" style={th + ";border-left:1px solid var(--color-rule);text-align:right"}>count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {breakdown.map((r, i) => (
-                <tr style={`background:${i % 2 ? "rgba(222,231,241,.3)" : "transparent"}`}>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);letter-spacing:.06em">{r.region}</td>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);color:var(--color-ink-soft)">{r.protocol}</td>
-                  <td style="padding:8px 12px;border-bottom:1px solid var(--color-rule-soft);border-left:1px solid var(--color-rule);text-align:right">{r.count}</td>
-                </tr>
-              ))}
-              <tr style="background:var(--color-band)">
-                <td style="padding:8px 12px;font-size:10px;letter-spacing:.12em;color:var(--color-ink-faint);text-transform:uppercase">total</td>
-                <td style="padding:8px 12px;border-left:1px solid var(--color-rule)"></td>
-                <td style="padding:8px 12px;border-left:1px solid var(--color-rule);text-align:right;font-weight:600">{d.nodeCount}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        </div>
+        <p class="wb-breakdown-note">
+          国旗按节点名称中的地区标签识别，仅用于快速区分来源，不代表 IP 定位或实际出口位置。
+        </p>
       )}
     </div>
 

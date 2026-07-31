@@ -117,8 +117,9 @@ public/fonts/                   得意黑子集(≤ 50KB)
    改前恒为 `1120px`:1920 下只占 58%、两侧各 400px,且 1280 以上字号完全不再变化。
    Hero 改成 `minmax(0,1fr) minmax(180px,auto)` 栅格、图章靠右贴边,正文与图章之间的
    空洞由约 400px 降到 80px。两联对照表在 `≤640px` 改为按行拆卡,375 下由横滚 209px
-   变为零溢出。明细表在桌面把连续两条记录排成六列并用满内容宽度,让放宽后的
-   单据承载更多信息;`<768px` 回到原始三列表,保持逐条阅读和零横向溢出。
+   变为零溢出。明细区先按地区合并协议,桌面排成两栏地区放行簿,移动端回到单栏。
+   国旗使用本地内联的 Flagpack 4:3 SVG(`flag-icons` 7.5.0,MIT),只作节点名称标签的
+   视觉索引,不代表 IP 定位。
 
    **字号只小幅上调,不随容器等比放大。** 中途曾把运单号推到 72px、h1 推到 48px,
    结果是把稀疏的版面放大而非填满,反而更难看 —— 已回退。宽度多出来时正确的用法是
@@ -276,6 +277,10 @@ https://public-one.example/sub https://public-two.example/sub
   ]
 }
 ```
+
+生产仓库通过 `SUB_SOURCES` 追加 `v2nodes-hk-subscription` 与
+`v2nodes-us-subscription`;带访问 key 的完整 URL 只保存在 GitHub Secret,不得写入
+公开配置、日志或文档。两者仍经过与默认来源相同的 Mihomo 连通性和测速门槛。
 
 所有来源只接受 HTTPS(测试 fixture 可用 `data:`),响应上限 5 MB。`maxItems` 同时限制
 Clash 对象和分享链接的总数,防止大型聚合源拖垮 Runner 与客户端。生成器手动处理最多

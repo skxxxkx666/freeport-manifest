@@ -1,0 +1,51 @@
+---
+import { readFile } from "node:fs/promises";
+
+interface Props {
+  code: string;
+}
+
+const regionCode = Astro.props.code.trim().toUpperCase();
+const isIsoRegion = /^[A-Z]{2}$/.test(regionCode);
+const displayNames = new Intl.DisplayNames(["zh-CN"], { type: "region" });
+const regionName = isIsoRegion
+  ? displayNames.of(regionCode) ?? "来源地区"
+  : "未识别地区";
+
+let flagSvg = "";
+if (isIsoRegion) {
+  try {
+    flagSvg = await readFile(
+      new URL(import.meta.resolve(`flag-icons/flags/4x3/${regionCode.toLowerCase()}.svg`)),
+      "utf8"
+    );
+  } catch {
+    /* 非 ISO 标签使用中性图标，不猜测或伪造国旗。 */
+  }
+}
+---
+<span
+  class="wb-region-mark"
+  aria-label={`${regionCode}，${regionName}，按节点名称识别的来源标签`}
+>
+  {flagSvg ? (
+    <span class="wb-region-flag" aria-hidden="true" set:html={flagSvg}></span>
+  ) : (
+    <svg
+      class="wb-region-unknown"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.7"
+    >
+      <path d="M20.5 11.3a9 9 0 1 0-5.2 9.1M3.6 9h16.8M3.6 15h9.9M11.5 3a17 17 0 0 0 0 18m1-18a17 17 0 0 1 2.6 9.5m-1.1 5.4A17 17 0 0 1 12.5 21M19 22v.01M19 19a2 2 0 1 0-1.5-3.3" />
+    </svg>
+  )}
+  <span class="wb-region-copy">
+    <strong>{regionCode}</strong>
+    <span>{regionName}</span>
+  </span>
+</span>
