@@ -1,7 +1,35 @@
 proxies:
-  - flow: xtls-rprx-vision
-    name: vless-208461854
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: vless-209950039
     network: tcp
+    port: 443
+    reality-opts:
+      public-key: ALT8hIGeZEhi0sQFbXP_ntBg8Xo-v7i0YCLrqTnBxRk
+      short-id: 0990d22f
+    server: 167.17.69.171
+    servername: www.cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 00144519-7e0d-476b-8d28-435576af9262
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: vless-212001010
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
+      short-id: c39cc7310a
+    server: 169.40.42.232
+    servername: yahoo.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
+  - flow: xtls-rprx-vision
+    name: vless-211499808
+    network: raw
     port: 55658
     server: homeless.happy105.eu.cc
     servername: homeless.happy105.eu.cc
@@ -10,9 +38,138 @@ proxies:
     type: vless
     udp: true
     uuid: c38ff276-3a23-4976-f516-8a0a682f3e16
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-216
+    password: hCCWOcIsK5wrFz4OX70rWf
+    port: 443
+    server: 216.105.168.18
+    type: ss
+    udp: true
+  - name: 🇺🇸[www.v2nodes.com] vmess-US-15199725
+    type: vmess
+    server: 165.140.216.142
+    port: 443
+    uuid: b65a2d69-5634-42a2-e4be-54e8a6176900
+    alterId: 0
+    cipher: auto
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-154
+    password: G5p6ww4o67HB
+    port: 8388
+    server: 108.181.118.10
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: us|0a2c|puddincat07@Telegram
+    password: G5p6ww4o67HB
+    port: 8388
+    server: 108.181.0.177
+    type: ss
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2504
+    type: vless
+    server: 104.17.25.135
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560
+      headers:
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    tls: true
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - alpn:
+      - h3
+    congestion-controller: bbr
+    disable-sni: false
+    name: de|8097|puddincat07@Telegram
+    password: 3ebac90b-6977-47c0-bef5-b2e37554432c
+    port: 17306
+    server: 89.144.35.232
+    skip-cert-verify: true
+    sni: www.microsoft.com
+    type: tuic
+    udp: true
+    udp-relay-mode: native
+    uuid: 3ebac90b-6977-47c0-bef5-b2e37554432c
   - client-fingerprint: chrome
-    name: vless-209402684
+    flow: xtls-rprx-vision
+    name: vless-210051449
     network: tcp
+    port: 443
+    reality-opts:
+      public-key: AYL1z7PNyo6LqYLeZpXa50FnK9eEu7o18KHRhOlST1w
+      short-id: bd72
+    server: 216.227.169.104
+    servername: deepl.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: b8794f67-80d9-4124-8fc5-2d2ce5516573
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-7429
+    type: vless
+    server: 188.114.96.7
+    port: 8443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /sync
+      headers:
+        Host: fragrant-unit-d662.mmammatrix770088.workers.dev
+    tls: true
+    servername: fragrant-unit-d662.mmammatrix770088.workers.dev
+    client-fingerprint: chrome
+    uuid: 362a79a2-ce89-8d2d-355c-f1f5071a445f
+  - name: us|3f57|puddincat07@Telegram
+    network: ws
+    password: humanity
+    port: 443
+    server: 104.19.229.21
+    skip-cert-verify: false
+    sni: www.gossipglove.com
+    type: trojan
+    ws-opts:
+      headers:
+        Host: www.gossipglove.com
+      path: /assignment
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-157
+    password: G5p6ww4o67HB
+    port: 8388
+    server: 108.181.0.177
+    type: ss
+    udp: true
+  - name: 🇺🇸
+    type: vless
+    server: 88.218.44.4
+    port: 993
+    udp: true
+    network: tcp
+    tls: true
+    servername: dl.google.com
+    client-fingerprint: chrome
+    uuid: 7c74b0e4-f132-5583-4692-622a7d6b71a4
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: Rt2wltCWOxIroFggNWMudZDBJXls8DsF4icaWqxKDk8
+  - name: 🇺🇸 · 4
+    type: vless
+    server: 70.39.178.231
+    port: 46197
+    udp: true
+    network: tcp
+    tls: true
+    servername: updates.cdn-apple.com
+    client-fingerprint: chrome
+    uuid: 5aab0d40-c509-4560-b048-ade921fdfb6a
+    reality-opts:
+      public-key: npJEB6VpYJ9iYTZ-z0IL06Xs7PEz0N3fZU_IRwftQ00
+      short-id: f24c17bb7fc284
+  - client-fingerprint: chrome
+    name: vless-211487808
+    network: raw
     port: 46197
     reality-opts:
       public-key: npJEB6VpYJ9iYTZ-z0IL06Xs7PEz0N3fZU_IRwftQ00
@@ -23,23 +180,75 @@ proxies:
     type: vless
     udp: true
     uuid: 5aab0d40-c509-4560-b048-ade921fdfb6a
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-207973651
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: OCLtjVdRxsou3429LRfjkDYgiAPs24TSgSeFZpChCEw
-      short-id: d67ec5a8fc40ebea
-    server: usa02.myxasecure.space
-    servername: usa02.myxasecure.space
-    tls: true
+  - name: 🇺🇸 · 3
     type: vless
+    server: 70.39.198.183
+    port: 46197
     udp: true
-    uuid: 06d44c57-8e1a-41f4-b9c4-65d35869e078
+    network: tcp
+    tls: true
+    servername: updates.cdn-apple.com
+    client-fingerprint: chrome
+    uuid: 5aab0d40-c509-4560-b048-ade921fdfb6a
+    reality-opts:
+      public-key: npJEB6VpYJ9iYTZ-z0IL06Xs7PEz0N3fZU_IRwftQ00
+      short-id: f24c17bb7fc284
   - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2026
     type: vless
-    server: 104.31.16.158
+    server: 104.18.189.153
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560
+      headers:
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    tls: true
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2090
+    type: vless
+    server: 104.18.89.52
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560
+      headers:
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    tls: true
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇺🇸 · 15
+    type: vless
+    server: nmslfangbinxing.pusytroller.gq
+    port: 2095
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: nmslfangbinxing.pusytroller.gq
+    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2860
+    type: vless
+    server: www.shopify.com
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560
+      headers:
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    tls: true
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1465
+    type: vless
+    server: www.cnae.top
     port: 443
     udp: true
     network: ws
@@ -58,171 +267,91 @@ proxies:
     server: 216.105.168.18
     type: ss
     udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446159
-    network: tcp
-    port: 993
-    reality-opts:
-      public-key: Nnpwm8dqFl9dlMJmg0M9G11vmgCKzNagFTn4tH4sWy4
-      short-id: ""
-    server: 88.218.44.4
-    servername: swcdn.apple.com
-    tls: true
+  - name: 🇺🇸 · 8
     type: vless
+    server: www.fbi.gov
+    port: 2095
     udp: true
-    uuid: 7c74b0e4-f132-5583-4692-622a7d6b71a4
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446160
-    network: tcp
-    port: 993
-    reality-opts:
-      public-key: Rt2wltCWOxIroFggNWMudZDBJXls8DsF4icaWqxKDk8
-      short-id: ""
-    server: 88.218.44.4
-    servername: dl.google.com
-    tls: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: fuckingfangbinxing.pusytroller.cf
+    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-4125
     type: vless
-    udp: true
-    uuid: 7c74b0e4-f132-5583-4692-622a7d6b71a4
-  - client-fingerprint: chrome
-    name: vless-209446122
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: lYcMPEgf6ePmF_d8RXR5fsVorycW37v_ECl-fz_H6w4
-      short-id: cfe08c23a85f24
-    server: 78.111.89.171
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 0370b162-baff-4757-86cc-cce4bf07f6f1
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: vless-209446164
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
-      short-id: c39cc7310a
-    server: 169.40.42.95
-    servername: yahoo.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
-  - cipher: rc4-md5
-    name: ca|4230|puddincat07@Telegram
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 137.184.174.93
-    type: ss
-  - alpn:
-      - h3
-    congestion-controller: bbr
-    disable-sni: false
-    name: de|8097|puddincat07@Telegram
-    password: 3ebac90b-6977-47c0-bef5-b2e37554432c
-    port: 17306
-    server: 89.144.35.232
-    skip-cert-verify: true
-    sni: www.microsoft.com
-    type: tuic
-    udp: true
-    udp-relay-mode: native
-    uuid: 3ebac90b-6977-47c0-bef5-b2e37554432c
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: vless-209446163
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
-      short-id: c39cc7310a
-    server: 169.40.42.232
-    servername: yahoo.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1531
-    type: vless
-    server: 172.67.149.60
+    server: 104.18.42.128
     port: 443
     udp: true
     network: ws
     ws-opts:
-      path: /id-tksi
+      path: /?ed=2560
       headers:
-        Host: support.zoom.us.yxls.eu.cc
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
     tls: true
-    servername: support.zoom.us.yxls.eu.cc
-    uuid: 5aafc2be-9348-4dec-b896-f4a91253bbca
-  - name: cf|e254|puddincat07@Telegram
-    network: ws
-    password: c206d543-023d-46cc-9d5a-1f0f2fc16323
-    port: 443
-    server: 188.164.248.122
-    skip-cert-verify: false
-    sni: space.byu.id.yxls.eu.cc
-    type: trojan
-    ws-opts:
-      headers:
-        Host: space.byu.id.yxls.eu.cc
-      path: /in-pdr
-  - alterId: 0
-    name: xx|c4ab|puddincat07@Telegram
-    network: ws
-    password: 87d1bfd4-574e-4c96-ad42-0426f27461ff
-    port: 443
-    server: join.my.telegram.channel.cmliussss.to.unlock.more.premium.nodes.cf.090227.xyz
-    skip-cert-verify: true
-    sni: _acme-challenge.sb.cloudns.biz
-    tls: true
-    type: trojan
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇺🇸 · 9
+    type: vless
+    server: 172.64.145.202
+    port: 2095
     udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: fangbinxingnmsl.pusytroller.gq
+    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
+  - name: 🇺🇸 · 2
+    type: vless
+    server: 104.18.42.163
+    port: 2095
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: download.pusytroller.gq
+    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
+  - name: 🇺🇸 · 5
+    type: vless
+    server: 172.64.146.153
+    port: 2095
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: fangbinxingnmsl.pusytroller.gq
+    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-15179748
+    type: vless
+    server: 104.31.16.158
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560
+      headers:
+        Host: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    tls: true
+    servername: mkvmh.alnm.a7e.hh.vavava.kdns.fr
+    client-fingerprint: chrome
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
   - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209408676
+    name: vless-211489811
     network: tcp
     port: 443
     reality-opts:
-      public-key: DGu3KSodkjq3ai4OvLbiFv8V5WUhCX7yHkYTD5UyaEc
-      short-id: 66a4787cbd041d22
-    server: 192.204.50.220
-    servername: timeline.www.cloudflare.com
+      public-key: f6lqLBe6F_9QDEn8G7v58Wxq8qqTKgEAfuyMxn6_2Qk
+      short-id: dbf867415845f0ac
+    server: 31.77.154.77
+    servername: owa.ozon.ru
     tls: true
     type: vless
     udp: true
-    uuid: 8ed3f6f4-f14b-4e1a-9256-189b5524a45f
-  - name: vless-209446128
-    network: ws
-    port: 8443
-    server: ad-013.pixel9xdmq.info
-    servername: ad-013.pixel9xdmq.info
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 304a1e62-eb26-4b44-994e-b96a70fff9b4
-  - name: vless-209446127
-    network: ws
-    port: 8443
-    server: ad-013.orbitqgr7v.info
-    servername: ad-013.orbitqgr7v.info
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 304a1e62-eb26-4b44-994e-b96a70fff9b4
-  - cipher: rc4-md5
-    name: gb|1af8|puddincat07@Telegram
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 146.70.61.37
-    type: ss
+    uuid: 6f93f3eb-8ff2-4da4-837b-8a333c281ff3
   - client-fingerprint: firefox
     flow: xtls-rprx-vision
     name: vless-209961039
@@ -237,257 +366,40 @@ proxies:
     type: vless
     udp: true
     uuid: 17d29827-7cf1-4115-b40d-548e10ec355d
-  - client-fingerprint: chrome
-    name: vless-209446146
+  - client-fingerprint: edge
+    flow: xtls-rprx-vision
+    name: vless-211482822
     network: tcp
-    port: 6500
+    port: 443
     reality-opts:
-      public-key: lQbgwNDYw6Zbjdim0JtXUarzb-3GSjDvtX6FJYZD9Qo
-      short-id: ""
-    server: britain.relvuno.ir
-    servername: play.google.com
+      public-key: zVEDSKwQEIM6xRD7YEhJakteNI2xPK3xhhKulDo_vWg
+      short-id: b664d93e9d7a04f1
+    server: nl3.freekeysh110.online
+    servername: nl3.freekeysh110.online
     tls: true
     type: vless
     udp: true
-    uuid: b8ae8186-22ed-413b-b0de-dc590bbbc3bc
+    uuid: 39ff715b-2fcc-4954-b739-399cc4b67d53
+  - cipher: chacha20-ietf-poly1305
+    name: nl|447b|puddincat07@Telegram
+    password: CJmTCCx7Ltud
+    port: 8388
+    server: 108.181.58.239
+    type: ss
   - client-fingerprint: qq
     flow: xtls-rprx-vision
-    name: vless-209446124
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: bjOGTQ4xsiFbyCPM_WzoK53L130rW5vZJtuYDJx_pkM
-      short-id: aa3c
-    server: 186.246.21.156
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 17d29827-7cf1-4115-b40d-548e10ec355d
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-210021039
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: bjOGTQ4xsiFbyCPM_WzoK53L130rW5vZJtuYDJx_pkM
-      short-id: aa3c
-    server: ua1.levikogjgfdd.ir
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 17d29827-7cf1-4115-b40d-548e10ec355d
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-210049454
+    name: vless-211482818
     network: tcp
     port: 443
     reality-opts:
       public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
       short-id: 82f5d3a1e9c0b661
-    server: getsavesafe.net
+    server: 85.155.226.144
     servername: getsavesafe.net
     tls: true
     type: vless
     udp: true
     uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
-  - name: vless-209398683
-    network: raw
-    port: 443
-    server: 203.23.179.151
-    servername: ddc-akn.astralweb.tech
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-209398677
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
-      short-id: 82f5d3a1e9c0b661
-    server: 85.155.226.86
-    servername: getsavesafe.net
-    tls: true
-    type: vless
-    udp: true
-    uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2155
-    type: vless
-    server: 172.64.146.59
-    port: 2087
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip=tw.william.us.ci!txt?ed=2560
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    client-fingerprint: random
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446129
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: oc9uweln_cqyaJnlRMnhhhKrGNP7RrYOsuYtaIOIQDE
-      short-id: 2bc0
-    server: us2.levikogjgfdd.ir
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 5e3f974b-06fc-4555-907a-6681391b7c17
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446125
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: oc9uweln_cqyaJnlRMnhhhKrGNP7RrYOsuYtaIOIQDE
-      short-id: 2bc0
-    server: 186.246.19.79
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 5e3f974b-06fc-4555-907a-6681391b7c17
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-207975659
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: maES4RMEtsm5emBCixDRa6Y5GvmVwmwZNBL2G4Q03D4
-      short-id: 47de54e71fee3451
-    server: 38.207.177.236
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 9c64064c-aaaf-449f-9344-77632fc9ff1c
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3715
-    type: vless
-    server: 172.64.35.32
-    port: 8443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip=tw.william.us.ci!txt?ed=2560fp=random
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    client-fingerprint: chrome
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3750
-    type: vless
-    server: 108.162.192.161
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1906
-    type: vless
-    server: 162.159.8.155
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-209398676
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
-      short-id: 82f5d3a1e9c0b661
-    server: 85.155.226.132
-    servername: getsavesafe.net
-    tls: true
-    type: vless
-    udp: true
-    uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446153
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
-      short-id: 82f5d3a1e9c0b661
-    server: 85.155.226.82
-    servername: getsavesafe.net
-    tls: true
-    type: vless
-    udp: true
-    uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446154
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: cudJBi1zLMATgg_nlqMK5O6Lshlv8EQ2BBQjxbpF4AY
-      short-id: eedf31ed
-    server: 139.64.166.55
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: c743b343-b1c9-4e44-98a9-274df2015727
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209398689
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: Z2c9dK70_0OWBEZGgeaXJyt9dup9h2-hZlCCvIGLg1Q
-      short-id: 496ee75c2f91f51d
-    server: sw1-chr.astralweb.tech
-    servername: sw1-chr.astralweb.tech
-    tls: true
-    type: vless
-    udp: true
-    uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3262
-    type: vless
-    server: 108.162.195.58
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fdip
-      headers:
-        Host: learn00.evany.de5.net
-    tls: true
-    servername: learn00.evany.de5.net
-    uuid: 29ca503d-e6b8-4509-b666-48133f450857
-  - name: vless-209416687
-    network: tcp
-    port: 2551
-    server: 178.83.157.130
-    type: vless
-    udp: true
-    uuid: d8b42cd5-a149-4356-9e61-000000000000
   - client-fingerprint: firefox
     flow: xtls-rprx-vision
     name: vless-209960039
@@ -502,44 +414,401 @@ proxies:
     type: vless
     udp: true
     uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - name: vless-208461832
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: vless-210049454
     network: tcp
     port: 443
-    server: ddc-chr.astralweb.tech
-    servername: ddc-chr.astralweb.tech
+    reality-opts:
+      public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
+      short-id: 82f5d3a1e9c0b661
+    server: getsavesafe.net
+    servername: getsavesafe.net
+    tls: true
+    type: vless
+    udp: true
+    uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
+  - client-fingerprint: firefox
+    name: vless-211489809
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: agZZLk3GNH8CME1dobmtO1UwIrXYL-WrEuLREy_EqnA
+      short-id: aefe467c7b22f190
+    server: 138.124.98.77
+    servername: ads.x5.ru
+    tls: true
+    type: vless
+    udp: true
+    uuid: 6f93f3eb-8ff2-4da4-837b-8a333c281ff3
+  - alterId: 0
+    cipher: auto
+    name: vmess-211511809
+    network: raw
+    port: 27726
+    server: 195.133.193.18
+    type: vmess
+    udp: true
+    uuid: 98e2be3c-8f84-4b85-996b-b68dcc2fbcb6
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: vless-211482819
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: 5Z6PwoPSNBLPIsX8lZtHM7-Y-psMMR1vz5Pit0EVISs
+      short-id: 82f5d3a1e9c0b661
+    server: 85.155.226.6
+    servername: getsavesafe.net
+    tls: true
+    type: vless
+    udp: true
+    uuid: 39c42b0a-b823-4c93-bb99-74b4183e518d
+  - cipher: chacha20-ietf-poly1305
+    name: gb|aff6|puddincat07@Telegram
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.210
+    type: ss
+  - name: vless-210548424
+    network: tcp
+    port: 443
+    server: 89.208.113.16
+    type: vless
+    udp: true
+    uuid: adce7c2a-3191-49ae-b61c-9b8258ea1b0e
+  - cipher: chacha20-ietf-poly1305
+    name: gb|463b|puddincat07@Telegram
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.202
+    type: ss
+  - client-fingerprint: chrome
+    name: vless-211500833
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: 0OKEyvgTnmuuaDBg_dkoQtWFwnYBOerT0hxj3S1et04
+      short-id: 78ebd1
+    server: 31.70.110.36
+    servername: www.google.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: d5b9a06d-133e-4853-a192-56739f0b0c59
+  - client-fingerprint: edge
+    flow: xtls-rprx-vision
+    name: vless-211482824
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: sgPREsDFJUchKawgXgFGEM4YBjTDur0rgD2GuQmZXzA
+      short-id: 04b9f0b2470fae16
+    server: nl5.freekeysh110.online
+    servername: nl5.freekeysh110.online
+    tls: true
+    type: vless
+    udp: true
+    uuid: 39ff715b-2fcc-4954-b739-399cc4b67d53
+  - name: vless-211501821
+    network: tcp
+    port: 2550
+    server: 194.242.129.143
+    type: vless
+    udp: true
+    uuid: d8b42cd5-a149-4356-9e61-000000000000
+  - name: vless-211482827
+    network: tcp
+    port: 443
+    server: lv-ddc.astralweb.tech
+    servername: lv-ddc.astralweb.tech
     skip-cert-verify: false
     tls: true
     type: vless
     udp: true
     uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - client-fingerprint: firefox
+  - name: 🇺🇸 · 6
+    type: vless
+    server: 178.83.31.93
+    port: 443
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    uuid: 4a97788b-5d8a-410c-875c-ba36930e185e
     flow: xtls-rprx-vision
-    name: vless-209446152
+    reality-opts:
+      public-key: 989gq45ogQSZLDoUTcLNSYW5v_3ER7W_6Oi_8swZzXo
+      short-id: cb55f541
+  - cipher: chacha20-ietf-poly1305
+    name: gb|b93d|puddincat07@Telegram
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.194
+    type: ss
+  - name: vless-211482826
     network: tcp
     port: 443
-    reality-opts:
-      public-key: XZa7f7bABj7lY4HuLopVCBBBYTu-RB7QyIZ96njvYwo
-      short-id: 7bcfc0bc
-    server: 212.34.134.163
-    servername: yahoo.com
+    server: 93.115.25.139
+    servername: ddc-chr2.astralweb.tech
+    skip-cert-verify: false
     tls: true
     type: vless
     udp: true
-    uuid: 5bb7df8d-ad02-41fa-a8e6-8a8a4650d2c4
+    uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
+  - cipher: chacha20-ietf-poly1305
+    name: nl|f63a|puddincat07@Telegram
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 193.29.139.223
+    type: ss
+  - name: US美国(mibei77.com 米贝节点分享)_2
+    port: 20342
+    server: 141.133.172.222
+    skip-cert-verify: true
+    tls: false
+    type: vless
+    udp: true
+    uuid: 5eecb34f-c905-4c77-b7fb-d830b451cd11
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: vless-209446138
+    name: vless-210050461
     network: tcp
-    port: 443
+    port: 13672
     reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node12.mxvpn.dev
-    servername: node12.mxvpn.dev
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
     tls: true
     type: vless
     udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-211462817
+    password: CsSYOhlDUy7Hz1yQCXSnxj
+    port: 10792
+    server: 130.49.189.158
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-211464808
+    password: b1ae0fce-9340-4f2e-882d-fdb2218e2e2b
+    port: 50099
+    server: 61.231.49.125
+    type: ss
+    udp: true
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15147698
+    type: vmess
+    server: ex1ogt73nzpqkac2.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    servername: EX1oGt73NzPQKAc2.v.3dns.vip
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: EX1oGt73NzPQKAc2.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15139520
+    type: vmess
+    server: i2psm3knof5qjjix.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: I2PSm3Knof5qjjix.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15126116
+    type: vmess
+    server: 47.86.107.119
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    servername: lcv8v9l7OyamxxfZ.v.3dns.vip
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: lcv8v9l7OyamxxfZ.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15138903
+    type: vmess
+    server: ce0gedpxwou6cqon.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    servername: cE0gedPXwOU6cqoN.v.3dns.vip
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: cE0gedPXwOU6cqoN.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125979
+    type: vmess
+    server: mtckundigepwu3up.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: mTCKUNDiGePwU3uP.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125985
+    type: vmess
+    server: wwafj5lhl6bi8au9.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: wwafj5LHl6bI8aU9.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15139713
+    type: vmess
+    server: 7timuei1uufoixbf.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    servername: 7tImuei1uuFOiXbf.v.3dns.vip
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: 7tImuei1uuFOiXbf.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125991
+    type: vmess
+    server: vah4urdzl3jdx5r2.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: VAH4URdZL3jDX5r2.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15129912
+    type: vmess
+    server: qtkdr8jxe3wefxjm.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: qTKDR8jXE3wEFxJM.v.3dns.vip
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: vless-210548440
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: F8tqvcuJUSVbxv_i9ZsVOef3EPwULzzDqgvmj3vWNlA
+      short-id: ""
+    server: pro-ru-bridge.emrata.top
+    servername: pro-ru-bridge.emrata.top
+    tls: true
+    type: vless
+    udp: true
+    uuid: 831f56ff-d117-4a72-bb2b-a5e44eab6fbf
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: vless-211494821
+    network: raw
+    port: 443
+    reality-opts:
+      public-key: maES4RMEtsm5emBCixDRa6Y5GvmVwmwZNBL2G4Q03D4
+      short-id: 47de54e71fee3451
+    server: 38.207.177.236
+    servername: www.cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 9c64064c-aaaf-449f-9344-77632fc9ff1c
+  - name: trojan-210037272
+    password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6
+    port: 9450
+    server: rr2.tube-cat.com
+    skip-cert-verify: true
+    sni: rr2.tube-cat.com
+    type: trojan
+    udp: true
+  - name: 🇭🇰 · 3
+    type: vless
+    server: 207.174.133.222
+    port: 10000
+    udp: true
+    network: tcp
+    uuid: 431fe973-a43a-4fac-bf83-2a772e0d0625
+  - cipher: 2022-blake3-aes-256-gcm
+    name: shadowsocks-210548444
+    password: bw2o/kKFuOWoXcI3F6PqNgKx7509EjhX+FiD3nbq66A=:o0BVLUba3DXZA/MPf4Qy8CBNpEkZf4sMOtj7wHw+vC8=
+    port: 23252
+    server: 168.222.49.82
+    type: ss
+    udp: true
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vmess-SG-7297225
+    type: vmess
+    server: 149.88.23.202
+    port: 18000
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+    alterId: 0
+    cipher: auto
+    udp: true
+  - client-fingerprint: chrome
+    name: CA加拿大(mibei77.com 米贝节点分享)_6
+    network: ws
+    port: 30006
+    server: 114.204.40.185
+    servername: ruu2rx-oycdrnsrzc.9uokolpk04vmg2ecqb8oys7.workers.dev
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 9f81d9e9-71c5-4fce-8e76-a205518b2292
+    ws-opts:
+      headers:
+        Host: ruu2rx-oycdrnsrzc.9uokolpk04vmg2ecqb8oys7.workers.dev
+      path: /@Marisa_kristi
+  - name: vless-211493817
+    network: tcp
+    port: 62145
+    server: 149.130.191.146
+    type: vless
+    udp: true
+    uuid: 8fb65472-5957-4f64-ba2d-b5812b2f155a
   - name: xx|00d9|puddincat07@Telegram
     network: tcp
     password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6
@@ -557,90 +826,123 @@ proxies:
     sni: de.catxstar.com
     type: trojan
     udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-207974673
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node2.mxvpn.dev
-    servername: node2.mxvpn.dev
-    tls: true
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-15114416
     type: vless
+    server: 104.64.206.42
+    port: 57137
     udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446143
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 5Z6WxIOriNZSwKfzNvn38fbH0E2prqDla_l8l9YQnRo
-      short-id: 2a6f8c4d1e9b
-    server: poland.spectrum.vu
-    servername: poland.spectrum.vu
-    tls: true
-    type: vless
-    udp: true
-    uuid: 76713d07-5a6b-49c2-abd8-bc450a2fa7fc
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446155
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node2.mxvpn.dev
-    servername: node2.mxvpn.dev
-    tls: true
-    type: vless
-    udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
-  - cipher: chacha20-ietf-poly1305
-    name: gb|2c7f|puddincat07@Telegram
-    password: k1dBOmOB4oqi7Ump37a1bQ
-    port: 8080
-    server: 82.38.31.176
+    network: ws
+    ws-opts:
+      path: /FREE By Tharuwa (0767597317)
+      headers:
+        Host: m.zoom.us
+    uuid: 4476eabb-509c-42d3-bb42-6838bf6fcd1e
+  - name: 🇸🇬[www.v2nodes.com] Outline VPN-SG-11818509
     type: ss
+    server: 167.150.100.115
+    port: 27755
+    cipher: 2022-blake3-aes-256-gcm
+    password: fnvo82p9y4AKykZXyIFtnodFy6fQmWnVlI2SvGleOB0=
+    udp: true
   - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446161
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: bMcyxNueltQhz5Kuxcf8odDStWHowYfLhKNdCbUweDc
-      short-id: d1742269
-    server: 91.192.81.214
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 607801ac-dbdd-4938-a167-129015d9978e
-  - name: US美国(mibei77.com 米贝节点分享)_2
-    port: 20342
-    server: 141.133.172.222
+    name: KR韩国(mibei77.com 米贝节点分享)
+    network: ws
+    port: 11019
+    server: 211.104.99.209
+    servername: sxyyvihkektlx4rjxsdj.pkc73phpweu4rbxbatm444.workers.dev
     skip-cert-verify: true
-    tls: false
-    type: vless
-    udp: true
-    uuid: 5eecb34f-c905-4c77-b7fb-d830b451cd11
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-210021040
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: U1ABwLTij71fW63nwMukZBezSQKADiBRuKCATiNUxUw
-      short-id: 27bb
-    server: update.netraidly.ru
-    servername: deepl.com
     tls: true
     type: vless
     udp: true
-    uuid: 9150748b-fa2b-4ef1-a7f1-7c4a76e2dc0b
+    uuid: 3ee15a68-9391-470d-b810-29fc663beb28
+    ws-opts:
+      headers:
+        Host: sxyyvihkektlx4rjxsdj.pkc73phpweu4rbxbatm444.workers.dev
+      path: /@Marisa_kristi
+  - client-fingerprint: chrome
+    name: vless-210052437
+    network: tcp
+    port: 2053
+    reality-opts:
+      public-key: B1e_iMjxReenyAiFXDymzmzFNHqhvwc_RMdD3o3KYRE
+      short-id: 64e6ad70ed4c248f
+    server: 217.217.254.126
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: cfb310a9-7846-45dd-b72c-37597d6e33b3
+  - name: us|d4fb|puddincat07@Telegram
+    password: 0_Oms89nH82l_Ki813_Nxmw81_Rbt_Jq190Kl_m
+    port: 450
+    server: 167.150.100.133
+    skip-cert-verify: false
+    sni: grape-power-sg.roxa.org
+    type: trojan
+  - name: vless-211502812
+    network: raw
+    port: 443
+    server: 45.125.32.115
+    type: vless
+    udp: true
+    uuid: e2c8fa8c-886d-4649-bd59-cf73bee48b55
+  - name: vless-211494815
+    network: raw
+    port: 8443
+    server: 157.85.96.11
+    type: vless
+    udp: true
+    uuid: 9abf5e0c-e98a-44a3-bd0b-1a6dd065eb0f
+  - client-fingerprint: chrome
+    name: CA加拿大(mibei77.com 米贝节点分享)_5
+    network: ws
+    port: 30001
+    server: 114.204.40.185
+    servername: ruu2rx-oycdrnsrzc.9uokolpk04vmg2ecqb8oys7.workers.dev
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 03d81fdb-7476-4390-b550-0ba000668af7
+    ws-opts:
+      headers:
+        Host: ruu2rx-oycdrnsrzc.9uokolpk04vmg2ecqb8oys7.workers.dev
+      path: /@Marisa_kristi
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3251
+    type: vless
+    server: 162.159.18.228
+    port: 2087
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fdip=tw.william.us.ci!txt
+      headers:
+        Host: learn00.evany.de5.net
+    tls: true
+    servername: learn00.evany.de5.net
+    client-fingerprint: random
+    uuid: 29ca503d-e6b8-4509-b666-48133f450857
+  - name: 🇭🇰
+    type: vless
+    server: 45.125.32.115
+    port: 443
+    udp: true
+    network: tcp
+    uuid: e2c8fa8c-886d-4649-bd59-cf73bee48b55
+  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1906
+    type: vless
+    server: 104.17.144.235
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    tls: true
+    servername: hhlfy.twiladaphne.ndjp.net
+    client-fingerprint: random
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
     name: HK香港(mibei77.com 米贝节点分享)_3
@@ -655,6 +957,88 @@ proxies:
     type: vless
     udp: true
     uuid: 57beeeb0-03fc-4fc9-94da-7604488a7134
+  - cipher: chacha20-ietf-poly1305
+    name: shadowsocks-211463812
+    password: Yuvdaada5Q1qJ/yvPBbrBwDJ6caulTpJHjTB9IJGpvY=
+    port: 56985
+    server: e3.cover20.ir
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: vmess-210548433
+    network: tcp
+    port: 2078
+    server: tun1.wizardx1.com
+    type: vmess
+    udp: true
+    uuid: 8c207682-e007-4a0d-88a3-68b8638b3d10
+  - alterId: 0
+    cipher: auto
+    name: vmess-211512809
+    network: raw
+    port: 2078
+    server: tun1.wizardx1.com
+    type: vmess
+    udp: true
+    uuid: 8c207682-e007-4a0d-88a3-68b8638b3d10
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125982
+    type: vmess
+    server: m01c7b2z26dtqgee.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: M01c7B2z26DtQGEe.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15129933
+    type: vmess
+    server: mh7r5ardl0z5jtgy.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: mh7R5ArdL0z5jTGY.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15126110
+    type: vmess
+    server: 47.83.19.148
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    servername: 6JDvArazgU3qQR6Q.v.3dns.vip
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: 6JDvArazgU3qQR6Q.v.3dns.vip
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125993
+    type: vmess
+    server: u2frxj0g13vdi0wo.v.3dns.vip
+    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
+    udp: true
+    network: ws
+    tls: true
+    ws-opts:
+      path: /ws-vmess
+      headers:
+        Host: U2FRxj0G13vDI0Wo.v.3dns.vip
   - name: xx|12e6|puddincat07@Telegram
     password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6
     port: 9450
@@ -662,324 +1046,33 @@ proxies:
     skip-cert-verify: true
     type: trojan
     udp: true
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-2543
-    type: vless
-    server: 104.17.149.233
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15125989
+    type: vmess
+    server: ejomsxptp19apygl.v.3dns.vip
     port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
     udp: true
     network: ws
+    tls: true
     ws-opts:
-      path: /sg-melbi
-      headers:
-        Host: support.zoom.us.yxls.eu.cc
-    tls: true
-    servername: support.zoom.us.yxls.eu.cc
-    client-fingerprint: chrome
-    uuid: 4d10c997-4781-4cd9-82c3-15453523e12c
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-209446171
-    network: tcp
+      path: /ws-vmess
+  - name: 🇭🇰[www.v2nodes.com] vmess-HK-15138943
+    type: vmess
+    server: nycqg19zkwacpm1b.v.3dns.vip
     port: 443
-    reality-opts:
-      public-key: b-Cm9hX-3UHsS1L_lnUB6AMjuKhlN1IDdBbZ506itjI
-      short-id: 00bca5982f82d083
-    server: 79.108.161.101
-    servername: eu-central.cendora.ru
-    tls: true
-    type: vless
-    udp: true
-    uuid: fc1b3bda-b226-452a-8c5c-b0e36a1f8f88
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-1465
-    type: vless
-    server: 104.26.2.173
-    port: 443
+    uuid: f23bb427c1f94373876c2f43e9f790f3
+    alterId: 0
+    cipher: auto
     udp: true
     network: ws
+    tls: true
+    servername: NYcQg19zkwaCPM1B.v.3dns.vip
     ws-opts:
-      path: /sg-melbi
+      path: /ws-vmess
       headers:
-        Host: support.zoom.us.yxls.eu.cc
-    tls: true
-    servername: support.zoom.us.yxls.eu.cc
-    client-fingerprint: chrome
-    uuid: 4d10c997-4781-4cd9-82c3-15453523e12c
-  - client-fingerprint: chrome
-    name: vless-209446157
-    network: tcp
-    port: 2053
-    reality-opts:
-      public-key: uf8sbHK411DeW1Wo5Yt-VmR_FeirV3HmVFeaO2T44j0
-      short-id: 96831d397b50de01
-    server: 46.250.240.80
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: aea85a22-6404-4d1f-becd-17bc7dc14b8f
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-7456
-    type: vless
-    server: 162.159.137.54
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /sg-melbi
-      headers:
-        Host: support.zoom.us.yxls.eu.cc
-    tls: true
-    servername: support.zoom.us.yxls.eu.cc
-    client-fingerprint: chrome
-    uuid: 4d10c997-4781-4cd9-82c3-15453523e12c
-  - name: 🇸🇬[www.v2nodes.com] V2Ray Vless-SG-3251
-    type: vless
-    server: 104.18.37.228
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /fp
-      headers:
-        Host: hhlfy.twiladaphne.ndjp.net
-    tls: true
-    servername: hhlfy.twiladaphne.ndjp.net
-    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-207974674
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node7.mxvpn.dev
-    servername: node7.mxvpn.dev
-    tls: true
-    type: vless
-    udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446144
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: OCLtjVdRxsou3429LRfjkDYgiAPs24TSgSeFZpChCEw
-      short-id: d67ec5a8fc40ebea
-    server: my.neoncloak.space
-    servername: my.neoncloak.space
-    tls: true
-    type: vless
-    udp: true
-    uuid: 06d44c57-8e1a-41f4-b9c4-65d35869e078
-  - name: vless-208461842
-    network: tcp
-    port: 8443
-    server: 157.85.96.11
-    type: vless
-    udp: true
-    uuid: 9abf5e0c-e98a-44a3-bd0b-1a6dd065eb0f
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446148
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: HKpd1sbrhBds8SJSL0d22MAq_QyTR6EP6y5b5DYol3U
-      short-id: ""
-    server: 95.85.229.112
-    servername: www.wikihow.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: a34b5e88-cf0d-4c01-8199-2d1002d3c787
-  - name: trojan-210037272
-    password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6
-    port: 9450
-    server: rr2.tube-cat.com
-    skip-cert-verify: true
-    sni: rr2.tube-cat.com
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209446168
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node1.mxvpn.dev
-    servername: node1.mxvpn.dev
-    tls: true
-    type: vless
-    udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446165
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: HKpd1sbrhBds8SJSL0d22MAq_QyTR6EP6y5b5DYol3U
-      short-id: ""
-    server: 95.85.246.65
-    servername: www.wikihow.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: a34b5e88-cf0d-4c01-8199-2d1002d3c787
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-207916581
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: tZEzySB7soxBmNn2NPyzvUZtC7H1O0pyZx5M60_X2g4
-      short-id: 496ee75c2f91f51d
-    server: 82.97.252.129
-    servername: ads.x5.ru
-    tls: true
-    type: vless
-    udp: true
-    uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446169
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: kWLch3EWX5VBdNU5EiTNQhMwaOWNUtqR-ftUcc-B6gc
-      short-id: 43dabaaf5e906033
-    server: 2.26.124.69
-    servername: site.rumedia-cdn.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 73db72eb-eae3-4623-9395-a5eedc584569
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209398685
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: tZEzySB7soxBmNn2NPyzvUZtC7H1O0pyZx5M60_X2g4
-      short-id: 496ee75c2f91f51d
-    server: 217.149.23.141
-    servername: ads.x5.ru
-    tls: true
-    type: vless
-    udp: true
-    uuid: 3ad1d277-5715-4ca1-84db-5baea72f822d
-  - name: us|b958|puddincat07@Telegram
-    network: ws
-    password: humanity
-    port: 443
-    server: 104.26.14.137
-    skip-cert-verify: false
-    sni: www.ignitelimit.com
-    type: trojan
-    ws-opts:
-      headers:
-        Host: www.ignitelimit.com
-      path: /assignment
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: vless-209446166
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TlpXTLz1Y-v8B6q9MX55U6eypjfL0LCSNE5zQP4yRHw
-      short-id: bbc68cec8bb8d2e3
-    server: node1.mxvpn.dev
-    servername: node1.mxvpn.dev
-    tls: true
-    type: vless
-    udp: true
-    uuid: 564082ff-cf3c-48db-9e10-8ad2312847b4
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: vless-209446170
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: B3MWDjEWGQsObyH-9npa_PlkaoQDBqzwlwURFK1zlE8
-      short-id: 3e0527d94cc8d1
-    server: 148.253.211.10
-    servername: vk.me
-    tls: true
-    type: vless
-    udp: true
-    uuid: 60576147-90e7-4afc-9cf9-c7361a8c7fd8
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-209396677
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: WRveYv8IuUyvai4jgnQ6nWCL971-wKboe8evES5arlg
-      short-id: 69d4
-    server: status.netraidly.ru
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 28d0edc6-93c9-4465-bac9-720274d8b8c4
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: vless-207907581
-    network: tcp
-    port: 40443
-    reality-opts:
-      public-key: cwmcqsfS7klQlkcoUNuATEk0NiPY-NnRb9z8rCJDQw0
-      short-id: 88b6
-    server: 5.253.30.99
-    servername: deepl.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 511c1563-2cb6-4064-abc6-a59ee49818a8
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: vless-209950039
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: ALT8hIGeZEhi0sQFbXP_ntBg8Xo-v7i0YCLrqTnBxRk
-      short-id: 0990d22f
-    server: 167.17.69.171
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 00144519-7e0d-476b-8d28-435576af9262
-  - client-fingerprint: firefox
-    name: vless-209446116
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 6p0aVCkOgd-xaxqSMANYABL6O4Tdbftnxjiy5qcmISQ
-      short-id: 0b
-    server: 45.155.52.231
-    servername: ru2.skydrgn-online.online
-    tls: true
-    type: vless
-    udp: true
-    uuid: 219f9fec-8983-4f6f-af8c-31bd0c6dbf19
-  - name: vless-209395676
-    network: raw
-    port: 59167
-    server: 193.104.58.45
-    type: vless
-    udp: true
-    uuid: 1d977a71-920e-4846-98b1-24f8e2fa0ea3
-  - name: vless-207888581
-    network: tcp
-    port: 59167
-    server: 193.104.58.45
-    type: vless
-    udp: true
-    uuid: 1d977a71-920e-4846-98b1-24f8e2fa0ea3
+        Host: NYcQg19zkwaCPM1B.v.3dns.vip
   - alterId: 2
     cipher: auto
     name: xx|8151|puddincat07@Telegram
@@ -989,12 +1082,3 @@ proxies:
     tls: false
     type: vmess
     uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 0
-    cipher: auto
-    name: vmess-209423682
-    network: tcp
-    port: 2078
-    server: tun1.wizardx1.com
-    type: vmess
-    udp: true
-    uuid: 8c207682-e007-4a0d-88a3-68b8638b3d10
