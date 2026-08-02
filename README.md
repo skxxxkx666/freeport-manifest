@@ -52,14 +52,14 @@ public/fonts/                   得意黑子集(≤ 50KB)
 
 ## 验证状态
 
-2026-07-31 验证记录:
+2026-08-03 验证记录:
 
 1. **已验证 — Astro 7.1 最新技术栈。**
    当前使用 Astro 7.1.6、Vite 8.1.5、TypeScript 6.0.3、
    Node 24 LTS 和 Astro Content Layer;交互由 Astro 原生组件与小型 DOM 脚本实现,
    不再加载 React 运行时。生产依赖 `npm audit --omit=dev` 为 0 漏洞。
-   本地已通过 `npm ci`;`npm test`(43/43)、
-   `npm run check`(0 error)和 `npm run build`(23 pages)均通过。
+   本地已通过 `npm ci`;`npm test`(46/46)、
+   `npm run check`(0 error)和 `npm run build`(25 pages)均通过。
    TypeScript 7.0.2 虽已发布,但 `@astrojs/check@0.9.10` 的 peer 范围仍只有
    `^5 || ^6`,所以暂不做不兼容升级。
 2. **已解决 — `site` / `base` 无占位值。**
@@ -87,9 +87,11 @@ public/fonts/                   得意黑子集(≤ 50KB)
    遇到自定义 WS header、SS plugin 等无法无损表达的 Clash 配置时跳过该 V2 链接,
    不再发布表面可导入但实际失真的链接。
 4. **已验证 — 当前订阅连通性与小流量测速。**
-   2026-07-31 云端签发从 169 个去重候选筛出并发布 81 个 Clash 节点、
-   76 个 V2Ray 节点,候选存活率 47.9%,延迟中位数 169 ms、P95 278 ms;
+   2026-08-03 云端签发从 200 个候选筛出并发布 104 个 Clash 节点、
+   103 个 V2Ray 节点,候选存活率 52.0%,延迟中位数 153 ms、P95 362 ms;
    12 个节点完成 250 KB 下载样本,完整 `clash.yaml` 已通过 Mihomo 配置测试。
+   其中 91 个发布节点取得真实出口国家,5 个由来源或名称降级识别,仅 8 个保留
+   `OTHER`（7.7%,改造前为 68.2%）;5 个标注冲突均以真实出口为准。
    该数据只证明测试时刻和 GitHub Actions 测试网络可用,不是带宽承诺。
    后续结果以 `public/free/latest/health.json` 为准。
 5. **已解决 — 窄屏布局。部分验证 — 深链。**
