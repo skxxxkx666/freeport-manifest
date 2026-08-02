@@ -79,6 +79,12 @@ export const probeFailureReason = (message = "") => {
   return "other";
 };
 
+export const parseEgressRegion = (trace = "") => {
+  const region = String(trace).match(/^loc=([A-Z]{2})\s*$/m)?.[1];
+  if (!region || ["EU", "UN", "XX", "ZZ"].includes(region)) return;
+  return region;
+};
+
 const percentile = (values, ratio) => {
   if (!values.length) return null;
   const index = (values.length - 1) * ratio;
@@ -256,6 +262,75 @@ const testDelay = async (
   }
 };
 
+const selectProxy = async (name, controller, secret) => {
+  const selection = await apiRequest(
+    controller,
+    secret,
+    `/proxies/${encodeURIComponent("PROBE-SELECT")}`,
+    {
+      method: "PUT",
+      body: { name }
+    }
+  );
+  if (!selection.response.ok) return false;
+  await delay(100);
+  return true;
+};
+
+const detectEgressRegion = async ({
+  result,
+  controller,
+  secret,
+  mixedPort,
+  timeoutSeconds
+}) => {
+  result.regionDetectionStatus = "failed";
+  if (!(await selectProxy(result.name, controller, secret))) {
+    result.regionDetectionStatus = "selection-failed";
+    return;
+  }
+
+  const curl = process.platform === "win32" ? "curl.exe" : "curl";
+  const command = spawnSync(
+    curl,
+    [
+      "--fail",
+      "--silent",
+      "--show-error",
+      "--proxy",
+      `http://127.0.0.1:${mixedPort}`,
+      "--connect-timeout",
+      String(Math.min(timeoutSeconds, 5)),
+      "--max-time",
+      String(timeoutSeconds),
+      "https://www.cloudflare.com/cdn-cgi/trace"
+    ],
+    {
+      encoding: "utf8",
+      timeout: (timeoutSeconds + 5) * 1000,
+      windowsHide: true
+    }
+  );
+  if (command.error?.code === "ETIMEDOUT" || command.status === 28) {
+    result.regionDetectionStatus = "timeout";
+    return;
+  }
+  if (command.error || command.status !== 0) {
+    result.regionDetectionStatus = "request-failed";
+    return;
+  }
+
+  const region = parseEgressRegion(command.stdout);
+  if (!region) {
+    result.regionDetectionStatus = "invalid-response";
+    return;
+  }
+  result.region = region;
+  result.regionMethod = "egress";
+  result.regionConfidence = "high";
+  result.regionDetectionStatus = "ok";
+};
+
 const runSpeedSample = async ({
   result,
   controller,
@@ -266,20 +341,10 @@ const runSpeedSample = async ({
 }) => {
   result.speedSampleStatus = "failed";
   result.speedSampleBytes = bytes;
-  const selection = await apiRequest(
-    controller,
-    secret,
-    `/proxies/${encodeURIComponent("PROBE-SELECT")}`,
-    {
-      method: "PUT",
-      body: { name: result.name }
-    }
-  );
-  if (!selection.response.ok) {
+  if (!(await selectProxy(result.name, controller, secret))) {
     result.speedSampleStatus = "selection-failed";
     return;
   }
-  await delay(100);
 
   const curl = process.platform === "win32" ? "curl.exe" : "curl";
   const sink = process.platform === "win32" ? "NUL" : "/dev/null";
@@ -337,7 +402,10 @@ export async function probeProxies(
     speedSampleSize = 3,
     speedSampleMaxAttempts = 8,
     speedSampleBytes = 250_000,
-    speedTimeoutSeconds = 15
+    speedTimeoutSeconds = 15,
+    regionDetection = true,
+    regionTimeoutSeconds = 5,
+    regionMaximumLatencyMs = Number.POSITIVE_INFINITY
   } = {}
 ) {
   if (!mihomoBin) throw new Error("缺少 MIHOMO_BIN，无法执行发布前节点健康检查");
@@ -413,6 +481,25 @@ export async function probeProxies(
       });
       if (result.speedSampleStatus === "ok") successfulSpeedSamples += 1;
       if (successfulSpeedSamples >= speedSampleSize) break;
+    }
+
+    if (regionDetection) {
+      const healthy = results.filter(
+        (result) => result.alive && result.delayMs <= regionMaximumLatencyMs
+      );
+      for (const result of healthy) {
+        await detectEgressRegion({
+          result,
+          controller,
+          secret,
+          mixedPort,
+          timeoutSeconds: regionTimeoutSeconds
+        });
+      }
+      const detected = healthy.filter(
+        (result) => result.regionDetectionStatus === "ok"
+      ).length;
+      console.log(`出口地区识别：${detected}/${healthy.length} 个存活节点`);
     }
     return summarizeProbeResults(results);
   } finally {

@@ -33,7 +33,7 @@ src/
   styles/theme.css              @theme token 表
 scripts/deployment-config.mjs   从仓库/环境变量推导 site + base
 scripts/issue-manifest.mjs      拉取 → 解析/转换 → 生成订阅文件与 md
-scripts/probe-nodes.mjs         用 Mihomo 做发布前连通性、延迟与小流量测速
+scripts/probe-nodes.mjs         用 Mihomo 做发布前连通性、延迟、测速与真实出口地区识别
 scripts/check-seo.mjs           构建后逐页验证 SEO 元数据与 sitemap
 scripts/measure-mobile.mjs      Playwright 实测窄屏布局(顶栏高/换行数/溢出/sticky)
 scripts/indexnow.mjs            部署后通知 IndexNow 抓取核心页面
@@ -78,8 +78,11 @@ public/fonts/                   得意黑子集(≤ 50KB)
    节点。全局最多实测 200 个候选并发布 120 个,延迟超过 2500 ms 的节点不会进入产物。
    只有实测存活节点会进入 `clash.yaml`、`provider.yaml` 和 `v2ray.txt`;至少需要 10 个
    且候选存活率不低于 10%,否则整次签发失败并保留线上上一版。大型聚合源的低命中项
-   只消耗测试预算,不会进入产物。`health.json` 记录来源
-   状态、脱敏节点哈希、延迟、失败分类和测速结果。
+   只消耗测试预算,不会进入产物。存活节点还会经 Mihomo 实际出口请求 Cloudflare trace,
+   以 `loc` 国家代码识别真实代理出口；失败时依次退回来源声明、名称和上一版结果。
+   `health.json` 记录来源状态、脱敏节点哈希、延迟、失败分类、测速结果、地区判定方式与
+   置信度，但不公开服务器地址或出口 IP。Clash 与 V2Ray 节点名统一采用
+   `🇸🇬 SG | 原名称` 格式。
    V2Ray 转换现已保留 `skip-cert-verify`、ALPN、SNI、fingerprint 等关键 TLS 字段;
    遇到自定义 WS header、SS plugin 等无法无损表达的 Clash 配置时跳过该 V2 链接,
    不再发布表面可导入但实际失真的链接。
@@ -118,8 +121,8 @@ public/fonts/                   得意黑子集(≤ 50KB)
    Hero 改成 `minmax(0,1fr) minmax(180px,auto)` 栅格、图章靠右贴边,正文与图章之间的
    空洞由约 400px 降到 80px。两联对照表在 `≤640px` 改为按行拆卡,375 下由横滚 209px
    变为零溢出。明细区先按地区合并协议,桌面排成两栏地区放行簿,移动端回到单栏。
-   国旗使用本地内联的 Flagpack 4:3 SVG(`flag-icons` 7.5.0,MIT),只作节点名称标签的
-   视觉索引,不代表 IP 定位。
+   国旗使用本地内联的 Flagpack 4:3 SVG(`flag-icons` 7.5.0,MIT)。新签发清单优先按
+   Mihomo 实际出口识别国家；旧存根仍可能只是来源名称推断，不应视为历史 IP 证据。
 
    **字号只小幅上调,不随容器等比放大。** 中途曾把运单号推到 72px、h1 推到 48px,
    结果是把稀疏的版面放大而非填满,反而更难看 —— 已回退。宽度多出来时正确的用法是
@@ -269,6 +272,7 @@ https://public-one.example/sub https://public-two.example/sub
     "https://public.example/sub",
     {
       "url": "https://api.example/sub",
+      "region": "SG",
       "headers": {
         "Authorization": "Bearer <token>",
         "X-Api-Key": "<key>"
@@ -277,6 +281,10 @@ https://public-one.example/sub https://public-two.example/sub
   ]
 }
 ```
+
+单一国家来源可选填两位 `region`；V2Nodes 的 `/country/sg/` 与
+`/subscriptions/country/hk/` 路径会自动推导。该值只作出口检测失败时的中等置信度
+降级，不会覆盖真实出口结果。
 
 生产仓库通过 `SUB_SOURCES` 追加 `v2nodes-hk-subscription` 与
 `v2nodes-us-subscription`;带访问 key 的完整 URL 只保存在 GitHub Secret,不得写入

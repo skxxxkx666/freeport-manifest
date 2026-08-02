@@ -4,6 +4,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
+  applyProxyRegions,
   buildHealthReport,
   buildSubscriptionPayload,
   clashProxyToUri,
@@ -22,12 +23,15 @@ import {
   protoOf,
   proxyFingerprint,
   publicSubscriptionUrl,
+  regionLabel,
   regionOf,
+  renameNodeUri,
   renderClashConfig,
   renderClashProvider,
   safeProxyServer,
   selectDiverseProxies,
-  selectPublishedProxies
+  selectPublishedProxies,
+  resolveProxyRegions
 } from "./issue-manifest.mjs";
 import { parse as parseYaml } from "yaml";
 
@@ -269,6 +273,20 @@ test("malformed Reality nodes are rejected before Mihomo validation", () => {
     payload.proxies.map((proxy) => proxy.name),
     ["Safe Trojan", "valid"]
   );
+  assert.equal(
+    parseSourceSpecs(
+      JSON.stringify({
+        url: "https://www.v2nodes.com/subscriptions/country/hk/?key=secret"
+      })
+    )[0].region,
+    "HK"
+  );
+  assert.equal(
+    parseSourceSpecs(
+      JSON.stringify({ url: "https://source.example/sub", region: "us" })
+    )[0].region,
+    "US"
+  );
 });
 
 test("Clash proxies convert to share links and back", () => {
@@ -295,6 +313,12 @@ test("Clash proxies convert to share links and back", () => {
   const ssRoundTrip = nodeUriToClashProxy(clashProxyToUri(ss));
   assert.equal(vmessRoundTrip.server, vmess.server);
   assert.equal(vmessRoundTrip.uuid, vmess.uuid);
+  assert.equal(
+    nodeUriToClashProxy(
+      renameNodeUri(clashProxyToUri(vmess), "🇯🇵 JP | renamed-vmess")
+    ).name,
+    "🇯🇵 JP | renamed-vmess"
+  );
   assert.equal(ssRoundTrip.server, ss.server);
   assert.equal(ssRoundTrip.password, ss.password);
   assert.equal(
@@ -462,6 +486,71 @@ test("region metadata handles flags, prefixes and unknown labels", () => {
   assert.equal(regionOf("unclassified"), "OTHER");
 });
 
+test("egress region wins over source and labels are applied to both formats", () => {
+  const egressProxy = {
+    name: "sg|numbered-node",
+    type: "vless",
+    server: "edge.example.com",
+    port: 443,
+    uuid: "11111111-1111-1111-1111-111111111111"
+  };
+  const sourceProxy = {
+    name: "shadowsocks-193",
+    type: "ss",
+    server: "source.example.com",
+    port: 8388,
+    cipher: "aes-256-gcm",
+    password: "secret"
+  };
+  const egressKey = proxyFingerprint(egressProxy);
+  const sourceKey = proxyFingerprint(sourceProxy);
+  const regions = resolveProxyRegions({
+    proxies: [egressProxy, sourceProxy],
+    results: [
+      {
+        name: egressProxy.name,
+        type: egressProxy.type,
+        alive: true,
+        delayMs: 80,
+        region: "US"
+      }
+    ],
+    sourceRegionsByProxy: new Map([
+      [egressKey, new Set(["SG"])],
+      [sourceKey, new Set(["HK"])]
+    ])
+  });
+
+  assert.deepEqual(regions.get(egressKey), {
+    region: "US",
+    regionMethod: "egress",
+    regionConfidence: "high",
+    regionMismatch: true
+  });
+  assert.deepEqual(regions.get(sourceKey), {
+    region: "HK",
+    regionMethod: "source",
+    regionConfidence: "medium"
+  });
+
+  const decorated = applyProxyRegions([egressProxy, sourceProxy], regions);
+  assert.equal(decorated[0].name, "🇺🇸 US | numbered-node");
+  assert.equal(decorated[1].name, "🇭🇰 HK | shadowsocks-193");
+  assert.equal(regionLabel("xx|anonymous", "DE"), "🇩🇪 DE | anonymous");
+
+  const renamed = renameNodeUri(
+    "vless://uuid@edge.example.com:443?security=tls#old",
+    decorated[0].name
+  );
+  assert.equal(regionOf(renamed), "US");
+  assert.equal(nodeUriToClashProxy(renamed).name, decorated[0].name);
+  assert.ok(
+    parseYaml(renderClashConfig(decorated))["proxy-groups"]
+      .find((group) => group.name === "🇺🇸 美国")
+      .proxies.includes(decorated[0].name)
+  );
+});
+
 test("older manifests expire without changing the current manifest", async () => {
   const directory = await mkdtemp(join(tmpdir(), "freeport-manifests-"));
   try {
@@ -524,6 +613,16 @@ test("public health reports omit proxy names and source failure details", () => 
       }
     ],
     sourcesByProxy: new Map([[key, new Set(["source-a"])]]),
+    regionsByProxy: new Map([
+      [
+        key,
+        {
+          region: "SG",
+          regionMethod: "source",
+          regionConfidence: "medium"
+        }
+      ]
+    ]),
     proxies: [proxy],
     thresholds: { minimumHealthy: 5, minimumRatio: 0.2 }
   });
@@ -531,5 +630,6 @@ test("public health reports omit proxy names and source failure details", () => 
 
   assert.equal(report.nodes[0].id, key);
   assert.equal(report.nodes[0].reason, "timeout");
+  assert.equal(report.nodes[0].region, "SG");
   assert.doesNotMatch(serialized, /private node label|source-secret|example\.com/);
 });

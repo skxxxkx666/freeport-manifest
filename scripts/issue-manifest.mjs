@@ -27,6 +27,26 @@ const defaultCandidateLimit = 200;
 const defaultPublishedLimit = 120;
 const defaultMaxLatencyMs = 2500;
 
+const normalizeRegionCode = (value) => {
+  const rawRegion = String(value ?? "").trim().toUpperCase();
+  const region = rawRegion === "UK" ? "GB" : rawRegion;
+  if (!/^[A-Z]{2}$/.test(region) || ["EU", "UN", "XX", "ZZ"].includes(region)) {
+    return;
+  }
+  return region;
+};
+
+const inferSourceRegion = (url) => {
+  try {
+    const match = new URL(url).pathname.match(
+      /\/(?:subscriptions\/)?country\/([a-z]{2})(?:\/|$)/i
+    );
+    return normalizeRegionCode(match?.[1]);
+  } catch {
+    return;
+  }
+};
+
 const hasValue = (value) =>
   value !== undefined && value !== null && String(value).trim().length > 0;
 
@@ -75,6 +95,8 @@ const normalizeSource = (entry) => {
   const normalized = { url, headers };
   if (typeof source.id === "string" && source.id.trim()) normalized.id = source.id.trim();
   if (typeof source.type === "string" && source.type.trim()) normalized.type = source.type.trim();
+  const region = normalizeRegionCode(source.region) ?? inferSourceRegion(url);
+  if (region) normalized.region = region;
   if (source.enabled === false) normalized.enabled = false;
   if (source.allowRedistribution === true) normalized.allowRedistribution = true;
   if (typeof source.license === "string" && source.license.trim()) {
@@ -552,6 +574,7 @@ export async function fetchSourcePayloads(
         discoveredNodeCount: discovered.nodes.length,
         discoveredProxyCount: discovered.proxies.length,
         maxItems: source.maxItems,
+        region: source.region,
         license: source.license,
         detailTotal: current.meta?.detailTotal,
         detailFailures: current.meta?.detailFailures,
@@ -571,6 +594,7 @@ export async function fetchSourcePayloads(
       reports.push({
         id,
         status: "failed",
+        region: source.region,
         nodeCount: 0,
         proxyCount: 0,
         reason
@@ -1146,8 +1170,10 @@ export const regionOf = (node) => {
       )
       .join("");
   }
-  const prefix = tag.match(/^\s*([a-z]{2})(?:\||[-_: ])/i)?.[1]?.toUpperCase();
-  if (prefix && prefix !== "XX") return prefix;
+  const prefix = normalizeRegionCode(
+    tag.match(/^\s*([a-z]{2})(?:\||[-_: ])/i)?.[1]
+  );
+  if (prefix) return prefix;
 
   const namedRegions = [
     ["HK", /香港|Hong\s*Kong|\bHK\b/i],
@@ -1170,12 +1196,118 @@ export const regionOf = (node) => {
   return "OTHER";
 };
 
-export function selectDiverseProxies(proxies, maximumItems = defaultCandidateLimit) {
+export const regionFlag = (region) => {
+  const code = normalizeRegionCode(region);
+  if (!code) return "🌍";
+  return [...code]
+    .map((character) => String.fromCodePoint(character.charCodeAt(0) - 65 + 0x1f1e6))
+    .join("");
+};
+
+const cleanProxyLabel = (name) =>
+  String(name)
+    .replace(/^(?:[\u{1F1E6}-\u{1F1FF}]{2}|🏳️?|🌍)\s*/u, "")
+    .replace(/^(?:[a-z]{2}|OTHER)\s*(?:\||[-_:])\s*/i, "")
+    .trim();
+
+export const regionLabel = (name, region) => {
+  const code = normalizeRegionCode(region) ?? "OTHER";
+  const prefix = `${regionFlag(code)} ${code} | `;
+  const cleanName = cleanProxyLabel(name) || "node";
+  const maximumNameLength = Math.max(1, 180 - [...prefix].length);
+  return `${prefix}${[...cleanName].slice(0, maximumNameLength).join("")}`;
+};
+
+export function renameNodeUri(node, name) {
+  const value = String(node);
+  if (value.toLowerCase().startsWith("vmess://")) {
+    const encoded = value.slice("vmess://".length).split("#")[0];
+    const decoded = decodeBase64(encoded, { strict: false });
+    if (!decoded) return value;
+    try {
+      const payload = JSON.parse(decoded);
+      payload.ps = name;
+      return `vmess://${Buffer.from(JSON.stringify(payload)).toString("base64")}`;
+    } catch {
+      return value;
+    }
+  }
+  const fragmentIndex = value.indexOf("#");
+  const base = fragmentIndex >= 0 ? value.slice(0, fragmentIndex) : value;
+  return `${base}${encodedFragment(name)}`;
+}
+
+const proxyRegion = (proxy, regionsByProxy) =>
+  regionsByProxy?.get(proxyFingerprint(proxy))?.region ?? regionOf(proxy.name);
+
+export function resolveProxyRegions({
+  proxies,
+  results = [],
+  sourceRegionsByProxy = new Map(),
+  previousRegionsByProxy = new Map()
+}) {
+  const resultByName = new Map(results.map((result) => [result.name, result]));
+  const regionsByProxy = new Map();
+  for (const proxy of proxies) {
+    const key = proxyFingerprint(proxy);
+    const result = resultByName.get(proxy.name);
+    const detectedRegion = normalizeRegionCode(result?.region);
+    const sourceRegions = [
+      ...(sourceRegionsByProxy.get(key) ?? [])
+    ].map(normalizeRegionCode).filter(Boolean);
+    const uniqueSourceRegions = [...new Set(sourceRegions)];
+    const sourceRegion = uniqueSourceRegions.length === 1 ? uniqueSourceRegions[0] : undefined;
+    const nameRegion = normalizeRegionCode(regionOf(proxy.name));
+    const previousRegion = normalizeRegionCode(previousRegionsByProxy.get(key));
+    const region = detectedRegion ?? sourceRegion ?? nameRegion ?? previousRegion ?? "OTHER";
+    const regionMethod = detectedRegion
+      ? "egress"
+      : sourceRegion
+        ? "source"
+        : nameRegion
+          ? "name"
+          : previousRegion
+            ? "previous"
+            : "unknown";
+    const regionConfidence = detectedRegion
+      ? "high"
+      : sourceRegion || previousRegion
+        ? "medium"
+        : nameRegion
+          ? "low"
+          : "none";
+    const declaredRegions = [sourceRegion, nameRegion].filter(Boolean);
+    regionsByProxy.set(key, {
+      region,
+      regionMethod,
+      regionConfidence,
+      ...(detectedRegion && declaredRegions.some((item) => item !== detectedRegion)
+        ? { regionMismatch: true }
+        : {})
+    });
+  }
+  return regionsByProxy;
+}
+
+export function applyProxyRegions(proxies, regionsByProxy) {
+  return uniqueProxyNames(
+    proxies.map((proxy) => ({
+      ...proxy,
+      name: regionLabel(proxy.name, proxyRegion(proxy, regionsByProxy))
+    }))
+  );
+}
+
+export function selectDiverseProxies(
+  proxies,
+  maximumItems = defaultCandidateLimit,
+  regionsByProxy
+) {
   const limit = Math.max(0, Math.floor(maximumItems));
   if (proxies.length <= limit) return [...proxies];
   const buckets = new Map();
   for (const proxy of proxies) {
-    const key = `${regionOf(proxy.name)}\0${proxy.type}`;
+    const key = `${proxyRegion(proxy, regionsByProxy)}\0${proxy.type}`;
     const bucket = buckets.get(key) ?? [];
     bucket.push(proxy);
     buckets.set(key, bucket);
@@ -1202,7 +1334,8 @@ export function selectPublishedProxies(
   results,
   {
     maximumItems = defaultPublishedLimit,
-    maximumLatencyMs = defaultMaxLatencyMs
+    maximumLatencyMs = defaultMaxLatencyMs,
+    regionsByProxy
   } = {}
 ) {
   const resultByName = new Map(results.map((result) => [result.name, result]));
@@ -1227,7 +1360,7 @@ export function selectPublishedProxies(
         proxyFingerprint(a).localeCompare(proxyFingerprint(b))
       );
     });
-  return selectDiverseProxies(healthy, maximumItems);
+  return selectDiverseProxies(healthy, maximumItems, regionsByProxy);
 }
 
 export const publicSubscriptionUrl = (fileName, env = process.env) => {
@@ -1283,6 +1416,7 @@ export async function expireOlderManifests({
 
 const sourceProvenance = (reports) => {
   const sourcesByProxy = new Map();
+  const sourceRegionsByProxy = new Map();
   for (const report of reports) {
     if (!report.payload) continue;
     const built = buildSubscriptionPayload(report.payload);
@@ -1291,10 +1425,31 @@ const sourceProvenance = (reports) => {
       const sourceIds = sourcesByProxy.get(key) ?? new Set();
       sourceIds.add(report.id);
       sourcesByProxy.set(key, sourceIds);
+      if (report.region) {
+        const regions = sourceRegionsByProxy.get(key) ?? new Set();
+        regions.add(report.region);
+        sourceRegionsByProxy.set(key, regions);
+      }
     }
   }
-  return sourcesByProxy;
+  return { sourcesByProxy, sourceRegionsByProxy };
 };
+
+export async function loadPreviousRegions(
+  path = "public/free/latest/health.json"
+) {
+  try {
+    const report = JSON.parse(await readFile(path, "utf8"));
+    return new Map(
+      (Array.isArray(report?.nodes) ? report.nodes : [])
+        .map((node) => [node?.id, normalizeRegionCode(node?.region)])
+        .filter(([id, region]) => typeof id === "string" && region)
+    );
+  } catch (error) {
+    if (error?.code === "ENOENT" || error instanceof SyntaxError) return new Map();
+    throw error;
+  }
+}
 
 const publicSourceReports = (reports) =>
   reports.map((report) => ({
@@ -1309,6 +1464,7 @@ const publicSourceReports = (reports) =>
         }
       : {}),
     ...(Number.isInteger(report.maxItems) ? { maxItems: report.maxItems } : {}),
+    ...(report.region ? { region: report.region } : {}),
     ...(report.license ? { license: report.license } : {}),
     ...(Number.isInteger(report.detailTotal)
       ? {
@@ -1328,14 +1484,18 @@ export const buildHealthReport = ({
   tested,
   sources,
   sourcesByProxy,
+  regionsByProxy = new Map(),
   proxies,
   thresholds,
   publishedProxies = [],
   qualityLimits
 }) => {
   const resultByName = new Map(summary.results.map((result) => [result.name, result]));
+  const publishedAssignments = publishedProxies.map((proxy) =>
+    regionsByProxy.get(proxyFingerprint(proxy))
+  );
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     manifest: `FP-${compact}-01`,
     status: tested ? "tested" : "skipped",
     testedAt: summary.testedAt,
@@ -1348,16 +1508,40 @@ export const buildHealthReport = ({
       publishedCount: publishedProxies.length,
       aliveRatio: summary.aliveRatio,
       latencyMs: summary.latencyMs,
-      failureReasons: summary.failureReasons
+      failureReasons: summary.failureReasons,
+      regionDetection: {
+        detectedCount: publishedAssignments.filter(
+          (assignment) => assignment?.regionMethod === "egress"
+        ).length,
+        fallbackCount: publishedAssignments.filter(
+          (assignment) =>
+            assignment?.region !== "OTHER" && assignment?.regionMethod !== "egress"
+        ).length,
+        otherCount: publishedAssignments.filter(
+          (assignment) => !assignment || assignment.region === "OTHER"
+        ).length,
+        mismatchCount: publishedAssignments.filter(
+          (assignment) => assignment?.regionMismatch
+        ).length
+      }
     },
     sources: publicSourceReports(sources),
     nodes: proxies.map((proxy) => {
       const key = proxyFingerprint(proxy);
       const result = resultByName.get(proxy.name);
+      const region = regionsByProxy.get(key) ?? {
+        region: "OTHER",
+        regionMethod: "unknown",
+        regionConfidence: "none"
+      };
       return {
         id: key,
         type: proxy.type,
         sourceIds: [...(sourcesByProxy.get(key) ?? [])].sort(),
+        region: region.region,
+        regionMethod: region.regionMethod,
+        regionConfidence: region.regionConfidence,
+        ...(region.regionMismatch ? { regionMismatch: true } : {}),
         alive: tested ? Boolean(result?.alive) : null,
         ...(Number.isFinite(result?.delayMs) ? { delayMs: result.delayMs } : {}),
         ...(Number.isFinite(result?.speedMbps)
@@ -1405,6 +1589,8 @@ async function main() {
   const sources = await loadSourceSpecs();
   const fetched = await fetchSourcePayloads(sources);
   const built = buildSubscriptionPayload(fetched);
+  const { sourcesByProxy, sourceRegionsByProxy } = sourceProvenance(fetched.reports);
+  const previousRegionsByProxy = await loadPreviousRegions();
   const candidateLimit = Math.floor(
     positiveNumber(process.env.HEALTH_MAX_CANDIDATES, defaultCandidateLimit)
   );
@@ -1415,7 +1601,16 @@ async function main() {
     process.env.HEALTH_MAX_LATENCY_MS,
     defaultMaxLatencyMs
   );
-  const proxies = selectDiverseProxies(built.proxies, candidateLimit);
+  const preliminaryRegions = resolveProxyRegions({
+    proxies: built.proxies,
+    sourceRegionsByProxy,
+    previousRegionsByProxy
+  });
+  const proxies = selectDiverseProxies(
+    built.proxies,
+    candidateLimit,
+    preliminaryRegions
+  );
   const requireHealthCheck = process.env.REQUIRE_HEALTH_CHECK === "true";
   if (!proxies.length || !built.shareUris.length) {
     setChangedOutput(false);
@@ -1439,7 +1634,12 @@ async function main() {
         ),
         speedSampleMaxAttempts: Math.floor(
           positiveNumber(process.env.HEALTH_SPEED_ATTEMPTS, 20)
-        )
+        ),
+        regionTimeoutSeconds: positiveNumber(
+          process.env.HEALTH_REGION_TIMEOUT_SECONDS,
+          5
+        ),
+        regionMaximumLatencyMs: maximumLatencyMs
       })
     : summarizeProbeResults(
         proxies.map((proxy) => ({
@@ -1451,15 +1651,29 @@ async function main() {
       );
   if (tested) assertProbeThreshold(summary, thresholds);
 
-  const publishedProxies = tested
+  const regionsByProxy = resolveProxyRegions({
+    proxies,
+    results: summary.results,
+    sourceRegionsByProxy,
+    previousRegionsByProxy
+  });
+  const selectedPublishedProxies = tested
     ? selectPublishedProxies(proxies, summary.results, {
         maximumItems: publishedLimit,
-        maximumLatencyMs
+        maximumLatencyMs,
+        regionsByProxy
       })
-    : selectDiverseProxies(proxies, publishedLimit);
+    : selectDiverseProxies(proxies, publishedLimit, regionsByProxy);
+  const publishedProxies = applyProxyRegions(
+    selectedPublishedProxies,
+    regionsByProxy
+  );
   const shareUris = dedupe(
     publishedProxies
-      .map((proxy) => built.uriByProxyFingerprint.get(proxyFingerprint(proxy)))
+      .map((proxy) => {
+        const uri = built.uriByProxyFingerprint.get(proxyFingerprint(proxy));
+        return uri ? renameNodeUri(uri, proxy.name) : undefined;
+      })
       .filter(Boolean)
   );
   if (
@@ -1531,12 +1745,12 @@ expired: false
 ---
 `;
 
-  const sourcesByProxy = sourceProvenance(fetched.reports);
   const report = buildHealthReport({
     summary,
     tested,
     sources: fetched.reports,
     sourcesByProxy,
+    regionsByProxy,
     proxies,
     thresholds,
     publishedProxies,

@@ -2,10 +2,18 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   assertProbeThreshold,
+  parseEgressRegion,
   probeFailureReason,
   selectSpeedCandidates,
   summarizeProbeResults
 } from "./probe-nodes.mjs";
+
+test("Cloudflare trace parser only accepts concrete country codes", () => {
+  assert.equal(parseEgressRegion("ip=203.0.113.8\nloc=SG\ncolo=SIN\n"), "SG");
+  assert.equal(parseEgressRegion("loc=XX\n"), undefined);
+  assert.equal(parseEgressRegion("loc=T1\n"), undefined);
+  assert.equal(parseEgressRegion("loc=invalid\n"), undefined);
+});
 
 test("probe result summary reports latency and failure distribution", () => {
   const summary = summarizeProbeResults(
