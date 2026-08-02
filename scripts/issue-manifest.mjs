@@ -27,6 +27,32 @@ const defaultCandidateLimit = 200;
 const defaultPublishedLimit = 120;
 const defaultMaxLatencyMs = 2500;
 
+const hasValue = (value) =>
+  value !== undefined && value !== null && String(value).trim().length > 0;
+
+const hasRequiredProtocolFields = (value, protocol) => {
+  if (["vmess", "vless", "tuic"].includes(protocol) && !hasValue(value.uuid)) {
+    return false;
+  }
+  if (["trojan", "tuic"].includes(protocol) && !hasValue(value.password)) {
+    return false;
+  }
+  if (protocol === "ss" && (!hasValue(value.cipher) || !hasValue(value.password))) {
+    return false;
+  }
+
+  const reality = value["reality-opts"];
+  if (reality !== undefined && reality !== null) {
+    return (
+      protocol === "vless" &&
+      typeof reality === "object" &&
+      !Array.isArray(reality) &&
+      hasValue(reality["public-key"])
+    );
+  }
+  return true;
+};
+
 const normalizeSource = (entry) => {
   const source = typeof entry === "string" ? { url: entry } : entry;
   if (!source || typeof source !== "object" || typeof source.url !== "string") return;
@@ -184,6 +210,7 @@ const validClashProxy = (value) => {
     !Number.isInteger(port) ||
     port < 1 ||
     port > 65535 ||
+    !hasRequiredProtocolFields(value, protocol) ||
     value["dialer-proxy"] ||
     value["interface-name"] ||
     value["routing-mark"]
@@ -865,6 +892,7 @@ const uniqueProxyNames = (proxies) => {
 };
 
 export function buildSubscriptionPayload(payload) {
+  const sourceProxies = payload.proxies.map(validClashProxy).filter(Boolean);
   const uriByProxyFingerprint = new Map();
   const converted = payload.nodes
     .map((node, index) => {
@@ -875,13 +903,13 @@ export function buildSubscriptionPayload(payload) {
       return proxy;
     })
     .filter(Boolean);
-  for (const proxy of payload.proxies) {
+  for (const proxy of sourceProxies) {
     const uri = clashProxyToUri(proxy);
     if (uri && !uriByProxyFingerprint.has(proxyFingerprint(proxy))) {
       uriByProxyFingerprint.set(proxyFingerprint(proxy), uri);
     }
   }
-  const proxies = uniqueProxyNames(dedupeProxies([...payload.proxies, ...converted]));
+  const proxies = uniqueProxyNames(dedupeProxies([...sourceProxies, ...converted]));
   const shareUris = dedupe(
     proxies
       .map((proxy) => uriByProxyFingerprint.get(proxyFingerprint(proxy)))

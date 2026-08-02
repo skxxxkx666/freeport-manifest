@@ -97,12 +97,21 @@ test("parseSourceBody decodes base64 and nested JSON API payloads", () => {
 test("parseSourceBody reads Clash YAML and JSON proxy objects", () => {
   const yaml = `
 proxies:
-  - { name: "香港 01", type: vmess, server: hk.example.com, port: 443 }
-  - { name: "日本 01", type: trojan, server: jp.example.com, port: 443 }
+  - { name: "香港 01", type: vmess, server: hk.example.com, port: 443, uuid: "11111111-1111-1111-1111-111111111111" }
+  - { name: "日本 01", type: trojan, server: jp.example.com, port: 443, password: pass }
 `;
   const fromYaml = parseSourceBody(yaml);
   const fromJson = parseSourceBody(JSON.stringify({
-    proxies: [{ name: "新加坡 01", type: "ss", server: "sg.example.com", port: 443 }]
+    proxies: [
+      {
+        name: "新加坡 01",
+        type: "ss",
+        server: "sg.example.com",
+        port: 443,
+        cipher: "aes-256-gcm",
+        password: "pass"
+      }
+    ]
   }));
 
   assert.deepEqual(fromYaml.map(protoOf), ["vmess", "trojan"]);
@@ -220,6 +229,46 @@ proxies:
 
   assert.equal(payload.proxies.length, 2);
   assert.deepEqual(payload.proxies.map((proxy) => proxy.type), ["trojan", "tuic"]);
+});
+
+test("malformed Reality nodes are rejected before Mihomo validation", () => {
+  const missingPublicKey =
+    "vless://11111111-1111-1111-1111-111111111111@sg.example.com:443?security=reality&type=tcp#missing-key";
+  const validReality =
+    "vless://11111111-1111-1111-1111-111111111111@sg.example.com:443?security=reality&type=tcp&pbk=valid-public-key#valid";
+
+  assert.equal(nodeUriToClashProxy(missingPublicKey), undefined);
+  assert.equal(
+    nodeUriToClashProxy(validReality)["reality-opts"]["public-key"],
+    "valid-public-key"
+  );
+
+  const payload = buildSubscriptionPayload({
+    nodes: [missingPublicKey, validReality],
+    proxies: [
+      {
+        name: "Clash Reality without key",
+        type: "vless",
+        server: "hk.example.com",
+        port: 443,
+        uuid: "22222222-2222-2222-2222-222222222222",
+        tls: true,
+        "reality-opts": {}
+      },
+      {
+        name: "Safe Trojan",
+        type: "trojan",
+        server: "us.example.com",
+        port: 443,
+        password: "secret"
+      }
+    ]
+  });
+
+  assert.deepEqual(
+    payload.proxies.map((proxy) => proxy.name),
+    ["Safe Trojan", "valid"]
+  );
 });
 
 test("Clash proxies convert to share links and back", () => {
