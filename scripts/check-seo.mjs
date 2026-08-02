@@ -34,6 +34,8 @@ const linkOf = (html, rel) =>
   html.match(
     new RegExp(`<link\\s+rel="${rel}"[^>]*href="([^"]+)"[^>]*>`, "i")
   )?.[1];
+const escapeRegExp = (value) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const htmlFiles = (await walk(distDirectory)).filter((path) =>
   path.endsWith(".html")
@@ -90,6 +92,22 @@ for (const path of htmlFiles) {
     `${page}: 不应使用 meta keywords`
   );
 
+  for (const [, href] of html.matchAll(/<a\b[^>]*\shref="([^"]+)"/gi)) {
+    if (href.startsWith("#")) continue;
+    let target;
+    try {
+      target = new URL(href, `${expectedOrigin}/`);
+    } catch {
+      continue;
+    }
+    if (target.origin !== expectedOrigin) continue;
+    const isFile = /\/[^/]+\.[^/]+$/.test(target.pathname);
+    assert.ok(
+      isFile || target.pathname.endsWith("/"),
+      `${page}: 站内链接 ${href} 缺少尾斜杠`
+    );
+  }
+
   if (shouldIndex) {
     assert.match(robots, /^index,follow/, `${page}: 应允许索引`);
     assert.equal(titles.has(title), false, `${page}: title 与 ${titles.get(title)} 重复`);
@@ -134,9 +152,74 @@ assert.deepEqual(
   "IndexNow URL 必须与可索引 canonical 完全一致"
 );
 
+const manifestFiles = (await readdir("src/content/subs"))
+  .filter((name) => /^\d{4}-\d{2}-\d{2}\.md$/.test(name))
+  .sort();
+const latestManifest = await readFile(
+  join("src/content/subs", manifestFiles.at(-1)),
+  "utf8"
+);
+const latestIssuedAt = latestManifest.match(
+  /^issuedAt:\s*["']([^"']+)["']/m
+)?.[1];
+assert.ok(latestIssuedAt, "最新运单缺少 issuedAt");
+const expectedLastmod = new Date(latestIssuedAt).toISOString();
+const sitemapEntry = (canonical) =>
+  sitemap.match(
+    new RegExp(
+      `<url><loc>${escapeRegExp(canonical)}</loc>([\\s\\S]*?)</url>`
+    )
+  )?.[1];
+
+for (const [path, changefreq] of [
+  ["/", "hourly"],
+  ["/today/", "hourly"],
+  ["/archive/", "daily"]
+]) {
+  const canonical = `${expectedOrigin}${path}`;
+  const entry = sitemapEntry(canonical);
+  assert.ok(entry, `sitemap 缺少动态页面 ${canonical}`);
+  assert.ok(
+    entry.includes(`<lastmod>${expectedLastmod}</lastmod>`),
+    `${canonical}: lastmod 必须等于最新运单 issuedAt`
+  );
+  assert.ok(
+    entry.includes(`<changefreq>${changefreq}</changefreq>`),
+    `${canonical}: changefreq 应为 ${changefreq}`
+  );
+}
+assert.ok(
+  sitemapIndex.includes(`<lastmod>${expectedLastmod}</lastmod>`),
+  "sitemap index 缺少最新 lastmod"
+);
+
 const home = await readFile(join(distDirectory, "index.html"), "utf8");
 for (const keyword of ["免费 Clash", "Mihomo", "V2Ray", "每 12 小时"]) {
   assert.ok(home.includes(keyword), `首页缺少核心语义：${keyword}`);
+}
+
+const homeJsonLd = JSON.parse(
+  home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i)?.[1]
+);
+const homeGraph = homeJsonLd["@graph"];
+const homeHowTo = homeGraph.find((entity) => entity["@type"] === "HowTo");
+const homeFaq = homeGraph.find((entity) => entity["@type"] === "FAQPage");
+assert.equal(homeHowTo?.step?.length, 3, "首页 HowTo 应包含 3 个可见步骤");
+assert.equal(homeFaq?.mainEntity?.length, 3, "首页 FAQPage 应包含前 3 条可见问答");
+const visibleHome = home.replace(
+  /<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi,
+  ""
+);
+for (const step of homeHowTo.step) {
+  assert.ok(visibleHome.includes(step.name), `HowTo 步骤未显示：${step.name}`);
+  assert.ok(visibleHome.includes(step.text), `HowTo 文案未显示：${step.text}`);
+}
+for (const question of homeFaq.mainEntity) {
+  assert.ok(visibleHome.includes(question.name), `FAQ 问题未显示：${question.name}`);
+  assert.ok(
+    visibleHome.includes(question.acceptedAnswer.text),
+    `FAQ 答案未显示：${question.name}`
+  );
 }
 
 console.log(

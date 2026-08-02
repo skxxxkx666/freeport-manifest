@@ -1,6 +1,6 @@
 ---
 import Shell from "../components/Shell.astro";
-import { url } from "../lib/waybill";
+import { pageUrl } from "../lib/waybill";
 
 const btn = "font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase";
 ---
@@ -24,8 +24,8 @@ const btn = "font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;pad
         这个地址没有对应的运单。可能是链接抄漏了一位,也可能这份存根从未签发。
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-        <a href={url("today")} class="wb-btn" style={`border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);${btn}`}>领取今日订阅 /TODAY</a>
-        <a href={url("archive")} class="wb-btn-ghost" style={`border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);${btn}`}>往期存根 /ARCHIVE</a>
+        <a href={pageUrl("today")} class="wb-btn" style={`border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);${btn}`}>领取今日订阅 /TODAY</a>
+        <a href={pageUrl("archive")} class="wb-btn-ghost" style={`border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);${btn}`}>往期存根 /ARCHIVE</a>
       </div>
     </div>
   </div>

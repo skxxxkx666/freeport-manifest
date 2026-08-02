@@ -314,12 +314,16 @@ Clash 对象和分享链接的总数,防止大型聚合源拖垮 Runner 与客�
 生产构建会自动生成 `sitemap-index.xml` 与 `sitemap-0.xml`,并在 `robots.txt` 和每页
 `<head>` 中声明 sitemap。首页、今日订阅、往期索引、FAQ、升舱页允许索引;
 404 与按日期生成的失效存根使用 `noindex,follow` 并从 sitemap 排除,避免大量相似页面
-稀释有效内容。`/free/` 下的原始订阅文件在 robots 中禁止抓取。
+稀释有效内容。首页、今日订阅和往期索引的 sitemap `lastmod` 直接取最新运单
+`issuedAt`,确保每 12 小时更新信号可核验;`changefreq` 仅作为非 Google 爬虫的提示。
+`/free/` 下的原始订阅文件在 robots 中禁止抓取。
 
 每个可索引页面都有独立的 title、description、canonical、Open Graph、Twitter Card
-和 JSON-LD。首页正文与 FAQ 自然覆盖“免费 Clash 订阅”“Mihomo 节点”“V2Ray 订阅”
-“v2rayN”“Shadowrocket”“Clash Verge”等真实查询词,不使用无效的 `meta keywords`
-或关键词堆砌。部署成功后会通过 IndexNow 主动通知 Bing 等参与搜索引擎。
+和 JSON-LD。首页的三步可见教程与前三条可见问答分别映射为 HowTo、FAQPage;
+完整 FAQ 与往期索引分别使用 FAQPage、CollectionPage。首页正文与 FAQ 自然覆盖
+“免费 Clash 订阅”“Mihomo 节点”“V2Ray 订阅”“v2rayN”“Shadowrocket”
+“Clash Verge”等真实查询词,不使用无效的 `meta keywords` 或关键词堆砌。
+部署成功后会通过 IndexNow 主动通知 Bing 等参与搜索引擎。
 
 构建后执行:
 

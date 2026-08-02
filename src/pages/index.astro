@@ -6,7 +6,7 @@ import CompareTable from "../components/CompareTable.astro";
 import PlanCards from "../components/PlanCards.astro";
 import { latestSub, checkCode } from "../lib/subs";
 import { FAQ } from "../lib/faq";
-import { chinaTime, url, waybillNo } from "../lib/waybill";
+import { chinaTime, pageUrl, waybillNo } from "../lib/waybill";
 
 const sub = await latestSub();
 if (!sub) throw new Error("没有任何运单,先跑 scripts/issue-manifest.mjs");
@@ -28,12 +28,44 @@ const h2 = "margin:0 0 14px;font-family:var(--font-display);font-weight:700;font
 // 必须手动更新一次订阅(FAQ 里最高频的失败原因)。以下事实全部来自 lib/faq.ts,
 // 只是搬到用户真正需要它的位置,没有新增任何主张。
 const steps = [
-  { n: "01", t: "复制订阅", d: "在今日舱单页复制一条链接。绿联给 Clash 系客户端,粉联给 V2Ray 系。", href: url("today"), cta: "→ 今日舱单 /TODAY", ext: false },
+  { n: "01", t: "复制订阅", d: "在今日舱单页复制一条链接。绿联给 Clash 系客户端,粉联给 V2Ray 系。", href: pageUrl("today"), cta: "→ 今日舱单 /TODAY", ext: false },
   // 「对」不在得意黑 101 字子集内,会静默回退到系统体(系统体有真粗体,视觉上明显更粗)。
   // 改标题文案前先跑 npm run check:glyphs。
   { n: "02", t: "选择客户端", d: "桌面用 Clash Verge Rev,安卓用 Clash Meta,iOS 用 Shadowrocket(走粉联)。", href: "https://wiki.freedomport.cc/", cta: "安装教程 WIKI ↗", ext: true },
-  { n: "03", t: "导入并更新一次", d: "粘贴链接新建订阅后,务必手动点一次「更新订阅」,再挑一个延迟低的节点。", href: url("faq"), cta: "→ 导入后没有节点? /FAQ", ext: false }
+  { n: "03", t: "导入并更新一次", d: "粘贴链接新建订阅后,务必手动点一次「更新订阅」,再挑一个延迟低的节点。", href: pageUrl("faq"), cta: "→ 导入后没有节点? /FAQ", ext: false }
 ];
+const documentBase = Astro.site ?? Astro.url;
+const homeUrl = new URL(pageUrl(""), documentBase).href;
+const howToId = `${homeUrl}#howto`;
+const homeFaqId = `${homeUrl}#faq`;
+
+const howToSchema = {
+  "@type": "HowTo",
+  "@id": howToId,
+  name: "如何使用免费 Clash / V2Ray 订阅",
+  inLanguage: "zh-CN",
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.t,
+    text: step.d,
+    url: new URL(step.href, documentBase).href
+  }))
+};
+
+const homeFaqSchema = {
+  "@type": "FAQPage",
+  "@id": homeFaqId,
+  inLanguage: "zh-CN",
+  mainEntity: FAQ.slice(0, 3).map(([question, answer]) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: answer
+    }
+  }))
+};
 ---
 <Shell
   title="免费 Clash 与 V2Ray 订阅"
@@ -43,8 +75,11 @@ const steps = [
       { "@type": "Thing", name: "Clash 订阅" },
       { "@type": "Thing", name: "Mihomo 节点" },
       { "@type": "Thing", name: "V2Ray 订阅" }
-    ]
+    ],
+    mainEntity: { "@id": howToId },
+    hasPart: { "@id": homeFaqId }
   }}
+  entities={[howToSchema, homeFaqSchema]}
 >
   <div>
     <div style="padding:34px 20px 26px;border-bottom:1px solid var(--color-rule)">
@@ -62,8 +97,8 @@ const steps = [
           </p>
 
           <div style="display:flex;flex-wrap:wrap;gap:10px">
-            <a href={url("today")} class="wb-btn" style={btnPrimary}>领取今日订阅 <span style="opacity:.55">/TODAY</span></a>
-            <a href={url("archive")} class="wb-btn-ghost" style={btnGhost}>查看往期 <span style="color:var(--color-ink-soft)">/ARCHIVE</span></a>
+            <a href={pageUrl("today")} class="wb-btn" style={btnPrimary}>领取今日订阅 <span style="opacity:.55">/TODAY</span></a>
+            <a href={pageUrl("archive")} class="wb-btn-ghost" style={btnGhost}>查看往期 <span style="color:var(--color-ink-soft)">/ARCHIVE</span></a>
           </div>
         </div>
 
@@ -159,7 +194,7 @@ const steps = [
           </div>
         ))}
       </div>
-      <a href={url("faq")} class="wb-link" style="display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink)">→ 查看完整 FAQ /FAQ</a>
+      <a href={pageUrl("faq")} class="wb-link" style="display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink)">→ 查看完整 FAQ /FAQ</a>
     </div>
   </div>
 </Shell>

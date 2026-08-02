@@ -1,18 +1,20 @@
 ---
 import "../styles/theme.css";
-import { url } from "../lib/waybill";
+import { pageUrl, url } from "../lib/waybill";
 
 interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
   schema?: Record<string, unknown>;
+  entities?: Record<string, unknown>[];
 }
 const {
   title,
   description = "舱单 MANIFEST 每 12 小时聚合并实测公开免费节点，提供 Clash、Mihomo 与 V2Ray 订阅。",
   noindex = false,
-  schema = {}
+  schema = {},
+  entities = []
 } = Astro.props;
 const siteName = "舱单 MANIFEST";
 const documentTitle = `${title}｜${siteName}`;
@@ -49,7 +51,8 @@ const jsonLd = JSON.stringify({
       inLanguage: "zh-CN",
       isPartOf: { "@id": `${siteUrl}#website` },
       ...schema
-    }
+    },
+    ...entities
   ]
 }).replace(/</g, "\\u003c");
 
@@ -121,7 +124,7 @@ const noise =
 
     <div class="wb-head">
       <div class="wb-head-in">
-        <a href={url("")} class="wb-brand">
+        <a href={pageUrl("")} class="wb-brand">
           <span style="font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:.06em">舱单</span>
           <span style="width:1px;align-self:stretch;background:var(--color-rule)"></span>
           <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--color-ink-soft);text-transform:uppercase">MANIFEST</span>
@@ -129,7 +132,7 @@ const noise =
         <nav class="wb-nav">
           {nav.map((n) => (
             <a
-              href={url(n.path)}
+              href={pageUrl(n.path)}
               style={`border-bottom-color:${active(n.path) ? (n.blue ? "var(--color-port-blue)" : "var(--color-stamp)") : "transparent"};color:${n.blue ? "var(--color-port-blue)" : "var(--color-ink)"}`}
             >
               {n.label}{" "}
@@ -163,9 +166,9 @@ const noise =
               <span style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;color:var(--color-ink-soft);text-transform:uppercase">MANIFEST</span>
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:18px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--color-ink-soft);text-transform:uppercase">
-              <a href={url("archive")}>/ARCHIVE 往期存根</a>
-              <a href={url("upgrade")}>/UPGRADE 登机升舱</a>
-              <a href={url("faq")}>/FAQ 常见问题</a>
+              <a href={pageUrl("archive")}>/ARCHIVE 往期存根</a>
+              <a href={pageUrl("upgrade")}>/UPGRADE 登机升舱</a>
+              <a href={pageUrl("faq")}>/FAQ 常见问题</a>
               <a href="https://t.me/FreedomPort1" target="_blank" rel="noopener">TELEGRAM 群组 ↗</a>
               <a href="https://wiki.freedomport.cc/" target="_blank" rel="noopener">WIKI 使用教程 ↗</a>
             </div>

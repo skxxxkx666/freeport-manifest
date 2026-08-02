@@ -2,7 +2,7 @@
 import Shell from "../../components/Shell.astro";
 import ArchiveFilter from "../../components/ArchiveFilter.astro";
 import { allSubs } from "../../lib/subs";
-import { url } from "../../lib/waybill";
+import { pageUrl } from "../../lib/waybill";
 
 const subs = await allSubs();
 const stubs = subs.map((s) => ({
@@ -13,7 +13,7 @@ const stubs = subs.map((s) => ({
   // 当天那一行此前与 15 张过期存根在背景、字重、结构上完全一致,
   // 用户无法在列表层面分辨哪一张还能用。
   current: s.data.expired === false,
-  href: url(`archive/${s.data.date}`)
+  href: pageUrl(`archive/${s.data.date}`)
 }));
 ---
 <Shell

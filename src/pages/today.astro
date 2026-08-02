@@ -6,7 +6,7 @@ import SubscriptionCard from "../components/SubscriptionCard.astro";
 import UpdateCountdown from "../components/UpdateCountdown.astro";
 import RegionMark from "../components/RegionMark.astro";
 import { latestSub, checkCode, remarkOf } from "../lib/subs";
-import { chinaDateTime, url, waybillNo } from "../lib/waybill";
+import { chinaDateTime, pageUrl, waybillNo } from "../lib/waybill";
 
 const sub = await latestSub();
 if (!sub) throw new Error("没有任何运单");
@@ -139,7 +139,7 @@ const regionBreakdown = [...new Set(breakdown.map((row) => row.region))].map((re
             免费联够用,但线路混杂、随时失效;要稳定的 CN2 / 9929 / CMI 与流媒体、AI 应用,登机联从 ¥9.90 起。
           </p>
         </div>
-        <a href={url("upgrade")} class="wb-btn-port" style="flex:0 0 auto;border:1px solid var(--color-port-blue);background:var(--color-port-blue);color:var(--color-copy-white);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">登机升舱 ↗</a>
+        <a href={pageUrl("upgrade")} class="wb-btn-port" style="flex:0 0 auto;border:1px solid var(--color-port-blue);background:var(--color-port-blue);color:var(--color-copy-white);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;padding:13px 22px;text-transform:uppercase">登机升舱 ↗</a>
       </div>
     </div>
   </div>

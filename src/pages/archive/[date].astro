@@ -4,7 +4,7 @@ import Shell from "../../components/Shell.astro";
 import WaybillHead from "../../components/WaybillHead.astro";
 import FieldGrid from "../../components/FieldGrid.astro";
 import { allSubs, checkCode, type Sub } from "../../lib/subs";
-import { chinaDateTime, url, waybillNo } from "../../lib/waybill";
+import { chinaDateTime, pageUrl, waybillNo } from "../../lib/waybill";
 
 interface Props { data: Sub["data"]; }
 
@@ -38,7 +38,7 @@ const disabled = "border:1px solid var(--color-rule);background:var(--color-disa
           ? "此运单已于签发日次日失效,仅作存根查阅。订阅链接可能已无法使用。"
           : "此运单为当前生效的运单,尚未失效。前往今日舱单即可直接取用。"}
       </div>
-      <a href={url("today")} class="wb-btn" style="flex:0 0 auto;border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:10px 17px;text-transform:uppercase">领取今日 /TODAY</a>
+      <a href={pageUrl("today")} class="wb-btn" style="flex:0 0 auto;border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:10px 17px;text-transform:uppercase">领取今日 /TODAY</a>
     </div>
 
     <div style="position:relative;padding:26px 20px 28px">
@@ -84,7 +84,7 @@ const disabled = "border:1px solid var(--color-rule);background:var(--color-disa
               <span aria-disabled="true" style={disabled + ";letter-spacing:.08em"}>二维码 QR</span>
             </>
           ) : (
-            <a href={url("today")} class="wb-btn" style="border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:12px 20px;text-transform:uppercase">前往今日舱单取用 /TODAY</a>
+            <a href={pageUrl("today")} class="wb-btn" style="border:1px solid var(--color-ink);background:var(--color-ink);color:var(--color-copy-white);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:12px 20px;text-transform:uppercase">前往今日舱单取用 /TODAY</a>
           )}
         </div>
         <div style="margin-top:12px;border-top:1px solid var(--color-rule);padding-top:10px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;color:var(--color-ink-soft)">
@@ -94,7 +94,7 @@ const disabled = "border:1px solid var(--color-rule);background:var(--color-disa
         </div>
       </div>
 
-      <a href={url("archive")} class="wb-btn-ghost" style="display:inline-block;margin-top:16px;border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:11px 19px;text-transform:uppercase">← 返回存根索引</a>
+      <a href={pageUrl("archive")} class="wb-btn-ghost" style="display:inline-block;margin-top:16px;border:1px solid var(--color-ink);background:transparent;color:var(--color-ink);font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;padding:11px 19px;text-transform:uppercase">← 返回存根索引</a>
     </div>
   </div>
 </Shell>

@@ -6,6 +6,10 @@ export const waybillNo = (date: string, serial = "01") =>
 export const url = (p: string) =>
   `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${p.replace(/^\//, "")}`;
 
+/** 站内页面统一使用目录式尾斜杠，避免生产环境先 301 再进入页面。 */
+export const pageUrl = (p: string) =>
+  url(p ? `${p.replace(/^\//, "").replace(/\/$/, "")}/` : "");
+
 export const monthOf = (date: string) => date.slice(0, 7);
 
 export const monthLabel = (m: string) => `${m.slice(0, 4)} 年 ${m.slice(5)} 月`;
