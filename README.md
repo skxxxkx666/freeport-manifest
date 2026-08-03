@@ -327,7 +327,9 @@ Clash 对象和分享链接的总数,防止大型聚合源拖垮 Runner 与客�
 完整 FAQ 与往期索引分别使用 FAQPage、CollectionPage。首页正文与 FAQ 自然覆盖
 “免费 Clash 订阅”“Mihomo 节点”“V2Ray 订阅”“v2rayN”“Shadowrocket”
 “Clash Verge”等真实查询词,不使用无效的 `meta keywords` 或关键词堆砌。
-部署成功后会通过 IndexNow 主动通知 Bing 等参与搜索引擎。
+部署成功后会通过 IndexNow 主动通知 Bing 等参与搜索引擎;Key 文件放在站点根目录,
+每次提交覆盖 5 个 canonical 页面,网络错误和 5xx 最多自动重试两次,无效 Key、格式错误
+与 429 不立即重试,避免重复提交放大错误。
 
 构建后执行:
 

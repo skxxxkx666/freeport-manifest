@@ -19,22 +19,48 @@ export const buildIndexNowPayload = (
 export async function submitIndexNow({
   siteUrl,
   endpoint = "https://api.indexnow.org/indexnow",
-  fetchImpl = fetch
+  fetchImpl = fetch,
+  retries = 2,
+  retryDelayMs = 750,
+  waitImpl = (milliseconds) =>
+    new Promise((resolveWait) => setTimeout(resolveWait, milliseconds))
 } = {}) {
   const payload = buildIndexNowPayload(siteUrl);
-  const response = await fetchImpl(endpoint, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-      "user-agent": "freeport-manifest/1.0"
-    },
-    body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(15_000)
-  });
-  if (![200, 202].includes(response.status)) {
-    throw new Error(`IndexNow 提交失败：HTTP ${response.status}`);
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    let response;
+    try {
+      response = await fetchImpl(endpoint, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "user-agent": "freeport-manifest/1.0"
+        },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(15_000)
+      });
+    } catch (error) {
+      if (attempt === retries) {
+        throw new Error("IndexNow 提交失败：网络错误", { cause: error });
+      }
+      await waitImpl(retryDelayMs * 2 ** attempt);
+      continue;
+    }
+
+    if ([200, 202].includes(response.status)) {
+      return {
+        status: response.status,
+        submitted: payload.urlList.length,
+        attempts: attempt + 1
+      };
+    }
+    const transient = response.status >= 500 && response.status <= 599;
+    if (!transient || attempt === retries) {
+      throw new Error(`IndexNow 提交失败：HTTP ${response.status}`);
+    }
+    await waitImpl(retryDelayMs * 2 ** attempt);
   }
-  return { status: response.status, submitted: payload.urlList.length };
+
+  throw new Error("IndexNow 提交失败：超过重试次数");
 }
 
 const isMain =
@@ -43,6 +69,6 @@ const isMain =
 if (isMain) {
   const result = await submitIndexNow();
   console.log(
-    `IndexNow 已接收 ${result.submitted} 个 URL（HTTP ${result.status}）`
+    `IndexNow 已接收 ${result.submitted} 个 URL（HTTP ${result.status}，${result.attempts} 次请求）`
   );
 }
