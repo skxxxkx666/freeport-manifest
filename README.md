@@ -259,6 +259,10 @@ Astro 脚本改写,后两者避免误伤 Clash/Mihomo/V2Ray 等非浏览器订�
 HSTS 不会在首轮应用时提前开启。WAF 使用所有套餐均可用的
 Cloudflare Managed Free Ruleset 默认动作，不增加浏览器质询。
 
+Google Search Console 的域名验证使用 `cloudflare-txt.yml` 手动工作流。工作流只会
+幂等创建指定的 Zone Apex TXT,不会更新或删除现有 CNAME 与其他 TXT;Cloudflare
+Token 继续只从仓库 Secret 注入。
+
 默认来源在 `config/sources.json`,不设置 secret 也能签发。`SUB_SOURCES` secret 用于追加
 其他来源,仍可使用旧格式:
 

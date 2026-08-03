@@ -53,13 +53,16 @@ export async function reconcileCloudflareDns({
     `/zones/${resolvedZoneId}/dns_records?name=${encodeURIComponent(recordName)}&per_page=100`,
     { token, fetchImpl }
   );
-  const conflicts = records.filter((record) => record.type !== "CNAME");
+  const cnameRecords = records.filter((record) => record.type === "CNAME");
+  const conflicts = records.filter(
+    (record) => record.type !== "CNAME" && record.type !== "TXT"
+  );
   if (conflicts.length) {
     throw new Error(
       `${recordName} 存在冲突记录: ${conflicts.map((record) => record.type).join(", ")}`
     );
   }
-  if (records.length > 1) {
+  if (cnameRecords.length > 1) {
     throw new Error(`${recordName} 存在多个 CNAME，拒绝自动修改`);
   }
 
@@ -71,7 +74,7 @@ export async function reconcileCloudflareDns({
     proxied,
     comment: "Managed by freeport-manifest"
   };
-  const current = records[0];
+  const current = cnameRecords[0];
   const matches =
     current?.content?.replace(/\.$/, "").toLowerCase() === target.toLowerCase() &&
     current?.proxied === proxied &&
@@ -97,7 +100,75 @@ export async function reconcileCloudflareDns({
   return { action, applied: true, zoneId: resolvedZoneId, desired };
 }
 
+export async function reconcileCloudflareTxt({
+  token,
+  zoneId,
+  zoneName = "manifest.dpdns.org",
+  recordName = "manifest.dpdns.org",
+  content,
+  apply = false,
+  fetchImpl = fetch
+} = {}) {
+  if (!token) throw new Error("缺少 CLOUDFLARE_API_TOKEN");
+  if (!content || /[\r\n]/.test(content) || content.length > 2048) {
+    throw new Error("TXT 内容为空、包含换行或超过 2048 字符");
+  }
+
+  const resolvedZoneId = await zoneIdFor({ token, zoneId, zoneName, fetchImpl });
+  const records = await apiRequest(
+    `/zones/${resolvedZoneId}/dns_records?type=TXT&name=${encodeURIComponent(recordName)}&per_page=100`,
+    { token, fetchImpl }
+  );
+  const matches = records.filter(
+    (record) => record.type === "TXT" && record.content === content
+  );
+  if (matches.length > 1) {
+    throw new Error(`${recordName} 存在重复的目标 TXT，拒绝自动修改`);
+  }
+
+  const desired = {
+    type: "TXT",
+    name: recordName,
+    content,
+    ttl: 1,
+    comment: "Managed by freeport-manifest"
+  };
+  if (matches.length === 1) {
+    return {
+      action: "unchanged",
+      applied: false,
+      zoneId: resolvedZoneId,
+      desired
+    };
+  }
+  if (!apply) {
+    return { action: "create", applied: false, zoneId: resolvedZoneId, desired };
+  }
+
+  await apiRequest(`/zones/${resolvedZoneId}/dns_records`, {
+    token,
+    fetchImpl,
+    method: "POST",
+    body: desired
+  });
+  return { action: "create", applied: true, zoneId: resolvedZoneId, desired };
+}
+
 async function main() {
+  if (process.argv.includes("--txt")) {
+    const result = await reconcileCloudflareTxt({
+      token: process.env.CLOUDFLARE_API_TOKEN,
+      zoneId: process.env.CLOUDFLARE_ZONE_ID,
+      zoneName: process.env.CLOUDFLARE_ZONE_NAME,
+      recordName: process.env.CLOUDFLARE_RECORD_NAME,
+      content: process.env.CLOUDFLARE_TXT_CONTENT,
+      apply: process.argv.includes("--apply")
+    });
+    console.log(
+      `${result.applied ? "已执行" : "计划"}: ${result.action} ${result.desired.name} TXT`
+    );
+    return;
+  }
   const result = await reconcileCloudflareDns({
     token: process.env.CLOUDFLARE_API_TOKEN,
     zoneId: process.env.CLOUDFLARE_ZONE_ID,
