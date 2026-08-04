@@ -289,6 +289,25 @@ test("malformed Reality nodes are rejected before Mihomo validation", () => {
   );
 });
 
+test("common Shadowsocks cipher aliases are normalized before Mihomo validation", () => {
+  const userInfo = Buffer.from("chacha20-poly1305:secret").toString("base64url");
+  const proxy = nodeUriToClashProxy(
+    `ss://${userInfo}@www.v2nodes.com:443#V2Nodes`
+  );
+  const payload = parseSourcePayload(`
+proxies:
+  - name: V2Nodes YAML
+    type: ss
+    server: www.v2nodes.com
+    port: 443
+    cipher: CHACHA20-POLY1305
+    password: secret
+`);
+
+  assert.equal(proxy.cipher, "chacha20-ietf-poly1305");
+  assert.equal(payload.proxies[0].cipher, "chacha20-ietf-poly1305");
+});
+
 test("Clash proxies convert to share links and back", () => {
   const vmess = {
     name: "JP VMess",

@@ -26,6 +26,9 @@ const defaultSourcesPath = "config/sources.json";
 const defaultCandidateLimit = 200;
 const defaultPublishedLimit = 120;
 const defaultMaxLatencyMs = 2500;
+const shadowsocksCipherAliases = new Map([
+  ["chacha20-poly1305", "chacha20-ietf-poly1305"]
+]);
 
 const normalizeRegionCode = (value) => {
   const rawRegion = String(value ?? "").trim().toUpperCase();
@@ -49,6 +52,11 @@ const inferSourceRegion = (url) => {
 
 const hasValue = (value) =>
   value !== undefined && value !== null && String(value).trim().length > 0;
+
+const normalizeShadowsocksCipher = (value) => {
+  const cipher = String(value ?? "").trim();
+  return shadowsocksCipherAliases.get(cipher.toLowerCase()) ?? cipher;
+};
 
 const hasRequiredProtocolFields = (value, protocol) => {
   if (["vmess", "vless", "tuic"].includes(protocol) && !hasValue(value.uuid)) {
@@ -244,7 +252,10 @@ const validClashProxy = (value) => {
     type: protocol,
     name,
     server: String(value.server).trim(),
-    port
+    port,
+    ...(protocol === "ss"
+      ? { cipher: normalizeShadowsocksCipher(value.cipher) }
+      : {})
   };
 };
 
