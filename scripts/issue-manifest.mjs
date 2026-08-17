@@ -58,6 +58,26 @@ const normalizeShadowsocksCipher = (value) => {
   return shadowsocksCipherAliases.get(cipher.toLowerCase()) ?? cipher;
 };
 
+const normalizeShadowsocksPluginOptions = (value) => {
+  const options = value["plugin-opts"];
+  if (
+    String(value.plugin ?? "").toLowerCase() !== "gost" ||
+    !options ||
+    typeof options !== "object" ||
+    Array.isArray(options) ||
+    typeof options.tls !== "string" ||
+    !["true", "false"].includes(options.tls.toLowerCase())
+  ) {
+    return {};
+  }
+  return {
+    "plugin-opts": {
+      ...options,
+      tls: options.tls.toLowerCase() === "true"
+    }
+  };
+};
+
 const hasRequiredProtocolFields = (value, protocol) => {
   if (["vmess", "vless", "tuic"].includes(protocol) && !hasValue(value.uuid)) {
     return false;
@@ -254,7 +274,10 @@ const validClashProxy = (value) => {
     server: String(value.server).trim(),
     port,
     ...(protocol === "ss"
-      ? { cipher: normalizeShadowsocksCipher(value.cipher) }
+      ? {
+          cipher: normalizeShadowsocksCipher(value.cipher),
+          ...normalizeShadowsocksPluginOptions(value)
+        }
       : {})
   };
 };

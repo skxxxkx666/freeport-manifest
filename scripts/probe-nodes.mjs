@@ -171,6 +171,27 @@ const probeConfig = (proxies, mixedPort) =>
     { lineWidth: 0 }
   );
 
+export async function isolateInvalidProxies(proxies, acceptsBatch) {
+  const rejected = new Set();
+
+  const visit = async (batch) => {
+    if (!batch.length || await acceptsBatch(batch)) return;
+    if (batch.length === 1) {
+      rejected.add(batch[0]);
+      return;
+    }
+    const middle = Math.ceil(batch.length / 2);
+    await visit(batch.slice(0, middle));
+    await visit(batch.slice(middle));
+  };
+
+  await visit(proxies);
+  return {
+    compatible: proxies.filter((proxy) => !rejected.has(proxy)),
+    rejected: proxies.filter((proxy) => rejected.has(proxy))
+  };
+}
+
 const apiRequest = async (
   controller,
   secret,
@@ -419,11 +440,37 @@ export async function probeProxies(
   ]);
   const controller = `http://127.0.0.1:${controllerPort}`;
   const secret = randomBytes(24).toString("hex");
-  await writeFile(configPath, probeConfig(proxies, mixedPort), "utf8");
 
   let output = "";
   let child;
   try {
+    const validation = await isolateInvalidProxies(proxies, async (batch) => {
+      await writeFile(configPath, probeConfig(batch, mixedPort), "utf8");
+      const command = spawnSync(
+        mihomoBin,
+        ["-t", "-d", tempDirectory, "-f", configPath],
+        {
+          encoding: "utf8",
+          timeout: 15_000,
+          windowsHide: true
+        }
+      );
+      if (command.error) throw command.error;
+      return command.status === 0;
+    });
+    const compatibleProxies = validation.compatible;
+    const invalidResults = validation.rejected.map((proxy) => ({
+      name: proxy.name,
+      type: proxy.type,
+      alive: false,
+      reason: "invalid-config"
+    }));
+    if (invalidResults.length) {
+      console.warn(`Mihomo 配置预检：剔除 ${invalidResults.length} 个无效候选节点`);
+    }
+    if (!compatibleProxies.length) return summarizeProbeResults(invalidResults);
+
+    await writeFile(configPath, probeConfig(compatibleProxies, mixedPort), "utf8");
     child = spawn(
       mihomoBin,
       [
@@ -453,7 +500,7 @@ export async function probeProxies(
 
     const firstTarget = targets[0];
     const retryTarget = targets[1] ?? targets[0];
-    const first = await mapConcurrent(proxies, concurrency, (proxy) =>
+    const first = await mapConcurrent(compatibleProxies, concurrency, (proxy) =>
       testDelay(proxy, controller, secret, firstTarget, firstTimeoutMs)
     );
     const failed = first.filter((result) => !result.alive);
@@ -501,7 +548,12 @@ export async function probeProxies(
       ).length;
       console.log(`出口地区识别：${detected}/${healthy.length} 个存活节点`);
     }
-    return summarizeProbeResults(results);
+    const resultByName = new Map(
+      [...results, ...invalidResults].map((result) => [result.name, result])
+    );
+    return summarizeProbeResults(
+      proxies.map((proxy) => resultByName.get(proxy.name))
+    );
   } finally {
     if (child) await stopChild(child);
     await rm(tempDirectory, { recursive: true, force: true });

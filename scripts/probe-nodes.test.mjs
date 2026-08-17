@@ -2,11 +2,40 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   assertProbeThreshold,
+  isolateInvalidProxies,
   parseEgressRegion,
   probeFailureReason,
   selectSpeedCandidates,
   summarizeProbeResults
 } from "./probe-nodes.mjs";
+
+test("invalid third-party proxies are isolated without rejecting the batch", async () => {
+  const proxies = [
+    { name: "good-a" },
+    { name: "bad-gost", "plugin-opts": { tls: "true" } },
+    { name: "good-b" },
+    { name: "bad-other", invalid: true },
+    { name: "good-c" }
+  ];
+  const checkedBatches = [];
+  const result = await isolateInvalidProxies(proxies, async (batch) => {
+    checkedBatches.push(batch.map((proxy) => proxy.name));
+    return batch.every(
+      (proxy) =>
+        typeof proxy["plugin-opts"]?.tls !== "string" && proxy.invalid !== true
+    );
+  });
+
+  assert.deepEqual(
+    result.compatible.map((proxy) => proxy.name),
+    ["good-a", "good-b", "good-c"]
+  );
+  assert.deepEqual(
+    result.rejected.map((proxy) => proxy.name),
+    ["bad-gost", "bad-other"]
+  );
+  assert.ok(checkedBatches.length < proxies.length * 2);
+});
 
 test("Cloudflare trace parser only accepts concrete country codes", () => {
   assert.equal(parseEgressRegion("ip=203.0.113.8\nloc=SG\ncolo=SIN\n"), "SG");
