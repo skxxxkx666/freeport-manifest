@@ -70,29 +70,31 @@ dns:
       - https://1.1.1.1/dns-query
       - https://dns.google/dns-query
 proxies:
-  - client-fingerprint: chrome
-    name: 🇨🇦 CA | 7280|puddincat07@Telegram
-    network: tcp
-    password: fg20mtCFHy
-    port: 1921
-    server: 137.184.172.41
-    skip-cert-verify: true
-    sni: sfecv.southbyte.xyz
-    type: trojan
-    udp: true
-  - name: 🇺🇸 US | _US_美国_1
+  - name: 🇺🇸 US | _US_美国_1_2
     network: ws
-    port: 2095
-    server: 8.47.69.0
+    port: 8080
+    server: 40.160.69.53
     skip-cert-verify: true
     tls: false
     type: vless
     udp: true
-    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
-    ws-opts:
-      headers:
-        Host: fuckingfangbinxing.pusytroller.cf
-      path: /
+    uuid: 11af1c47-865a-47c6-92ff-118013655d78
+  - name: 🇺🇸 US | _US_美国_3
+    password: fg20mtCFHy
+    port: 5444
+    server: 147.182.198.83
+    skip-cert-verify: true
+    sni: sfouctc.southbyte.xyz
+    tls: false
+    type: trojan
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇺🇸 US | shadowsocks-157
+    password: G5p6ww4o67HB
+    port: 8388
+    server: 108.181.0.177
+    type: ss
+    udp: true
   - alpn:
       - h3
     congestion-controller: bbr
@@ -115,339 +117,42 @@ proxies:
     type: vless
     udp: true
     uuid: 8fb65472-5957-4f64-ba2d-b5812b2f155a
-  - alterId: 0
-    name: 🇪🇸 ES | 7c75|puddincat07@Telegram
-    password: fg20mtCFHy
-    port: 5575
-    server: 172.233.107.18
-    skip-cert-verify: true
-    sni: fgrsd.southbyte.xyz
-    tls: true
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    name: 🇫🇷 FR | 8008|puddincat07@Telegram
-    network: ws
-    password: humanity
-    port: 443
-    server: www.ignitelimit.com
-    skip-cert-verify: false
-    type: trojan
-    udp: true
-    ws-opts:
-      headers:
-        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
-      path: /assignment
-  - cipher: chacha20-ietf-poly1305
-    name: 🇵🇱 PL | _PL_波兰
-    password: ytw2awn
-    port: 443
-    server: 54.36.174.140
-    skip-cert-verify: true
-    type: ss
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-7297225
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-15387290
     type: vmess
-    server: 149.88.23.202
-    port: 18000
-    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+    server: 140.83.57.20
+    port: 13118
+    uuid: 1f01e389-fbcb-494c-e46a-210ec36329c2
     alterId: 0
     cipher: auto
     udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1822
+    network: ws
+    tls: true
+    servername: sg.11160321.de5.net
+    ws-opts:
+      path: /
+      headers:
+        Host: sg.11160321.de5.net
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3715
     type: vless
     server: 104.18.37.228
     port: 443
     udp: true
     network: ws
     ws-opts:
-      path: /sg-melbi#TELEGRAM-MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI?ed=512
-      headers:
-        Host: hhlfy.twiladaphne.ndjp.net
-    tls: true
-    servername: hhlfy.twiladaphne.ndjp.net
-    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
-  - name: 🇯🇵 JP | trojan-696780698
-    password: fg20mtCFHy
-    port: 6092
-    server: 172.104.77.237
-    skip-cert-verify: true
-    sni: tkicy.southbyte.xyz
-    type: trojan
-    udp: true
-  - client-fingerprint: edge
-    flow: xtls-rprx-vision
-    name: 🇩🇪 DE | _DK_丹麦
-    port: 443
-    reality-opts:
-      public-key: b-Cm9hX-3UHsS1L_lnUB6AMjuKhlN1IDdBbZ506itjI
-      short-id: 00bca5982f82d083
-    server: 144.31.242.1
-    servername: eu-central.cendora.ru
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 423b1d79-08c4-403f-9d5e-c541f791b55f
-  - name: 🇪🇪 EE | _EE_爱沙尼亚
-    port: 443
-    server: ee2.mehab.me
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 278412f2-ef42-48e2-a4c0-243b173e612b
-  - name: 🇰🇷 KR | trojan-474782636
-    password: AE62539071
-    port: 443
-    server: possible-yeti.rooster465.autos
-    skip-cert-verify: true
-    sni: possible-yeti.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: 🇱🇻 LV | _LV_拉脱维亚
-    port: 13443
-    reality-opts:
-      public-key: gc9oXe37KCCm3J1dJ03wdGsnxPBdeEkRPOvl_t-vfVM
-      short-id: a7f3c91b2e6d84c0
-    server: 195.123.210.168
-    servername: auto.cendora.ru
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 423b1d79-08c4-403f-9d5e-c541f791b55f
-  - name: 🇭🇰 HK | _HK_中国香港_2
-    port: 30100
-    server: xiweini.dpdns.org
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 19bb341c-ee57-4899-b1e7-e9d3ebdf23df
-  - name: 🇸🇬 SG | _SG_新加坡
-    password: PQ05174892
-    port: 443
-    server: intense-monarch.rooster465.autos
-    skip-cert-verify: true
-    tls: false
-    type: trojan
-    udp: true
-  - cipher: 2022-blake3-chacha20-poly1305
-    name: 🇸🇬 SG | shadowsocks-703569533
-    password: nvAs55bdjcXA7DGuKtTh808mDIUK2jZRzRAxkI7xvEE=
-    port: 56927
-    server: 152.69.217.157
-    type: ss
-    udp: true
-  - name: 🇭🇰 HK | trojan-468227531
-    password: AE62539071
-    port: 443
-    server: smiling-ray.rooster465.autos
-    skip-cert-verify: false
-    sni: smiling-ray.rooster465.autos
-    type: trojan
-    udp: true
-  - alterId: 0
-    name: 🇮🇳 IN | 2bd4|puddincat07@Telegram
-    password: fg20mtCFHy
-    port: 5750
-    server: 157.245.99.215
-    skip-cert-verify: true
-    sni: inyct.southbyte.xyz
-    tls: true
-    type: trojan
-    udp: true
-  - cipher: aes-256-cfb
-    name: 🌍 OTHER | shadowsocks-696792806
-    password: 7eadc6dbe2ae
-    port: 65443
-    server: 120.232.251.129
-    type: ss
-    udp: true
-  - cipher: aes-256-cfb
-    name: 🇭🇰 HK | shadowsocks-696792802
-    password: 7eadc6dbe2ae
-    port: 65443
-    server: 120.232.250.161
-    type: ss
-    udp: true
-  - cipher: aes-256-cfb
-    name: 🇰🇷 KR | eaf4|puddincat07@Telegram
-    password: 7eadc6dbe2ae
-    port: 65443
-    server: 121.46.230.235
-    type: ss
-    udp: true
-  - alterId: 0
-    cipher: auto
-    name: 🇭🇰 HK | b7e2|puddincat07@Telegram
-    network: ws
-    port: 16632
-    server: planb.mojcn.com.linuxlh.xin
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    uuid: 97c638c6-86d5-4cf6-b70b-114c6809b637
-    ws-opts:
-      headers:
-        Host: 407a2bc6d452ff93e6d7b73078539d9e.mobgslb.tbcache.com
-      path: /
-  - alterId: 2
-    cipher: auto
-    name: 🇺🇸 US | _CN_中国->🇺🇸_US_美国
-    port: 30829
-    server: v29.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇫🇷 FR | _CN_中国->🇫🇷_FR_法国
-    port: 30835
-    server: v35.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本
-    port: 30806
-    server: v6.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | _US_美国_3 · 2
-    port: 443
-    reality-opts:
-      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
-      short-id: c39cc7310a
-    server: 169.40.42.231
-    servername: yahoo.com
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
-  - client-fingerprint: chrome
-    name: 🇫🇷 FR | f608|puddincat07@Telegram
-    network: ws
-    password: humanity
-    port: 443
-    server: 104.18.152.77
-    skip-cert-verify: false
-    sni: www.ignitelimit.com
-    type: trojan
-    udp: true
-    ws-opts:
-      headers:
-        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36
-      path: /assignment
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2026
-    type: vless
-    server: 104.16.79.73
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: musiclovers85?ed=512/mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn-mtmvpn
+      path: /?
       headers:
         Host: josni.hoyes.cloudns.ch
     tls: true
     servername: josni.hoyes.cloudns.ch
     uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-656178384
-    password: PQ05174892
+  - cipher: aes-256-cfb
+    name: 🇫🇷 FR | _FR_法国
+    password: amazonskr05
     port: 443
-    server: resolved-gelding.rooster465.autos
+    server: 15.237.189.197
     skip-cert-verify: true
-    sni: resolved-gelding.rooster465.autos
-    type: trojan
+    type: ss
     udp: true
-  - client-fingerprint: chrome
-    name: 🇩🇪 DE | _DE_德国_4
-    network: ws
-    port: 443
-    server: 108.138.26.70
-    servername: d1yxsk0zprgivr.cloudfront.net
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 7ce54bb3-d612-4aa7-be08-089d3c461d53
-    ws-opts:
-      headers:
-        Host: d1yxsk0zprgivr.cloudfront.net
-      path: /
-  - name: 🇰🇷 KR | trojan-565918920
-    password: HC04361579
-    port: 443
-    server: star-shrimp.rooster465.autos
-    skip-cert-verify: false
-    sni: star-shrimp.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | _SG_新加坡_1
-    password: PQ05174892
-    port: 443
-    server: pleased-albacore.rooster465.autos
-    skip-cert-verify: true
-    sni: pleased-albacore.rooster465.autos
-    tls: false
-    type: trojan
-    udp: true
-  - name: 🇭🇰 HK | trojan-591811029
-    password: HC04361579
-    port: 443
-    server: 185.14.47.125
-    skip-cert-verify: false
-    sni: eminent-lamb.rooster465.autos
-    type: trojan
-    udp: true
-  - alterId: 2
-    cipher: auto
-    name: 🇭🇰 HK | _HK_中国香港
-    port: 30807
-    server: v10.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇨🇳 CN | _CN_中国->🇺🇸_US_美国_1
-    port: 30824
-    server: v24.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | _US_美国_2
-    port: 11094
-    reality-opts:
-      public-key: 9dnXiXxP4xgvtTVRj9SBFdyO6mjGvVhWD8qVZZLCCCk
-      short-id: a356addf
-    server: 51.81.223.225
-    servername: www.yahoo.com
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: f1fa0ad9-b122-4b7c-da82-4bea9edc48dd
   - client-fingerprint: chrome
     name: 🇫🇷 FR | e9fc|puddincat07@Telegram
     network: ws
@@ -462,131 +167,16 @@ proxies:
       headers:
         User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
       path: /assignment
-  - name: 🇸🇬 SG | [www.v2nodes.com] vless-
-    type: vless
-    server: 172.66.44.97
+  - name: 🇪🇪 EE | _EE_爱沙尼亚
     port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: ?ed=2048
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-656176711
-    password: FH72359861
-    port: 443
-    server: 18.179.15.13
-    skip-cert-verify: true
-    sni: shining-haddock.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474782600
-    password: AE62539071
-    port: 443
-    server: infinite-tuna.rooster465.autos
-    skip-cert-verify: true
-    sni: infinite-tuna.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | _SG_新加坡_2
-    password: PQ05174892
-    port: 443
-    server: 52.220.98.46
-    skip-cert-verify: true
-    sni: pleased-albacore.rooster465.autos
-    tls: false
-    type: trojan
-    udp: true
-  - name: 🇭🇰 HK | trojan-565917960
-    password: FH72359861
-    port: 443
-    server: modern-bedbug.rooster465.autos
-    skip-cert-verify: false
-    sni: ""
-    type: trojan
-    udp: true
-  - alterId: 2
-    cipher: auto
-    name: 🇨🇳 CN | _CN_中国->🇮🇪_IE_爱尔兰
-    port: 30804
-    server: v4.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国->🇹🇭_TH_泰国
-    network: ws
-    port: 443
-    server: 18.154.132.116
-    servername: d1yxsk0zprgivr.cloudfront.net
+    server: ee2.mehab.me
     skip-cert-verify: true
     tls: true
     type: vless
     udp: true
-    uuid: 7ce54bb3-d612-4aa7-be08-089d3c461d53
-    ws-opts:
-      headers:
-        Host: d1yxsk0zprgivr.cloudfront.net
-      path: /
+    uuid: 278412f2-ef42-48e2-a4c0-243b173e612b
   - client-fingerprint: chrome
-    name: 🇫🇷 FR | 9165|puddincat07@Telegram
-    network: ws
-    password: humanity
-    port: 443
-    server: 104.18.152.233
-    skip-cert-verify: false
-    sni: www.ignitelimit.com
-    type: trojan
-    udp: true
-    ws-opts:
-      headers:
-        User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36
-      path: /assignment
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2535
-    type: vless
-    server: 104.18.37.228
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?TELEGRAM-TOOTFFARANGI?ed=512
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-691923949
-    password: PQ05174892
-    port: 443
-    server: 13.115.247.230
-    skip-cert-verify: false
-    sni: ethical-raccoon.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-700407708
-    password: PQ05174892
-    port: 443
-    server: 43.203.228.242
-    skip-cert-verify: true
-    sni: game-ant.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | _SG_新加坡_1_2
-    password: PQ05174892
-    port: 443
-    server: welcome-monitor.rooster465.autos
-    skip-cert-verify: true
-    sni: welcome-monitor.rooster465.autos
-    tls: true
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国->🇩🇪_DE_德国
+    name: 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
     network: ws
     port: 443
     server: 199.232.78.159
@@ -600,57 +190,337 @@ proxies:
       headers:
         Host: lsjaoijji.global.ssl.fastly.neT.
       path: /
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-213
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.240
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-255434902
+    password: ND91608427
+    port: 443
+    server: upright-impala.rooster465.autos
+    skip-cert-verify: true
+    sni: upright-impala.rooster465.autos
+    type: trojan
+    udp: true
   - client-fingerprint: chrome
-    name: 🇫🇷 FR | 4896|puddincat07@Telegram
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | _JP_日本_2
+    port: 443
+    reality-opts:
+      public-key: ZuN9nc78h4Ccb19eb9NpTCs0jZkhJB8L0i1ZoAhu0XU
+      short-id: b2f4518cf979889d
+    server: 43.165.177.82
+    servername: www.cloudflare.com
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 0b772594-d6b9-4f4f-849b-8a6f92f594fe
+  - name: 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-4382
+    type: vless
+    server: 172.67.152.71
+    port: 8880
+    udp: true
+    network: ws
+    ws-opts:
+      path: /pyip=ProxyIP.KR.CMLiussss.net
+      headers:
+        Host: morning-wood-0e8a.28-63e.workers.dev
+    uuid: fba6d1fd-0dab-428d-ae71-0e64c73a6060
+  - name: 🇦🇺 AU | _AU_澳大利亚
+    password: FH72359861
+    port: 443
+    server: national-stingray.rooster465.autos
+    skip-cert-verify: true
+    sni: national-stingray.rooster465.autos
+    tls: false
+    type: trojan
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇸🇬 SG | shadowsocks-415242974
+    password: TFElG2FVqyqG
+    port: 8388
+    server: 176.97.64.144
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | _SG_新加坡_1
+    password: PQ05174892
+    port: 443
+    server: welcome-monitor.rooster465.autos
+    skip-cert-verify: true
+    sni: welcome-monitor.rooster465.autos
+    tls: true
+    type: trojan
+    udp: true
+  - cipher: aes-256-cfb
+    name: 🇲🇾 MY | shadowsocks-696792801
+    password: 7eadc6dbe2ae
+    port: 65443
+    server: 118.107.222.231
+    type: ss
+    udp: true
+  - cipher: aes-256-cfb
+    name: 🇹🇭 TH | shadowsocks-696792800
+    password: 7eadc6dbe2ae
+    port: 65443
+    server: 103.169.67.34
+    type: ss
+    udp: true
+  - name: 🇮🇳 IN | _IN_印度_2
+    password: M7v%w11Se*
+    port: 443
+    server: 34.131.228.210
+    skip-cert-verify: true
+    sni: hyfuuf6.wsone.icu
+    tls: false
+    type: trojan
+    udp: true
+  - cipher: aes-256-cfb
+    name: 🇭🇰 HK | d7dd|puddincat07@Telegram
+    password: 7eadc6dbe2ae
+    port: 65443
+    server: 120.232.250.161
+    type: ss
+    udp: true
+  - cipher: aes-256-cfb
+    name: 🇹🇼 TW | shadowsocks-696792811
+    password: 7eadc6dbe2ae
+    port: 65443
+    server: 120.232.253.94
+    type: ss
+    udp: true
+  - cipher: aes-256-cfb
+    name: 🇨🇳 CN | eaf4|puddincat07@Telegram
+    password: 7eadc6dbe2ae
+    port: 65443
+    server: 121.46.230.235
+    type: ss
+    udp: true
+  - client-fingerprint: chrome
+    name: 🇹🇭 TH | _NL_荷兰->🇹🇭_TH_泰国
+    network: ws
+    port: 443
+    server: 18.239.83.52
+    servername: d1yxsk0zprgivr.cloudfront.net
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 7ce54bb3-d612-4aa7-be08-089d3c461d53
+    ws-opts:
+      headers:
+        Host: d1yxsk0zprgivr.cloudfront.net
+      path: /
+  - client-fingerprint: chrome
+    name: 🇺🇸 US | _US_美国_2
+    network: ws
+    port: 443
+    server: 172.67.176.49
+    servername: 2-M23.daeGU2031.cCWu.cc
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: e8a2c7f9-cfec-46e0-a91a-a1394aaa90e4
+    ws-opts:
+      headers:
+        Host: 2-m23.DaegU2031.ccwU.CC
+      path: /kXHZ0iPM96r8UDUAsTH2scSHpeWN
+  - cipher: chacha20-ietf-poly1305
+    name: 🇺🇸 US | shadowsocks-224639175
+    password: EvLfWGe0AKvK
+    port: 54166
+    server: 70.39.198.35
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3329
+    type: vless
+    server: one-for-all.levikogjgfdd.ir
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /sg-melbi
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    tls: true
+    servername: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | b395|puddincat07@Telegram
     network: ws
     password: humanity
     port: 443
-    server: 104.16.174.44
+    server: 104.26.15.137
     skip-cert-verify: false
     sni: www.ignitelimit.com
     type: trojan
     udp: true
     ws-opts:
       headers:
-        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+        User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36
       path: /assignment
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8023
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇩🇪 DE | _NL_荷兰_3
+    port: 13443
+    reality-opts:
+      public-key: gc9oXe37KCCm3J1dJ03wdGsnxPBdeEkRPOvl_t-vfVM
+      short-id: a7f3c91b2e6d84c0
+    server: 31.77.141.65
+    servername: auto.cendora.ru
+    skip-cert-verify: true
+    tls: true
     type: vless
-    server: 172.66.44.97
+    udp: true
+    uuid: 423b1d79-08c4-403f-9d5e-c541f791b55f
+  - cipher: chacha20-ietf-poly1305
+    name: 🇯🇵 JP | shadowsocks-415243974
+    password: ma6zc4JoLRJA
+    port: 8388
+    server: 176.97.73.215
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-453054127
+    password: AE62539071
     port: 443
+    server: helpful-possum.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - cipher: 2022-blake3-aes-256-gcm
+    name: 🇸🇬 SG | shadowsocks-126340
+    password: fnvo82p9y4AKykZXyIFtnodFy6fQmWnVlI2SvGleOB0=
+    port: 27755
+    server: 167.150.100.115
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15406603
+    type: trojan
+    server: worthy-perch.rooster465.autos
+    port: 443
+    udp: true
+    network: tcp
+    tls: true
+    password: FH72359861
+  - client-fingerprint: chrome
+    name: 🇹🇭 TH | _US_美国->🇹🇭_TH_泰国
+    network: ws
+    port: 443
+    server: 18.238.217.12
+    servername: d1yxsk0zprgivr.cloudfront.net
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 7ce54bb3-d612-4aa7-be08-089d3c461d53
+    ws-opts:
+      headers:
+        Host: d1yxsk0zprgivr.cloudfront.net
+      path: /
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇺🇸 US | _US_美国_4
+    port: 443
+    reality-opts:
+      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
+      short-id: c39cc7310a
+    server: 169.40.42.89
+    servername: yahoo.com
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+    type: vless
+    server: 172.64.146.211
+    port: 2087
     udp: true
     network: ws
     ws-opts:
-      path: /sg-melbi/=512
+      path: /
       headers:
-        Host: josni.hoyes.cloudns.ch
+        Host: faxf32gkfzoxqv.fx6hsv0.ccwu.cc
     tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-696780697
-    password: fg20mtCFHy
-    port: 5443
-    server: 172.104.108.4
-    skip-cert-verify: true
-    sni: uchxc.southbyte.xyz
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-700405817
-    password: FH72359861
+    servername: faxf32gkfzoxqv.fx6hsv0.ccwu.cc
+    client-fingerprint: chrome
+    uuid: 77777777-8a3e-6666-b6d1-a9c5f0e8b3a2
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | c122|puddincat07@Telegram
+    network: ws
+    password: humanity
     port: 443
-    server: possible-yeti.rooster465.autos
-    skip-cert-verify: true
-    sni: possible-yeti.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | trojan-565918255
-    password: AE62539071
-    port: 443
-    server: sacred-anemone.rooster465.autos
+    server: www.speedtest.org
     skip-cert-verify: false
-    sni: sacred-anemone.rooster465.autos
+    sni: www.ignitelimit.com
     type: trojan
     udp: true
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+      path: /assignment
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-218
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.204
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558063
+    password: PQ05174892
+    port: 443
+    server: resolved-gelding.rooster465.autos
+    skip-cert-verify: true
+    sni: resolved-gelding.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] Outline VPN-SG-15439804
+    type: ss
+    server: 168.107.81.254
+    port: 56927
+    cipher: 2022-blake3-chacha20-poly1305
+    password: SeX7cLfW+WWgFoc3nPSBxPxBPtE63qwODMqpUf7Slho=
+    udp: true
+  - client-fingerprint: chrome
+    name: 🇸🇬 SG | cf7f|puddincat07@Telegram
+    network: tcp
+    password: EQ30679154
+    port: 443
+    server: direct-hawk.rooster465.autos
+    skip-cert-verify: false
+    sni: direct-hawk.rooster465.autos
+    type: trojan
+    udp: true
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇺🇸 US | _US_美国
+    port: 443
+    reality-opts:
+      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
+      short-id: c39cc7310a
+    server: 169.40.42.231
+    servername: yahoo.com
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1556
+    type: vless
+    server: 45.131.4.192
+    port: 80
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: silent-paper-fa57.fipiyag989.workers.dev
+    uuid: 5f4845b4-11dc-41d6-9508-4ff6a02e36c1
   - client-fingerprint: chrome
     name: 🇫🇷 FR | 2220|puddincat07@Telegram
     network: ws
@@ -665,269 +535,178 @@ proxies:
       headers:
         User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36
       path: /assignment
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-    type: vless
-    server: 172.66.44.97
+  - name: 🇯🇵 JP | trojan-721514912
+    password: FH72359861
     port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: ?ed=512
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-667593064
-    password: PQ05174892
-    port: 443
-    server: 13.113.231.8
+    server: driven-bulldog.rooster465.autos
     skip-cert-verify: false
-    sni: unbiased-coyote.rooster465.autos
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-713185883
-    password: FH72359861
-    port: 443
-    server: 3.38.92.38
-    skip-cert-verify: true
-    sni: possible-yeti.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8430
-    type: vless
-    server: 172.66.44.97
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /sg-melbi=512
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-713185887
+  - name: 🇸🇬 SG | _SG_新加坡
     password: PQ05174892
     port: 443
-    server: engaged-antelope.rooster465.autos
+    server: 52.220.98.46
     skip-cert-verify: true
-    sni: engaged-antelope.rooster465.autos
+    sni: pleased-albacore.rooster465.autos
+    tls: false
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-474782688
-    password: AE62539071
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇺🇸 US | _US_美国_3_2
     port: 443
-    server: viable-serval.rooster465.autos
+    reality-opts:
+      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
+      short-id: c39cc7310a
+    server: 169.40.42.74
+    servername: yahoo.com
     skip-cert-verify: true
-    sni: viable-serval.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9406
+    tls: true
     type: vless
-    server: 104.16.117.43
-    port: 443
+    udp: true
+    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3263
+    type: vless
+    server: 172.64.53.240
+    port: 2087
     udp: true
     network: ws
     ws-opts:
-      path: musiclovers85?ed=512
+      path: /
       headers:
-        Host: josni.hoyes.cloudns.ch
+        Host: faxf32gkfzoxqv.fx6hsv0.ccwu.cc
     tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-474779728
-    password: AE62539071
-    port: 443
-    server: clear-heron.rooster465.autos
-    skip-cert-verify: true
-    sni: clear-heron.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474779721
-    password: AE62539071
-    port: 443
-    server: awake-satyr.rooster465.autos
-    skip-cert-verify: true
-    sni: awake-satyr.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
-    type: vless
-    server: 172.66.44.97
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?TELEGRAM-MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI?ed=512
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-474782686
-    password: AE62539071
-    port: 443
-    server: upward-yak.rooster465.autos
-    skip-cert-verify: true
-    sni: upward-yak.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474782617
-    password: AE62539071
-    port: 443
-    server: main-whippet.rooster465.autos
-    skip-cert-verify: true
-    sni: main-whippet.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3418
-    type: vless
-    server: 104.18.37.228
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: musiclovers85?ed
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-266972492
-    password: ND91608427
-    port: 443
-    server: 3.112.15.214
-    skip-cert-verify: true
-    sni: adjusted-labrador.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474779724
-    password: AE62539071
-    port: 443
-    server: capable-jay.rooster465.autos
-    skip-cert-verify: true
-    sni: capable-jay.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15435333
-    type: vless
-    server: 141.193.213.20
-    port: 8443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /dula
-      headers:
-        Host: speed.dulacloud.store
-    tls: true
-    servername: speed.dulacloud.store
+    servername: faxf32gkfzoxqv.fx6hsv0.ccwu.cc
     client-fingerprint: chrome
-    uuid: 7967bf59-57e3-4cde-9898-527b0fe60022
-  - name: 🇯🇵 JP | trojan-713185882
+    uuid: 77777777-8a3e-6666-b6d1-a9c5f0e8b3a2
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | 9b26|puddincat07@Telegram
+    network: ws
+    password: humanity
+    port: 443
+    server: render.com
+    skip-cert-verify: false
+    sni: www.ignitelimit.com
+    type: trojan
+    udp: true
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36
+      path: /assignment
+  - name: 🇯🇵 JP | trojan-696558074
+    password: PQ05174892
+    port: 443
+    server: 13.112.222.74
+    skip-cert-verify: true
+    sni: free-tuna.rooster465.autos
+    type: trojan
+    udp: true
+  - client-fingerprint: chrome
+    name: 🇸🇬 SG | 6482|puddincat07@Telegram
+    network: tcp
+    password: EQ30679154
+    port: 443
+    server: 47.129.160.142
+    skip-cert-verify: false
+    sni: well-goshawk.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇺🇸 US | _US_美国_3 · 2
+    network: ws
+    port: 8880
+    server: 162.159.140.78
+    skip-cert-verify: true
+    tls: false
+    type: vless
+    udp: true
+    uuid: 142d1453-9cfe-4045-8e54-f3fb33342185
+    ws-opts:
+      headers:
+        Host: lively-scene-744f.107-47a.workers.dev
+      path: /pyip=ProxyIP.US.CMLiussss.net
+  - name: 🇸🇬 SG | _SG_新加坡_2
+    network: ws
+    port: 443
+    server: paid.sshehi.ggff.net
+    skip-cert-verify: true
+    tls: true
+    type: vless
+    udp: true
+    uuid: 49c86212-ae0b-430e-9abb-244e715b533f
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | 9f71|puddincat07@Telegram
+    network: ws
+    password: humanity
+    port: 443
+    server: 104.17.111.8
+    skip-cert-verify: false
+    sni: www.ignitelimit.com
+    type: trojan
+    udp: true
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36
+      path: /assignment
+  - name: 🇯🇵 JP | trojan-721514928
     password: FH72359861
     port: 443
-    server: 18.181.200.117
-    skip-cert-verify: true
-    sni: sacred-shepherd.rooster465.autos
+    server: literate-cow.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-474779751
-    password: AE62539071
+  - client-fingerprint: chrome
+    name: 🇸🇬 SG | 6877|puddincat07@Telegram
+    network: tcp
+    password: EQ30679154
     port: 443
-    server: engaged-skink.rooster465.autos
-    skip-cert-verify: true
-    sni: engaged-skink.rooster465.autos
+    server: well-goshawk.rooster465.autos
+    skip-cert-verify: false
+    sni: well-goshawk.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15322510
+  - name: 🇺🇸 US | _US_美国_1
+    network: ws
+    port: 8880
+    server: 104.17.21.137
+    skip-cert-verify: true
+    tls: false
     type: vless
-    server: 172.67.118.45
+    udp: true
+    uuid: 30e4c878-15ca-4f53-ab32-04c60ecd3f31
+    ws-opts:
+      headers:
+        Host: blue-rice-7142.30-346.workers.dev
+      path: /pyip=ProxyIP.US.CMLiussss.net
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2155
+    type: vless
+    server: 188.114.97.6
     port: 443
     udp: true
     network: ws
     ws-opts:
       path: /
       headers:
-        Host: zero.csmaster.ggff.net
+        Host: hhlfy.twiladaphne.ndjp.net
     tls: true
-    servername: zero.csmaster.ggff.net
+    servername: hhlfy.twiladaphne.ndjp.net
     client-fingerprint: chrome
-    uuid: 1bc380b1-cff7-446f-b13f-5c0ad29fc75a
-  - name: 🇯🇵 JP | trojan-656176735
-    password: FH72359861
-    port: 443
-    server: premium-weevil.rooster465.autos
-    skip-cert-verify: true
-    sni: premium-weevil.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474782664
-    password: AE62539071
-    port: 443
-    server: square-gnat.rooster465.autos
-    skip-cert-verify: true
-    sni: square-gnat.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7424
-    type: vless
-    server: 172.66.44.97
-    port: 443
-    udp: true
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | b4ce|puddincat07@Telegram
     network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-697952498
-    password: PQ05174892
+    password: humanity
     port: 443
-    server: 18.181.213.219
-    skip-cert-verify: true
-    sni: lasting-jaguar.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-474782655
-    password: AE62539071
-    port: 443
-    server: sacred-hound.rooster465.autos
-    skip-cert-verify: true
-    sni: sacred-hound.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
-    type: vless
-    server: 104.18.37.228
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /sg-melbi#TELEGRAM-MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI?ed=512
-      headers:
-        Host: josni.hoyes.cloudns.ch
-    tls: true
-    servername: josni.hoyes.cloudns.ch
-    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
-  - name: 🇯🇵 JP | trojan-523246818
-    password: FH72359861
-    port: 443
-    server: classic-pug.rooster465.autos
+    server: 104.16.174.117
     skip-cert-verify: false
-    sni: classic-pug.rooster465.autos
+    sni: www.ignitelimit.com
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-622951519
-    password: FH72359861
-    port: 443
-    server: apt-whippet.rooster465.autos
-    skip-cert-verify: true
-    sni: apt-whippet.rooster465.autos
-    type: trojan
-    udp: true
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36
+      path: /assignment
   - name: 🇯🇵 JP | trojan-474782604
     password: AE62539071
     port: 443
@@ -936,46 +715,33 @@ proxies:
     sni: intense-wildcat.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-474779718
-    password: AE62539071
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1465
+    type: vless
+    server: 104.18.37.228
     port: 443
-    server: allowed-hermit.rooster465.autos
-    skip-cert-verify: true
-    sni: allowed-hermit.rooster465.autos
-    type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-468154177
-    password: AE62539071
+    network: ws
+    ws-opts:
+      path: /sg-melbi/?TELEGRAM-MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI?ed=512
+      headers:
+        Host: josni.hoyes.cloudns.ch
+    tls: true
+    servername: josni.hoyes.cloudns.ch
+    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
+  - client-fingerprint: chrome
+    name: 🇫🇷 FR | 2e5f|puddincat07@Telegram
+    network: ws
+    password: humanity
     port: 443
-    server: whole-perch.rooster465.autos
+    server: 104.18.23.63
     skip-cert-verify: false
-    sni: whole-perch.rooster465.autos
+    sni: www.ignitelimit.com
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-474782587
-    password: AE62539071
-    port: 443
-    server: grand-grub.rooster465.autos
-    skip-cert-verify: true
-    sni: grand-grub.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-656161041
-    password: PQ05174892
-    port: 443
-    server: mighty-lemming.rooster465.autos
-    skip-cert-verify: true
-    sni: mighty-lemming.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-700289092
-    password: FH72359861
-    port: 443
-    server: major-goose.rooster465.autos
-    skip-cert-verify: true
-    sni: ""
-    type: trojan
-    udp: true
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
+      path: /assignment
   - name: 🇯🇵 JP | trojan-523250815
     password: FH72359861
     port: 443
@@ -984,131 +750,176 @@ proxies:
     sni: touching-ostrich.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-474782658
-    password: AE62539071
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15191862
+    type: vless
+    server: 91.192.81.214
     port: 443
-    server: saved-ghoul.rooster465.autos
-    skip-cert-verify: true
-    sni: saved-ghoul.rooster465.autos
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    uuid: 607801ac-dbdd-4938-a167-129015d9978e
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: bMcyxNueltQhz5Kuxcf8odDStWHowYfLhKNdCbUweDc
+      short-id: d1742269
+  - alpn:
+      - h3
+      - h2
+      - http/1.1
+    client-fingerprint: chrome
+    name: 🇫🇷 FR | 2a14|puddincat07@Telegram
+    network: ws
+    password: humanity
+    port: 443
+    server: 172.67.221.242
+    skip-cert-verify: false
+    sni: www.ignitelimit.com
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-652375261
+    ws-opts:
+      headers:
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+      path: /assignment
+  - name: 🇯🇵 JP | trojan-721515687
+    password: AE62539071
+    port: 443
+    server: definite-panda.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4567
+    type: vless
+    server: 172.66.44.97
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /sg-melbi
+      headers:
+        Host: josni.hoyes.cloudns.ch
+    tls: true
+    servername: josni.hoyes.cloudns.ch
+    uuid: 83afd88f-200f-4d89-bfc7-66eff160c1d8
+  - name: 🇯🇵 JP | trojan-696558089
+    password: PQ05174892
+    port: 443
+    server: 3.112.19.207
+    skip-cert-verify: true
+    sni: amazed-burro.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+    type: vless
+    server: 3.0.111.82
+    port: 17623
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.apple.com
+    client-fingerprint: chrome
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+  - name: 🇯🇵 JP | trojan-721514965
     password: FH72359861
     port: 443
-    server: sterling-fowl.rooster465.autos
-    skip-cert-verify: true
-    sni: sterling-fowl.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-700405810
-    password: PQ05174892
-    port: 443
-    server: 3.38.191.182
-    skip-cert-verify: true
-    sni: saved-ghoul.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | 7d48|puddincat07@Telegram
-    password: HC04361579
-    port: 443
-    server: pet-albacore.rooster465.autos
-    skip-cert-verify: true
-    sni: pet-albacore.rooster465.autos
-    type: trojan
-  - name: 🇯🇵 JP | trojan-474782608
-    password: AE62539071
-    port: 443
-    server: learning-ibex.rooster465.autos
-    skip-cert-verify: true
-    sni: learning-ibex.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-667701939
-    password: PQ05174892
-    port: 443
-    server: merry-falcon.rooster465.autos
+    server: stunning-mastodon.rooster465.autos
     skip-cert-verify: false
-    sni: merry-falcon.rooster465.autos
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-656176804
-    password: PQ05174892
-    port: 443
-    server: 52.195.7.13
-    skip-cert-verify: true
-    sni: intense-kid.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-474779738
-    password: AE62539071
-    port: 443
-    server: definite-hen.rooster465.autos
-    skip-cert-verify: true
-    sni: definite-hen.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-474782678
-    password: AE62539071
-    port: 443
-    server: together-mayfly.rooster465.autos
-    skip-cert-verify: true
-    sni: together-mayfly.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-652375260
+  - name: 🇯🇵 JP | trojan-721514677
     password: FH72359861
     port: 443
-    server: adapting-giraffe.rooster465.autos
-    skip-cert-verify: true
-    sni: adapting-giraffe.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-474782591
-    password: AE62539071
-    port: 443
-    server: helpful-possum.rooster465.autos
-    skip-cert-verify: true
-    sni: helpful-possum.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-453062274
-    password: AE62539071
-    port: 443
-    server: wise-longhorn.rooster465.autos
+    server: moral-buzzard.rooster465.autos
     skip-cert-verify: false
-    sni: wise-longhorn.rooster465.autos
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | _JP_日本
-    password: PQ05174892
-    port: 443
-    server: merry-falcon.rooster465.autos
-    skip-cert-verify: true
-    tls: false
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-701190681
-    password: PQ05174892
-    port: 443
-    server: 18.181.213.219
-    skip-cert-verify: false
-    sni: lasting-jaguar.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-656176740
+  - name: 🇯🇵 JP | trojan-721349595
     password: FH72359861
     port: 443
     server: star-cheetah.rooster465.autos
-    skip-cert-verify: true
-    sni: star-cheetah.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-656178393
+  - name: 🇯🇵 JP | _JP_日本
+    password: HC04361579
+    port: 443
+    server: driven-doberman.rooster465.autos
+    skip-cert-verify: true
+    sni: driven-doberman.rooster465.autos
+    tls: false
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558081
     password: PQ05174892
     port: 443
-    server: thorough-elf.rooster465.autos
+    server: pumped-clam.rooster465.autos
     skip-cert-verify: true
-    sni: thorough-elf.rooster465.autos
+    sni: pumped-clam.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721515682
+    password: FH72359861
+    port: 443
+    server: definite-hen.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-684973516
+    password: PQ05174892
+    port: 443
+    server: 3.113.14.127
+    skip-cert-verify: true
+    sni: bright-quagga.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-474782638
+    password: AE62539071
+    port: 443
+    server: premium-perch.rooster465.autos
+    skip-cert-verify: true
+    sni: premium-perch.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558073
+    password: FH72359861
+    port: 443
+    server: prompt-duckling.rooster465.autos
+    skip-cert-verify: true
+    sni: prompt-duckling.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-720940201
+    password: HC04361579
+    port: 443
+    server: driven-doberman.rooster465.autos
+    skip-cert-verify: false
+    sni: driven-doberman.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-619918139
+    password: FH72359861
+    port: 443
+    server: 18.181.167.254
+    skip-cert-verify: true
+    sni: tough-gopher.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-577261767
+    password: AE62539071
+    port: 443
+    server: 13.192.234.223
+    skip-cert-verify: false
+    sni: intimate-koi.rooster465.autos
     type: trojan
     udp: true
   - name: 🇯🇵 JP | trojan-474782657
@@ -1119,76 +930,285 @@ proxies:
     sni: safe-frog.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-667593067
+  - name: 🇯🇵 JP | trojan-721515692
     password: FH72359861
     port: 443
-    server: endless-kiwi.rooster465.autos
+    server: closing-falcon.rooster465.autos
     skip-cert-verify: false
-    sni: endless-kiwi.rooster465.autos
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-474782653
-    password: AE62539071
+  - name: 🇯🇵 JP | trojan-266972512
+    password: ND91608427
     port: 443
-    server: right-seahorse.rooster465.autos
+    server: healthy-louse.rooster465.autos
     skip-cert-verify: true
-    sni: right-seahorse.rooster465.autos
+    sni: healthy-louse.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-656176739
-    password: FH72359861
+  - name: 🇯🇵 JP | trojan-706777963
+    password: HC04361579
     port: 443
-    server: set-gazelle.rooster465.autos
-    skip-cert-verify: true
-    sni: set-gazelle.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-474779619
-    password: AE62539071
-    port: 443
-    server: 18.181.169.46
-    skip-cert-verify: true
-    sni: fun-salmon.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-656178377
-    password: PQ05174892
-    port: 443
-    server: pleased-sawfly.rooster465.autos
-    skip-cert-verify: true
-    sni: pleased-sawfly.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-552616950
-    password: FH72359861
-    port: 443
-    server: 13.114.100.100
-    skip-cert-verify: true
-    sni: pleased-sawfly.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-656176771
-    password: PQ05174892
-    port: 443
-    server: 13.114.100.100
-    skip-cert-verify: true
-    sni: pleased-sawfly.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-474782633
-    password: AE62539071
-    port: 443
-    server: polished-imp.rooster465.autos
+    server: legible-ocelot.rooster465.autos
     skip-cert-verify: true
     sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-552617005
+  - name: 🇯🇵 JP | trojan-732607682
+    password: EQ30679154
+    port: 443
+    server: 13.231.90.240
+    skip-cert-verify: false
+    sni: pure-kodiak.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558064
+    password: HC04361579
+    port: 443
+    server: accepted-starling.rooster465.autos
+    skip-cert-verify: true
+    sni: accepted-starling.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-720888903
+    password: HC04361579
+    port: 443
+    server: 57.180.19.66
+    skip-cert-verify: true
+    sni: accepted-starling.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-565918199
+    password: AE62539071
+    port: 443
+    server: social-mutt.rooster465.autos
+    skip-cert-verify: false
+    sni: social-mutt.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | _JP_日本_1
+    password: ND91608427
+    port: 443
+    server: 3.112.15.214
+    skip-cert-verify: true
+    sni: adjusted-labrador.rooster465.autos
+    tls: false
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721514918
     password: FH72359861
     port: 443
-    server: 54.249.121.222
+    server: winning-shrimp.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-453177869
+    password: AE62539071
+    port: 443
+    server: coherent-newt.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721349590
+    password: AE62539071
+    port: 443
+    server: intimate-koi.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-732684365
+    password: FH72359861
+    port: 443
+    server: great-wasp.rooster465.autos
     skip-cert-verify: true
-    sni: lucky-primate.rooster465.autos
+    sni: great-wasp.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721349598
+    password: AE62539071
+    port: 443
+    server: proper-mouse.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721514802
+    password: FH72359861
+    port: 443
+    server: sure-husky.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721514865
+    password: FH72359861
+    port: 443
+    server: pleased-sawfly.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-268441854
+    password: ND91608427
+    port: 443
+    server: 3.112.15.214
+    skip-cert-verify: false
+    sni: adjusted-labrador.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-266972527
+    password: ND91608427
+    port: 443
+    server: perfect-slug.rooster465.autos
+    skip-cert-verify: true
+    sni: perfect-slug.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-565918122
+    password: AE62539071
+    port: 443
+    server: wise-longhorn.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-453179862
+    password: AE62539071
+    port: 443
+    server: fun-poodle.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721514830
+    password: FH72359861
+    port: 443
+    server: set-gazelle.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721515053
+    password: FH72359861
+    port: 443
+    server: included-hedgehog.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721488608
+    password: HC04361579
+    port: 443
+    server: legible-ocelot.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558090
+    password: PQ05174892
+    port: 443
+    server: picked-hippo.rooster465.autos
+    skip-cert-verify: true
+    sni: picked-hippo.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696558086
+    password: PQ05174892
+    port: 443
+    server: fair-reptile.rooster465.autos
+    skip-cert-verify: true
+    sni: fair-reptile.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721274676
+    password: HC04361579
+    port: 443
+    server: pet-albacore.rooster465.autos
+    skip-cert-verify: false
+    sni: pet-albacore.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-529723349
+    password: FH72359861
+    port: 443
+    server: bright-buffalo.rooster465.autos
+    skip-cert-verify: true
+    sni: bright-buffalo.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-565918101
+    password: AE62539071
+    port: 443
+    server: polished-katydid.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-523246816
+    password: FH72359861
+    port: 443
+    server: casual-stallion.rooster465.autos
+    skip-cert-verify: false
+    sni: casual-stallion.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721514724
+    password: FH72359861
+    port: 443
+    server: actual-chicken.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-721090016
+    password: HC04361579
+    port: 443
+    server: 52.195.208.128
+    skip-cert-verify: true
+    sni: legible-ocelot.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-266972546
+    password: ND91608427
+    port: 443
+    server: stunning-mite.rooster465.autos
+    skip-cert-verify: true
+    sni: stunning-mite.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-696123276
+    password: AE62539071
+    port: 443
+    server: pleased-pelican.rooster465.autos
+    skip-cert-verify: false
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-266972503
+    password: ND91608427
+    port: 443
+    server: devoted-heron.rooster465.autos
+    skip-cert-verify: true
+    sni: devoted-heron.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-453054125
+    password: AE62539071
+    port: 443
+    server: improved-anteater.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-260700908
+    password: ND91608427
+    port: 443
+    server: upright-impala.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
     type: trojan
     udp: true
   - name: 🇯🇵 JP | trojan-474782632
@@ -1199,20 +1219,12 @@ proxies:
     sni: pleased-pelican.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-474779664
-    password: AE62539071
+  - name: 🇯🇵 JP | trojan-523248826
+    password: FH72359861
     port: 443
-    server: 43.207.118.231
-    skip-cert-verify: true
-    sni: joint-ewe.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-659133585
-    password: PQ05174892
-    port: 443
-    server: merry-falcon.rooster465.autos
+    server: lasting-jaguar.rooster465.autos
     skip-cert-verify: false
-    sni: ""
+    sni: lasting-jaguar.rooster465.autos
     type: trojan
     udp: true
 proxy-groups:
@@ -1224,130 +1236,131 @@ proxy-groups:
       - 🇭🇰 香港
       - 🇸🇬 新加坡
       - 🇯🇵 日本
+      - 🇹🇼 台湾
       - 🇺🇸 美国
       - 🇪🇺 欧洲
       - 🌍 其他地区
       - DIRECT
-      - 🇨🇦 CA | 7280|puddincat07@Telegram
-      - 🇺🇸 US | _US_美国_1
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | _US_美国_3
+      - 🇺🇸 US | shadowsocks-157
       - 🇳🇱 NL | 8097|puddincat07@Telegram
       - 🇳🇱 NL | _NL_荷兰
-      - 🇪🇸 ES | 7c75|puddincat07@Telegram
-      - 🇫🇷 FR | 8008|puddincat07@Telegram
-      - 🇵🇱 PL | _PL_波兰
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-7297225
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1822
-      - 🇯🇵 JP | trojan-696780698
-      - 🇩🇪 DE | _DK_丹麦
-      - 🇪🇪 EE | _EE_爱沙尼亚
-      - 🇰🇷 KR | trojan-474782636
-      - 🇱🇻 LV | _LV_拉脱维亚
-      - 🇭🇰 HK | _HK_中国香港_2
-      - 🇸🇬 SG | _SG_新加坡
-      - 🇸🇬 SG | shadowsocks-703569533
-      - 🇭🇰 HK | trojan-468227531
-      - 🇮🇳 IN | 2bd4|puddincat07@Telegram
-      - 🌍 OTHER | shadowsocks-696792806
-      - 🇭🇰 HK | shadowsocks-696792802
-      - 🇰🇷 KR | eaf4|puddincat07@Telegram
-      - 🇭🇰 HK | b7e2|puddincat07@Telegram
-      - 🇺🇸 US | _CN_中国->🇺🇸_US_美国
-      - 🇫🇷 FR | _CN_中国->🇫🇷_FR_法国
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本
-      - 🇺🇸 US | _US_美国_3 · 2
-      - 🇫🇷 FR | f608|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2026
-      - 🇯🇵 JP | trojan-656178384
-      - 🇩🇪 DE | _DE_德国_4
-      - 🇰🇷 KR | trojan-565918920
-      - 🇸🇬 SG | _SG_新加坡_1
-      - 🇭🇰 HK | trojan-591811029
-      - 🇭🇰 HK | _HK_中国香港
-      - 🇨🇳 CN | _CN_中国->🇺🇸_US_美国_1
-      - 🇺🇸 US | _US_美国_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-15387290
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇫🇷 FR | _FR_法国
       - 🇫🇷 FR | e9fc|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] vless-
-      - 🇯🇵 JP | trojan-656176711
-      - 🇰🇷 KR | trojan-474782600
-      - 🇸🇬 SG | _SG_新加坡_2
-      - 🇭🇰 HK | trojan-565917960
-      - 🇨🇳 CN | _CN_中国->🇮🇪_IE_爱尔兰
-      - 🇺🇸 US | _US_美国->🇹🇭_TH_泰国
-      - 🇫🇷 FR | 9165|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2535
-      - 🇯🇵 JP | trojan-691923949
-      - 🇰🇷 KR | trojan-700407708
-      - 🇸🇬 SG | _SG_新加坡_1_2
-      - 🇺🇸 US | _US_美国->🇩🇪_DE_德国
-      - 🇫🇷 FR | 4896|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8023
-      - 🇯🇵 JP | trojan-696780697
-      - 🇰🇷 KR | trojan-700405817
-      - 🇸🇬 SG | trojan-565918255
+      - 🇪🇪 EE | _EE_爱沙尼亚
+      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
+      - 🇯🇵 JP | shadowsocks-213
+      - 🇯🇵 JP | trojan-255434902
+      - 🇯🇵 JP | _JP_日本_2
+      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇦🇺 AU | _AU_澳大利亚
+      - 🇸🇬 SG | shadowsocks-415242974
+      - 🇸🇬 SG | _SG_新加坡_1
+      - 🇲🇾 MY | shadowsocks-696792801
+      - 🇹🇭 TH | shadowsocks-696792800
+      - 🇮🇳 IN | _IN_印度_2
+      - 🇭🇰 HK | d7dd|puddincat07@Telegram
+      - 🇹🇼 TW | shadowsocks-696792811
+      - 🇨🇳 CN | eaf4|puddincat07@Telegram
+      - 🇹🇭 TH | _NL_荷兰->🇹🇭_TH_泰国
+      - 🇺🇸 US | _US_美国_2
+      - 🇺🇸 US | shadowsocks-224639175
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇫🇷 FR | b395|puddincat07@Telegram
+      - 🇩🇪 DE | _NL_荷兰_3
+      - 🇯🇵 JP | shadowsocks-415243974
+      - 🇯🇵 JP | trojan-453054127
+      - 🇸🇬 SG | shadowsocks-126340
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15406603
+      - 🇹🇭 TH | _US_美国->🇹🇭_TH_泰国
+      - 🇺🇸 US | _US_美国_4
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇫🇷 FR | c122|puddincat07@Telegram
+      - 🇯🇵 JP | shadowsocks-218
+      - 🇯🇵 JP | trojan-696558063
+      - 🇸🇬 SG | [www.v2nodes.com] Outline VPN-SG-15439804
+      - 🇸🇬 SG | cf7f|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1556
       - 🇫🇷 FR | 2220|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇯🇵 JP | trojan-667593064
-      - 🇰🇷 KR | trojan-713185883
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8430
-      - 🇯🇵 JP | trojan-713185887
-      - 🇰🇷 KR | trojan-474782688
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇯🇵 JP | trojan-474779728
-      - 🇰🇷 KR | trojan-474779721
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
-      - 🇯🇵 JP | trojan-474782686
-      - 🇰🇷 KR | trojan-474782617
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3418
-      - 🇯🇵 JP | trojan-266972492
-      - 🇰🇷 KR | trojan-474779724
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15435333
-      - 🇯🇵 JP | trojan-713185882
-      - 🇰🇷 KR | trojan-474779751
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15322510
-      - 🇯🇵 JP | trojan-656176735
-      - 🇰🇷 KR | trojan-474782664
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7424
-      - 🇯🇵 JP | trojan-697952498
-      - 🇰🇷 KR | trojan-474782655
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
-      - 🇯🇵 JP | trojan-523246818
-      - 🇰🇷 KR | trojan-622951519
+      - 🇯🇵 JP | trojan-721514912
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇺🇸 US | _US_美国_3_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3263
+      - 🇫🇷 FR | 9b26|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-696558074
+      - 🇸🇬 SG | 6482|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国_3 · 2
+      - 🇸🇬 SG | _SG_新加坡_2
+      - 🇫🇷 FR | 9f71|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-721514928
+      - 🇸🇬 SG | 6877|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国_1
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2155
+      - 🇫🇷 FR | b4ce|puddincat07@Telegram
       - 🇯🇵 JP | trojan-474782604
-      - 🇰🇷 KR | trojan-474779718
-      - 🇯🇵 JP | trojan-468154177
-      - 🇰🇷 KR | trojan-474782587
-      - 🇯🇵 JP | trojan-656161041
-      - 🇰🇷 KR | trojan-700289092
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1465
+      - 🇫🇷 FR | 2e5f|puddincat07@Telegram
       - 🇯🇵 JP | trojan-523250815
-      - 🇰🇷 KR | trojan-474782658
-      - 🇯🇵 JP | trojan-652375261
-      - 🇰🇷 KR | trojan-700405810
-      - 🇯🇵 JP | 7d48|puddincat07@Telegram
-      - 🇯🇵 JP | trojan-474782608
-      - 🇯🇵 JP | trojan-667701939
-      - 🇯🇵 JP | trojan-656176804
-      - 🇯🇵 JP | trojan-474779738
-      - 🇯🇵 JP | trojan-474782678
-      - 🇯🇵 JP | trojan-652375260
-      - 🇯🇵 JP | trojan-474782591
-      - 🇯🇵 JP | trojan-453062274
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15191862
+      - 🇫🇷 FR | 2a14|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-721515687
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4567
+      - 🇯🇵 JP | trojan-696558089
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇯🇵 JP | trojan-721514965
+      - 🇯🇵 JP | trojan-721514677
+      - 🇯🇵 JP | trojan-721349595
       - 🇯🇵 JP | _JP_日本
-      - 🇯🇵 JP | trojan-701190681
-      - 🇯🇵 JP | trojan-656176740
-      - 🇯🇵 JP | trojan-656178393
+      - 🇯🇵 JP | trojan-696558081
+      - 🇯🇵 JP | trojan-721515682
+      - 🇯🇵 JP | trojan-684973516
+      - 🇯🇵 JP | trojan-474782638
+      - 🇯🇵 JP | trojan-696558073
+      - 🇯🇵 JP | trojan-720940201
+      - 🇯🇵 JP | trojan-619918139
+      - 🇯🇵 JP | trojan-577261767
       - 🇯🇵 JP | trojan-474782657
-      - 🇯🇵 JP | trojan-667593067
-      - 🇯🇵 JP | trojan-474782653
-      - 🇯🇵 JP | trojan-656176739
-      - 🇯🇵 JP | trojan-474779619
-      - 🇯🇵 JP | trojan-656178377
-      - 🇯🇵 JP | trojan-552616950
-      - 🇯🇵 JP | trojan-656176771
-      - 🇯🇵 JP | trojan-474782633
-      - 🇯🇵 JP | trojan-552617005
+      - 🇯🇵 JP | trojan-721515692
+      - 🇯🇵 JP | trojan-266972512
+      - 🇯🇵 JP | trojan-706777963
+      - 🇯🇵 JP | trojan-732607682
+      - 🇯🇵 JP | trojan-696558064
+      - 🇯🇵 JP | trojan-720888903
+      - 🇯🇵 JP | trojan-565918199
+      - 🇯🇵 JP | _JP_日本_1
+      - 🇯🇵 JP | trojan-721514918
+      - 🇯🇵 JP | trojan-453177869
+      - 🇯🇵 JP | trojan-721349590
+      - 🇯🇵 JP | trojan-732684365
+      - 🇯🇵 JP | trojan-721349598
+      - 🇯🇵 JP | trojan-721514802
+      - 🇯🇵 JP | trojan-721514865
+      - 🇯🇵 JP | trojan-268441854
+      - 🇯🇵 JP | trojan-266972527
+      - 🇯🇵 JP | trojan-565918122
+      - 🇯🇵 JP | trojan-453179862
+      - 🇯🇵 JP | trojan-721514830
+      - 🇯🇵 JP | trojan-721515053
+      - 🇯🇵 JP | trojan-721488608
+      - 🇯🇵 JP | trojan-696558090
+      - 🇯🇵 JP | trojan-696558086
+      - 🇯🇵 JP | trojan-721274676
+      - 🇯🇵 JP | trojan-529723349
+      - 🇯🇵 JP | trojan-565918101
+      - 🇯🇵 JP | trojan-523246816
+      - 🇯🇵 JP | trojan-721514724
+      - 🇯🇵 JP | trojan-721090016
+      - 🇯🇵 JP | trojan-266972546
+      - 🇯🇵 JP | trojan-696123276
+      - 🇯🇵 JP | trojan-266972503
+      - 🇯🇵 JP | trojan-453054125
+      - 🇯🇵 JP | trojan-260700908
       - 🇯🇵 JP | trojan-474782632
-      - 🇯🇵 JP | trojan-474779664
-      - 🇯🇵 JP | trojan-659133585
+      - 🇯🇵 JP | trojan-523248826
   - name: ♻️ AUTO
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1358,126 +1371,126 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies: &a1
-      - 🇨🇦 CA | 7280|puddincat07@Telegram
-      - 🇺🇸 US | _US_美国_1
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | _US_美国_3
+      - 🇺🇸 US | shadowsocks-157
       - 🇳🇱 NL | 8097|puddincat07@Telegram
       - 🇳🇱 NL | _NL_荷兰
-      - 🇪🇸 ES | 7c75|puddincat07@Telegram
-      - 🇫🇷 FR | 8008|puddincat07@Telegram
-      - 🇵🇱 PL | _PL_波兰
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-7297225
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1822
-      - 🇯🇵 JP | trojan-696780698
-      - 🇩🇪 DE | _DK_丹麦
-      - 🇪🇪 EE | _EE_爱沙尼亚
-      - 🇰🇷 KR | trojan-474782636
-      - 🇱🇻 LV | _LV_拉脱维亚
-      - 🇭🇰 HK | _HK_中国香港_2
-      - 🇸🇬 SG | _SG_新加坡
-      - 🇸🇬 SG | shadowsocks-703569533
-      - 🇭🇰 HK | trojan-468227531
-      - 🇮🇳 IN | 2bd4|puddincat07@Telegram
-      - 🌍 OTHER | shadowsocks-696792806
-      - 🇭🇰 HK | shadowsocks-696792802
-      - 🇰🇷 KR | eaf4|puddincat07@Telegram
-      - 🇭🇰 HK | b7e2|puddincat07@Telegram
-      - 🇺🇸 US | _CN_中国->🇺🇸_US_美国
-      - 🇫🇷 FR | _CN_中国->🇫🇷_FR_法国
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本
-      - 🇺🇸 US | _US_美国_3 · 2
-      - 🇫🇷 FR | f608|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2026
-      - 🇯🇵 JP | trojan-656178384
-      - 🇩🇪 DE | _DE_德国_4
-      - 🇰🇷 KR | trojan-565918920
-      - 🇸🇬 SG | _SG_新加坡_1
-      - 🇭🇰 HK | trojan-591811029
-      - 🇭🇰 HK | _HK_中国香港
-      - 🇨🇳 CN | _CN_中国->🇺🇸_US_美国_1
-      - 🇺🇸 US | _US_美国_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-15387290
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇫🇷 FR | _FR_法国
       - 🇫🇷 FR | e9fc|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] vless-
-      - 🇯🇵 JP | trojan-656176711
-      - 🇰🇷 KR | trojan-474782600
-      - 🇸🇬 SG | _SG_新加坡_2
-      - 🇭🇰 HK | trojan-565917960
-      - 🇨🇳 CN | _CN_中国->🇮🇪_IE_爱尔兰
-      - 🇺🇸 US | _US_美国->🇹🇭_TH_泰国
-      - 🇫🇷 FR | 9165|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2535
-      - 🇯🇵 JP | trojan-691923949
-      - 🇰🇷 KR | trojan-700407708
-      - 🇸🇬 SG | _SG_新加坡_1_2
-      - 🇺🇸 US | _US_美国->🇩🇪_DE_德国
-      - 🇫🇷 FR | 4896|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8023
-      - 🇯🇵 JP | trojan-696780697
-      - 🇰🇷 KR | trojan-700405817
-      - 🇸🇬 SG | trojan-565918255
+      - 🇪🇪 EE | _EE_爱沙尼亚
+      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
+      - 🇯🇵 JP | shadowsocks-213
+      - 🇯🇵 JP | trojan-255434902
+      - 🇯🇵 JP | _JP_日本_2
+      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇦🇺 AU | _AU_澳大利亚
+      - 🇸🇬 SG | shadowsocks-415242974
+      - 🇸🇬 SG | _SG_新加坡_1
+      - 🇲🇾 MY | shadowsocks-696792801
+      - 🇹🇭 TH | shadowsocks-696792800
+      - 🇮🇳 IN | _IN_印度_2
+      - 🇭🇰 HK | d7dd|puddincat07@Telegram
+      - 🇹🇼 TW | shadowsocks-696792811
+      - 🇨🇳 CN | eaf4|puddincat07@Telegram
+      - 🇹🇭 TH | _NL_荷兰->🇹🇭_TH_泰国
+      - 🇺🇸 US | _US_美国_2
+      - 🇺🇸 US | shadowsocks-224639175
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇫🇷 FR | b395|puddincat07@Telegram
+      - 🇩🇪 DE | _NL_荷兰_3
+      - 🇯🇵 JP | shadowsocks-415243974
+      - 🇯🇵 JP | trojan-453054127
+      - 🇸🇬 SG | shadowsocks-126340
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15406603
+      - 🇹🇭 TH | _US_美国->🇹🇭_TH_泰国
+      - 🇺🇸 US | _US_美国_4
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇫🇷 FR | c122|puddincat07@Telegram
+      - 🇯🇵 JP | shadowsocks-218
+      - 🇯🇵 JP | trojan-696558063
+      - 🇸🇬 SG | [www.v2nodes.com] Outline VPN-SG-15439804
+      - 🇸🇬 SG | cf7f|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1556
       - 🇫🇷 FR | 2220|puddincat07@Telegram
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇯🇵 JP | trojan-667593064
-      - 🇰🇷 KR | trojan-713185883
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8430
-      - 🇯🇵 JP | trojan-713185887
-      - 🇰🇷 KR | trojan-474782688
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇯🇵 JP | trojan-474779728
-      - 🇰🇷 KR | trojan-474779721
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
-      - 🇯🇵 JP | trojan-474782686
-      - 🇰🇷 KR | trojan-474782617
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3418
-      - 🇯🇵 JP | trojan-266972492
-      - 🇰🇷 KR | trojan-474779724
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15435333
-      - 🇯🇵 JP | trojan-713185882
-      - 🇰🇷 KR | trojan-474779751
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15322510
-      - 🇯🇵 JP | trojan-656176735
-      - 🇰🇷 KR | trojan-474782664
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7424
-      - 🇯🇵 JP | trojan-697952498
-      - 🇰🇷 KR | trojan-474782655
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
-      - 🇯🇵 JP | trojan-523246818
-      - 🇰🇷 KR | trojan-622951519
+      - 🇯🇵 JP | trojan-721514912
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇺🇸 US | _US_美国_3_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3263
+      - 🇫🇷 FR | 9b26|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-696558074
+      - 🇸🇬 SG | 6482|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国_3 · 2
+      - 🇸🇬 SG | _SG_新加坡_2
+      - 🇫🇷 FR | 9f71|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-721514928
+      - 🇸🇬 SG | 6877|puddincat07@Telegram
+      - 🇺🇸 US | _US_美国_1
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2155
+      - 🇫🇷 FR | b4ce|puddincat07@Telegram
       - 🇯🇵 JP | trojan-474782604
-      - 🇰🇷 KR | trojan-474779718
-      - 🇯🇵 JP | trojan-468154177
-      - 🇰🇷 KR | trojan-474782587
-      - 🇯🇵 JP | trojan-656161041
-      - 🇰🇷 KR | trojan-700289092
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1465
+      - 🇫🇷 FR | 2e5f|puddincat07@Telegram
       - 🇯🇵 JP | trojan-523250815
-      - 🇰🇷 KR | trojan-474782658
-      - 🇯🇵 JP | trojan-652375261
-      - 🇰🇷 KR | trojan-700405810
-      - 🇯🇵 JP | 7d48|puddincat07@Telegram
-      - 🇯🇵 JP | trojan-474782608
-      - 🇯🇵 JP | trojan-667701939
-      - 🇯🇵 JP | trojan-656176804
-      - 🇯🇵 JP | trojan-474779738
-      - 🇯🇵 JP | trojan-474782678
-      - 🇯🇵 JP | trojan-652375260
-      - 🇯🇵 JP | trojan-474782591
-      - 🇯🇵 JP | trojan-453062274
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15191862
+      - 🇫🇷 FR | 2a14|puddincat07@Telegram
+      - 🇯🇵 JP | trojan-721515687
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4567
+      - 🇯🇵 JP | trojan-696558089
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇯🇵 JP | trojan-721514965
+      - 🇯🇵 JP | trojan-721514677
+      - 🇯🇵 JP | trojan-721349595
       - 🇯🇵 JP | _JP_日本
-      - 🇯🇵 JP | trojan-701190681
-      - 🇯🇵 JP | trojan-656176740
-      - 🇯🇵 JP | trojan-656178393
+      - 🇯🇵 JP | trojan-696558081
+      - 🇯🇵 JP | trojan-721515682
+      - 🇯🇵 JP | trojan-684973516
+      - 🇯🇵 JP | trojan-474782638
+      - 🇯🇵 JP | trojan-696558073
+      - 🇯🇵 JP | trojan-720940201
+      - 🇯🇵 JP | trojan-619918139
+      - 🇯🇵 JP | trojan-577261767
       - 🇯🇵 JP | trojan-474782657
-      - 🇯🇵 JP | trojan-667593067
-      - 🇯🇵 JP | trojan-474782653
-      - 🇯🇵 JP | trojan-656176739
-      - 🇯🇵 JP | trojan-474779619
-      - 🇯🇵 JP | trojan-656178377
-      - 🇯🇵 JP | trojan-552616950
-      - 🇯🇵 JP | trojan-656176771
-      - 🇯🇵 JP | trojan-474782633
-      - 🇯🇵 JP | trojan-552617005
+      - 🇯🇵 JP | trojan-721515692
+      - 🇯🇵 JP | trojan-266972512
+      - 🇯🇵 JP | trojan-706777963
+      - 🇯🇵 JP | trojan-732607682
+      - 🇯🇵 JP | trojan-696558064
+      - 🇯🇵 JP | trojan-720888903
+      - 🇯🇵 JP | trojan-565918199
+      - 🇯🇵 JP | _JP_日本_1
+      - 🇯🇵 JP | trojan-721514918
+      - 🇯🇵 JP | trojan-453177869
+      - 🇯🇵 JP | trojan-721349590
+      - 🇯🇵 JP | trojan-732684365
+      - 🇯🇵 JP | trojan-721349598
+      - 🇯🇵 JP | trojan-721514802
+      - 🇯🇵 JP | trojan-721514865
+      - 🇯🇵 JP | trojan-268441854
+      - 🇯🇵 JP | trojan-266972527
+      - 🇯🇵 JP | trojan-565918122
+      - 🇯🇵 JP | trojan-453179862
+      - 🇯🇵 JP | trojan-721514830
+      - 🇯🇵 JP | trojan-721515053
+      - 🇯🇵 JP | trojan-721488608
+      - 🇯🇵 JP | trojan-696558090
+      - 🇯🇵 JP | trojan-696558086
+      - 🇯🇵 JP | trojan-721274676
+      - 🇯🇵 JP | trojan-529723349
+      - 🇯🇵 JP | trojan-565918101
+      - 🇯🇵 JP | trojan-523246816
+      - 🇯🇵 JP | trojan-721514724
+      - 🇯🇵 JP | trojan-721090016
+      - 🇯🇵 JP | trojan-266972546
+      - 🇯🇵 JP | trojan-696123276
+      - 🇯🇵 JP | trojan-266972503
+      - 🇯🇵 JP | trojan-453054125
+      - 🇯🇵 JP | trojan-260700908
       - 🇯🇵 JP | trojan-474782632
-      - 🇯🇵 JP | trojan-474779664
-      - 🇯🇵 JP | trojan-659133585
+      - 🇯🇵 JP | trojan-523248826
   - name: 🛟 FALLBACK
     type: fallback
     url: https://www.gstatic.com/generate_204
@@ -1497,13 +1510,7 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇭🇰 HK | _HK_中国香港_2
-      - 🇭🇰 HK | trojan-468227531
-      - 🇭🇰 HK | shadowsocks-696792802
-      - 🇭🇰 HK | b7e2|puddincat07@Telegram
-      - 🇭🇰 HK | trojan-591811029
-      - 🇭🇰 HK | _HK_中国香港
-      - 🇭🇰 HK | trojan-565917960
+      - 🇭🇰 HK | d7dd|puddincat07@Telegram
   - name: 🇸🇬 新加坡
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1514,27 +1521,27 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-7297225
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1822
-      - 🇸🇬 SG | _SG_新加坡
-      - 🇸🇬 SG | shadowsocks-703569533
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2026
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vmess-SG-15387290
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇸🇬 SG | shadowsocks-415242974
       - 🇸🇬 SG | _SG_新加坡_1
-      - 🇸🇬 SG | [www.v2nodes.com] vless-
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇸🇬 SG | shadowsocks-126340
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15406603
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇸🇬 SG | [www.v2nodes.com] Outline VPN-SG-15439804
+      - 🇸🇬 SG | cf7f|puddincat07@Telegram
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1556
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3263
+      - 🇸🇬 SG | 6482|puddincat07@Telegram
       - 🇸🇬 SG | _SG_新加坡_2
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2535
-      - 🇸🇬 SG | _SG_新加坡_1_2
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8023
-      - 🇸🇬 SG | trojan-565918255
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8430
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3418
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15435333
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15322510
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7424
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇸🇬 SG | 6877|puddincat07@Telegram
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2155
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1465
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15191862
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4567
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
   - name: 🇯🇵 日本
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1545,51 +1552,81 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇯🇵 JP | trojan-696780698
-      - 🇯🇵 JP | trojan-656178384
-      - 🇯🇵 JP | trojan-656176711
-      - 🇯🇵 JP | trojan-691923949
-      - 🇯🇵 JP | trojan-696780697
-      - 🇯🇵 JP | trojan-667593064
-      - 🇯🇵 JP | trojan-713185887
-      - 🇯🇵 JP | trojan-474779728
-      - 🇯🇵 JP | trojan-474782686
-      - 🇯🇵 JP | trojan-266972492
-      - 🇯🇵 JP | trojan-713185882
-      - 🇯🇵 JP | trojan-656176735
-      - 🇯🇵 JP | trojan-697952498
-      - 🇯🇵 JP | trojan-523246818
+      - 🇯🇵 JP | shadowsocks-213
+      - 🇯🇵 JP | trojan-255434902
+      - 🇯🇵 JP | _JP_日本_2
+      - 🇯🇵 JP | shadowsocks-415243974
+      - 🇯🇵 JP | trojan-453054127
+      - 🇯🇵 JP | shadowsocks-218
+      - 🇯🇵 JP | trojan-696558063
+      - 🇯🇵 JP | trojan-721514912
+      - 🇯🇵 JP | trojan-696558074
+      - 🇯🇵 JP | trojan-721514928
       - 🇯🇵 JP | trojan-474782604
-      - 🇯🇵 JP | trojan-468154177
-      - 🇯🇵 JP | trojan-656161041
       - 🇯🇵 JP | trojan-523250815
-      - 🇯🇵 JP | trojan-652375261
-      - 🇯🇵 JP | 7d48|puddincat07@Telegram
-      - 🇯🇵 JP | trojan-474782608
-      - 🇯🇵 JP | trojan-667701939
-      - 🇯🇵 JP | trojan-656176804
-      - 🇯🇵 JP | trojan-474779738
-      - 🇯🇵 JP | trojan-474782678
-      - 🇯🇵 JP | trojan-652375260
-      - 🇯🇵 JP | trojan-474782591
-      - 🇯🇵 JP | trojan-453062274
+      - 🇯🇵 JP | trojan-721515687
+      - 🇯🇵 JP | trojan-696558089
+      - 🇯🇵 JP | trojan-721514965
+      - 🇯🇵 JP | trojan-721514677
+      - 🇯🇵 JP | trojan-721349595
       - 🇯🇵 JP | _JP_日本
-      - 🇯🇵 JP | trojan-701190681
-      - 🇯🇵 JP | trojan-656176740
-      - 🇯🇵 JP | trojan-656178393
+      - 🇯🇵 JP | trojan-696558081
+      - 🇯🇵 JP | trojan-721515682
+      - 🇯🇵 JP | trojan-684973516
+      - 🇯🇵 JP | trojan-474782638
+      - 🇯🇵 JP | trojan-696558073
+      - 🇯🇵 JP | trojan-720940201
+      - 🇯🇵 JP | trojan-619918139
+      - 🇯🇵 JP | trojan-577261767
       - 🇯🇵 JP | trojan-474782657
-      - 🇯🇵 JP | trojan-667593067
-      - 🇯🇵 JP | trojan-474782653
-      - 🇯🇵 JP | trojan-656176739
-      - 🇯🇵 JP | trojan-474779619
-      - 🇯🇵 JP | trojan-656178377
-      - 🇯🇵 JP | trojan-552616950
-      - 🇯🇵 JP | trojan-656176771
-      - 🇯🇵 JP | trojan-474782633
-      - 🇯🇵 JP | trojan-552617005
+      - 🇯🇵 JP | trojan-721515692
+      - 🇯🇵 JP | trojan-266972512
+      - 🇯🇵 JP | trojan-706777963
+      - 🇯🇵 JP | trojan-732607682
+      - 🇯🇵 JP | trojan-696558064
+      - 🇯🇵 JP | trojan-720888903
+      - 🇯🇵 JP | trojan-565918199
+      - 🇯🇵 JP | _JP_日本_1
+      - 🇯🇵 JP | trojan-721514918
+      - 🇯🇵 JP | trojan-453177869
+      - 🇯🇵 JP | trojan-721349590
+      - 🇯🇵 JP | trojan-732684365
+      - 🇯🇵 JP | trojan-721349598
+      - 🇯🇵 JP | trojan-721514802
+      - 🇯🇵 JP | trojan-721514865
+      - 🇯🇵 JP | trojan-268441854
+      - 🇯🇵 JP | trojan-266972527
+      - 🇯🇵 JP | trojan-565918122
+      - 🇯🇵 JP | trojan-453179862
+      - 🇯🇵 JP | trojan-721514830
+      - 🇯🇵 JP | trojan-721515053
+      - 🇯🇵 JP | trojan-721488608
+      - 🇯🇵 JP | trojan-696558090
+      - 🇯🇵 JP | trojan-696558086
+      - 🇯🇵 JP | trojan-721274676
+      - 🇯🇵 JP | trojan-529723349
+      - 🇯🇵 JP | trojan-565918101
+      - 🇯🇵 JP | trojan-523246816
+      - 🇯🇵 JP | trojan-721514724
+      - 🇯🇵 JP | trojan-721090016
+      - 🇯🇵 JP | trojan-266972546
+      - 🇯🇵 JP | trojan-696123276
+      - 🇯🇵 JP | trojan-266972503
+      - 🇯🇵 JP | trojan-453054125
+      - 🇯🇵 JP | trojan-260700908
       - 🇯🇵 JP | trojan-474782632
-      - 🇯🇵 JP | trojan-474779664
-      - 🇯🇵 JP | trojan-659133585
+      - 🇯🇵 JP | trojan-523248826
+  - name: 🇹🇼 台湾
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇹🇼 TW | shadowsocks-696792811
   - name: 🇺🇸 美国
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1600,12 +1637,16 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇺🇸 US | _US_美国_1
-      - 🇺🇸 US | _CN_中国->🇺🇸_US_美国
-      - 🇺🇸 US | _US_美国_3 · 2
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | _US_美国_3
+      - 🇺🇸 US | shadowsocks-157
       - 🇺🇸 US | _US_美国_2
-      - 🇺🇸 US | _US_美国->🇹🇭_TH_泰国
-      - 🇺🇸 US | _US_美国->🇩🇪_DE_德国
+      - 🇺🇸 US | shadowsocks-224639175
+      - 🇺🇸 US | _US_美国_4
+      - 🇺🇸 US | _US_美国
+      - 🇺🇸 US | _US_美国_3_2
+      - 🇺🇸 US | _US_美国_3 · 2
+      - 🇺🇸 US | _US_美国_1
   - name: 🇪🇺 欧洲
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1618,15 +1659,18 @@ proxy-groups:
     proxies:
       - 🇳🇱 NL | 8097|puddincat07@Telegram
       - 🇳🇱 NL | _NL_荷兰
-      - 🇫🇷 FR | 8008|puddincat07@Telegram
-      - 🇩🇪 DE | _DK_丹麦
-      - 🇫🇷 FR | _CN_中国->🇫🇷_FR_法国
-      - 🇫🇷 FR | f608|puddincat07@Telegram
-      - 🇩🇪 DE | _DE_德国_4
+      - 🇫🇷 FR | _FR_法国
       - 🇫🇷 FR | e9fc|puddincat07@Telegram
-      - 🇫🇷 FR | 9165|puddincat07@Telegram
-      - 🇫🇷 FR | 4896|puddincat07@Telegram
+      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
+      - 🇫🇷 FR | b395|puddincat07@Telegram
+      - 🇩🇪 DE | _NL_荷兰_3
+      - 🇫🇷 FR | c122|puddincat07@Telegram
       - 🇫🇷 FR | 2220|puddincat07@Telegram
+      - 🇫🇷 FR | 9b26|puddincat07@Telegram
+      - 🇫🇷 FR | 9f71|puddincat07@Telegram
+      - 🇫🇷 FR | b4ce|puddincat07@Telegram
+      - 🇫🇷 FR | 2e5f|puddincat07@Telegram
+      - 🇫🇷 FR | 2a14|puddincat07@Telegram
   - name: 🌍 其他地区
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1637,36 +1681,15 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇨🇦 CA | 7280|puddincat07@Telegram
-      - 🇪🇸 ES | 7c75|puddincat07@Telegram
-      - 🇵🇱 PL | _PL_波兰
       - 🇪🇪 EE | _EE_爱沙尼亚
-      - 🇰🇷 KR | trojan-474782636
-      - 🇱🇻 LV | _LV_拉脱维亚
-      - 🇮🇳 IN | 2bd4|puddincat07@Telegram
-      - 🌍 OTHER | shadowsocks-696792806
-      - 🇰🇷 KR | eaf4|puddincat07@Telegram
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本
-      - 🇰🇷 KR | trojan-565918920
-      - 🇨🇳 CN | _CN_中国->🇺🇸_US_美国_1
-      - 🇰🇷 KR | trojan-474782600
-      - 🇨🇳 CN | _CN_中国->🇮🇪_IE_爱尔兰
-      - 🇰🇷 KR | trojan-700407708
-      - 🇰🇷 KR | trojan-700405817
-      - 🇰🇷 KR | trojan-713185883
-      - 🇰🇷 KR | trojan-474782688
-      - 🇰🇷 KR | trojan-474779721
-      - 🇰🇷 KR | trojan-474782617
-      - 🇰🇷 KR | trojan-474779724
-      - 🇰🇷 KR | trojan-474779751
-      - 🇰🇷 KR | trojan-474782664
-      - 🇰🇷 KR | trojan-474782655
-      - 🇰🇷 KR | trojan-622951519
-      - 🇰🇷 KR | trojan-474779718
-      - 🇰🇷 KR | trojan-474782587
-      - 🇰🇷 KR | trojan-700289092
-      - 🇰🇷 KR | trojan-474782658
-      - 🇰🇷 KR | trojan-700405810
+      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇦🇺 AU | _AU_澳大利亚
+      - 🇲🇾 MY | shadowsocks-696792801
+      - 🇹🇭 TH | shadowsocks-696792800
+      - 🇮🇳 IN | _IN_印度_2
+      - 🇨🇳 CN | eaf4|puddincat07@Telegram
+      - 🇹🇭 TH | _NL_荷兰->🇹🇭_TH_泰国
+      - 🇹🇭 TH | _US_美国->🇹🇭_TH_泰国
   - name: 💬 TELEGRAM
     type: select
     proxies:
