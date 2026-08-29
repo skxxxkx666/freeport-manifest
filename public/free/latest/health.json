@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "manifest": "FP-20260829-01",
   "status": "tested",
-  "testedAt": "2026-08-29T02:54:29.596Z",
+  "testedAt": "2026-08-29T13:55:37.889Z",
   "thresholds": {
     "minimumHealthy": 10,
     "minimumRatio": 0.1
@@ -13,26 +13,27 @@
     "maximumLatencyMs": 2500
   },
   "summary": {
-    "candidateCount": 169,
-    "healthyCount": 130,
-    "failedCount": 39,
+    "candidateCount": 170,
+    "healthyCount": 128,
+    "failedCount": 42,
     "publishedCount": 120,
-    "aliveRatio": 0.7692307692307693,
+    "aliveRatio": 0.7529411764705882,
     "latencyMs": {
-      "min": 4,
-      "median": 172,
-      "p95": 589,
-      "max": 2364
+      "min": 7,
+      "median": 164,
+      "p95": 519,
+      "max": 1854
     },
     "failureReasons": {
-      "other": 28,
+      "invalid-config": 1,
+      "other": 30,
       "timeout": 11
     },
     "regionDetection": {
-      "detectedCount": 108,
-      "fallbackCount": 12,
-      "otherCount": 0,
-      "mismatchCount": 14
+      "detectedCount": 105,
+      "fallbackCount": 13,
+      "otherCount": 2,
+      "mismatchCount": 13
     }
   },
   "sources": [
@@ -62,7 +63,7 @@
       "nodeCount": 0,
       "proxyCount": 80,
       "discoveredNodeCount": 0,
-      "discoveredProxyCount": 1193,
+      "discoveredProxyCount": 1159,
       "maxItems": 80,
       "license": "MIT"
     },
@@ -72,7 +73,7 @@
       "nodeCount": 0,
       "proxyCount": 60,
       "discoveredNodeCount": 0,
-      "discoveredProxyCount": 3246,
+      "discoveredProxyCount": 3103,
       "maxItems": 60,
       "license": "MIT"
     },
@@ -99,16 +100,43 @@
   ],
   "nodes": [
     {
-      "id": "93af370072866f64c1ac",
+      "id": "911a786a7e2277b112db",
       "type": "ss",
       "sourceIds": [
         "bestclash"
       ],
-      "region": "GB",
+      "region": "IE",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 86
+      "delayMs": 73,
+      "speedMbps": 1.292,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "9ec98aec1b670765e549",
+      "type": "ss",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "TH",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 248
+    },
+    {
+      "id": "2057a24ccd1457cc431d",
+      "type": "ss",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "MY",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 296
     },
     {
       "id": "ac1f8bff24fbaeb04015",
@@ -121,83 +149,10 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 393
+      "delayMs": 375
     },
     {
-      "id": "6027a62d99ce6021deb4",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 616
-    },
-    {
-      "id": "9ec98aec1b670765e549",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "TH",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 256
-    },
-    {
-      "id": "4268f02bb9767152bbb7",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "FR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 84
-    },
-    {
-      "id": "74ea62419f149083dc11",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IE",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 72
-    },
-    {
-      "id": "2057a24ccd1457cc431d",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "MY",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 269
-    },
-    {
-      "id": "911a786a7e2277b112db",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IE",
-      "regionMethod": "name",
-      "regionConfidence": "low",
-      "alive": true,
-      "delayMs": 73
-    },
-    {
-      "id": "37b0203219c1ffd8aa35",
+      "id": "b1e22b0cede189e0df60",
       "type": "trojan",
       "sourceIds": [
         "bestclash"
@@ -207,7 +162,72 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 417
+      "delayMs": 520
+    },
+    {
+      "id": "e4ef4bda3412c43fc2e7",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "regionMismatch": true,
+      "alive": true,
+      "delayMs": 210
+    },
+    {
+      "id": "e05c3ef3aa73fd90c1b3",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 155,
+      "speedMbps": 1.899,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "1a2342b21768d084a66e",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 221
+    },
+    {
+      "id": "bc9430d0a4da3084aebf",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 177
+    },
+    {
+      "id": "adfac85e8a93bf7b0b95",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "regionMismatch": true,
+      "alive": true,
+      "delayMs": 209
     },
     {
       "id": "d2b07220e5747c9faf47",
@@ -220,10 +240,22 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 409
+      "delayMs": 418
     },
     {
-      "id": "9891a06f1878d977a2fd",
+      "id": "42aa4755c9af149c31f3",
+      "type": "trojan",
+      "sourceIds": [
+        "bestclash"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 156
+    },
+    {
+      "id": "3894a8cb3f38c2a5ba12",
       "type": "trojan",
       "sourceIds": [
         "bestclash"
@@ -233,19 +265,7 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 165
-    },
-    {
-      "id": "bc9430d0a4da3084aebf",
-      "type": "trojan",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "FR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 201
+      "delayMs": 170
     },
     {
       "id": "f0dd1893dcf7d98f73ba",
@@ -258,431 +278,7 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 188
-    },
-    {
-      "id": "d11e6b3607f1ca2b885b",
-      "type": "trojan",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "FR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 160,
-      "speedMbps": 0.524,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "6783195dc813c85be652",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 161
-    },
-    {
-      "id": "039746bfd389a9ba14f3",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 172
-    },
-    {
-      "id": "708cd474bca97f974efa",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 70
-    },
-    {
-      "id": "521d6af45f52c3814644",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "previous",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "timeout"
-    },
-    {
-      "id": "efeeec04c3a4f27c685f",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 164
-    },
-    {
-      "id": "26b23425d4e04947f70a",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 183
-    },
-    {
-      "id": "c1ff4a9fab6909056186",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 164
-    },
-    {
-      "id": "3b55df913d81c027a743",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 167
-    },
-    {
-      "id": "04a4ff72b824703cefc6",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 173
-    },
-    {
-      "id": "b24c763578e6d79d4044",
-      "type": "trojan",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "previous",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "timeout"
-    },
-    {
-      "id": "fb95ffa136e06355ef51",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 260
-    },
-    {
-      "id": "833aad6b3b7468c87802",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "OTHER",
-      "regionMethod": "unknown",
-      "regionConfidence": "none",
-      "alive": false,
-      "reason": "timeout"
-    },
-    {
-      "id": "29407159cc64ed1f251c",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 166
-    },
-    {
-      "id": "d08d5887ed7376290ee7",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 174
-    },
-    {
-      "id": "5da7c58eae782e816c05",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 171
-    },
-    {
-      "id": "e9cb1cb7df37c1a738ff",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 170
-    },
-    {
-      "id": "ef93e18f28ff2ff91c24",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 177
-    },
-    {
-      "id": "1aa9f37327b449c28503",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 166
-    },
-    {
-      "id": "5ef156842b55f80ab209",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 166
-    },
-    {
-      "id": "4f869f813e12c00a30f2",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 165
-    },
-    {
-      "id": "af725aab3dff4661fb16",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 170
-    },
-    {
-      "id": "35a98c3c9896ab68223d",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 173
-    },
-    {
-      "id": "c6f63873b958a564f156",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 557
-    },
-    {
-      "id": "87ca249b0b244a996b54",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 169
-    },
-    {
-      "id": "0cf7d57d5bb43d4d6014",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 172
-    },
-    {
-      "id": "810f4691103202ab9d57",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 165
-    },
-    {
-      "id": "f2769b5de71ca2b3eece",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 164
-    },
-    {
-      "id": "775a83fca5aef8ac0f9c",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "TW",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 201
-    },
-    {
-      "id": "6921f10ac2081affe8ca",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "TW",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 201
-    },
-    {
-      "id": "d56e62ea56922e0173b0",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 173
-    },
-    {
-      "id": "ec54bde417424d1618dd",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "OTHER",
-      "regionMethod": "unknown",
-      "regionConfidence": "none",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "d2159a9ff6b62109b02c",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 239
-    },
-    {
-      "id": "734663e2275c8de7f412",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 300
-    },
-    {
-      "id": "fa73753af6c76cd65fee",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 226
+      "delayMs": 219
     },
     {
       "id": "4d941beaa28948e43462",
@@ -694,22 +290,25 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 402
+      "delayMs": 60,
+      "speedMbps": 3.781,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
-      "id": "d1d7fc8c6012fe9fab8b",
+      "id": "039746bfd389a9ba14f3",
       "type": "ss",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "KR",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 202
+      "delayMs": 157
     },
     {
-      "id": "3b4544f2e4c1b8301cdc",
+      "id": "2b322b68c292c039bd24",
       "type": "ss",
       "sourceIds": [
         "au1rxx-verified"
@@ -718,7 +317,34 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 101
+      "delayMs": 40,
+      "speedMbps": 5.551,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "fbaae5167b4d8316bd62",
+      "type": "ss",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "NL",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 94
+    },
+    {
+      "id": "f3214c5a607e87421c8e",
+      "type": "ss",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "DE",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 93
     },
     {
       "id": "72533dc323442eb6bbd1",
@@ -730,181 +356,22 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 293
+      "delayMs": 172
     },
     {
-      "id": "f845fbdcfa4274e0a33a",
-      "type": "ss",
+      "id": "17f89fee8564a7fd0d93",
+      "type": "trojan",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "CA",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 29,
-      "speedMbps": 9.26,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
     },
     {
-      "id": "c14bda7958097725ca86",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "CA",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 21,
-      "speedMbps": 11.477,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "41dd8f463ecbbdfa1ddf",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 168
-    },
-    {
-      "id": "cfeab424eb8f6708825a",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 69
-    },
-    {
-      "id": "54e0172686dfe4e66dff",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 83
-    },
-    {
-      "id": "3ec747fa3f61b12bf872",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 173
-    },
-    {
-      "id": "004a342e36a99c4e4540",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "AU",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 199
-    },
-    {
-      "id": "d0b704d296bcbec332c9",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "CA",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 33,
-      "speedMbps": 2.326,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "ee354d06050721bf15f5",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 39,
-      "speedMbps": 5.903,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "c8acd513ec9a79b14c2c",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "CA",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 35,
-      "speedMbps": 6.344,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "d21553d9c8b9a7fefe0e",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "DE",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 97
-    },
-    {
-      "id": "d7b7b295760b6e5f569e",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "FR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 86
-    },
-    {
-      "id": "3431a32deeba559dbe58",
-      "type": "ss",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "GB",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 103
-    },
-    {
-      "id": "38455cafa9fafa15f952",
+      "id": "7adcdc33b653b87dfa87",
       "type": "trojan",
       "sourceIds": [
         "au1rxx-verified"
@@ -913,10 +380,46 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 175
+      "delayMs": 157
     },
     {
-      "id": "69af80533140ef88ee8c",
+      "id": "ef57e35cf7f1ecf56363",
+      "type": "trojan",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 155
+    },
+    {
+      "id": "521d6af45f52c3814644",
+      "type": "trojan",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "previous",
+      "regionConfidence": "medium",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "db1745265445370d1ab3",
+      "type": "trojan",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "cffd8e4b785c3e5b50bb",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
@@ -925,7 +428,151 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 170
+      "delayMs": 154
+    },
+    {
+      "id": "3a2c5a4a4305fddc24a3",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 160
+    },
+    {
+      "id": "98139342ad13f279ee19",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "7853ac4a1ea57df9d05e",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 161
+    },
+    {
+      "id": "3f5907e410ae6b16dfd1",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "5da7c58eae782e816c05",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 159
+    },
+    {
+      "id": "859051fdb1847141aa4c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 165
+    },
+    {
+      "id": "f7c07d3458e83db976b4",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 164
+    },
+    {
+      "id": "d08d5887ed7376290ee7",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 160
+    },
+    {
+      "id": "096506df219b64610356",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 166
+    },
+    {
+      "id": "88c86f9eaef8f623c35d",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "d56e62ea56922e0173b0",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 161
+    },
+    {
+      "id": "ac9408b8a64c1cd472d1",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 156
     },
     {
       "id": "252e408cde65374b9957",
@@ -937,22 +584,46 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 174
+      "delayMs": 167
     },
     {
-      "id": "4cc68e9ac269a4b10985",
+      "id": "69af80533140ef88ee8c",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "OTHER",
-      "regionMethod": "unknown",
-      "regionConfidence": "none",
-      "alive": false,
-      "reason": "other"
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 162
     },
     {
-      "id": "73fcefc67bf0989817e8",
+      "id": "9e7accefbe9c84fedad8",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 159
+    },
+    {
+      "id": "87ca249b0b244a996b54",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 155
+    },
+    {
+      "id": "88b7ed6b6ee268e62937",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
@@ -964,52 +635,64 @@
       "delayMs": 169
     },
     {
-      "id": "9e03638b43f8c1f1b448",
+      "id": "1aa9f37327b449c28503",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "TW",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 192
+      "delayMs": 158
     },
     {
-      "id": "b2fe1300572af40da01b",
+      "id": "c6f63873b958a564f156",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "KR",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 194
+      "delayMs": 165
     },
     {
-      "id": "e2c3334b025970bc6f44",
+      "id": "b6473daa4ace9c193f00",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "HK",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 203
+      "delayMs": 161
     },
     {
-      "id": "580e723216fe3004c560",
+      "id": "e6df07d360c023999e30",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "KR",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 201
+      "delayMs": 313
+    },
+    {
+      "id": "fa35522f927eb6fb8b10",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 167
     },
     {
       "id": "453db28834d505ddd185",
@@ -1021,10 +704,334 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 170
+      "delayMs": 164
     },
     {
-      "id": "53a69607a9cb72c4f02b",
+      "id": "2b96cb4066f9eef0db69",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "cae1c35ffdea39eb4383",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "72a9bf879d391dcf5d05",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "invalid-config"
+    },
+    {
+      "id": "0cf7d57d5bb43d4d6014",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 178
+    },
+    {
+      "id": "f2769b5de71ca2b3eece",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 227
+    },
+    {
+      "id": "777920a83ba567a82b6c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 159
+    },
+    {
+      "id": "704a2fcb53c8719f671a",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 159
+    },
+    {
+      "id": "775a83fca5aef8ac0f9c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "TW",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 239
+    },
+    {
+      "id": "d2acc1615ae5a8a3d09e",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 160
+    },
+    {
+      "id": "1ccd467a472c537a1faf",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 156
+    },
+    {
+      "id": "82eacbcfa6e5b7298bd1",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 169
+    },
+    {
+      "id": "c1573fc98c5fe0fa3dc3",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "KR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 184
+    },
+    {
+      "id": "23e8f2670d40fc663909",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 175
+    },
+    {
+      "id": "1bd23d3a336f0f72a5d3",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "TW",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 206
+    },
+    {
+      "id": "4b978287d6d74827c2bf",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "d898a33d64c4aaff4192",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "bc57625b94a7cd1f19fc",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 160
+    },
+    {
+      "id": "fb8ba08b6a1cb9c7fff9",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 164
+    },
+    {
+      "id": "d966f3e4e27435555394",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 159
+    },
+    {
+      "id": "12728f14e34c2782d9b3",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "timeout"
+    },
+    {
+      "id": "6754a996504f6fe0ab2d",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "HK",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 216
+    },
+    {
+      "id": "5c384b0eba58a6feac28",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 162
+    },
+    {
+      "id": "fe9c0a99691a41159d27",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 161
+    },
+    {
+      "id": "86aee961fe5515f960fd",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "KR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 184
+    },
+    {
+      "id": "7ec6b9d74da809b7873c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 167
+    },
+    {
+      "id": "2f1a6beedc6ea7d25012",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "KR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 183
+    },
+    {
+      "id": "230e0fff63173a24962f",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": true,
+      "delayMs": 321
+    },
+    {
+      "id": "734663e2275c8de7f412",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
@@ -1036,91 +1043,178 @@
       "delayMs": 205
     },
     {
-      "id": "7e7078036c9eec086ec8",
+      "id": "a715af1deeddc070c730",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 215
-    },
-    {
-      "id": "59ad7849bf2a8c0fe03d",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 213
-    },
-    {
-      "id": "a669100ac934d9af140e",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 438
-    },
-    {
-      "id": "29af63253be0403a0d0f",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 209
-    },
-    {
-      "id": "7bc50f33aa4602cd1bea",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 228
-    },
-    {
-      "id": "a71d467345d87d188617",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "HK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 208
-    },
-    {
-      "id": "1b1336db4193e5b82b8f",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "SG",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
       "delayMs": 240
     },
     {
-      "id": "92659fc9518aa355f06a",
+      "id": "b5ae3778a31fbf7bffa9",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 165
+    },
+    {
+      "id": "e4c7d1a18fb62f2887f4",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 164
+    },
+    {
+      "id": "c4af21c3059b5087325d",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 252
+    },
+    {
+      "id": "03d32b03308d3bf0e27d",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 67,
+      "speedMbps": 3.963,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "83d1d811dd0b126ca4d7",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 244
+    },
+    {
+      "id": "90bd886f2d774345bcb8",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 879
+    },
+    {
+      "id": "d273237f6dfcc981770d",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 240
+    },
+    {
+      "id": "488b557694647faf364c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "HK",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 204
+    },
+    {
+      "id": "f2687de4bfb72625aa26",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 227
+    },
+    {
+      "id": "d2159a9ff6b62109b02c",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 247
+    },
+    {
+      "id": "73fcefc67bf0989817e8",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 158
+    },
+    {
+      "id": "4f8af8f24832a4443357",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": true,
+      "delayMs": 396
+    },
+    {
+      "id": "8355090cd9cbe3d24f9f",
+      "type": "vless",
+      "sourceIds": [
+        "au1rxx-verified"
+      ],
+      "region": "JP",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 166
+    },
+    {
+      "id": "19daa79a61028e7f8487",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
@@ -1132,7 +1226,7 @@
       "reason": "other"
     },
     {
-      "id": "4684848021e2c2f54c99",
+      "id": "1fe3e322b32e45c22b42",
       "type": "vless",
       "sourceIds": [
         "au1rxx-verified"
@@ -1141,213 +1235,45 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 72
-    },
-    {
-      "id": "9b1552cd034829b8b5fe",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 72
-    },
-    {
-      "id": "83a23bbaefb9eb358e71",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 70
-    },
-    {
-      "id": "49bd86b30d5d0f89246c",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 82
-    },
-    {
-      "id": "4159a6bbb8aa2dd644ad",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 73
-    },
-    {
-      "id": "3b5467abd86e0a12ace1",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 70
-    },
-    {
-      "id": "11df6f4f0b191f307f06",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 67,
-      "speedMbps": 3.798,
+      "delayMs": 16,
+      "speedMbps": 6.855,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
     {
-      "id": "aa3fb3126ed0584e7766",
-      "type": "vless",
+      "id": "4e980f5a88640acaeace",
+      "type": "vmess",
       "sourceIds": [
         "au1rxx-verified"
       ],
-      "region": "SG",
+      "region": "JP",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 237
+      "delayMs": 157
     },
     {
-      "id": "5e84deaa7e859d4b5c58",
+      "id": "c27d060d47224d23193a",
       "type": "vless",
       "sourceIds": [
-        "au1rxx-verified"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 81
-    },
-    {
-      "id": "c9b3e7a2fbe915560dcc",
-      "type": "vless",
-      "sourceIds": [
-        "au1rxx-verified"
+        "barabama-merged"
       ],
       "region": "US",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 102
+      "delayMs": 78,
+      "speedMbps": 1.905,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
-      "id": "72459cd0849487c54f34",
+      "id": "33c435a2dda01bba950d",
       "type": "vmess",
       "sourceIds": [
         "barabama-merged"
       ],
       "region": "HK",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 2122
-    },
-    {
-      "id": "4284fbbe2f11436fe7e2",
-      "type": "vmess",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "CN",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 677
-    },
-    {
-      "id": "64d24cff49512ce678be",
-      "type": "vmess",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 187
-    },
-    {
-      "id": "079295ef18e159dda02b",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "CN",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "timeout"
-    },
-    {
-      "id": "6e57c2eb9c19e8bb4789",
-      "type": "vmess",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "CN",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 405
-    },
-    {
-      "id": "db7fda3a7d9afb4be5cc",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 9,
-      "speedMbps": 24.189,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "b3e80520f4a9b54a6c2e",
-      "type": "ss",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "FR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 85
-    },
-    {
-      "id": "4153ee351ddaa5cf5291",
-      "type": "vmess",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "CN",
       "regionMethod": "name",
       "regionConfidence": "medium",
       "alive": false,
@@ -1363,89 +1289,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 299
+      "delayMs": 309
     },
     {
-      "id": "affcdc57f9aa96f0003c",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "DK",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 102
-    },
-    {
-      "id": "f492cf49c43a57f74708",
-      "type": "ss",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "KR",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 1127
-    },
-    {
-      "id": "56e8b9aac09571c02b72",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 32,
-      "speedMbps": 7.297,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "4aeaf5633912d7cfcf55",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "PL",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "50ef27ed3ecb10ee823e",
-      "type": "vmess",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "HK",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 2364
-    },
-    {
-      "id": "c27d060d47224d23193a",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 42,
-      "speedMbps": 2.512,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
-    },
-    {
-      "id": "33c435a2dda01bba950d",
+      "id": "72459cd0849487c54f34",
       "type": "vmess",
       "sourceIds": [
         "barabama-merged"
@@ -1454,7 +1301,19 @@
       "regionMethod": "name",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "other"
+      "reason": "timeout"
+    },
+    {
+      "id": "079295ef18e159dda02b",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "CN",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "b9c650733a906cf74c4a",
@@ -1478,7 +1337,19 @@
       "regionMethod": "name",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
+    },
+    {
+      "id": "b3e80520f4a9b54a6c2e",
+      "type": "ss",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "FR",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 91
     },
     {
       "id": "4b8a6fcac0af2d987e13",
@@ -1486,11 +1357,12 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "CN",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "regionMismatch": true,
+      "alive": true,
+      "delayMs": 462
     },
     {
       "id": "cedc84c195c9ceed1d06",
@@ -1498,11 +1370,24 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "CN",
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "regionMismatch": true,
+      "alive": true,
+      "delayMs": 965
+    },
+    {
+      "id": "50ef27ed3ecb10ee823e",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "HK",
       "regionMethod": "name",
       "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 791
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "5016ed3b378481f08b45",
@@ -1513,8 +1398,8 @@
       "region": "RU",
       "regionMethod": "name",
       "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 182
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "1c9b30ed37e2b275d528",
@@ -1534,12 +1419,11 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "NL",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
+      "region": "US",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 108
+      "delayMs": 131
     },
     {
       "id": "6efec3a83e416d2b2632",
@@ -1551,7 +1435,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 255
+      "delayMs": 250
     },
     {
       "id": "4a741de0bc258e07282d",
@@ -1563,7 +1447,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 104
+      "delayMs": 103
     },
     {
       "id": "b02ae9bab701e4962905",
@@ -1572,10 +1456,10 @@
         "barabama-merged"
       ],
       "region": "NL",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 99
+      "regionMethod": "name",
+      "regionConfidence": "medium",
+      "alive": false,
+      "reason": "other"
     },
     {
       "id": "cfb22e1b7179ab7971bf",
@@ -1599,7 +1483,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 425
+      "delayMs": 1188
     },
     {
       "id": "078f41880fab0afa209f",
@@ -1607,12 +1491,11 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
+      "region": "CN",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 385
+      "delayMs": 1092
     },
     {
       "id": "e9a47978abfa8287a14a",
@@ -1624,7 +1507,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 125
+      "delayMs": 135
     },
     {
       "id": "da59f6983b0802a370a3",
@@ -1636,7 +1519,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 91
+      "delayMs": 99
     },
     {
       "id": "f93bb54953c4b0403b13",
@@ -1663,6 +1546,18 @@
       "reason": "other"
     },
     {
+      "id": "affcdc57f9aa96f0003c",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "DK",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 168
+    },
+    {
       "id": "3039d33dfc5bafc15b82",
       "type": "ss",
       "sourceIds": [
@@ -1672,7 +1567,7 @@
       "regionMethod": "name",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "5fef035bce40cd99c01a",
@@ -1684,8 +1579,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 87,
-      "speedMbps": 0.713,
+      "delayMs": 67,
+      "speedMbps": 1.678,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -1699,7 +1594,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 102
+      "delayMs": 101
     },
     {
       "id": "1d2d24ed1fe6378b5cb4",
@@ -1714,6 +1609,18 @@
       "reason": "other"
     },
     {
+      "id": "f492cf49c43a57f74708",
+      "type": "ss",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "CN",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
+      "alive": true,
+      "delayMs": 1854
+    },
+    {
       "id": "6a9570e91c64df894104",
       "type": "vless",
       "sourceIds": [
@@ -1723,7 +1630,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 466
+      "delayMs": 468
     },
     {
       "id": "2402c2730678869efd60",
@@ -1731,12 +1638,23 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
+      "region": "HK",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 255
+      "delayMs": 293
+    },
+    {
+      "id": "6e57c2eb9c19e8bb4789",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "CN",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "d29cbbeda5f7f9cc4ace",
@@ -1744,12 +1662,11 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
+      "region": "CN",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 788
+      "delayMs": 409
     },
     {
       "id": "313ee7e43c0a41c58bd2",
@@ -1769,12 +1686,11 @@
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
+      "region": "HK",
+      "regionMethod": "name",
+      "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 255
+      "delayMs": 279
     },
     {
       "id": "99fd4704cfe525c6540b",
@@ -1789,222 +1705,298 @@
       "reason": "timeout"
     },
     {
-      "id": "6276538b125292c2c9d6",
-      "type": "trojan",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "193f6e6f18a98344df03",
-      "type": "trojan",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "TW",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "3153207a1a6bfd0da185",
+      "id": "4153ee351ddaa5cf5291",
       "type": "vmess",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "FR",
+      "region": "CN",
       "regionMethod": "name",
       "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
+      "alive": true,
+      "delayMs": 733
     },
     {
-      "id": "e2d85488121aa259bd93",
-      "type": "trojan",
+      "id": "7e841ad0250b74492643",
+      "type": "ss",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "HK",
+      "region": "DE",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
-      "reason": "other"
+      "reason": "timeout"
     },
     {
-      "id": "1bf0fdd7138ed0a875d7",
-      "type": "trojan",
+      "id": "74ea62419f149083dc11",
+      "type": "ss",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
+      "region": "IE",
       "regionMethod": "name",
       "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
+      "alive": true,
+      "delayMs": 78,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
     },
     {
-      "id": "7060219cd7e36cb86606",
-      "type": "vless",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "b72d06f6dd1cddd8586c",
-      "type": "vless",
+      "id": "5ffaab9a9830ae20ce29",
+      "type": "vmess",
       "sourceIds": [
         "barabama-merged"
       ],
       "region": "JP",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "timeout"
     },
     {
-      "id": "036a84b3da4d44bd2bb6",
+      "id": "3d99d655d2135edbb68a",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "JP",
+      "regionMethod": "name",
+      "regionConfidence": "low",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "d17fd6226207cb9c9a49",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "SG",
+      "regionMethod": "name",
+      "regionConfidence": "low",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "64d24cff49512ce678be",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 383
+    },
+    {
+      "id": "e75a19db2df7a462e73c",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 16,
+      "speedMbps": 11.946,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "1f56071c868532635c8d",
       "type": "ss",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "HK",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "timeout"
+      "region": "NL",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 93
     },
     {
-      "id": "7b04a8683e6a4a966857",
+      "id": "1c1189bce59e018d4aae",
       "type": "trojan",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "IR",
+      "regionMethod": "name",
+      "regionConfidence": "low",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "30e32f538438dcfbb3fa",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "5eddf126d04aa81a7785",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "7d6b7df7741964024f4d",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "SG",
+      "regionMethod": "name",
+      "regionConfidence": "low",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "8f08ad67ac2dd6ec89b8",
+      "type": "vless",
       "sourceIds": [
         "barabama-merged"
       ],
       "region": "US",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "26f137503b6012af4f5d",
-      "type": "trojan",
+      "id": "f54514bb7d13e8d7fc7a",
+      "type": "vless",
       "sourceIds": [
         "barabama-merged"
       ],
       "region": "FR",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "547fce1d12215f318ed5",
-      "type": "trojan",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "FR",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "c0ff19db3612cfdda857",
-      "type": "trojan",
+      "id": "a4de573f85251a6e6de2",
+      "type": "vless",
       "sourceIds": [
         "barabama-merged"
       ],
       "region": "CA",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "743644d37b4d638b4e1c",
+      "id": "0182fde3a85f10b80ba8",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "2b6a076f6cbed647d622",
+      "type": "vmess",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "6cf6f01277d6fa6f89ac",
+      "type": "vless",
+      "sourceIds": [
+        "barabama-merged"
+      ],
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
+      "alive": false,
+      "reason": "other"
+    },
+    {
+      "id": "53ad921cc1c51f22e135",
       "type": "trojan",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
+      "region": "FR",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "ab6e7e34d629cf5865e7",
+      "id": "bca8ec951382236e3f4f",
       "type": "trojan",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "4eadc1840b9683a105ae",
+      "id": "353b20cb921304633498",
       "type": "trojan",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
+      "region": "OTHER",
+      "regionMethod": "unknown",
+      "regionConfidence": "none",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "b57b1703b6314971d438",
+      "id": "379d3884768753f426e5",
       "type": "trojan",
       "sourceIds": [
         "barabama-merged"
       ],
-      "region": "US",
+      "region": "FR",
       "regionMethod": "name",
-      "regionConfidence": "medium",
+      "regionConfidence": "low",
       "alive": false,
       "reason": "other"
     },
     {
-      "id": "2bb8fb1abf426fcd6d5b",
-      "type": "trojan",
-      "sourceIds": [
-        "barabama-merged"
-      ],
-      "region": "US",
-      "regionMethod": "name",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
-      "id": "9229d8b327a9bc892901",
+      "id": "adc8e8b26d8c068f80bf",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
       ],
-      "region": "SG",
-      "regionMethod": "source",
-      "regionConfidence": "medium",
+      "region": "US",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "regionMismatch": true,
       "alive": true,
-      "delayMs": 4,
-      "speedSampleStatus": "request-failed",
-      "speedSampleBytes": 250000
+      "delayMs": 91
     },
     {
       "id": "3949ac567300162c436d",
@@ -2016,23 +2008,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 239
+      "delayMs": 244
     },
     {
-      "id": "136dd5c1c1bd9799821c",
-      "type": "vless",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "JP",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 188
-    },
-    {
-      "id": "613fefb3dcb6c9e36ea2",
+      "id": "bd18e100291069df95c1",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
@@ -2041,22 +2020,79 @@
       "regionMethod": "source",
       "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 6,
+      "delayMs": 7,
       "speedSampleStatus": "request-failed",
       "speedSampleBytes": 250000
     },
     {
-      "id": "f9bf50dfdadb7709e0f1",
+      "id": "4bf9de97bdf5528f93f9",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
       ],
-      "region": "IN",
+      "region": "US",
       "regionMethod": "egress",
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 196
+      "delayMs": 82,
+      "speedMbps": 6.365,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
+    },
+    {
+      "id": "4fc7c9e4e74a53baba3d",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "source",
+      "regionConfidence": "medium",
+      "alive": true,
+      "delayMs": 7,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
+    },
+    {
+      "id": "30bc9da824d10f346357",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "source",
+      "regionConfidence": "medium",
+      "alive": true,
+      "delayMs": 8,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
+    },
+    {
+      "id": "a877b824a2a240456a99",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "source",
+      "regionConfidence": "medium",
+      "alive": true,
+      "delayMs": 7,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
+    },
+    {
+      "id": "1209295338ba8380d34d",
+      "type": "vmess",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 230
     },
     {
       "id": "a441b3f641f15c2693a3",
@@ -2068,10 +2104,34 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 230
+      "delayMs": 237
     },
     {
-      "id": "4109c9980fded08cd327",
+      "id": "a3258b0c87a3eb175c0a",
+      "type": "vmess",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 517
+    },
+    {
+      "id": "a4a183a3e0c5bdcae25e",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 228
+    },
+    {
+      "id": "cbce530873d09429ad0f",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
@@ -2080,12 +2140,12 @@
       "regionMethod": "source",
       "regionConfidence": "medium",
       "alive": true,
-      "delayMs": 4,
+      "delayMs": 7,
       "speedSampleStatus": "request-failed",
       "speedSampleBytes": 250000
     },
     {
-      "id": "115d82c1404b82fc6845",
+      "id": "a8634146845b4ce8c1c5",
       "type": "ss",
       "sourceIds": [
         "v2nodes-sg"
@@ -2094,34 +2154,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 240
+      "delayMs": 233
     },
     {
-      "id": "413352ce723d8288f3c3",
-      "type": "ss",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 230
-    },
-    {
-      "id": "8d319cf5c60a91266685",
-      "type": "vless",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "source",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 150
-    },
-    {
-      "id": "220c560ba235efc7bbdc",
+      "id": "32adcbe81446d11f4f2c",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
@@ -2131,50 +2167,26 @@
       "regionConfidence": "high",
       "regionMismatch": true,
       "alive": true,
-      "delayMs": 44,
-      "speedMbps": 5.394,
+      "delayMs": 85,
+      "speedMbps": 5.151,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
     {
-      "id": "0fa92650f38764337786",
+      "id": "5cac4cdb11a4467b8778",
       "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
       ],
-      "region": "SG",
-      "regionMethod": "source",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 5,
-      "speedSampleStatus": "timeout",
-      "speedSampleBytes": 250000
-    },
-    {
-      "id": "265a48c904d36f4d7348",
-      "type": "vless",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "source",
-      "regionConfidence": "medium",
-      "alive": true,
-      "delayMs": 4,
-      "speedSampleStatus": "request-failed",
-      "speedSampleBytes": 250000
-    },
-    {
-      "id": "50456569e41f8cfb8d9b",
-      "type": "vmess",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
+      "region": "US",
       "regionMethod": "egress",
       "regionConfidence": "high",
+      "regionMismatch": true,
       "alive": true,
-      "delayMs": 234
+      "delayMs": 33,
+      "speedMbps": 2.293,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "0bc6c6b45a80916ec092",
