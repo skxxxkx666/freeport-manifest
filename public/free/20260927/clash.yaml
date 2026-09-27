@@ -70,245 +70,30 @@ dns:
       - https://1.1.1.1/dns-query
       - https://dns.google/dns-query
 proxies:
-  - cipher: aes-256-gcm
-    name: 🇨🇦 CA | shadowsocks-1381800264
-    password: eveaaTOb8ji8yntw2Z9yWUG0d6Ir8Ld8m3ymH8THdC5egiTH1mXCiBc0Skr7FibH
-    port: 9443
-    server: yyz-ca-01.blncvpn4u.cc
-    type: ss
-    udp: true
-  - cipher: aes-256-gcm
-    name: 🇨🇦 CA | shadowsocks-1415925706
-    password: eveaaTOb8ji8yntw2Z9yWUG0d6Ir8Ld8m3ymH8THdC5egiTH1mXCiBc0Skr7FibH
-    port: 9443
-    server: 185.156.47.97
-    type: ss
-    udp: true
-  - name: 🇺🇸 US | _US_美国
-    network: ws
-    port: 2095
-    server: llm-api.sofurry.dpdns.org
-    skip-cert-verify: true
-    tls: false
-    type: vless
-    udp: true
-    uuid: 86c50e3a-5b87-49dd-bd20-03c7f2735e40
-    ws-opts:
-      headers:
-        Host: llm-api.sofurry.dpdns.org
-      path: /
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1381203988
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: xPnpkXu5qfwIArlHKvJsqKJnGdGbJK1tT2GzWMyLohA
-      short-id: 9c56fddf237e8eaf
-    server: 195.211.98.43
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1b4b11d5-4c2d-4533-9a55-636757cdee94
-  - cipher: chacha20-ietf-poly1305
-    name: 🇺🇸 US | shadowsocks-415243972
-    password: YHtesZ0qvgtg
-    port: 8388
-    server: 38.180.135.156
-    type: ss
-    udp: true
-  - alterId: 0
-    cipher: auto
-    name: 🇺🇸 US | vmess-704661102
-    network: tcp
-    port: 180
-    server: 82.198.246.250
-    type: vmess
-    udp: true
-    uuid: d13fc2f5-3e05-4795-81eb-44143a09e552
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1439249265
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: r4Dp3mztZaizbDk28rEOkLikk7erR9dzzc-Jrsgraho
-      short-id: a1b2c3d4
-    server: 185.95.231.233
-    servername: store.steampowered.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1ffa8e68-3378-4cf4-b8f6-44bf3d46d106
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-9406
-    type: vless
-    server: 104.18.39.218
-    port: 2052
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1272898523
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
-      short-id: c39cc7310a
-    server: 169.40.42.235
-    servername: yahoo.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2864
-    type: vless
-    server: 172.64.229.170
-    port: 2095
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - name: 🇭🇰 HK | trojan-1334107990
-    password: tFjD2X1F6i9FfWp2GDU5Vbi1conuaChDKIYbw9zMFrqvMoSz
-    port: 2052
-    server: 47.240.80.220
-    skip-cert-verify: true
-    sni: vpn.12169.top
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国_3
-    network: ws
-    port: 443
-    server: 6-M17.kuwAit.kDns.Fr
-    servername: 6-m17.KUWaiT.kdNs.fR
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: a1a6a3be-2bf9-46a2-bc24-328306e49ab7
-    ws-opts:
-      headers:
-        Host: 6-M17.kuwAit.kDns.Fr
-      path: /fVs1qv0xm8dxmnwuaPwokxgY4XlP
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
-    type: vless
-    server: 172.64.32.108
-    port: 8880
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1090192613
-    network: tcp#3👝@oneclickvpnkeys
-    port: 53957
-    reality-opts:
-      public-key: XUHlbk5VH5z4E2wxZBhlpLZ33qevyQgqU7dheRDgoGQ
-      short-id: 44e82fd7b97b14
-    server: 172.235.43.210
-    servername: www.nvidia.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 7ab29f89-6eef-4171-b232-fc4f580ad31b
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1165595246
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg
-      short-id: c39cc7310a
-    server: 169.40.42.235
-    servername: yahoo.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: d65cc14c-f53f-4fe2-b262-97856601319c
-  - client-fingerprint: edge
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1365956373
-    network: tcp
-    port: 53957
-    reality-opts:
-      public-key: XUHlbk5VH5z4E2wxZBhlpLZ33qevyQgqU7dheRDgoGQ
-      short-id: 44e82fd7b97b14
-    server: 172.235.43.210
-    servername: www.nvidia.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 7ab29f89-6eef-4171-b232-fc4f580ad31b
-  - alterId: 0
-    cipher: auto
-    name: 🇺🇸 US | vmess-2387893
-    network: tcp
-    port: 18000
-    server: 38.91.107.49
-    type: vmess
-    udp: true
-    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
   - cipher: aes-128-gcm
-    name: 🇨🇦 CA | shadowsocks-208
-    password: shadowsocks
-    port: 443
-    server: 149.22.95.183
-    type: ss
-    udp: true
-  - cipher: aes-128-gcm
-    name: 🇺🇸 US | shadowsocks-155
-    password: shadowsocks
-    port: 443
-    server: 173.244.56.6
+    name: 🇺🇸 US | shadowsocks-1532442401
+    password: a818dabb1c55642c3066e5ff8ac780e8
+    port: 19432
+    server: 153.75.232.60
     type: ss
     udp: true
   - cipher: rc4-md5
-    name: 🇺🇸 US | shadowsocks-468218487
+    name: 🇺🇸 US | shadowsocks-468218514
     password: 14fFPrbezE3HDZzsMOr6
     port: 8080
-    server: 138.199.43.159
+    server: 107.151.182.197
     type: ss
     udp: true
-  - client-fingerprint: safari
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1501244235
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 0dIyov95G3A1ySANsJzdYY9DGLvaIFU8ofJf3Jtv1Ds
-      short-id: befa80d97af98b74
-    server: 38.244.20.25
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 5272cd9f-a028-4452-ad8a-9bc21f87bb19
   - alterId: 0
     cipher: auto
-    name: 🇺🇸 US | vmess-1513412701
-    network: tcp
-    port: 180
-    server: 82.198.246.9
+    name: 🇺🇸 US | vmess-1444974382
+    network: raw
+    port: 22324
+    server: 167.17.68.89
     type: vmess
     udp: true
-    uuid: d13fc2f5-3e05-4795-81eb-44143a09e552
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7456
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3329
     type: vless
     server: 188.114.97.6
     port: 8880
@@ -319,130 +104,18 @@ proxies:
       headers:
         Host: zb1zi.s3nx.dyz.hh.vavava.kdns.fr
     uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2016
-    type: vless
-    server: 104.18.46.234
-    port: 2086
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2090
-    type: vless
-    server: cf.877774.xyz
-    port: 8443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: edgetunnel-4uw.pages.dev
-    tls: true
-    servername: edgetunnel-4uw.pages.dev
-    client-fingerprint: chrome
-    uuid: fdc48be3-a615-41ac-8bd1-ed844c931048
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3649
-    type: vless
-    server: 162.159.24.131
-    port: 8880
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇺🇸 US | vless-1376498326
-    network: tcp
-    port: 53957
-    reality-opts:
-      public-key: XUHlbk5VH5z4E2wxZBhlpLZ33qevyQgqU7dheRDgoGQ
-      short-id: 44e82fd7b97b14
-    server: 172.235.43.210
-    servername: www.nvidia.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 7ab29f89-6eef-4171-b232-fc4f580ad31b
   - alterId: 0
     cipher: auto
-    name: 🇺🇸 US | vmess-2383005
+    name: 🇺🇸 US | vmess-669779354
     network: tcp
-    port: 180
-    server: 82.198.246.97
+    port: 18000
+    server: 84.17.41.2
     type: vmess
     udp: true
-    uuid: d13fc2f5-3e05-4795-81eb-44143a09e552
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-4655
-    type: vless
-    server: 188.114.97.6
-    port: 2095
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560
-      headers:
-        Host: zb1zi.s3nx.dyz.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3262
-    type: vless
-    server: 104.18.46.234
-    port: 2052
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-8430
-    type: vless
-    server: 172.64.53.55
-    port: 8080
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
   - alterId: 0
     cipher: auto
     name: 🇺🇸 US | _US_美国_1
-    network: ws
-    port: 443
-    server: www.shopify.com
-    servername: guanwang.awsno.com
-    skip-cert-verify: true
-    tls: true
-    type: vmess
-    udp: true
-    uuid: 6a89a215-22bf-4bd7-9642-b95b2e09583a
-    ws-opts:
-      headers:
-        Host: guanwang.awsno.com
-      path: /hls/cctv5phd.m3u8
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3251
-    type: vless
-    server: 104.18.47.113
-    port: 8080
-    udp: true
-    network: ws
-    ws-opts:
-      path: /?ed=2560security=tls
-      headers:
-        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
-    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
-  - alterId: 0
-    cipher: auto
-    name: 🇺🇸 US | _US_美国_2
     network: ws
     port: 443
     server: guanwang.awsno.com
@@ -456,43 +129,238 @@ proxies:
       headers:
         Host: guanwang.awsno.com
       path: /hls/cctv5phd.m3u8
-  - cipher: aes-128-gcm
-    name: 🇳🇱 NL | shadowsocks-45641610
-    password: shadowsocks
-    port: 443
-    server: 158.173.20.208
-    type: ss
-    udp: true
-  - cipher: chacha20-ietf-poly1305
-    name: 🇳🇱 NL | shadowsocks-258605572
-    password: k1dBOmOB4oqi7Ump37a1bQ
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-468218487
+    password: 14fFPrbezE3HDZzsMOr6
     port: 8080
-    server: 82.38.31.201
+    server: 138.199.43.159
     type: ss
     udp: true
-  - cipher: aes-256-cfb
-    name: 🇸🇪 SE | 64c7|puddincat07@Telegram
-    password: amazonskr05
-    port: 443
-    server: 13.51.242.39
-    type: ss
-  - cipher: chacha20-ietf-poly1305
-    name: 🇳🇱 NL | shadowsocks-188
-    password: oZIoA69Q8yhcQV8ka3Pa3A
+  - name: 🇺🇸 US | [www.v2nodes.com] vless-
+    type: vless
+    server: 172.64.229.170
     port: 8080
-    server: 82.38.31.149
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-5222
+    type: vless
+    server: 172.64.158.146
+    port: 2052
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2535
+    type: vless
+    server: 162.159.43.187
+    port: 2086
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
+    type: vless
+    server: 172.64.154.8
+    port: 2086
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🌍 OTHER | trojan-770684396
+    password: tsuchiya
+    port: 443
+    server: 161.34.39.108
+    skip-cert-verify: true
+    sni: 161.34.39.108
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4130
+    type: vless
+    server: 172.64.150.28
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2543
+    type: vless
+    server: 172.64.154.8
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    servername: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+    type: vless
+    server: 172.64.42.85
+    port: 2086
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-1454557793
+    network: tcp
+    port: 22324
+    server: 169.197.143.116
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - alterId: 0
+    cipher: auto
+    name: 🇨🇦 CA | vmess-1454572793
+    network: tcp
+    port: 22324
+    server: 158.51.123.42
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - cipher: chacha20-ietf-poly1305
+    name: 🇺🇸 US | shadowsocks-415243975
+    password: qB2Cv9VIlujj
+    port: 8388
+    server: 23.150.248.20
     type: ss
     udp: true
-  - cipher: aes-256-cfb
-    name: 🇸🇪 SE | shadowsocks-1509447446
-    password: amazonskr05
+  - alterId: 0
+    cipher: none
+    name: 🇺🇸 US | vmess-1453597039
+    network: tcp
+    port: 22324
+    server: 167.88.62.124
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-1451757970
+    network: raw
+    port: 22324
+    server: 167.88.63.59
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3715
+    type: vless
+    server: 172.64.229.170
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - cipher: aes-256-gcm
+    name: 🇨🇦 CA | shadowsocks-1381800264
+    password: eveaaTOb8ji8yntw2Z9yWUG0d6Ir8Ld8m3ymH8THdC5egiTH1mXCiBc0Skr7FibH
+    port: 9443
+    server: yyz-ca-01.blncvpn4u.cc
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-5258780
+    network: raw
+    port: 18000
+    server: 38.91.107.49
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: chacha20-ietf-poly1305
+    name: 🇨🇦 CA | shadowsocks-1394190232
+    password: mrs2e9a
     port: 443
-    server: 13.60.213.145
+    server: 142.4.216.225
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-16067
+    network: tcp
+    port: 18000
+    server: 38.91.107.49
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-1440773913
+    network: tcp
+    port: 22324
+    server: 172.111.38.100
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-1211880885
+    password: pKEW8JPByTVTLtM
+    port: 4444
+    server: 15.204.247.206
+    type: ss
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇨🇦 CA | shadowsocks-1415925706
+    password: eveaaTOb8ji8yntw2Z9yWUG0d6Ir8Ld8m3ymH8THdC5egiTH1mXCiBc0Skr7FibH
+    port: 9443
+    server: 185.156.47.97
+    type: ss
+    udp: true
+  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7424
+    type: vless
+    server: 104.18.46.234
+    port: 80
+    udp: true
+    network: ws
+    ws-opts:
+      path: /?ed=2560security=tls
+      headers:
+        Host: 8nj2r.2k8t.f88.hh.vavava.kdns.fr
+    uuid: 47fcef29-ab4e-4aa6-932b-d95a18f28a4e
+  - cipher: rc4-md5
+    name: 🇨🇦 CA | shadowsocks-468218613
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 138.197.141.58
+    type: ss
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇨🇦 CA | shadowsocks-1118951746
+    password: Y6R9pAtvxxzmGC
+    port: 5000
+    server: 51.222.200.165
     type: ss
     udp: true
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1518753881
+    name: 🇯🇵 JP | vless-1526179619
     network: tcp
     port: 443
     reality-opts:
@@ -504,9 +372,23 @@ proxies:
     type: vless
     udp: true
     uuid: de241e4e-226e-46d5-aa79-602e11ef94d8
+  - client-fingerprint: safari
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1489771574
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: T587xqua0Nrs0YreQRWJAP9Wto94NcbbhKPK4DkSi0c
+      short-id: 2223411c2ad9c55f
+    server: 103.137.215.122
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: ea1c1e20-7263-4b08-a01b-690b29af66b3
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1344232343
+    name: 🇯🇵 JP | vless-951129347
     network: tcp
     port: 50159
     reality-opts:
@@ -518,31 +400,91 @@ proxies:
     type: vless
     udp: true
     uuid: d56624b2-35bb-468c-9b2a-e0b0df7230c1
-  - client-fingerprint: qq
+  - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: 🇩🇪 DE | _DE_德国
+    name: 🇯🇵 JP | vless-1525414138
+    network: raw
     port: 443
     reality-opts:
-      public-key: 1sSmdw90uTiGuitDvp_q8zcXTcHXKQS3IVjA7T1UNiY
-    server: 2.59.134.226
-    servername: rich-falcon.cdn.cachefleet.com
-    skip-cert-verify: true
+      public-key: cZ9MxrT-CYtdhBdbGeqzcQEvWvAuKw7fEfRbR8QrOlM
+      short-id: 37bb73b5
+    server: 108.160.128.46
+    servername: www.bing.com
     tls: true
     type: vless
     udp: true
-    uuid: 88281d02-b387-4fe3-918e-26ed331e6d08
+    uuid: de241e4e-226e-46d5-aa79-602e11ef94d8
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1520026026
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: cZ9MxrT-CYtdhBdbGeqzcQEvWvAuKw7fEfRbR8QrOlM
+      short-id: 37bb73b5
+    server: 108.160.128.46
+    servername: www.bing.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: de241e4e-226e-46d5-aa79-602e11ef94d8
   - alterId: 0
     cipher: auto
-    name: 🇯🇵 JP | vmess-1122508704
-    network: tcp
+    name: 🇯🇵 JP | vmess-1227921067
+    network: tcp#🎡90@oneclickvpnkeys
     port: 4433
     server: 45.32.57.118
     type: vmess
     udp: true
     uuid: 35b89832-0a7c-48dd-8d1c-a2891b522195
   - client-fingerprint: random
+    name: 🇯🇵 JP | vless-1302936702
+    network: tcp
+    port: 2053
+    reality-opts:
+      public-key: hieuCHb3HYdDYHmTDyWw2SGqyfo36AVuA-wSiZMdU1M
+      short-id: 9922313fffed1c63
+    server: 46.250.250.149
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: b4caaf57-ad77-4948-a6f5-51b3513799bf
+  - client-fingerprint: edge
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1511293200
+    name: 🇯🇵 JP | vless-1503562435
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: ueVbgAT9A7SkGgua_uljhQsvpnRUQlfdc7meiqcaxXE
+      short-id: 913e9b95fbc71278
+    server: 43.133.11.187
+    servername: cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 4192524f-09f0-414f-88fd-7a14378491c7
+  - alterId: 0
+    cipher: auto
+    name: 🇯🇵 JP | vmess-1498959069
+    network: tcp
+    port: 4433
+    server: 45.32.57.118
+    type: vmess
+    udp: true
+    uuid: 35b89832-0a7c-48dd-8d1c-a2891b522195
+  - alterId: 0
+    cipher: none
+    name: 🇯🇵 JP | vmess-1130434817
+    network: tcp
+    port: 4433
+    server: 45.32.57.118
+    type: vmess
+    udp: true
+    uuid: 35b89832-0a7c-48dd-8d1c-a2891b522195
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1529375510
     network: tcp
     port: 443
     reality-opts:
@@ -568,9 +510,16 @@ proxies:
     type: vless
     udp: true
     uuid: 4192524f-09f0-414f-88fd-7a14378491c7
-  - client-fingerprint: edge
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-218
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.204
+    type: ss
+    udp: true
+  - client-fingerprint: qq
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1503562435
+    name: 🇯🇵 JP | vless-1503562416
     network: tcp
     port: 443
     reality-opts:
@@ -582,55 +531,202 @@ proxies:
     type: vless
     udp: true
     uuid: 4192524f-09f0-414f-88fd-7a14378491c7
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-961883341
+    network: tcp
+    port: 50159
+    reality-opts:
+      public-key: j4QXngGuJkUGwRj4XIrfHRohYYuEfnJlX4cvCE-WklA
+      short-id: 091e1c5db8451757
+    server: 154.31.114.248
+    servername: www.cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: d56624b2-35bb-468c-9b2a-e0b0df7230c1
+  - cipher: aes-256-gcm
+    name: 🌍 OTHER | shadowsocks-696780669
+    password: 3eOFeNssde7PYYMv
+    port: 80
+    server: 84.247.155.196
+    type: ss
+    udp: true
   - cipher: aes-128-gcm
-    name: 🇯🇵 JP | shadowsocks-218
+    name: 🇯🇵 JP | shadowsocks-211
     password: shadowsocks
     port: 443
-    server: 149.22.87.204
+    server: 149.22.87.241
     type: ss
     udp: true
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1519584571
+    name: 🇰🇷 KR | vless-233010793
     network: tcp
-    port: 443
+    port: 13672
     reality-opts:
-      public-key: p8VhFzvFOBAhWAEAeWmwDxT3xBSRsGYixqi0qnLFnBM
-      short-id: 21270a66
-    server: high-speed-test-01.linkpc.net
-    servername: aws.amazon.com
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
     tls: true
     type: vless
     udp: true
-    uuid: 37615d66-5467-44a3-bc23-f2c3bef7f761
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
   - client-fingerprint: chrome
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1502152900
-    network: tcp
-    port: 443
+    name: 🇰🇷 KR | vless-1104491030
+    network: raw
+    port: 13672
     reality-opts:
-      public-key: T587xqua0Nrs0YreQRWJAP9Wto94NcbbhKPK4DkSi0c
-      short-id: 2223411c2ad9c55f
-    server: 103.137.215.122
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
     servername: www.apple.com
     tls: true
     type: vless
     udp: true
-    uuid: ea1c1e20-7263-4b08-a01b-690b29af66b3
-  - client-fingerprint: safari
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: edge
     flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1490589032
+    name: 🇰🇷 KR | vless-652343144
     network: tcp
-    port: 443
+    port: 13672
     reality-opts:
-      public-key: T587xqua0Nrs0YreQRWJAP9Wto94NcbbhKPK4DkSi0c
-      short-id: 2223411c2ad9c55f
-    server: 103.137.215.122
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
     servername: www.apple.com
     tls: true
     type: vless
     udp: true
-    uuid: ea1c1e20-7263-4b08-a01b-690b29af66b3
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-721523038
+    network: tcp
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-48555241
+    network: tcp
+    port: 13672
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇹🇼 TW | vless-1062394219
+    network: tcp
+    port: 43450
+    reality-opts:
+      public-key: HNPJBiUbqYVC3ylvu1GA7fCHLTaHO7S13Bex1nm0O1o
+      short-id: e65d010354bdad73
+    server: 35.194.157.16
+    servername: www.amd.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 64d77a12-ad6b-4d85-a349-bd287535af1c
+  - name: 🇭🇰 HK | trojan-70506696
+    password: BxceQaOe
+    port: 443
+    server: 119.246.1.143
+    skip-cert-verify: true
+    sni: t.me%2fripaojiedian
+    type: trojan
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇳🇱 NL | shadowsocks-45641610
+    password: shadowsocks
+    port: 443
+    server: 158.173.20.208
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇭🇰 HK | shadowsocks-1522709953
+    password: ac2jdpwv1zl10jim
+    port: 1081
+    server: sth.free-outline.giize.com
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇭🇰 HK | shadowsocks-1521110534
+    password: v7qnj9jvxtnpmj4l
+    port: 1081
+    server: sth.free-outline.giize.com
+    type: ss
+    udp: true
+  - name: 🇭🇰 HK | trojan-1533401275
+    password: tFjD2X1F6i9FfWp2GDU5Vbi1conuaChDKIYbw9zMFrqvMoSz
+    port: 2052
+    server: 47.240.80.220
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇦🇹 AT | shadowsocks-1251465987
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 82.110.60.9
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇩🇪 DE | vmess-674048796
+    network: tcp
+    port: 1234
+    server: 141.95.65.9
+    servername: supervpn.super.com
+    skip-cert-verify: true
+    tls: true
+    type: vmess
+    udp: true
+    uuid: 5c040f1d-45db-43bd-8d46-e4950e433735
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-56693562
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.26
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-175
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.208
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-186
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 193.29.139.204
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-258605573
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.42
+    type: ss
+    udp: true
   - alpn:
       - h2
     client-fingerprint: chrome
@@ -648,239 +744,13 @@ proxies:
       host: dey.lnmarketplace.net
       mode: stream-one
       path: /kavir
-  - cipher: chacha20-ietf-poly1305
-    name: 🇵🇱 PL | shadowsocks-1394190228
-    password: mrs2e9a
-    port: 443
-    server: 54.36.174.140
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-27349
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.235.122
     type: ss
     udp: true
-  - cipher: aes-256-cfb
-    name: 🇱🇻 LV | shadowsocks-743178503
-    password: HAVAdE3nXhqA5nHp
-    port: 9017
-    server: 185.135.86.175
-    type: ss
-    udp: true
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国_4
-    network: ws
-    port: 443
-    server: 1.i0-4.De5.nEt
-    servername: 1.I0-4.de5.Net
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 62e499fe-458e-47da-a0c8-cae69144ebe9
-    ws-opts:
-      headers:
-        Host: 1.i0-4.De5.nEt
-      path: /FbLtzaav4GSW7GPL6LUGsEkZ
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-721522923
-    network: tcp
-    port: 19645
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国_2_3
-    network: ws
-    port: 443
-    server: 2.I0-6.DE5.neT
-    servername: 2.i0-6.de5.Net
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 62e499fe-458e-47da-a0c8-cae69144ebe9
-    ws-opts:
-      headers:
-        Host: 2.I0-6.DE5.neT
-      path: /FbLtzaav4GSW7GPL6LUGsEkZ
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-479071124
-    network: tcp
-    port: 10583
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇰🇷 KR | vless-233010793
-    network: tcp
-    port: 13672
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.39.4.109
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国_3_2
-    network: ws
-    port: 443
-    server: 0.I0-6.de5.neT
-    servername: 0.i0-6.dE5.NEt
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 62e499fe-458e-47da-a0c8-cae69144ebe9
-    ws-opts:
-      headers:
-        Host: 0.I0-6.de5.neT
-      path: /FbLtzaav4GSW7GPL6LUGsEkZ
-  - flow: xtls-rprx-vision
-    name: 🇲🇩 MD | _MD_摩尔多瓦
-    port: 443
-    server: md-new.failspace.top
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: cd3bb7d9-7df3-4644-ac05-c260990ac277
-  - client-fingerprint: qq
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-742657273
-    network: tcp
-    port: 19645
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - cipher: chacha20-ietf-poly1305
-    name: 🇭🇰 HK | shadowsocks-1522709953
-    password: ac2jdpwv1zl10jim
-    port: 1081
-    server: sth.free-outline.giize.com
-    type: ss
-    udp: true
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1520140376
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 4S52pKhsJA4gK-_MLW8_R8TTeZsS4pH7ef6St-aKVBQ
-      short-id: ab1df8505f6e0072
-    server: 163.128.99.57
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1a049739-b873-4242-9a2b-239951eb2dd3
-  - client-fingerprint: safari
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1509288074
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: 4S52pKhsJA4gK-_MLW8_R8TTeZsS4pH7ef6St-aKVBQ
-      short-id: ab1df8505f6e0072
-    server: 163.128.99.57
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1a049739-b873-4242-9a2b-239951eb2dd3
-  - name: 🇯🇵 JP | vless-663902649
-    network: tcp
-    port: 443
-    server: 137.220.221.179
-    type: vless
-    udp: true
-    uuid: a16a3336-c9ab-489f-9b85-c973f5e2cfa4
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1506303342
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: 4S52pKhsJA4gK-_MLW8_R8TTeZsS4pH7ef6St-aKVBQ
-      short-id: ab1df8505f6e0072
-    server: 163.128.99.57
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1a049739-b873-4242-9a2b-239951eb2dd3
-  - name: 🇸🇬 SG | vless-1518317323
-    network: tcp
-    port: 443
-    server: onhit.shalana.xyz
-    servername: ""
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 408fbae6-a40b-4f0b-9723-0b4ce8e3d035
-  - alterId: 0
-    cipher: auto
-    name: 🇸🇬 SG | vmess-1523769230
-    network: tcp
-    port: 22324
-    server: magicvip.iddns.ir
-    type: vmess
-    udp: true
-    uuid: 04621bae-ab36-11ec-b909-0242ac120002
-  - name: 🇸🇬 SG | vless-1522363233
-    network: tcp
-    port: 443
-    server: onhit.shalana.xyz
-    servername: onhit.shalana.xyz
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 408fbae6-a40b-4f0b-9723-0b4ce8e3d035
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1385866360
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig
-      short-id: 9930177816ab09da
-    server: 206.206.76.75
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1e3d3634-36ac-43ac-a439-9665d885238f
-  - name: 🇸🇬 SG | vless-1487717293
-    network: tcp
-    port: 49289
-    server: 129.150.51.127
-    servername: www.microsoft.com
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 0590ab38-cb22-41d3-8312-6f396a5cec58
   - alterId: 0
     cipher: auto
     name: 🇸🇬 SG | vmess-2387872
@@ -890,88 +760,15 @@ proxies:
     type: vmess
     udp: true
     uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1385958165
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig
-      short-id: 9930177816ab09da
-    server: 206.206.76.75
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-11033
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.215
+    type: ss
     udp: true
-    uuid: 1e3d3634-36ac-43ac-a439-9665d885238f
-  - alterId: 0
-    cipher: auto
-    name: 🇸🇬 SG | vmess-485686943
-    network: tcp
-    port: 18000
-    server: 149.88.23.202
-    type: vmess
-    udp: true
-    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
-  - client-fingerprint: safari
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1504466083
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: -LuhwN_cSgNr7nYIfCcu_XAjviKVSGwVGHxmB-s1AD0
-      short-id: e3a4bdfe3d6fd8ec
-    server: 163.128.99.14
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: bda35755-c838-49c3-a19e-3712f2d54275
   - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1372418839
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: TqIFzUEEI1pIOR8BEpkNKEXcJ6cPfE5EzHb5joIivig
-      short-id: 9930177816ab09da
-    server: 206.206.76.75
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1e3d3634-36ac-43ac-a439-9665d885238f
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | _US_美国_3 · 2
-    network: ws
-    port: 443
-    server: Rr.i0-0.De5.NeT
-    servername: rR.i0-0.De5.NEt
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 62e499fe-458e-47da-a0c8-cae69144ebe9
-    ws-opts:
-      headers:
-        Host: Rr.i0-0.De5.NeT
-      path: /FbLtzaav4GSW7GPL6LUGsEkZ
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇸🇬 SG | vless-1520456008
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: -LuhwN_cSgNr7nYIfCcu_XAjviKVSGwVGHxmB-s1AD0
-      short-id: e3a4bdfe3d6fd8ec
-    server: 163.128.99.14
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: bda35755-c838-49c3-a19e-3712f2d54275
-  - client-fingerprint: firefox
-    name: 🇸🇬 SG | vless-1260285702
+    name: 🇸🇬 SG | vless-1327864776
     network: tcp
     port: 2053
     reality-opts:
@@ -983,86 +780,6 @@ proxies:
     type: vless
     udp: true
     uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
-  - client-fingerprint: firefox
-    name: 🇮🇳 IN | vless-1258929849
-    network: tcp
-    port: 2053
-    reality-opts:
-      public-key: PuAGLfJy6cu1TNoHuKIKSxPetCbZI41fc8hQDjWPIAU
-      short-id: 9980e0609b0d3891
-    server: 194.61.31.126
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 1d4e18bd-1f26-4915-b35a-7ace4826e76a
-  - client-fingerprint: firefox
-    name: 🇸🇬 SG | vless-1328619431
-    network: raw
-    port: 2053
-    reality-opts:
-      public-key: VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw
-      short-id: 87829de0e2bb82cb
-    server: 217.217.254.126
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
-  - client-fingerprint: chrome
-    name: 🇸🇬 SG | vless-1328080936
-    network: tcp
-    port: 2053
-    reality-opts:
-      public-key: VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw
-      short-id: 87829de0e2bb82cb
-    server: 217.217.254.126
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
-  - client-fingerprint: chrome
-    name: 🇸🇬 SG | vless-1343742641
-    network: raw
-    port: 2053
-    reality-opts:
-      public-key: VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw
-      short-id: 87829de0e2bb82cb
-    server: 217.217.254.126
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-479203984
-    network: tcp
-    port: 10583
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: edge
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-698153465
-    network: tcp
-    port: 10583
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
   - client-fingerprint: random
     name: 🇸🇬 SG | vless-1313262207
     network: tcp
@@ -1076,43 +793,153 @@ proxies:
     type: vless
     udp: true
     uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇹🇼 TW | vless-1040123902
-    network: raw
-    port: 43450
-    reality-opts:
-      public-key: HNPJBiUbqYVC3ylvu1GA7fCHLTaHO7S13Bex1nm0O1o
-      short-id: e65d010354bdad73
-    server: 35.194.157.16
-    servername: www.amd.com
-    tls: true
-    type: vless
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-125384
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 128.199.172.224
+    type: ss
     udp: true
-    uuid: 64d77a12-ad6b-4d85-a349-bd287535af1c
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
-    type: vless
-    server: 3.0.111.82
-    port: 12972
-    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-468166904
     network: tcp
-    tls: true
-    servername: www.apple.com
+    port: 18000
+    server: 149.88.23.202
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-188
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.149
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+    type: vless
+    server: 172.64.150.28
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    servername: hhlfy.twiladaphne.ndjp.net
     client-fingerprint: chrome
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-    flow: xtls-rprx-vision
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-212135096
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | vless-1526340235
     network: tcp
-    port: 10583
+    port: 443
+    server: 172.236.142.114
+    servername: onhit.shalana.xyz
+    skip-cert-verify: false
+    tls: true
+    type: vless
+    udp: true
+    uuid: 408fbae6-a40b-4f0b-9723-0b4ce8e3d035
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1016882879
+    network: tcp
+    port: 18007
     reality-opts:
       public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
       short-id: 48050fab
     server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - name: 🇸🇬 SG | vless-1520498570
+    network: tcp
+    port: 443
+    server: onhit.shalana.xyz
+    servername: onhit.shalana.xyz
+    skip-cert-verify: false
+    tls: true
+    type: vless
+    udp: true
+    uuid: 408fbae6-a40b-4f0b-9723-0b4ce8e3d035
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇹🇼 TW | vless-1124370652
+    network: raw
+    port: 32981
+    reality-opts:
+      public-key: JSn0GPz1WOSTUDBxN_XYnhgb2Jpjc2LpfBTzX1j3V2E
+      short-id: 70f4b7a4c40636
+    server: 35.221.158.209
+    servername: www.sony.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 41b96ee9-ee5e-455f-9753-187a9dead97a
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇩🇪 DE | vless-1531168755
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: ltHl15Wq549qC2JdAtesy-POs6Hwm_BbrlzuwDkWoUk
+      short-id: a1b2c3d4e5f6a1b2
+    server: 13.143.193.156
+    servername: nl2.gursub.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 02bd8b5a-170b-4a79-8e68-9cec710272c7
+  - cipher: chacha20-ietf-poly1305
+    name: 🇿🇦 ZA | shadowsocks-236
+    password: aduB9HGxQHjA2SBMRjkHX6
+    port: 443
+    server: 102.37.156.224
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇨🇦 CA | vmess-1445010932
+    network: tcp
+    port: 22324
+    server: 66.163.113.176
+    type: vmess
+    udp: true
+    uuid: 04621bae-ab36-11ec-b909-0242ac120002
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-335170842
+    network: tcp
+    port: 19645
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - alterId: 2
+    cipher: auto
+    name: 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+    port: 30835
+    server: v35.hdacd.com
+    skip-cert-verify: true
+    tls: false
+    type: vmess
+    udp: true
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-12945894
+    network: tcp
+    port: 10574
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.0.111.82
     servername: www.apple.com
     tls: true
     type: vless
@@ -1128,49 +955,48 @@ proxies:
     type: vmess
     udp: true
     uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+    type: vless
+    server: 3.0.111.82
+    port: 12972
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.apple.com
+    client-fingerprint: chrome
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
   - alterId: 2
     cipher: auto
-    name: 🇫🇷 FR | _HK_中国香港->🇫🇷_FR_法国
-    port: 30835
-    server: v35.hdacd.com
+    name: 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国_2
+    port: 30824
+    server: v24.hdacd.com
     skip-cert-verify: true
     tls: false
     type: vmess
     udp: true
     uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇭🇰 HK | _HK_中国香港->🇩🇪_DE_德国
-    port: 30833
-    server: v33.hdacd.com
+  - client-fingerprint: firefox
+    name: 🇷🇺 RU | _RU_俄罗斯
+    network: ws
+    port: 443
+    server: fbsv6.guardora.pro
+    servername: fbsv6.guardora.pro
     skip-cert-verify: true
-    tls: false
-    type: vmess
+    tls: true
+    type: vless
     udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    uuid: bc5ec86c-3e65-4272-994c-59a924c72a68
+    ws-opts:
+      headers:
+        Host: fbsv6.guardora.pro
+      path: /ws
   - alterId: 2
     cipher: auto
-    name: 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
-    port: 30836
-    server: v36.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-    port: 30806
-    server: v6.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
+    name: 🇭🇰 HK | _HK_中国香港->🇺🇸_US_美国
     port: 30804
     server: v4.hdacd.com
     skip-cert-verify: true
@@ -1178,23 +1004,9 @@ proxies:
     type: vmess
     udp: true
     uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - name: 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-3429
-    type: vless
-    server: cf.877774.xyz
-    port: 443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /proxyip=kr.william.us.ci
-      headers:
-        Host: yf.962456.xyz
-    tls: true
-    servername: yf.962456.xyz
-    client-fingerprint: random
-    uuid: 97532b08-357e-4140-a6f0-8e07f2ed3327
   - alterId: 2
     cipher: auto
-    name: 🇭🇰 HK | _HK_中国香港
+    name: 🇭🇰 HK | _HK_中国香港_1
     port: 30807
     server: v10.hdacd.com
     skip-cert-verify: true
@@ -1216,103 +1028,97 @@ proxy-groups:
       - 🇪🇺 欧洲
       - 🌍 其他地区
       - DIRECT
-      - 🇨🇦 CA | shadowsocks-1381800264
-      - 🇨🇦 CA | shadowsocks-1415925706
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | vless-1381203988
-      - 🇺🇸 US | shadowsocks-415243972
-      - 🇺🇸 US | vmess-704661102
-      - 🇺🇸 US | vless-1439249265
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇺🇸 US | vless-1272898523
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2864
-      - 🇭🇰 HK | trojan-1334107990
-      - 🇺🇸 US | _US_美国_3
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇺🇸 US | vless-1090192613
-      - 🇺🇸 US | vless-1165595246
-      - 🇺🇸 US | vless-1365956373
-      - 🇺🇸 US | vmess-2387893
-      - 🇨🇦 CA | shadowsocks-208
-      - 🇺🇸 US | shadowsocks-155
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇺🇸 US | vless-1501244235
-      - 🇺🇸 US | vmess-1513412701
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7456
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2016
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2090
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3649
-      - 🇺🇸 US | vless-1376498326
-      - 🇺🇸 US | vmess-2383005
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-4655
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3262
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-8430
+      - 🇺🇸 US | shadowsocks-1532442401
+      - 🇺🇸 US | shadowsocks-468218514
+      - 🇺🇸 US | vmess-1444974382
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇺🇸 US | vmess-669779354
       - 🇺🇸 US | _US_美国_1
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3251
-      - 🇺🇸 US | _US_美国_2
-      - 🇳🇱 NL | shadowsocks-45641610
-      - 🇳🇱 NL | shadowsocks-258605572
-      - 🇸🇪 SE | 64c7|puddincat07@Telegram
-      - 🇳🇱 NL | shadowsocks-188
-      - 🇸🇪 SE | shadowsocks-1509447446
-      - 🇯🇵 JP | vless-1518753881
-      - 🇯🇵 JP | vless-1344232343
-      - 🇩🇪 DE | _DE_德国
-      - 🇯🇵 JP | vmess-1122508704
-      - 🇯🇵 JP | vless-1511293200
-      - 🇯🇵 JP | vless-1503978814
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | [www.v2nodes.com] vless-
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-5222
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2535
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🌍 OTHER | trojan-770684396
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4130
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2543
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇺🇸 US | vmess-1454557793
+      - 🇨🇦 CA | vmess-1454572793
+      - 🇺🇸 US | shadowsocks-415243975
+      - 🇺🇸 US | vmess-1453597039
+      - 🇺🇸 US | vmess-1451757970
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇨🇦 CA | shadowsocks-1381800264
+      - 🇺🇸 US | vmess-5258780
+      - 🇨🇦 CA | shadowsocks-1394190232
+      - 🇺🇸 US | vmess-16067
+      - 🇺🇸 US | vmess-1440773913
+      - 🇺🇸 US | shadowsocks-1211880885
+      - 🇨🇦 CA | shadowsocks-1415925706
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7424
+      - 🇨🇦 CA | shadowsocks-468218613
+      - 🇨🇦 CA | shadowsocks-1118951746
+      - 🇯🇵 JP | vless-1526179619
+      - 🇯🇵 JP | vless-1489771574
+      - 🇯🇵 JP | vless-951129347
+      - 🇯🇵 JP | vless-1525414138
+      - 🇯🇵 JP | vless-1520026026
+      - 🇯🇵 JP | vmess-1227921067
+      - 🇯🇵 JP | vless-1302936702
       - 🇯🇵 JP | vless-1503562435
+      - 🇯🇵 JP | vmess-1498959069
+      - 🇯🇵 JP | vmess-1130434817
+      - 🇯🇵 JP | vless-1529375510
+      - 🇯🇵 JP | vless-1503978814
       - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | vless-1519584571
-      - 🇯🇵 JP | vless-1502152900
-      - 🇯🇵 JP | vless-1490589032
-      - 🇳🇱 NL | ❓未知丨yoyapai.com
-      - 🇵🇱 PL | shadowsocks-1394190228
-      - 🇱🇻 LV | shadowsocks-743178503
-      - 🇺🇸 US | _US_美国_4
-      - 🇯🇵 JP | vless-721522923
-      - 🇺🇸 US | _US_美国_2_3
-      - 🇯🇵 JP | vless-479071124
+      - 🇯🇵 JP | vless-1503562416
+      - 🇯🇵 JP | vless-961883341
+      - 🌍 OTHER | shadowsocks-696780669
+      - 🇯🇵 JP | shadowsocks-211
       - 🇰🇷 KR | vless-233010793
-      - 🇺🇸 US | _US_美国_3_2
-      - 🇲🇩 MD | _MD_摩尔多瓦
-      - 🇯🇵 JP | vless-742657273
+      - 🇰🇷 KR | vless-1104491030
+      - 🇰🇷 KR | vless-652343144
+      - 🇰🇷 KR | vless-721523038
+      - 🇰🇷 KR | vless-48555241
+      - 🇹🇼 TW | vless-1062394219
+      - 🇭🇰 HK | trojan-70506696
+      - 🇳🇱 NL | shadowsocks-45641610
       - 🇭🇰 HK | shadowsocks-1522709953
-      - 🇸🇬 SG | vless-1520140376
-      - 🇸🇬 SG | vless-1509288074
-      - 🇯🇵 JP | vless-663902649
-      - 🇸🇬 SG | vless-1506303342
-      - 🇸🇬 SG | vless-1518317323
-      - 🇸🇬 SG | vmess-1523769230
-      - 🇸🇬 SG | vless-1522363233
-      - 🇸🇬 SG | vless-1385866360
-      - 🇸🇬 SG | vless-1487717293
+      - 🇭🇰 HK | shadowsocks-1521110534
+      - 🇭🇰 HK | trojan-1533401275
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇩🇪 DE | vmess-674048796
+      - 🇳🇱 NL | shadowsocks-56693562
+      - 🇳🇱 NL | shadowsocks-175
+      - 🇳🇱 NL | shadowsocks-186
+      - 🇳🇱 NL | shadowsocks-258605573
+      - 🇳🇱 NL | ❓未知丨yoyapai.com
+      - 🇸🇬 SG | shadowsocks-27349
       - 🇸🇬 SG | vmess-2387872
-      - 🇸🇬 SG | vless-1385958165
-      - 🇸🇬 SG | vmess-485686943
-      - 🇸🇬 SG | vless-1504466083
-      - 🇸🇬 SG | vless-1372418839
-      - 🇺🇸 US | _US_美国_3 · 2
-      - 🇸🇬 SG | vless-1520456008
-      - 🇸🇬 SG | vless-1260285702
-      - 🇮🇳 IN | vless-1258929849
-      - 🇸🇬 SG | vless-1328619431
-      - 🇸🇬 SG | vless-1328080936
-      - 🇸🇬 SG | vless-1343742641
-      - 🇯🇵 JP | vless-479203984
-      - 🇯🇵 JP | vless-698153465
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇸🇬 SG | vless-1327864776
       - 🇸🇬 SG | vless-1313262207
-      - 🇹🇼 TW | vless-1040123902
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
-      - 🇯🇵 JP | vless-212135096
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | vmess-468166904
+      - 🇳🇱 NL | shadowsocks-188
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | vless-1526340235
+      - 🇯🇵 JP | vless-1016882879
+      - 🇸🇬 SG | vless-1520498570
+      - 🇹🇼 TW | vless-1124370652
+      - 🇩🇪 DE | vless-1531168755
+      - 🇿🇦 ZA | shadowsocks-236
+      - 🇨🇦 CA | vmess-1445010932
+      - 🇯🇵 JP | vless-335170842
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇸🇬 SG | vless-12945894
       - 🇨🇳 CN | _CN_中国
-      - 🇫🇷 FR | _HK_中国香港->🇫🇷_FR_法国
-      - 🇭🇰 HK | _HK_中国香港->🇩🇪_DE_德国
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
-      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-3429
-      - 🇭🇰 HK | _HK_中国香港
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国_2
+      - 🇷🇺 RU | _RU_俄罗斯
+      - 🇭🇰 HK | _HK_中国香港->🇺🇸_US_美国
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: ♻️ AUTO
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1323,103 +1129,97 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies: &a1
-      - 🇨🇦 CA | shadowsocks-1381800264
-      - 🇨🇦 CA | shadowsocks-1415925706
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | vless-1381203988
-      - 🇺🇸 US | shadowsocks-415243972
-      - 🇺🇸 US | vmess-704661102
-      - 🇺🇸 US | vless-1439249265
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇺🇸 US | vless-1272898523
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2864
-      - 🇭🇰 HK | trojan-1334107990
-      - 🇺🇸 US | _US_美国_3
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇺🇸 US | vless-1090192613
-      - 🇺🇸 US | vless-1165595246
-      - 🇺🇸 US | vless-1365956373
-      - 🇺🇸 US | vmess-2387893
-      - 🇨🇦 CA | shadowsocks-208
-      - 🇺🇸 US | shadowsocks-155
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇺🇸 US | vless-1501244235
-      - 🇺🇸 US | vmess-1513412701
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7456
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2016
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2090
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3649
-      - 🇺🇸 US | vless-1376498326
-      - 🇺🇸 US | vmess-2383005
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-4655
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3262
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-8430
+      - 🇺🇸 US | shadowsocks-1532442401
+      - 🇺🇸 US | shadowsocks-468218514
+      - 🇺🇸 US | vmess-1444974382
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇺🇸 US | vmess-669779354
       - 🇺🇸 US | _US_美国_1
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3251
-      - 🇺🇸 US | _US_美国_2
-      - 🇳🇱 NL | shadowsocks-45641610
-      - 🇳🇱 NL | shadowsocks-258605572
-      - 🇸🇪 SE | 64c7|puddincat07@Telegram
-      - 🇳🇱 NL | shadowsocks-188
-      - 🇸🇪 SE | shadowsocks-1509447446
-      - 🇯🇵 JP | vless-1518753881
-      - 🇯🇵 JP | vless-1344232343
-      - 🇩🇪 DE | _DE_德国
-      - 🇯🇵 JP | vmess-1122508704
-      - 🇯🇵 JP | vless-1511293200
-      - 🇯🇵 JP | vless-1503978814
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | [www.v2nodes.com] vless-
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-5222
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2535
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🌍 OTHER | trojan-770684396
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4130
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2543
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇺🇸 US | vmess-1454557793
+      - 🇨🇦 CA | vmess-1454572793
+      - 🇺🇸 US | shadowsocks-415243975
+      - 🇺🇸 US | vmess-1453597039
+      - 🇺🇸 US | vmess-1451757970
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇨🇦 CA | shadowsocks-1381800264
+      - 🇺🇸 US | vmess-5258780
+      - 🇨🇦 CA | shadowsocks-1394190232
+      - 🇺🇸 US | vmess-16067
+      - 🇺🇸 US | vmess-1440773913
+      - 🇺🇸 US | shadowsocks-1211880885
+      - 🇨🇦 CA | shadowsocks-1415925706
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7424
+      - 🇨🇦 CA | shadowsocks-468218613
+      - 🇨🇦 CA | shadowsocks-1118951746
+      - 🇯🇵 JP | vless-1526179619
+      - 🇯🇵 JP | vless-1489771574
+      - 🇯🇵 JP | vless-951129347
+      - 🇯🇵 JP | vless-1525414138
+      - 🇯🇵 JP | vless-1520026026
+      - 🇯🇵 JP | vmess-1227921067
+      - 🇯🇵 JP | vless-1302936702
       - 🇯🇵 JP | vless-1503562435
+      - 🇯🇵 JP | vmess-1498959069
+      - 🇯🇵 JP | vmess-1130434817
+      - 🇯🇵 JP | vless-1529375510
+      - 🇯🇵 JP | vless-1503978814
       - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | vless-1519584571
-      - 🇯🇵 JP | vless-1502152900
-      - 🇯🇵 JP | vless-1490589032
-      - 🇳🇱 NL | ❓未知丨yoyapai.com
-      - 🇵🇱 PL | shadowsocks-1394190228
-      - 🇱🇻 LV | shadowsocks-743178503
-      - 🇺🇸 US | _US_美国_4
-      - 🇯🇵 JP | vless-721522923
-      - 🇺🇸 US | _US_美国_2_3
-      - 🇯🇵 JP | vless-479071124
+      - 🇯🇵 JP | vless-1503562416
+      - 🇯🇵 JP | vless-961883341
+      - 🌍 OTHER | shadowsocks-696780669
+      - 🇯🇵 JP | shadowsocks-211
       - 🇰🇷 KR | vless-233010793
-      - 🇺🇸 US | _US_美国_3_2
-      - 🇲🇩 MD | _MD_摩尔多瓦
-      - 🇯🇵 JP | vless-742657273
+      - 🇰🇷 KR | vless-1104491030
+      - 🇰🇷 KR | vless-652343144
+      - 🇰🇷 KR | vless-721523038
+      - 🇰🇷 KR | vless-48555241
+      - 🇹🇼 TW | vless-1062394219
+      - 🇭🇰 HK | trojan-70506696
+      - 🇳🇱 NL | shadowsocks-45641610
       - 🇭🇰 HK | shadowsocks-1522709953
-      - 🇸🇬 SG | vless-1520140376
-      - 🇸🇬 SG | vless-1509288074
-      - 🇯🇵 JP | vless-663902649
-      - 🇸🇬 SG | vless-1506303342
-      - 🇸🇬 SG | vless-1518317323
-      - 🇸🇬 SG | vmess-1523769230
-      - 🇸🇬 SG | vless-1522363233
-      - 🇸🇬 SG | vless-1385866360
-      - 🇸🇬 SG | vless-1487717293
+      - 🇭🇰 HK | shadowsocks-1521110534
+      - 🇭🇰 HK | trojan-1533401275
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇩🇪 DE | vmess-674048796
+      - 🇳🇱 NL | shadowsocks-56693562
+      - 🇳🇱 NL | shadowsocks-175
+      - 🇳🇱 NL | shadowsocks-186
+      - 🇳🇱 NL | shadowsocks-258605573
+      - 🇳🇱 NL | ❓未知丨yoyapai.com
+      - 🇸🇬 SG | shadowsocks-27349
       - 🇸🇬 SG | vmess-2387872
-      - 🇸🇬 SG | vless-1385958165
-      - 🇸🇬 SG | vmess-485686943
-      - 🇸🇬 SG | vless-1504466083
-      - 🇸🇬 SG | vless-1372418839
-      - 🇺🇸 US | _US_美国_3 · 2
-      - 🇸🇬 SG | vless-1520456008
-      - 🇸🇬 SG | vless-1260285702
-      - 🇮🇳 IN | vless-1258929849
-      - 🇸🇬 SG | vless-1328619431
-      - 🇸🇬 SG | vless-1328080936
-      - 🇸🇬 SG | vless-1343742641
-      - 🇯🇵 JP | vless-479203984
-      - 🇯🇵 JP | vless-698153465
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇸🇬 SG | vless-1327864776
       - 🇸🇬 SG | vless-1313262207
-      - 🇹🇼 TW | vless-1040123902
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
-      - 🇯🇵 JP | vless-212135096
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | vmess-468166904
+      - 🇳🇱 NL | shadowsocks-188
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | vless-1526340235
+      - 🇯🇵 JP | vless-1016882879
+      - 🇸🇬 SG | vless-1520498570
+      - 🇹🇼 TW | vless-1124370652
+      - 🇩🇪 DE | vless-1531168755
+      - 🇿🇦 ZA | shadowsocks-236
+      - 🇨🇦 CA | vmess-1445010932
+      - 🇯🇵 JP | vless-335170842
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇸🇬 SG | vless-12945894
       - 🇨🇳 CN | _CN_中国
-      - 🇫🇷 FR | _HK_中国香港->🇫🇷_FR_法国
-      - 🇭🇰 HK | _HK_中国香港->🇩🇪_DE_德国
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
-      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-3429
-      - 🇭🇰 HK | _HK_中国香港
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
+      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国_2
+      - 🇷🇺 RU | _RU_俄罗斯
+      - 🇭🇰 HK | _HK_中国香港->🇺🇸_US_美国
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: 🛟 FALLBACK
     type: fallback
     url: https://www.gstatic.com/generate_204
@@ -1439,10 +1239,13 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇭🇰 HK | trojan-1334107990
+      - 🇭🇰 HK | trojan-70506696
       - 🇭🇰 HK | shadowsocks-1522709953
-      - 🇭🇰 HK | _HK_中国香港->🇩🇪_DE_德国
-      - 🇭🇰 HK | _HK_中国香港
+      - 🇭🇰 HK | shadowsocks-1521110534
+      - 🇭🇰 HK | trojan-1533401275
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇭🇰 HK | _HK_中国香港->🇺🇸_US_美国
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: 🇸🇬 新加坡
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1453,25 +1256,19 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇸🇬 SG | vless-1520140376
-      - 🇸🇬 SG | vless-1509288074
-      - 🇸🇬 SG | vless-1506303342
-      - 🇸🇬 SG | vless-1518317323
-      - 🇸🇬 SG | vmess-1523769230
-      - 🇸🇬 SG | vless-1522363233
-      - 🇸🇬 SG | vless-1385866360
-      - 🇸🇬 SG | vless-1487717293
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4130
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2543
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇸🇬 SG | shadowsocks-27349
       - 🇸🇬 SG | vmess-2387872
-      - 🇸🇬 SG | vless-1385958165
-      - 🇸🇬 SG | vmess-485686943
-      - 🇸🇬 SG | vless-1504466083
-      - 🇸🇬 SG | vless-1372418839
-      - 🇸🇬 SG | vless-1520456008
-      - 🇸🇬 SG | vless-1260285702
-      - 🇸🇬 SG | vless-1328619431
-      - 🇸🇬 SG | vless-1328080936
-      - 🇸🇬 SG | vless-1343742641
+      - 🇸🇬 SG | vless-1327864776
       - 🇸🇬 SG | vless-1313262207
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | vmess-468166904
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | vless-1526340235
+      - 🇸🇬 SG | vless-1520498570
+      - 🇸🇬 SG | vless-12945894
       - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15056567
   - name: 🇯🇵 日本
     type: url-test
@@ -1483,24 +1280,24 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇯🇵 JP | vless-1518753881
-      - 🇯🇵 JP | vless-1344232343
-      - 🇯🇵 JP | vmess-1122508704
-      - 🇯🇵 JP | vless-1511293200
-      - 🇯🇵 JP | vless-1503978814
+      - 🇯🇵 JP | vless-1526179619
+      - 🇯🇵 JP | vless-1489771574
+      - 🇯🇵 JP | vless-951129347
+      - 🇯🇵 JP | vless-1525414138
+      - 🇯🇵 JP | vless-1520026026
+      - 🇯🇵 JP | vmess-1227921067
+      - 🇯🇵 JP | vless-1302936702
       - 🇯🇵 JP | vless-1503562435
+      - 🇯🇵 JP | vmess-1498959069
+      - 🇯🇵 JP | vmess-1130434817
+      - 🇯🇵 JP | vless-1529375510
+      - 🇯🇵 JP | vless-1503978814
       - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | vless-1519584571
-      - 🇯🇵 JP | vless-1502152900
-      - 🇯🇵 JP | vless-1490589032
-      - 🇯🇵 JP | vless-721522923
-      - 🇯🇵 JP | vless-479071124
-      - 🇯🇵 JP | vless-742657273
-      - 🇯🇵 JP | vless-663902649
-      - 🇯🇵 JP | vless-479203984
-      - 🇯🇵 JP | vless-698153465
-      - 🇯🇵 JP | vless-212135096
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
+      - 🇯🇵 JP | vless-1503562416
+      - 🇯🇵 JP | vless-961883341
+      - 🇯🇵 JP | shadowsocks-211
+      - 🇯🇵 JP | vless-1016882879
+      - 🇯🇵 JP | vless-335170842
   - name: 🇹🇼 台湾
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1511,7 +1308,8 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇹🇼 TW | vless-1040123902
+      - 🇹🇼 TW | vless-1062394219
+      - 🇹🇼 TW | vless-1124370652
   - name: 🇺🇸 美国
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1522,41 +1320,28 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | vless-1381203988
-      - 🇺🇸 US | shadowsocks-415243972
-      - 🇺🇸 US | vmess-704661102
-      - 🇺🇸 US | vless-1439249265
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-9406
-      - 🇺🇸 US | vless-1272898523
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2864
-      - 🇺🇸 US | _US_美国_3
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇺🇸 US | vless-1090192613
-      - 🇺🇸 US | vless-1165595246
-      - 🇺🇸 US | vless-1365956373
-      - 🇺🇸 US | vmess-2387893
-      - 🇺🇸 US | shadowsocks-155
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇺🇸 US | vless-1501244235
-      - 🇺🇸 US | vmess-1513412701
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7456
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2016
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2090
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3649
-      - 🇺🇸 US | vless-1376498326
-      - 🇺🇸 US | vmess-2383005
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-4655
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3262
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-8430
+      - 🇺🇸 US | shadowsocks-1532442401
+      - 🇺🇸 US | shadowsocks-468218514
+      - 🇺🇸 US | vmess-1444974382
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3329
+      - 🇺🇸 US | vmess-669779354
       - 🇺🇸 US | _US_美国_1
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3251
-      - 🇺🇸 US | _US_美国_2
-      - 🇺🇸 US | _US_美国_4
-      - 🇺🇸 US | _US_美国_2_3
-      - 🇺🇸 US | _US_美国_3_2
-      - 🇺🇸 US | _US_美国_3 · 2
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | [www.v2nodes.com] vless-
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-5222
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2535
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🇺🇸 US | vmess-1454557793
+      - 🇺🇸 US | shadowsocks-415243975
+      - 🇺🇸 US | vmess-1453597039
+      - 🇺🇸 US | vmess-1451757970
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-3715
+      - 🇺🇸 US | vmess-5258780
+      - 🇺🇸 US | vmess-16067
+      - 🇺🇸 US | vmess-1440773913
+      - 🇺🇸 US | shadowsocks-1211880885
+      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7424
+      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国_2
   - name: 🇪🇺 欧洲
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1568,14 +1353,15 @@ proxy-groups:
     tolerance: 100
     proxies:
       - 🇳🇱 NL | shadowsocks-45641610
-      - 🇳🇱 NL | shadowsocks-258605572
-      - 🇸🇪 SE | 64c7|puddincat07@Telegram
-      - 🇳🇱 NL | shadowsocks-188
-      - 🇸🇪 SE | shadowsocks-1509447446
-      - 🇩🇪 DE | _DE_德国
+      - 🇩🇪 DE | vmess-674048796
+      - 🇳🇱 NL | shadowsocks-56693562
+      - 🇳🇱 NL | shadowsocks-175
+      - 🇳🇱 NL | shadowsocks-186
+      - 🇳🇱 NL | shadowsocks-258605573
       - 🇳🇱 NL | ❓未知丨yoyapai.com
-      - 🇫🇷 FR | _HK_中国香港->🇫🇷_FR_法国
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇳🇱 NL | shadowsocks-188
+      - 🇩🇪 DE | vless-1531168755
   - name: 🌍 其他地区
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1586,16 +1372,24 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
+      - 🌍 OTHER | trojan-770684396
+      - 🇨🇦 CA | vmess-1454572793
       - 🇨🇦 CA | shadowsocks-1381800264
+      - 🇨🇦 CA | shadowsocks-1394190232
       - 🇨🇦 CA | shadowsocks-1415925706
-      - 🇨🇦 CA | shadowsocks-208
-      - 🇵🇱 PL | shadowsocks-1394190228
-      - 🇱🇻 LV | shadowsocks-743178503
+      - 🇨🇦 CA | shadowsocks-468218613
+      - 🇨🇦 CA | shadowsocks-1118951746
+      - 🌍 OTHER | shadowsocks-696780669
       - 🇰🇷 KR | vless-233010793
-      - 🇲🇩 MD | _MD_摩尔多瓦
-      - 🇮🇳 IN | vless-1258929849
+      - 🇰🇷 KR | vless-1104491030
+      - 🇰🇷 KR | vless-652343144
+      - 🇰🇷 KR | vless-721523038
+      - 🇰🇷 KR | vless-48555241
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇿🇦 ZA | shadowsocks-236
+      - 🇨🇦 CA | vmess-1445010932
       - 🇨🇳 CN | _CN_中国
-      - 🇰🇷 KR | [www.v2nodes.com] V2Ray Vless-SG-3429
+      - 🇷🇺 RU | _RU_俄罗斯
   - name: 💬 TELEGRAM
     type: select
     proxies:
