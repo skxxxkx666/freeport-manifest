@@ -70,19 +70,84 @@ dns:
       - https://1.1.1.1/dns-query
       - https://dns.google/dns-query
 proxies:
-  - name: 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7429
-    type: vless
-    server: 104.17.98.5
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-192
+    password: shadowsocks
     port: 443
+    server: 37.19.198.236
+    type: ss
     udp: true
-    network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: newcscf.jisucf.cloudns.ch
-    tls: true
-    servername: newcscf.jisucf.cloudns.ch
-    uuid: 49ccad64-c854-4f33-b334-793cf0d02b74
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-193
+    password: shadowsocks
+    port: 443
+    server: 37.19.198.160
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-1746935299
+    password: e72a793d634d99748cf908d21fd935c3
+    port: 19049
+    server: 205.209.126.205
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-195
+    password: shadowsocks
+    port: 443
+    server: 37.19.198.243
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-1746935301
+    password: bdd35b65a5b716eb7a91150c06764956
+    port: 17529
+    server: 66.23.205.83
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🌍 OTHER | shadowsocks-1736237342
+    password: 2591a42af498878e47d881cd1ed1fa9d
+    port: 10675
+    server: 66.23.204.218
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-194
+    password: shadowsocks
+    port: 443
+    server: 156.146.38.169
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-158
+    password: shadowsocks
+    port: 443
+    server: 156.146.38.167
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇨🇦 CA | shadowsocks-166
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 137.184.174.93
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-27291
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 79.110.53.169
+    type: ss
+    udp: true
+  - name: 🇺🇸 US | _US_美国_2
+    password: UX82473651
+    port: 443
+    server: pro-mako.rooster465.autos
+    skip-cert-verify: true
+    sni: pro-mako.rooster465.autos
+    type: trojan
+    udp: true
   - alterId: 0
     cipher: auto
     name: 🇺🇸 US | _US_美国
@@ -99,99 +164,9 @@ proxies:
       headers:
         Host: guanwang.awsno.com
       path: /hls/cctv5phd.m3u8
-  - cipher: chacha20-ietf-poly1305
-    name: 🇺🇸 US | shadowsocks-12788521
-    password: 8tmnvX5zYuWGVIDP2jglZw
-    port: 1080
-    server: 5.78.51.123
-    type: ss
-    udp: true
-  - cipher: rc4-md5
-    name: 🇺🇸 US | shadowsocks-27276
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 23.251.121.242
-    type: ss
-    udp: true
-  - cipher: rc4-md5
-    name: 🇺🇸 US | shadowsocks-27271
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 107.155.57.51
-    type: ss
-    udp: true
-  - cipher: aes-128-gcm
-    name: 🇺🇸 US | shadowsocks-194
-    password: shadowsocks
-    port: 443
-    server: 156.146.38.169
-    type: ss
-    udp: true
-  - name: 🇺🇸 US | trojan-1738567387
-    password: UX82473651
-    port: 443
-    server: pro-mako.rooster465.autos
-    skip-cert-verify: false
-    sni: pro-mako.rooster465.autos
-    type: trojan
-    udp: true
-  - cipher: aes-128-gcm
-    name: 🇺🇸 US | shadowsocks-156
-    password: shadowsocks
-    port: 443
-    server: 173.244.56.9
-    type: ss
-    udp: true
-  - cipher: aes-128-gcm
-    name: 🇺🇸 US | shadowsocks-1712737955
-    password: 89d3a0375a279f6e743fea76e72952a8
-    port: 16999
-    server: 66.23.204.214
-    type: ss
-    udp: true
-  - cipher: aes-256-cfb
-    name: 🇺🇸 US | _US_美国_1_2
-    password: amazonskr05
-    port: 443
-    server: 18.208.223.39
-    skip-cert-verify: true
-    type: ss
-    udp: true
-  - cipher: rc4-md5
-    name: 🇺🇸 US | shadowsocks-468218487
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 138.199.43.159
-    type: ss
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3645
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
     type: vless
-    server: 89.117.112.40
-    port: 8880
-    udp: true
-    network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: vms.lifetime11.workers.dev
-    uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-  - name: 🌍 OTHER | ❓未知丨yoyapai.com_3
-    network: ws
-    port: 8080
-    server: www.gov.se
-    servername: www.gov.se
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: 989d58b8-d2ea-4d28-b5ff-0f3cd078f2cf
-    ws-opts:
-      headers:
-        Host: sdf23g-billowing-moon-348e.mzm468gc.workers.dev
-      path: /
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
-    type: vless
-    server: 188.164.248.216
+    server: cf.090227.xyz
     port: 443
     udp: true
     network: ws
@@ -203,59 +178,9 @@ proxies:
     servername: ccc.010304.xyz
     client-fingerprint: chrome
     uuid: d342d11e-d224-4463-b982-532309285094
-  - name: 🌍 OTHER | ❓未知丨yoyapai.com_2
-    network: ws
-    port: 80
-    server: 91.206.71.8
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: c20a0bcf-aa6f-4c35-9e62-a39b47b04e73
-    ws-opts:
-      headers:
-        Host: round-haze-8783.294.workers.dev
-      path: /pyip=Telegram🇨🇳+@WangCai2
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-    type: vless
-    server: 162.120.94.30
-    port: 8880
-    udp: true
-    network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: vms.lifetime07.workers.dev
-    uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-  - client-fingerprint: chrome
-    name: 🇺🇸 US | US美国丨yoyapai.com
-    network: ws
-    port: 2087
-    server: 8.35.211.73
-    servername: d39333476.pages.dev
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: 9f534ac4-3c58-4a16-8b74-13dff09a0cf1
-    ws-opts:
-      headers:
-        Host: d39333476.pages.dev
-      path: /resource
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4125
-    type: vless
-    server: 188.114.97.3
-    port: 2086
-    udp: true
-    network: ws
-    ws-opts:
-      path: /eyJqdW5rIjoiSzhjREpaaGVoVXpCN2NvNiIsInByb3RvY29sIjoidmwiLCJtb2RlIjoicHJlZml4IiwicGFuZWxJUHMiOlsiWzJhMDI6ODk4OjE0Njo2NDo6XSJdfQ
-      headers:
-        Host: tight-thunder-ce8e.hamid-r-aliakbari1379-0f0.workers.dev
-    uuid: bba14c1d-f08c-4c9a-ac87-cf85d38d8aff
   - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
     type: vless
-    server: 104.18.0.181
+    server: 172.64.150.28
     port: 2082
     udp: true
     network: ws
@@ -264,404 +189,160 @@ proxies:
       headers:
         Host: hhlfy.twiladaphne.ndjp.net
     servername: hhlfy.twiladaphne.ndjp.net
+    client-fingerprint: chrome
     uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
-  - name: 🇺🇸 US | US美國丨yoyapai.com
-    network: ws
-    port: 80
-    server: 45.131.208.4
-    skip-cert-verify: false
-    tls: false
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
     type: vless
-    udp: true
-    uuid: 424fa201-3f94-479e-b533-d5257cf9a207
-    ws-opts:
-      headers:
-        Host: floral-thunder-10d3.82-67d.workers.dev
-      path: /
-  - cipher: aes-128-gcm
-    name: 🇺🇸 US | shadowsocks-193
-    password: shadowsocks
+    server: cf.090227.xyz
     port: 443
-    server: 37.19.198.160
-    type: ss
     udp: true
-  - cipher: chacha20-ietf-poly1305
-    name: 🇺🇸 US | shadowsocks-860758286
-    password: ZoZtfPOyVvmKARUN
-    port: 8388
-    server: 140.82.63.79
-    type: ss
-    udp: true
-  - cipher: aes-128-gcm
-    name: 🇨🇦 CA | shadowsocks-1712737956
-    password: 1cbb3e347ee86e1980a7c731e9dd00a0
-    port: 17200
-    server: 64.74.161.147
+    network: ws
+    ws-opts:
+      path: /cart/docs/www/proxyip=108.160.132.132fp=qq
+      headers:
+        Host: lucasjow.us.ci
+    tls: true
+    servername: lucasjow.us.ci
+    uuid: e6df2095-a73c-4043-8693-8d5a03686870
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-27271
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 107.155.57.51
     type: ss
     udp: true
   - cipher: rc4-md5
-    name: 🇨🇦 CA | shadowsocks-468218613
+    name: 🇺🇸 US | shadowsocks-468218487
     password: 14fFPrbezE3HDZzsMOr6
     port: 8080
-    server: 138.197.141.58
+    server: 138.199.43.159
     type: ss
     udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1670327313
-    network: raw
-    port: 443
-    reality-opts:
-      public-key: AgTktefiMM58y7f-KFgEtmVti_YJbd0GPSkxNeJ0RH4
-      short-id: c8e49965
-    server: jpga01.jumpernode.site
-    servername: amzn.com
-    tls: true
-    type: vless
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-1747578561
+    password: 645af07ee09c066da207ad26d78322c2
+    port: 19142
+    server: 144.48.107.10
+    type: ss
     udp: true
-    uuid: 05453546-201f-4e8d-97ae-fd70da0e951f
-  - name: 🇯🇵 JP | trojan-1653307136
+  - cipher: rc4-md5
+    name: 🇬🇧 GB | shadowsocks-27285
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 146.70.61.18
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇬🇧 GB | shadowsocks-165
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 146.70.61.37
+    type: ss
+    udp: true
+  - name: 🇺🇸 US | _US_美国_1_2
     password: UX82473651
     port: 443
-    server: accurate-frog.rooster465.autos
+    server: alert-titmouse.rooster465.autos
     skip-cert-verify: true
-    sni: accurate-frog.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1737442077
-    password: UX82473651
-    port: 443
-    server: stable-python.rooster465.autos
-    skip-cert-verify: true
-    sni: stable-python.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1746322860
-    password: UX82473651
-    port: 443
-    server: 52.194.251.232
-    skip-cert-verify: true
-    sni: optimal-penguin.rooster465.autos
+    sni: alert-titmouse.rooster465.autos
     type: trojan
     udp: true
   - cipher: aes-128-gcm
-    name: 🇯🇵 JP | shadowsocks-218
+    name: 🇺🇸 US | shadowsocks-156
     password: shadowsocks
     port: 443
-    server: 149.22.87.204
+    server: 173.244.56.9
     type: ss
-    udp: true
-  - name: 🇯🇵 JP | trojan-1735131202
-    password: UX82473651
-    port: 443
-    server: amazed-mako.rooster465.autos
-    skip-cert-verify: false
-    sni: amazed-mako.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1681917898
-    password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
-    port: 8886
-    server: 45.32.52.173
-    skip-cert-verify: true
-    sni: 45.32.52.173
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1735023420
-    password: UX82473651
-    port: 443
-    server: amazed-mako.rooster465.autos
-    skip-cert-verify: true
-    sni: amazed-mako.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1644712792
-    password: UX82473651
-    port: 443
-    server: assuring-skink.rooster465.autos
-    skip-cert-verify: true
-    sni: ""
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1734784408
-    password: UX82473651
-    port: 443
-    server: normal-macaque.rooster465.autos
-    skip-cert-verify: true
-    sni: normal-macaque.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1745236350
-    password: UX82473651
-    port: 443
-    server: 13.230.76.132
-    skip-cert-verify: true
-    sni: equipped-stingray.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1739093818
-    password: UX82473651
-    port: 443
-    server: live-stallion.rooster465.autos
-    skip-cert-verify: true
-    sni: live-stallion.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1735023414
-    password: UX82473651
-    port: 443
-    server: warm-krill.rooster465.autos
-    skip-cert-verify: true
-    sni: warm-krill.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1680753288
-    password: UX82473651
-    port: 443
-    server: 176.34.5.100
-    skip-cert-verify: true
-    sni: assuring-skink.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1734784401
-    password: UX82473651
-    port: 443
-    server: equipped-stingray.rooster465.autos
-    skip-cert-verify: true
-    sni: equipped-stingray.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1687384971
-    password: UX82473651
-    port: 443
-    server: 54.250.237.143
-    skip-cert-verify: false
-    sni: accurate-frog.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1665763439
-    password: UX82473651
-    port: 443
-    server: 54.238.153.132
-    skip-cert-verify: true
-    sni: obliging-louse.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1738567384
-    password: UX82473651
-    port: 443
-    server: live-stallion.rooster465.autos
-    skip-cert-verify: false
-    sni: live-stallion.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1647915026
-    password: UX82473651
-    port: 443
-    server: winning-marten.rooster465.autos
-    skip-cert-verify: false
-    sni: winning-marten.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1661189388
-    password: UX82473651
-    port: 443
-    server: prime-corgi.rooster465.autos
-    skip-cert-verify: true
-    sni: prime-corgi.rooster465.autos
-    type: trojan
     udp: true
   - cipher: aes-128-gcm
-    name: 🇯🇵 JP | shadowsocks-213
-    password: shadowsocks
-    port: 443
-    server: 149.22.87.240
+    name: 🇳🇱 NL | shadowsocks-1752515802
+    password: vldolmlmzmypc36okhum
+    port: 15104
+    server: 51.158.26.27
     type: ss
     udp: true
-  - name: 🇯🇵 JP | trojan-1735131213
-    password: UX82473651
-    port: 443
-    server: normal-macaque.rooster465.autos
-    skip-cert-verify: false
-    sni: normal-macaque.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: random
-    name: 🇯🇵 JP | vless-1302936702
-    network: tcp
-    port: 2053
-    reality-opts:
-      public-key: hieuCHb3HYdDYHmTDyWw2SGqyfo36AVuA-wSiZMdU1M
-      short-id: 9922313fffed1c63
-    server: 46.250.250.149
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: b4caaf57-ad77-4948-a6f5-51b3513799bf
-  - name: 🇯🇵 JP | trojan-1681033269
-    password: UX82473651
-    port: 443
-    server: 13.230.91.226
-    skip-cert-verify: false
-    sni: musical-terrier.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1738567389
-    password: UX82473651
-    port: 443
-    server: stable-python.rooster465.autos
-    skip-cert-verify: false
-    sni: stable-python.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1656566106
-    password: UX82473651
-    port: 443
-    server: prime-corgi.rooster465.autos
-    skip-cert-verify: false
-    sni: prime-corgi.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1645364938
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: AgTktefiMM58y7f-KFgEtmVti_YJbd0GPSkxNeJ0RH4
-      short-id: c8e49965
-    server: jpga01.jumpernode.site
-    servername: amzn.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 05453546-201f-4e8d-97ae-fd70da0e951f
-  - alterId: 0
-    cipher: auto
-    name: 🇺🇸 US | _US_美国_1
-    network: ws
-    port: 2083
-    server: or3.sfacg.uk
-    servername: cdn.sfacg.uk
-    skip-cert-verify: true
-    tls: true
-    type: vmess
-    udp: true
-    uuid: ac251237-576f-40c8-a543-554960c958b1
-    ws-opts:
-      headers:
-        Host: or3.sfacg.uk
-      path: /or3
   - cipher: aes-256-gcm
-    name: 🇯🇵 JP | shadowsocks-696780669
-    password: 3eOFeNssde7PYYMv
-    port: 80
-    server: 84.247.155.196
-    type: ss
-    udp: true
-  - name: 🇯🇵 JP | trojan-1742281120
-    password: UX82473651
-    port: 443
-    server: legible-ram.rooster465.autos
-    skip-cert-verify: true
-    sni: legible-ram.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1734784380
-    password: UX82473651
-    port: 443
-    server: optimal-penguin.rooster465.autos
-    skip-cert-verify: true
-    sni: optimal-penguin.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    name: 🇯🇵 JP | US美国丨yoyapai.com_2
-    network: ws
-    port: 28863
-    server: 129.153.71.28
-    servername: 8n9qi6t-owl.gevc9s4n60cc3wzcmwhjyezydpmbchocxp.workers.dev
-    skip-cert-verify: false
-    tls: true
-    type: vless
-    udp: true
-    uuid: b3a15df4-c8ad-4e98-b427-7a679aee2b18
-    ws-opts:
-      headers:
-        Host: 8n9qi6t-owl.gevc9s4n60cc3wzcmwhjyezydpmbchocxp.workers.dev
-      path: /@Marisa_kristi
-  - client-fingerprint: chrome
-    name: 🇰🇷 KR | vless-1742630101
-    network: tcp
-    port: 443
-    reality-opts:
-      public-key: M0QKczb2MzOH45qDViIAbb9LPrVVyCp880D4HlwIKnA
-      short-id: 8685f8b4d9f4f51e
-    server: 34.22.111.30
-    servername: www.cloudflare.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: cb2abff3-5fe6-4b5a-aa19-5739deb285b6
-  - name: 🇰🇷 KR | trojan-1735023411
-    password: UX82473651
-    port: 443
-    server: working-tomcat.rooster465.autos
-    skip-cert-verify: true
-    sni: working-tomcat.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-1648312995
-    password: UX82473651
-    port: 443
-    server: main-fawn.rooster465.autos
-    skip-cert-verify: true
-    sni: main-fawn.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇰🇷 KR | trojan-1737442031
-    password: UX82473651
-    port: 443
-    server: pure-kodiak.rooster465.autos
-    skip-cert-verify: true
-    sni: pure-kodiak.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇰🇷 KR | vless-233010793
-    network: tcp
-    port: 13672
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.39.4.109
-    servername: www.apple.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - name: 🇰🇷 KR | trojan-1660423653
-    password: UX82473651
-    port: 443
-    server: 3.35.168.225
-    skip-cert-verify: true
-    sni: noted-cougar.rooster465.autos
-    type: trojan
-    udp: true
-  - cipher: aes-256-gcm
-    name: 🇬🇧 GB | shadowsocks-717969008
-    password: g5h5jleTRSyO3Rk4
-    port: 80
-    server: 149.102.132.184
+    name: 🇩🇪 DE | shadowsocks-1688379115
+    password: Y6R9pAtvxxzmGC
+    port: 5000
+    server: 213.202.208.199
     type: ss
     udp: true
   - cipher: chacha20-ietf-poly1305
-    name: 🇳🇱 NL | shadowsocks-166303196
+    name: 🇳🇱 NL | shadowsocks-1659750585
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 443
+    server: 82.38.31.170
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-11049
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.47
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🌍 OTHER | shadowsocks-10899
     password: k1dBOmOB4oqi7Ump37a1bQ
     port: 8080
-    server: 193.29.139.198
+    server: 82.38.31.204
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-98971312
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.49
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1670157774
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 443
+    server: 82.38.31.159
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-11033
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.215
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-49012021
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.46
+    type: ss
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇦🇹 AT | shadowsocks-1251465987
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 82.110.60.9
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-72830589
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.156
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-170
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.16
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-254910437
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.175
     type: ss
     udp: true
   - cipher: chacha20-ietf-poly1305
@@ -671,60 +352,8 @@ proxies:
     server: 82.38.31.10
     type: ss
     udp: true
-  - cipher: chacha20-ietf-poly1305
-    name: 🇳🇱 NL | shadowsocks-1675817312
-    password: oZIoA69Q8yhcQV8ka3Pa3A
-    port: 443
-    server: 82.38.31.171
-    type: ss
-    udp: true
-  - name: 🇯🇵 JP | trojan-1643514790
-    password: UX82473651
-    port: 443
-    server: integral-rodent.rooster465.autos
-    skip-cert-verify: true
-    sni: integral-rodent.rooster465.autos
-    type: trojan
-    udp: true
-  - cipher: chacha20-ietf-poly1305
-    name: 🇳🇱 NL | shadowsocks-11032
-    password: k1dBOmOB4oqi7Ump37a1bQ
-    port: 8080
-    server: 82.38.31.214
-    type: ss
-    udp: true
-  - name: 🇯🇵 JP | trojan-1648313005
-    password: UX82473651
-    port: 443
-    server: winning-marten.rooster465.autos
-    skip-cert-verify: true
-    sni: winning-marten.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1666094671
-    password: UX82473651
-    port: 443
-    server: 43.207.198.39
-    skip-cert-verify: true
-    sni: fancy-javelin.rooster465.autos
-    type: trojan
-    udp: true
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-1383599296
-    network: tcp
-    port: 28573
-    reality-opts:
-      public-key: 1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg
-      short-id: 03653bc03be10c97
-    server: 18.183.215.124
-    servername: www.sony.com
-    tls: true
-    type: vless
-    udp: true
-    uuid: 871bfce7-8440-4394-8d82-56b51f20fdad
   - client-fingerprint: chrome
-    name: 🇳🇱 NL | DE德国丨yoyapai.com
+    name: 🇩🇪 DE | DE德国丨yoyapai.com
     network: xhttp
     port: 443
     server: dey.lnmarketplace.net
@@ -738,86 +367,207 @@ proxies:
       host: dey.lnmarketplace.net
       mode: stream-one
       path: /kavir
-  - name: 🇹🇷 TR | CA加拿大丨yoyapai.com
-    network: ws
-    port: 8880
-    server: 155.46.167.30
-    skip-cert-verify: false
-    tls: false
-    type: vless
+  - cipher: aes-256-cfb
+    name: 🇮🇹 IT | shadowsocks-743178418
+    password: Sn5B7jTqr76aCJT8
+    port: 9097
+    server: 91.201.65.122
+    type: ss
     udp: true
-    uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-    ws-opts:
-      headers:
-        Host: vms.lifetime50.workers.dev
-  - client-fingerprint: chrome
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-246499915
-    network: raw
-    port: 18007
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-258605572
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.201
+    type: ss
     udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - name: 🇯🇵 JP | trojan-1669884379
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-26220
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 193.29.139.202
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-213
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.240
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-1745293701
     password: UX82473651
     port: 443
-    server: organic-caribou.rooster465.autos
+    server: legible-ram.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1737442029
+    password: UX82473651
+    port: 443
+    server: live-stallion.rooster465.autos
+    skip-cert-verify: true
+    sni: live-stallion.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1739093820
+    password: UX82473651
+    port: 443
+    server: stable-python.rooster465.autos
+    skip-cert-verify: true
+    sni: stable-python.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1681917898
+    password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
+    port: 8886
+    server: 45.32.52.173
+    skip-cert-verify: true
+    sni: 45.32.52.173
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1749759440
+    password: UX82473651
+    port: 443
+    server: amazed-mako.rooster465.autos
     skip-cert-verify: false
     sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-1649577323
+  - name: 🇯🇵 JP | trojan-1745341940
     password: UX82473651
     port: 443
-    server: brief-glider.rooster465.autos
-    skip-cert-verify: false
-    sni: brief-glider.rooster465.autos
+    server: legible-ram.rooster465.autos
+    skip-cert-verify: true
+    sni: legible-ram.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-1648313012
+  - name: 🇯🇵 JP | trojan-1737429071
+    password: UX82473651
+    port: 443
+    server: amazed-mako.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1735023416
+    password: UX82473651
+    port: 443
+    server: normal-macaque.rooster465.autos
+    skip-cert-verify: true
+    sni: normal-macaque.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1666094671
+    password: UX82473651
+    port: 443
+    server: 43.207.198.39
+    skip-cert-verify: true
+    sni: fancy-javelin.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1749074978
+    password: UX82473651
+    port: 443
+    server: 13.230.76.132
+    skip-cert-verify: false
+    sni: equipped-stingray.rooster465.autos
+    type: trojan
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-687923666
+    password: FoOiGlkAA9yPEGP
+    port: 7307
+    server: 15.204.246.132
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-1738407205
+    password: UX82473651
+    port: 443
+    server: normal-macaque.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1672825403
+    password: UX82473651
+    port: 443
+    server: 13.231.247.130
+    skip-cert-verify: false
+    sni: concrete-aardvark.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1723382176
     password: UX82473651
     port: 443
     server: organic-caribou.rooster465.autos
     skip-cert-verify: true
-    sni: organic-caribou.rooster465.autos
+    sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-1666452604
+  - name: 🇯🇵 JP | trojan-1646372260
     password: UX82473651
     port: 443
-    server: 54.65.177.190
+    server: evolving-platypus.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1738797245
+    password: UX82473651
+    port: 443
+    server: equipped-stingray.rooster465.autos
     skip-cert-verify: false
-    sni: winning-marten.rooster465.autos
+    sni: equipped-stingray.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇰🇷 KR | trojan-1703768237
+  - name: 🇯🇵 JP | trojan-1645398600
     password: UX82473651
     port: 443
-    server: kind-stork.rooster465.autos
-    skip-cert-verify: false
-    sni: kind-stork.rooster465.autos
+    server: obliging-louse.rooster465.autos
+    skip-cert-verify: true
+    sni: obliging-louse.rooster465.autos
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-1669884364
+  - name: 🇯🇵 JP | trojan-1734784401
     password: UX82473651
     port: 443
-    server: concrete-aardvark.rooster465.autos
+    server: equipped-stingray.rooster465.autos
+    skip-cert-verify: true
+    sni: equipped-stingray.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1749759469
+    password: UX82473651
+    port: 443
+    server: legible-ram.rooster465.autos
     skip-cert-verify: false
     sni: ""
     type: trojan
     udp: true
-  - name: 🇯🇵 JP | trojan-1696475204
+  - name: 🇯🇵 JP | trojan-1735023415
     password: UX82473651
     port: 443
-    server: dynamic-imp.rooster465.autos
+    server: optimal-penguin.rooster465.autos
+    skip-cert-verify: true
+    sni: optimal-penguin.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1743792177
+    password: UX82473651
+    port: 443
+    server: stable-python.rooster465.autos
     skip-cert-verify: false
-    sni: dynamic-imp.rooster465.autos
+    sni: stable-python.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1747827232
+    password: UX82473651
+    port: 443
+    server: warm-krill.rooster465.autos
+    skip-cert-verify: false
+    sni: warm-krill.rooster465.autos
     type: trojan
     udp: true
   - name: 🇯🇵 JP | trojan-1645398599
@@ -828,86 +578,132 @@ proxies:
     sni: concrete-aardvark.rooster465.autos
     type: trojan
     udp: true
-  - name: 🌍 OTHER | ❓未知丨yoyapai.com
-    network: ws
-    port: 8880
-    server: 185.148.104.30
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-    ws-opts:
-      headers:
-        Host: vms.lifetime51.workers.dev
-      path: /
-  - name: 🇺🇸 US | US美国丨yoyapai.com_1
-    network: ws
-    port: 8880
-    server: 63.141.128.30
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-    ws-opts:
-      headers:
-        Host: vms.lifetime42.workers.dev
-      path: /
-  - name: 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
-    network: ws
-    port: 2052
-    server: eu02.123450908.xyz
+  - name: 🇯🇵 JP | trojan-1643520544
+    password: UX82473651
+    port: 443
+    server: integral-rodent.rooster465.autos
     skip-cert-verify: true
-    tls: false
-    type: vless
-    udp: true
-    uuid: 5744e593-1cc8-48fa-b8ca-57cd494fe35b
-    ws-opts:
-      headers:
-        Host: eu02.123450908.xyz
-      path: /rain1226
-  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15879910
+    sni: integral-rodent.rooster465.autos
     type: trojan
-    server: pet-antelope.rooster465.autos
-    port: 443
     udp: true
-    network: tcp
-    tls: true
-    servername: pet-antelope.rooster465.autos
+  - name: 🇯🇵 JP | trojan-1735131213
     password: UX82473651
-  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15888245
+    port: 443
+    server: normal-macaque.rooster465.autos
+    skip-cert-verify: false
+    sni: normal-macaque.rooster465.autos
     type: trojan
-    server: holy-lamb.rooster465.autos
-    port: 443
     udp: true
-    network: tcp
-    tls: true
-    servername: holy-lamb.rooster465.autos
-    password: UX82473651
-  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
-    type: trojan
-    server: real-cardinal.rooster465.autos
-    port: 443
-    udp: true
-    network: tcp
-    tls: true
-    servername: real-cardinal.rooster465.autos
-    password: UX82473651
-  - name: 🇯🇵 JP | trojan-1646372252
+  - name: 🇯🇵 JP | trojan-1740066482
     password: UX82473651
     port: 443
-    server: brief-glider.rooster465.autos
+    server: live-stallion.rooster465.autos
     skip-cert-verify: true
     sni: ""
     type: trojan
     udp: true
-  - cipher: rc4-md5
-    name: 🇸🇬 SG | shadowsocks-125384
-    password: 14fFPrbezE3HDZzsMOr6
+  - name: 🇯🇵 JP | trojan-1735131202
+    password: UX82473651
+    port: 443
+    server: amazed-mako.rooster465.autos
+    skip-cert-verify: false
+    sni: amazed-mako.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1734784385
+    password: UX82473651
+    port: 443
+    server: amazed-mako.rooster465.autos
+    skip-cert-verify: true
+    sni: amazed-mako.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1643514774
+    password: UX82473651
+    port: 443
+    server: fancy-javelin.rooster465.autos
+    skip-cert-verify: true
+    sni: fancy-javelin.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇯🇵 JP | trojan-1735023414
+    password: UX82473651
+    port: 443
+    server: warm-krill.rooster465.autos
+    skip-cert-verify: true
+    sni: warm-krill.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | trojan-1739822099
+    password: UX82473651
+    port: 443
+    server: inviting-rabbit.rooster465.autos
+    skip-cert-verify: false
+    sni: inviting-rabbit.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | trojan-1744442928
+    password: UX82473651
+    port: 443
+    server: fancy-skink.rooster465.autos
+    skip-cert-verify: true
+    sni: fancy-skink.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | trojan-1750193174
+    password: UX82473651
+    port: 443
+    server: 3.34.192.47
+    skip-cert-verify: true
+    sni: central-jawfish.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | trojan-1735131207
+    password: UX82473651
+    port: 443
+    server: working-tomcat.rooster465.autos
+    skip-cert-verify: false
+    sni: working-tomcat.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | _KR_韩国
+    password: UX82473651
+    port: 443
+    server: pure-kodiak.rooster465.autos
+    skip-cert-verify: true
+    sni: pure-kodiak.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇰🇷 KR | trojan-1746302579
+    password: UX82473651
+    port: 443
+    server: fancy-skink.rooster465.autos
+    skip-cert-verify: true
+    sni: ""
+    type: trojan
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-270
+    password: k1dBOmOB4oqi7Ump37a1bQ
     port: 8080
-    server: 128.199.172.224
+    server: 82.38.31.176
     type: ss
+    udp: true
+  - name: 🇸🇬 SG | _SG_新加坡
+    password: UX82473651
+    port: 443
+    server: rested-seahorse.rooster465.autos
+    skip-cert-verify: true
+    sni: rested-seahorse.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | _SG_新加坡_1
+    password: UX82473651
+    port: 443
+    server: musical-mouse.rooster465.autos
+    skip-cert-verify: true
+    sni: musical-mouse.rooster465.autos
+    type: trojan
     udp: true
   - cipher: rc4-md5
     name: 🇸🇬 SG | shadowsocks-27350
@@ -923,19 +719,105 @@ proxies:
     server: 68.183.227.4
     type: ss
     udp: true
-  - name: 🇸🇬 SG | FR法國丨yoyapai.com
-    network: ws
-    port: 8880
-    server: 104.17.64.70
-    skip-cert-verify: false
-    tls: false
-    type: vless
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-27349
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.235.122
+    type: ss
     udp: true
-    uuid: 220046c3-0081-4c22-a648-83a52bc3a0d5
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-27347
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.227.236
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-125384
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 128.199.172.224
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | _SG_新加坡_2
+    password: UX82473651
+    port: 443
+    server: ace-liger.rooster465.autos
+    skip-cert-verify: true
+    sni: ace-liger.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | _SG_新加坡_2_2
+    password: UX82473651
+    port: 443
+    server: fond-mammoth.rooster465.autos
+    skip-cert-verify: true
+    sni: fond-mammoth.rooster465.autos
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+    type: vless
+    server: 54.251.9.130
+    port: 24146
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.intel.com
+    client-fingerprint: chrome
+    uuid: 9d9a048b-3aea-4b3e-b106-1106bf301feb
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: VeluC9A7XDurAWQNgXKShS2SJSgoK79QHFgiAMYrvGo
+      short-id: 7205d9079521832c
+  - name: 🇬🇧 GB | _GB_英国
+    password: Trojan@82164024
+    port: 443
+    server: gb.tronsg.com
+    skip-cert-verify: true
+    sni: gb.tronsg.com
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
+    type: trojan
+    server: real-cardinal.rooster465.autos
+    port: 443
+    udp: true
+    network: tcp
+    tls: true
+    servername: real-cardinal.rooster465.autos
+    password: UX82473651
+  - name: 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+    type: vless
+    server: 104.18.0.181
+    port: 2082
+    udp: true
+    network: ws
     ws-opts:
+      path: /fp
       headers:
-        Host: yellow-sky-38b3.154-d73.workers.dev
-      path: /pyip=ProxyIP.SG.CMLiussss.net
+        Host: hhlfy.twiladaphne.ndjp.net
+    servername: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
+    type: vless
+    server: 172.64.150.28
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇯🇵 JP | trojan-1682385949
+    password: UX82473651
+    port: 443
+    server: 13.230.91.226
+    skip-cert-verify: true
+    sni: musical-terrier.rooster465.autos
+    type: trojan
+    udp: true
   - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
     type: trojan
     server: inviting-ferret.rooster465.autos
@@ -945,126 +827,7 @@ proxies:
     tls: true
     servername: inviting-ferret.rooster465.autos
     password: UX82473651
-  - cipher: rc4-md5
-    name: 🇸🇬 SG | shadowsocks-27347
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 68.183.227.236
-    type: ss
-    udp: true
-  - name: 🇸🇬 SG | SG新加坡丨yoyapai.com
-    network: ws
-    port: 8880
-    server: 172.64.94.251
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: fb5058f5-a9ed-424e-9ed7-33d455438286
-    ws-opts:
-      headers:
-        Host: old-violet-a5ce.29-440.workers.dev
-      path: /pyip=ProxyIP.SG.CMLiussss.net
-  - cipher: rc4-md5
-    name: 🇸🇬 SG | shadowsocks-27349
-    password: 14fFPrbezE3HDZzsMOr6
-    port: 8080
-    server: 68.183.235.122
-    type: ss
-    udp: true
-  - alterId: 0
-    cipher: auto
-    name: 🇨🇳 CN | _CN_中国_2
-    port: 50002
-    server: 112.132.215.108
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
-  - name: 🇯🇵 JP | trojan-1646372260
-    password: UX82473651
-    port: 443
-    server: evolving-platypus.rooster465.autos
-    skip-cert-verify: true
-    sni: ""
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15869369
-    type: trojan
-    server: glowing-marmoset.rooster465.autos
-    port: 443
-    udp: true
-    network: tcp
-    tls: true
-    servername: glowing-marmoset.rooster465.autos
-    password: UX82473651
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15923829
-    type: vless
-    server: support.zoom.us
-    port: 8443
-    udp: true
-    network: ws
-    ws-opts:
-      path: /xprolk-primeline
-      headers:
-        Host: primelinelk.me
-    tls: true
-    servername: primelinelk.me
-    client-fingerprint: chrome
-    uuid: ba9ba1d3-19c8-4792-9d3f-ddd2cdcc2e65
-  - name: 🇯🇵 JP | trojan-1648344534
-    password: UX82473651
-    port: 443
-    server: evolving-platypus.rooster465.autos
-    skip-cert-verify: false
-    sni: evolving-platypus.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇯🇵 JP | trojan-1644728137
-    password: UX82473651
-    port: 443
-    server: integral-rodent.rooster465.autos
-    skip-cert-verify: false
-    sni: integral-rodent.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇮🇳 IN | [www.v2nodes.com] vless-IN
-    type: vless
-    server: 5.253.30.99
-    port: 40443
-    udp: true
-    network: tcp
-    tls: true
-    servername: deepl.com
-    client-fingerprint: chrome
-    uuid: 511c1563-2cb6-4064-abc6-a59ee49818a8
-    flow: xtls-rprx-vision
-    reality-opts:
-      public-key: cwmcqsfS7klQlkcoUNuATEk0NiPY-NnRb9z8rCJDQw0
-      short-id: 88b6
-  - name: 🇸🇬 SG | FR法國丨yoyapai.com_1
-    network: ws
-    port: 8880
-    server: 104.27.82.154
-    skip-cert-verify: false
-    tls: false
-    type: vless
-    udp: true
-    uuid: fb5058f5-a9ed-424e-9ed7-33d455438286
-    ws-opts:
-      headers:
-        Host: old-violet-a5ce.29-440.workers.dev
-      path: /pyip=ProxyIP.SG.CMLiussss.net
-  - name: 🇯🇵 JP | trojan-1643520494
-    password: UX82473651
-    port: 443
-    server: promoted-rattler.rooster465.autos
-    skip-cert-verify: true
-    sni: promoted-rattler.rooster465.autos
-    type: trojan
-    udp: true
-  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+  - name: 🇸🇬 SG | [www.v2nodes.com] vless- · 3
     type: vless
     server: 46.137.202.178
     port: 12512
@@ -1078,51 +841,31 @@ proxies:
     reality-opts:
       public-key: sO0RBMr_l8TLtZaYBX8n3NdI9AtaugUqJpCR1szNsyA
       short-id: e692a8250d2e2fd0
-  - client-fingerprint: firefox
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-650632896
-    network: tcp
-    port: 18007
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
-    type: vless
+  - name: 🇰🇷 KR | trojan-1713642342
+    password: UX82473651
+    port: 443
+    server: 52.78.203.191
+    skip-cert-verify: true
+    sni: delicate-buck.rooster465.autos
+    type: trojan
     udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: ios
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-479071125
-    network: tcp
-    port: 18007
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
-    tls: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15749552
     type: vless
+    server: 217.217.254.126
+    port: 2053
     udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
-  - client-fingerprint: random
-    flow: xtls-rprx-vision
-    name: 🇯🇵 JP | vless-479071124
     network: tcp
-    port: 10583
-    reality-opts:
-      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
-      short-id: 48050fab
-    server: 3.114.220.22
-    servername: www.apple.com
     tls: true
-    type: vless
-    udp: true
-    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+    servername: www.cloudflare.com
+    client-fingerprint: firefox
+    skip-cert-verify: true
+    uuid: cb15cce9-73ed-4928-b38c-462f0732cbe9
+    reality-opts:
+      public-key: VzRjuHwcY-nLqkEIJS4S1CpButKc90Bh0gDbphyZ0Tw
+      short-id: 87829de0e2bb82cb
   - alterId: 2
     cipher: auto
-    name: 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
+    name: 🇭🇰 HK | _HK_中国香港
     port: 30836
     server: v36.hdacd.com
     skip-cert-verify: true
@@ -1140,37 +883,9 @@ proxies:
     type: vmess
     udp: true
     uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - name: 🇬🇧 GB | _GB_英国
-    password: Trojan@82164024
-    port: 443
-    server: gb.tronsg.com
-    skip-cert-verify: true
-    sni: gb.tronsg.com
-    type: trojan
-    udp: true
   - alterId: 2
     cipher: auto
-    name: 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-    port: 30806
-    server: v6.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
-    port: 30829
-    server: v29.hdacd.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-  - alterId: 2
-    cipher: auto
-    name: 🇮🇪 IE | _HK_中国香港->🇮🇪_IE_爱尔兰
+    name: 🇭🇰 HK | _HK_中国香港->🇮🇪_IE_爱尔兰
     port: 30804
     server: v4.hdacd.com
     skip-cert-verify: true
@@ -1180,25 +895,7 @@ proxies:
     uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
   - alterId: 2
     cipher: auto
-    name: 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本_1
-    port: 11231
-    server: silversbgfgov.vip31.wogbcnmnagfwgov.com
-    skip-cert-verify: true
-    tls: false
-    type: vmess
-    udp: true
-    uuid: 605956ee-544d-308e-8b90-51e67c6ea8da
-  - name: 🇳🇱 NL | _DE_德国
-    port: 443
-    server: 13.143.172.203
-    skip-cert-verify: true
-    tls: true
-    type: vless
-    udp: true
-    uuid: 88aefb0c-cdbf-489f-9e6b-9be5b5fd5a11
-  - alterId: 2
-    cipher: auto
-    name: 🇭🇰 HK | _HK_中国香港
+    name: 🇭🇰 HK | _HK_中国香港_1
     port: 30807
     server: v10.hdacd.com
     skip-cert-verify: true
@@ -1219,125 +916,107 @@ proxy-groups:
       - 🇪🇺 欧洲
       - 🌍 其他地区
       - DIRECT
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7429
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | shadowsocks-12788521
-      - 🇺🇸 US | shadowsocks-27276
-      - 🇺🇸 US | shadowsocks-27271
-      - 🇺🇸 US | shadowsocks-194
-      - 🇺🇸 US | trojan-1738567387
-      - 🇺🇸 US | shadowsocks-156
-      - 🇺🇸 US | shadowsocks-1712737955
-      - 🇺🇸 US | _US_美国_1_2
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3645
-      - 🌍 OTHER | ❓未知丨yoyapai.com_3
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
-      - 🌍 OTHER | ❓未知丨yoyapai.com_2
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇺🇸 US | US美国丨yoyapai.com
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4125
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
-      - 🇺🇸 US | US美國丨yoyapai.com
+      - 🇺🇸 US | shadowsocks-192
       - 🇺🇸 US | shadowsocks-193
-      - 🇺🇸 US | shadowsocks-860758286
-      - 🇨🇦 CA | shadowsocks-1712737956
-      - 🇨🇦 CA | shadowsocks-468218613
-      - 🇯🇵 JP | vless-1670327313
-      - 🇯🇵 JP | trojan-1653307136
-      - 🇯🇵 JP | trojan-1737442077
-      - 🇯🇵 JP | trojan-1746322860
-      - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | trojan-1735131202
-      - 🇯🇵 JP | trojan-1681917898
-      - 🇯🇵 JP | trojan-1735023420
-      - 🇯🇵 JP | trojan-1644712792
-      - 🇯🇵 JP | trojan-1734784408
-      - 🇯🇵 JP | trojan-1745236350
-      - 🇯🇵 JP | trojan-1739093818
-      - 🇯🇵 JP | trojan-1735023414
-      - 🇯🇵 JP | trojan-1680753288
-      - 🇯🇵 JP | trojan-1734784401
-      - 🇯🇵 JP | trojan-1687384971
-      - 🇯🇵 JP | trojan-1665763439
-      - 🇯🇵 JP | trojan-1738567384
-      - 🇯🇵 JP | trojan-1647915026
-      - 🇯🇵 JP | trojan-1661189388
-      - 🇯🇵 JP | shadowsocks-213
-      - 🇯🇵 JP | trojan-1735131213
-      - 🇯🇵 JP | vless-1302936702
-      - 🇯🇵 JP | trojan-1681033269
-      - 🇯🇵 JP | trojan-1738567389
-      - 🇯🇵 JP | trojan-1656566106
-      - 🇯🇵 JP | vless-1645364938
-      - 🇺🇸 US | _US_美国_1
-      - 🇯🇵 JP | shadowsocks-696780669
-      - 🇯🇵 JP | trojan-1742281120
-      - 🇯🇵 JP | trojan-1734784380
-      - 🇯🇵 JP | US美国丨yoyapai.com_2
-      - 🇰🇷 KR | vless-1742630101
-      - 🇰🇷 KR | trojan-1735023411
-      - 🇰🇷 KR | trojan-1648312995
-      - 🇰🇷 KR | trojan-1737442031
-      - 🇰🇷 KR | vless-233010793
-      - 🇰🇷 KR | trojan-1660423653
-      - 🇬🇧 GB | shadowsocks-717969008
-      - 🇳🇱 NL | shadowsocks-166303196
+      - 🇺🇸 US | shadowsocks-1746935299
+      - 🇺🇸 US | shadowsocks-195
+      - 🇺🇸 US | shadowsocks-1746935301
+      - 🌍 OTHER | shadowsocks-1736237342
+      - 🇺🇸 US | shadowsocks-194
+      - 🇺🇸 US | shadowsocks-158
+      - 🇨🇦 CA | shadowsocks-166
+      - 🇺🇸 US | shadowsocks-27291
+      - 🇺🇸 US | _US_美国_2
+      - 🇺🇸 US | _US_美国
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇺🇸 US | shadowsocks-27271
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | shadowsocks-1747578561
+      - 🇬🇧 GB | shadowsocks-27285
+      - 🇬🇧 GB | shadowsocks-165
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | shadowsocks-156
+      - 🇳🇱 NL | shadowsocks-1752515802
+      - 🇩🇪 DE | shadowsocks-1688379115
+      - 🇳🇱 NL | shadowsocks-1659750585
+      - 🇳🇱 NL | shadowsocks-11049
+      - 🌍 OTHER | shadowsocks-10899
+      - 🇳🇱 NL | shadowsocks-98971312
+      - 🇳🇱 NL | shadowsocks-1670157774
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇳🇱 NL | shadowsocks-49012021
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇳🇱 NL | shadowsocks-72830589
+      - 🇳🇱 NL | shadowsocks-170
+      - 🇳🇱 NL | shadowsocks-254910437
       - 🇳🇱 NL | shadowsocks-274
-      - 🇳🇱 NL | shadowsocks-1675817312
-      - 🇯🇵 JP | trojan-1643514790
-      - 🇳🇱 NL | shadowsocks-11032
-      - 🇯🇵 JP | trojan-1648313005
+      - 🇩🇪 DE | DE德国丨yoyapai.com
+      - 🇮🇹 IT | shadowsocks-743178418
+      - 🇳🇱 NL | shadowsocks-258605572
+      - 🇳🇱 NL | shadowsocks-26220
+      - 🇯🇵 JP | shadowsocks-213
+      - 🇯🇵 JP | trojan-1745293701
+      - 🇯🇵 JP | trojan-1737442029
+      - 🇯🇵 JP | trojan-1739093820
+      - 🇯🇵 JP | trojan-1681917898
+      - 🇯🇵 JP | trojan-1749759440
+      - 🇯🇵 JP | trojan-1745341940
+      - 🇯🇵 JP | trojan-1737429071
+      - 🇯🇵 JP | trojan-1735023416
       - 🇯🇵 JP | trojan-1666094671
-      - 🇯🇵 JP | vless-1383599296
-      - 🇳🇱 NL | DE德国丨yoyapai.com
-      - 🇹🇷 TR | CA加拿大丨yoyapai.com
-      - 🇯🇵 JP | vless-246499915
-      - 🇯🇵 JP | trojan-1669884379
-      - 🇯🇵 JP | trojan-1649577323
-      - 🇯🇵 JP | trojan-1648313012
-      - 🇯🇵 JP | trojan-1666452604
-      - 🇰🇷 KR | trojan-1703768237
-      - 🇯🇵 JP | trojan-1669884364
-      - 🇯🇵 JP | trojan-1696475204
+      - 🇯🇵 JP | trojan-1749074978
+      - 🇺🇸 US | shadowsocks-687923666
+      - 🇯🇵 JP | trojan-1738407205
+      - 🇯🇵 JP | trojan-1672825403
+      - 🇯🇵 JP | trojan-1723382176
+      - 🇯🇵 JP | trojan-1646372260
+      - 🇯🇵 JP | trojan-1738797245
+      - 🇯🇵 JP | trojan-1645398600
+      - 🇯🇵 JP | trojan-1734784401
+      - 🇯🇵 JP | trojan-1749759469
+      - 🇯🇵 JP | trojan-1735023415
+      - 🇯🇵 JP | trojan-1743792177
+      - 🇯🇵 JP | trojan-1747827232
       - 🇯🇵 JP | trojan-1645398599
-      - 🌍 OTHER | ❓未知丨yoyapai.com
-      - 🇺🇸 US | US美国丨yoyapai.com_1
-      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15879910
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15888245
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
-      - 🇯🇵 JP | trojan-1646372252
-      - 🇸🇬 SG | shadowsocks-125384
+      - 🇯🇵 JP | trojan-1643520544
+      - 🇯🇵 JP | trojan-1735131213
+      - 🇯🇵 JP | trojan-1740066482
+      - 🇯🇵 JP | trojan-1735131202
+      - 🇯🇵 JP | trojan-1734784385
+      - 🇯🇵 JP | trojan-1643514774
+      - 🇯🇵 JP | trojan-1735023414
+      - 🇰🇷 KR | trojan-1739822099
+      - 🇰🇷 KR | trojan-1744442928
+      - 🇰🇷 KR | trojan-1750193174
+      - 🇰🇷 KR | trojan-1735131207
+      - 🇰🇷 KR | _KR_韩国
+      - 🇰🇷 KR | trojan-1746302579
+      - 🇳🇱 NL | shadowsocks-270
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇸🇬 SG | _SG_新加坡_1
       - 🇸🇬 SG | shadowsocks-27350
       - 🇸🇬 SG | shadowsocks-27348
-      - 🇸🇬 SG | FR法國丨yoyapai.com
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
-      - 🇸🇬 SG | shadowsocks-27347
-      - 🇸🇬 SG | SG新加坡丨yoyapai.com
       - 🇸🇬 SG | shadowsocks-27349
-      - 🇨🇳 CN | _CN_中国_2
-      - 🇯🇵 JP | trojan-1646372260
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15869369
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15923829
-      - 🇯🇵 JP | trojan-1648344534
-      - 🇯🇵 JP | trojan-1644728137
-      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
-      - 🇸🇬 SG | FR法國丨yoyapai.com_1
-      - 🇯🇵 JP | trojan-1643520494
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
-      - 🇯🇵 JP | vless-650632896
-      - 🇯🇵 JP | vless-479071125
-      - 🇯🇵 JP | vless-479071124
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
-      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇸🇬 SG | shadowsocks-27347
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | _SG_新加坡_2
+      - 🇸🇬 SG | _SG_新加坡_2_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
       - 🇬🇧 GB | _GB_英国
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
-      - 🇮🇪 IE | _HK_中国香港->🇮🇪_IE_爱尔兰
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本_1
-      - 🇳🇱 NL | _DE_德国
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🇯🇵 JP | trojan-1682385949
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 3
+      - 🇰🇷 KR | trojan-1713642342
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15749552
       - 🇭🇰 HK | _HK_中国香港
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇭🇰 HK | _HK_中国香港->🇮🇪_IE_爱尔兰
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: ♻️ AUTO
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1348,125 +1027,107 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies: &a1
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7429
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | shadowsocks-12788521
-      - 🇺🇸 US | shadowsocks-27276
-      - 🇺🇸 US | shadowsocks-27271
-      - 🇺🇸 US | shadowsocks-194
-      - 🇺🇸 US | trojan-1738567387
-      - 🇺🇸 US | shadowsocks-156
-      - 🇺🇸 US | shadowsocks-1712737955
-      - 🇺🇸 US | _US_美国_1_2
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3645
-      - 🌍 OTHER | ❓未知丨yoyapai.com_3
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
-      - 🌍 OTHER | ❓未知丨yoyapai.com_2
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇺🇸 US | US美国丨yoyapai.com
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4125
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
-      - 🇺🇸 US | US美國丨yoyapai.com
+      - 🇺🇸 US | shadowsocks-192
       - 🇺🇸 US | shadowsocks-193
-      - 🇺🇸 US | shadowsocks-860758286
-      - 🇨🇦 CA | shadowsocks-1712737956
-      - 🇨🇦 CA | shadowsocks-468218613
-      - 🇯🇵 JP | vless-1670327313
-      - 🇯🇵 JP | trojan-1653307136
-      - 🇯🇵 JP | trojan-1737442077
-      - 🇯🇵 JP | trojan-1746322860
-      - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | trojan-1735131202
-      - 🇯🇵 JP | trojan-1681917898
-      - 🇯🇵 JP | trojan-1735023420
-      - 🇯🇵 JP | trojan-1644712792
-      - 🇯🇵 JP | trojan-1734784408
-      - 🇯🇵 JP | trojan-1745236350
-      - 🇯🇵 JP | trojan-1739093818
-      - 🇯🇵 JP | trojan-1735023414
-      - 🇯🇵 JP | trojan-1680753288
-      - 🇯🇵 JP | trojan-1734784401
-      - 🇯🇵 JP | trojan-1687384971
-      - 🇯🇵 JP | trojan-1665763439
-      - 🇯🇵 JP | trojan-1738567384
-      - 🇯🇵 JP | trojan-1647915026
-      - 🇯🇵 JP | trojan-1661189388
-      - 🇯🇵 JP | shadowsocks-213
-      - 🇯🇵 JP | trojan-1735131213
-      - 🇯🇵 JP | vless-1302936702
-      - 🇯🇵 JP | trojan-1681033269
-      - 🇯🇵 JP | trojan-1738567389
-      - 🇯🇵 JP | trojan-1656566106
-      - 🇯🇵 JP | vless-1645364938
-      - 🇺🇸 US | _US_美国_1
-      - 🇯🇵 JP | shadowsocks-696780669
-      - 🇯🇵 JP | trojan-1742281120
-      - 🇯🇵 JP | trojan-1734784380
-      - 🇯🇵 JP | US美国丨yoyapai.com_2
-      - 🇰🇷 KR | vless-1742630101
-      - 🇰🇷 KR | trojan-1735023411
-      - 🇰🇷 KR | trojan-1648312995
-      - 🇰🇷 KR | trojan-1737442031
-      - 🇰🇷 KR | vless-233010793
-      - 🇰🇷 KR | trojan-1660423653
-      - 🇬🇧 GB | shadowsocks-717969008
-      - 🇳🇱 NL | shadowsocks-166303196
+      - 🇺🇸 US | shadowsocks-1746935299
+      - 🇺🇸 US | shadowsocks-195
+      - 🇺🇸 US | shadowsocks-1746935301
+      - 🌍 OTHER | shadowsocks-1736237342
+      - 🇺🇸 US | shadowsocks-194
+      - 🇺🇸 US | shadowsocks-158
+      - 🇨🇦 CA | shadowsocks-166
+      - 🇺🇸 US | shadowsocks-27291
+      - 🇺🇸 US | _US_美国_2
+      - 🇺🇸 US | _US_美国
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇺🇸 US | shadowsocks-27271
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | shadowsocks-1747578561
+      - 🇬🇧 GB | shadowsocks-27285
+      - 🇬🇧 GB | shadowsocks-165
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | shadowsocks-156
+      - 🇳🇱 NL | shadowsocks-1752515802
+      - 🇩🇪 DE | shadowsocks-1688379115
+      - 🇳🇱 NL | shadowsocks-1659750585
+      - 🇳🇱 NL | shadowsocks-11049
+      - 🌍 OTHER | shadowsocks-10899
+      - 🇳🇱 NL | shadowsocks-98971312
+      - 🇳🇱 NL | shadowsocks-1670157774
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇳🇱 NL | shadowsocks-49012021
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇳🇱 NL | shadowsocks-72830589
+      - 🇳🇱 NL | shadowsocks-170
+      - 🇳🇱 NL | shadowsocks-254910437
       - 🇳🇱 NL | shadowsocks-274
-      - 🇳🇱 NL | shadowsocks-1675817312
-      - 🇯🇵 JP | trojan-1643514790
-      - 🇳🇱 NL | shadowsocks-11032
-      - 🇯🇵 JP | trojan-1648313005
+      - 🇩🇪 DE | DE德国丨yoyapai.com
+      - 🇮🇹 IT | shadowsocks-743178418
+      - 🇳🇱 NL | shadowsocks-258605572
+      - 🇳🇱 NL | shadowsocks-26220
+      - 🇯🇵 JP | shadowsocks-213
+      - 🇯🇵 JP | trojan-1745293701
+      - 🇯🇵 JP | trojan-1737442029
+      - 🇯🇵 JP | trojan-1739093820
+      - 🇯🇵 JP | trojan-1681917898
+      - 🇯🇵 JP | trojan-1749759440
+      - 🇯🇵 JP | trojan-1745341940
+      - 🇯🇵 JP | trojan-1737429071
+      - 🇯🇵 JP | trojan-1735023416
       - 🇯🇵 JP | trojan-1666094671
-      - 🇯🇵 JP | vless-1383599296
-      - 🇳🇱 NL | DE德国丨yoyapai.com
-      - 🇹🇷 TR | CA加拿大丨yoyapai.com
-      - 🇯🇵 JP | vless-246499915
-      - 🇯🇵 JP | trojan-1669884379
-      - 🇯🇵 JP | trojan-1649577323
-      - 🇯🇵 JP | trojan-1648313012
-      - 🇯🇵 JP | trojan-1666452604
-      - 🇰🇷 KR | trojan-1703768237
-      - 🇯🇵 JP | trojan-1669884364
-      - 🇯🇵 JP | trojan-1696475204
+      - 🇯🇵 JP | trojan-1749074978
+      - 🇺🇸 US | shadowsocks-687923666
+      - 🇯🇵 JP | trojan-1738407205
+      - 🇯🇵 JP | trojan-1672825403
+      - 🇯🇵 JP | trojan-1723382176
+      - 🇯🇵 JP | trojan-1646372260
+      - 🇯🇵 JP | trojan-1738797245
+      - 🇯🇵 JP | trojan-1645398600
+      - 🇯🇵 JP | trojan-1734784401
+      - 🇯🇵 JP | trojan-1749759469
+      - 🇯🇵 JP | trojan-1735023415
+      - 🇯🇵 JP | trojan-1743792177
+      - 🇯🇵 JP | trojan-1747827232
       - 🇯🇵 JP | trojan-1645398599
-      - 🌍 OTHER | ❓未知丨yoyapai.com
-      - 🇺🇸 US | US美国丨yoyapai.com_1
-      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15879910
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15888245
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
-      - 🇯🇵 JP | trojan-1646372252
-      - 🇸🇬 SG | shadowsocks-125384
+      - 🇯🇵 JP | trojan-1643520544
+      - 🇯🇵 JP | trojan-1735131213
+      - 🇯🇵 JP | trojan-1740066482
+      - 🇯🇵 JP | trojan-1735131202
+      - 🇯🇵 JP | trojan-1734784385
+      - 🇯🇵 JP | trojan-1643514774
+      - 🇯🇵 JP | trojan-1735023414
+      - 🇰🇷 KR | trojan-1739822099
+      - 🇰🇷 KR | trojan-1744442928
+      - 🇰🇷 KR | trojan-1750193174
+      - 🇰🇷 KR | trojan-1735131207
+      - 🇰🇷 KR | _KR_韩国
+      - 🇰🇷 KR | trojan-1746302579
+      - 🇳🇱 NL | shadowsocks-270
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇸🇬 SG | _SG_新加坡_1
       - 🇸🇬 SG | shadowsocks-27350
       - 🇸🇬 SG | shadowsocks-27348
-      - 🇸🇬 SG | FR法國丨yoyapai.com
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
-      - 🇸🇬 SG | shadowsocks-27347
-      - 🇸🇬 SG | SG新加坡丨yoyapai.com
       - 🇸🇬 SG | shadowsocks-27349
-      - 🇨🇳 CN | _CN_中国_2
-      - 🇯🇵 JP | trojan-1646372260
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15869369
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15923829
-      - 🇯🇵 JP | trojan-1648344534
-      - 🇯🇵 JP | trojan-1644728137
-      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
-      - 🇸🇬 SG | FR法國丨yoyapai.com_1
-      - 🇯🇵 JP | trojan-1643520494
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
-      - 🇯🇵 JP | vless-650632896
-      - 🇯🇵 JP | vless-479071125
-      - 🇯🇵 JP | vless-479071124
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
-      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇸🇬 SG | shadowsocks-27347
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | _SG_新加坡_2
+      - 🇸🇬 SG | _SG_新加坡_2_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
       - 🇬🇧 GB | _GB_英国
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
-      - 🇮🇪 IE | _HK_中国香港->🇮🇪_IE_爱尔兰
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本_1
-      - 🇳🇱 NL | _DE_德国
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🇯🇵 JP | trojan-1682385949
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 3
+      - 🇰🇷 KR | trojan-1713642342
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15749552
       - 🇭🇰 HK | _HK_中国香港
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇭🇰 HK | _HK_中国香港->🇮🇪_IE_爱尔兰
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: 🛟 FALLBACK
     type: fallback
     url: https://www.gstatic.com/generate_204
@@ -1486,8 +1147,10 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
       - 🇭🇰 HK | _HK_中国香港
+      - 🇭🇰 HK | _HK_中国香港->🇫🇷_FR_法国
+      - 🇭🇰 HK | _HK_中国香港->🇮🇪_IE_爱尔兰
+      - 🇭🇰 HK | _HK_中国香港_1
   - name: 🇸🇬 新加坡
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1498,26 +1161,25 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3645
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4125
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
       - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15879910
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15888245
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
-      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇸🇬 SG | _SG_新加坡
+      - 🇸🇬 SG | _SG_新加坡_1
       - 🇸🇬 SG | shadowsocks-27350
       - 🇸🇬 SG | shadowsocks-27348
-      - 🇸🇬 SG | FR法國丨yoyapai.com
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
-      - 🇸🇬 SG | shadowsocks-27347
-      - 🇸🇬 SG | SG新加坡丨yoyapai.com
       - 🇸🇬 SG | shadowsocks-27349
-      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15869369
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15923829
-      - 🇸🇬 SG | FR法國丨yoyapai.com_1
-      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+      - 🇸🇬 SG | shadowsocks-27347
+      - 🇸🇬 SG | shadowsocks-125384
+      - 🇸🇬 SG | _SG_新加坡_2
+      - 🇸🇬 SG | _SG_新加坡_2_2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15870719
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 2
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2194
+      - 🇸🇬 SG | [www.v2nodes.com] Trojan VPN-SG-15898508
+      - 🇸🇬 SG | [www.v2nodes.com] vless- · 3
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15749552
   - name: 🇯🇵 日本
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1528,58 +1190,37 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇯🇵 JP | vless-1670327313
-      - 🇯🇵 JP | trojan-1653307136
-      - 🇯🇵 JP | trojan-1737442077
-      - 🇯🇵 JP | trojan-1746322860
-      - 🇯🇵 JP | shadowsocks-218
-      - 🇯🇵 JP | trojan-1735131202
-      - 🇯🇵 JP | trojan-1681917898
-      - 🇯🇵 JP | trojan-1735023420
-      - 🇯🇵 JP | trojan-1644712792
-      - 🇯🇵 JP | trojan-1734784408
-      - 🇯🇵 JP | trojan-1745236350
-      - 🇯🇵 JP | trojan-1739093818
-      - 🇯🇵 JP | trojan-1735023414
-      - 🇯🇵 JP | trojan-1680753288
-      - 🇯🇵 JP | trojan-1734784401
-      - 🇯🇵 JP | trojan-1687384971
-      - 🇯🇵 JP | trojan-1665763439
-      - 🇯🇵 JP | trojan-1738567384
-      - 🇯🇵 JP | trojan-1647915026
-      - 🇯🇵 JP | trojan-1661189388
       - 🇯🇵 JP | shadowsocks-213
-      - 🇯🇵 JP | trojan-1735131213
-      - 🇯🇵 JP | vless-1302936702
-      - 🇯🇵 JP | trojan-1681033269
-      - 🇯🇵 JP | trojan-1738567389
-      - 🇯🇵 JP | trojan-1656566106
-      - 🇯🇵 JP | vless-1645364938
-      - 🇯🇵 JP | shadowsocks-696780669
-      - 🇯🇵 JP | trojan-1742281120
-      - 🇯🇵 JP | trojan-1734784380
-      - 🇯🇵 JP | US美国丨yoyapai.com_2
-      - 🇯🇵 JP | trojan-1643514790
-      - 🇯🇵 JP | trojan-1648313005
+      - 🇯🇵 JP | trojan-1745293701
+      - 🇯🇵 JP | trojan-1737442029
+      - 🇯🇵 JP | trojan-1739093820
+      - 🇯🇵 JP | trojan-1681917898
+      - 🇯🇵 JP | trojan-1749759440
+      - 🇯🇵 JP | trojan-1745341940
+      - 🇯🇵 JP | trojan-1737429071
+      - 🇯🇵 JP | trojan-1735023416
       - 🇯🇵 JP | trojan-1666094671
-      - 🇯🇵 JP | vless-1383599296
-      - 🇯🇵 JP | vless-246499915
-      - 🇯🇵 JP | trojan-1669884379
-      - 🇯🇵 JP | trojan-1649577323
-      - 🇯🇵 JP | trojan-1648313012
-      - 🇯🇵 JP | trojan-1666452604
-      - 🇯🇵 JP | trojan-1669884364
-      - 🇯🇵 JP | trojan-1696475204
-      - 🇯🇵 JP | trojan-1645398599
-      - 🇯🇵 JP | trojan-1646372252
+      - 🇯🇵 JP | trojan-1749074978
+      - 🇯🇵 JP | trojan-1738407205
+      - 🇯🇵 JP | trojan-1672825403
+      - 🇯🇵 JP | trojan-1723382176
       - 🇯🇵 JP | trojan-1646372260
-      - 🇯🇵 JP | trojan-1648344534
-      - 🇯🇵 JP | trojan-1644728137
-      - 🇯🇵 JP | trojan-1643520494
-      - 🇯🇵 JP | vless-650632896
-      - 🇯🇵 JP | vless-479071125
-      - 🇯🇵 JP | vless-479071124
-      - 🇯🇵 JP | _HK_中国香港->🇯🇵_JP_日本
+      - 🇯🇵 JP | trojan-1738797245
+      - 🇯🇵 JP | trojan-1645398600
+      - 🇯🇵 JP | trojan-1734784401
+      - 🇯🇵 JP | trojan-1749759469
+      - 🇯🇵 JP | trojan-1735023415
+      - 🇯🇵 JP | trojan-1743792177
+      - 🇯🇵 JP | trojan-1747827232
+      - 🇯🇵 JP | trojan-1645398599
+      - 🇯🇵 JP | trojan-1643520544
+      - 🇯🇵 JP | trojan-1735131213
+      - 🇯🇵 JP | trojan-1740066482
+      - 🇯🇵 JP | trojan-1735131202
+      - 🇯🇵 JP | trojan-1734784385
+      - 🇯🇵 JP | trojan-1643514774
+      - 🇯🇵 JP | trojan-1735023414
+      - 🇯🇵 JP | trojan-1682385949
   - name: 🇺🇸 美国
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1590,24 +1231,22 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇺🇸 US | [www.v2nodes.com] V2Ray Vless-SG-7429
-      - 🇺🇸 US | _US_美国
-      - 🇺🇸 US | shadowsocks-12788521
-      - 🇺🇸 US | shadowsocks-27276
-      - 🇺🇸 US | shadowsocks-27271
-      - 🇺🇸 US | shadowsocks-194
-      - 🇺🇸 US | trojan-1738567387
-      - 🇺🇸 US | shadowsocks-156
-      - 🇺🇸 US | shadowsocks-1712737955
-      - 🇺🇸 US | _US_美国_1_2
-      - 🇺🇸 US | shadowsocks-468218487
-      - 🇺🇸 US | US美国丨yoyapai.com
-      - 🇺🇸 US | US美國丨yoyapai.com
+      - 🇺🇸 US | shadowsocks-192
       - 🇺🇸 US | shadowsocks-193
-      - 🇺🇸 US | shadowsocks-860758286
-      - 🇺🇸 US | _US_美国_1
-      - 🇺🇸 US | US美国丨yoyapai.com_1
-      - 🇺🇸 US | _HK_中国香港->🇺🇸_US_美国
+      - 🇺🇸 US | shadowsocks-1746935299
+      - 🇺🇸 US | shadowsocks-195
+      - 🇺🇸 US | shadowsocks-1746935301
+      - 🇺🇸 US | shadowsocks-194
+      - 🇺🇸 US | shadowsocks-158
+      - 🇺🇸 US | shadowsocks-27291
+      - 🇺🇸 US | _US_美国_2
+      - 🇺🇸 US | _US_美国
+      - 🇺🇸 US | shadowsocks-27271
+      - 🇺🇸 US | shadowsocks-468218487
+      - 🇺🇸 US | shadowsocks-1747578561
+      - 🇺🇸 US | _US_美国_1_2
+      - 🇺🇸 US | shadowsocks-156
+      - 🇺🇸 US | shadowsocks-687923666
   - name: 🇪🇺 欧洲
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1618,16 +1257,25 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🇬🇧 GB | shadowsocks-717969008
-      - 🇳🇱 NL | shadowsocks-166303196
+      - 🇬🇧 GB | shadowsocks-27285
+      - 🇬🇧 GB | shadowsocks-165
+      - 🇳🇱 NL | shadowsocks-1752515802
+      - 🇩🇪 DE | shadowsocks-1688379115
+      - 🇳🇱 NL | shadowsocks-1659750585
+      - 🇳🇱 NL | shadowsocks-11049
+      - 🇳🇱 NL | shadowsocks-98971312
+      - 🇳🇱 NL | shadowsocks-1670157774
+      - 🇳🇱 NL | shadowsocks-11033
+      - 🇳🇱 NL | shadowsocks-49012021
+      - 🇳🇱 NL | shadowsocks-72830589
+      - 🇳🇱 NL | shadowsocks-170
+      - 🇳🇱 NL | shadowsocks-254910437
       - 🇳🇱 NL | shadowsocks-274
-      - 🇳🇱 NL | shadowsocks-1675817312
-      - 🇳🇱 NL | shadowsocks-11032
-      - 🇳🇱 NL | DE德国丨yoyapai.com
-      - 🇩🇪 DE | _US_美国->🇩🇪_DE_德国
-      - 🇬🇧 GB | _HK_中国香港->🇬🇧_GB_英国
+      - 🇩🇪 DE | DE德国丨yoyapai.com
+      - 🇳🇱 NL | shadowsocks-258605572
+      - 🇳🇱 NL | shadowsocks-26220
+      - 🇳🇱 NL | shadowsocks-270
       - 🇬🇧 GB | _GB_英国
-      - 🇳🇱 NL | _DE_德国
   - name: 🌍 其他地区
     type: url-test
     url: https://www.gstatic.com/generate_204
@@ -1638,23 +1286,18 @@ proxy-groups:
     max-failed-times: 2
     tolerance: 100
     proxies:
-      - 🌍 OTHER | ❓未知丨yoyapai.com_3
-      - 🌍 OTHER | ❓未知丨yoyapai.com_2
-      - 🇨🇦 CA | shadowsocks-1712737956
-      - 🇨🇦 CA | shadowsocks-468218613
-      - 🇰🇷 KR | vless-1742630101
-      - 🇰🇷 KR | trojan-1735023411
-      - 🇰🇷 KR | trojan-1648312995
-      - 🇰🇷 KR | trojan-1737442031
-      - 🇰🇷 KR | vless-233010793
-      - 🇰🇷 KR | trojan-1660423653
-      - 🇹🇷 TR | CA加拿大丨yoyapai.com
-      - 🇰🇷 KR | trojan-1703768237
-      - 🌍 OTHER | ❓未知丨yoyapai.com
-      - 🇨🇳 CN | _CN_中国_2
-      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
-      - 🇮🇪 IE | _HK_中国香港->🇮🇪_IE_爱尔兰
-      - 🇨🇳 CN | _CN_中国->🇯🇵_JP_日本_1
+      - 🌍 OTHER | shadowsocks-1736237342
+      - 🇨🇦 CA | shadowsocks-166
+      - 🌍 OTHER | shadowsocks-10899
+      - 🇦🇹 AT | shadowsocks-1251465987
+      - 🇮🇹 IT | shadowsocks-743178418
+      - 🇰🇷 KR | trojan-1739822099
+      - 🇰🇷 KR | trojan-1744442928
+      - 🇰🇷 KR | trojan-1750193174
+      - 🇰🇷 KR | trojan-1735131207
+      - 🇰🇷 KR | _KR_韩国
+      - 🇰🇷 KR | trojan-1746302579
+      - 🇰🇷 KR | trojan-1713642342
   - name: 💬 TELEGRAM
     type: select
     proxies:
