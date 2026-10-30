@@ -1,0 +1,1463 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+etag-support: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports:
+        - "80"
+        - 8080-8880
+      override-destination: true
+    TLS:
+      ports:
+        - "443"
+        - "8443"
+    QUIC:
+      ports:
+        - "443"
+        - "8443"
+  skip-domain:
+    - Mijia Cloud
+    - +.push.apple.com
+dns:
+  enable: true
+  ipv6: true
+  listen: 127.0.0.1:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: rule
+  fake-ip-filter:
+    - RULE-SET,private,real-ip
+    - RULE-SET,direct,real-ip
+    - DOMAIN-SUFFIX,lan,real-ip
+    - DOMAIN-SUFFIX,local,real-ip
+    - MATCH,fake-ip
+  use-hosts: true
+  use-system-hosts: true
+  respect-rules: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  direct-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  nameserver-policy:
+    rule-set:private:
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    rule-set:direct:
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    rule-set:proxy:
+      - https://1.1.1.1/dns-query
+      - https://dns.google/dns-query
+proxies:
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-1827146815
+    password: shadowsocks
+    port: 443
+    server: 156.146.38.168
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇺🇸 US | shadowsocks-1827146248
+    password: shadowsocks
+    port: 443
+    server: 37.19.198.160
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇨🇦 CA | shadowsocks-1827147479
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 137.184.174.93
+    type: ss
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-1875023016
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 185.230.230.18
+    type: ss
+    udp: true
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-1875129451
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 193.151.160.18
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-1870576345
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 79.110.54.250
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-1828227588
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 79.110.53.169
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇨🇦 CA | vmess-1842122476
+    network: tcp
+    port: 18000
+    server: 23.162.200.198
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - alterId: 0
+    cipher: auto
+    name: 🇨🇦 CA | vmess-1828338235
+    network: tcp
+    port: 18000
+    server: 134.195.196.211
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-1827963676
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 107.155.57.51
+    type: ss
+    udp: true
+  - name: 🇯🇵 JP | trojan-1944047317
+    password: 9646699a-18b0-4ebc-9f53-453cc1c8e637
+    port: 8443
+    server: 43.167.186.78
+    skip-cert-verify: true
+    sni: 43.167.186.78
+    type: trojan
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+    type: vless
+    server: 104.18.0.181
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+    type: vless
+    server: 104.26.4.2
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    client-fingerprint: chrome
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1827
+    type: vless
+    server: 172.67.76.40
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    client-fingerprint: chrome
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+    type: vless
+    server: cf.130519.xyz
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    client-fingerprint: chrome
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
+    type: vless
+    server: 104.18.37.247
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    client-fingerprint: chrome
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+    type: vless
+    server: 172.64.150.28
+    port: 2082
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    servername: hhlfy.twiladaphne.ndjp.net
+    client-fingerprint: chrome
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4382
+    type: vless
+    server: cf.130519.xyz
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp=chrome
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
+    type: vless
+    server: 104.18.35.86
+    port: 8080
+    udp: true
+    network: ws
+    ws-opts:
+      path: /sg-melbi
+      headers:
+        Host: hhlfy.twiladaphne.ndjp.net
+    servername: hhlfy.twiladaphne.ndjp.net
+    uuid: e5cc16a6-ea42-46b2-82ae-ad2157e1641b
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+    type: vless
+    server: 172.64.152.241
+    port: 443
+    udp: true
+    network: ws
+    ws-opts:
+      path: /fp=chrome
+      headers:
+        Host: ccc.010304.xyz
+    tls: true
+    servername: ccc.010304.xyz
+    uuid: d342d11e-d224-4463-b982-532309285094
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-1875022945
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 45.86.51.18
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇺🇸 US | shadowsocks-1827963904
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 138.199.43.159
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇺🇸 US | vmess-1842122480
+    network: tcp
+    port: 18000
+    server: 169.197.142.22
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: aes-256-gcm
+    name: 🇺🇸 US | shadowsocks-1875129452
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    port: 19999
+    server: 95.215.201.18
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827146766
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.9
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827146015
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.193
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827145928
+    password: k1dBOmOB4oqi7Ump37a1bQ
+    port: 8080
+    server: 82.38.31.199
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827146684
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.49
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827146783
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.42
+    type: ss
+    udp: true
+  - cipher: chacha20-ietf-poly1305
+    name: 🇳🇱 NL | shadowsocks-1827146202
+    password: oZIoA69Q8yhcQV8ka3Pa3A
+    port: 8080
+    server: 82.38.31.46
+    type: ss
+    udp: true
+  - cipher: rc4-md5
+    name: 🇩🇪 DE | shadowsocks-1870576356
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 146.70.20.147
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-1827146270
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.240
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-1827146197
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.204
+    type: ss
+    udp: true
+  - cipher: aes-128-gcm
+    name: 🇯🇵 JP | shadowsocks-1827146287
+    password: shadowsocks
+    port: 443
+    server: 149.22.87.241
+    type: ss
+    udp: true
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1854019640
+    network: tcp
+    port: 10583
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754752
+    network: tcp
+    port: 19645
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: edge
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754511
+    network: tcp
+    port: 28573
+    reality-opts:
+      public-key: 1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg
+      short-id: 03653bc03be10c97
+    server: 18.183.215.124
+    servername: www.sony.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 871bfce7-8440-4394-8d82-56b51f20fdad
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1851981706
+    network: tcp
+    port: 18007
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: safari
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1851981544
+    network: tcp
+    port: 18007
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: edge
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1855701578
+    network: tcp
+    port: 10583
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - name: 🇰🇷 KR | trojan-1943747895
+    password: 5t6i121em5lkmsmk
+    port: 48851
+    server: kr002.zestapp778.com
+    skip-cert-verify: false
+    sni: kr002.zestapp778.com
+    type: trojan
+    udp: true
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1851981528
+    network: tcp
+    port: 19645
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - name: 🇰🇷 KR | trojan-1939846054
+    password: 5t6i121em5lkmsmk
+    port: 48851
+    server: kr002.zestapp778.com
+    skip-cert-verify: true
+    sni: kr002.zestapp778.com
+    type: trojan
+    udp: true
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754455
+    network: tcp
+    port: 19645
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754572
+    network: tcp
+    port: 19645
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.114.220.22
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1853651703
+    network: raw
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1828531953
+    network: tcp
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: safari
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1856199582
+    network: tcp
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754659
+    network: tcp
+    port: 28573
+    reality-opts:
+      public-key: 1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg
+      short-id: 03653bc03be10c97
+    server: 18.183.215.124
+    servername: www.sony.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 871bfce7-8440-4394-8d82-56b51f20fdad
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1875764254
+    network: tcp
+    port: 13672
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1828374456
+    network: raw
+    port: 13672
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1856199737
+    network: tcp
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1853464490
+    network: tcp
+    port: 13672
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - alterId: 0
+    cipher: auto
+    name: 🇰🇷 KR | vmess-1944355335
+    network: tcp
+    port: 800
+    server: 129.154.61.196
+    type: vmess
+    udp: true
+    uuid: a915b1d6-cf28-4dc8-e4b4-e09c48c37ec0
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇭🇰 HK | vless-1935804885
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: AE81BrwMc8-kwGEIA1LhzaL03er0Qwt2V-fFy76F5jQ
+      short-id: ca4aedd4
+    server: 165.154.63.139
+    servername: www.amazon.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 91ad30e9-ab06-4b4c-9fb9-1c2aa97d8b3a
+  - name: 🇰🇷 KR | vless-1939847007
+    network: ws
+    port: 25555
+    server: 152.69.226.63
+    type: vless
+    udp: true
+    uuid: 27c5483f-17f4-48ae-9a04-def53d88440d
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-1870576189
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.235.240
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1828150806
+    network: raw
+    port: 18000
+    server: 149.88.23.202
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-1870576350
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 128.1.186.132
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1832844237
+    network: tcp
+    port: 18000
+    server: 149.88.23.207
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - client-fingerprint: chrome
+    name: 🇸🇬 SG | vless-1853978665
+    network: tcp
+    port: 21003
+    reality-opts:
+      public-key: HZwHZBP3x4Yo4UQiHcypRJIU_UdZY5OAapQM8RUqVAU
+      short-id: bab49aa4c2a88d27
+    server: 511.150333.xyz
+    servername: www.cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 41b1c169-5905-4d98-b6a6-56896c25737c
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1827159485
+    network: tcp
+    port: 18000
+    server: ww11.levikogjgfdd.ir
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1853356361
+    network: raw
+    port: 18000
+    server: ww11.levikogjgfdd.ir
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - name: 🇸🇬 SG | trojan-1828295227
+    password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
+    port: 8886
+    server: 139.180.146.200
+    skip-cert-verify: true
+    sni: 139.180.146.200
+    type: trojan
+    udp: true
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1938581973
+    network: tcp
+    port: 443
+    reality-opts:
+      public-key: gSHylaTvEzWj19Bk-zLHXKYUINGWVmo_ybCiD2CRinE
+      short-id: a775360a48ef5cfb
+    server: 206.206.76.75
+    servername: www.cloudflare.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 32cf52f4-b8d2-4ed5-a37c-0d0a8e743309
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-1828226862
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.235.122
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1853354891
+    network: raw
+    port: 18000
+    server: 149.88.23.207
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-1828227303
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.227.45
+    type: ss
+    udp: true
+  - alterId: 0
+    cipher: auto
+    name: 🇸🇬 SG | vmess-1853342649
+    network: tcp
+    port: 18000
+    server: 149.88.23.202
+    type: vmess
+    udp: true
+    uuid: f8c8dc3d-0d37-46b0-8b34-a7232882fcfe
+  - cipher: rc4-md5
+    name: 🇸🇬 SG | shadowsocks-1827147315
+    password: 14fFPrbezE3HDZzsMOr6
+    port: 8080
+    server: 68.183.227.4
+    type: ss
+    udp: true
+  - name: 🇮🇳 IN | [www.v2nodes.com] vless-IN
+    type: vless
+    server: hydra.yokkastars.com
+    port: 2443
+    udp: true
+    network: grpc
+    grpc-opts:
+      grpc-service-name: rex-eb0bf76b710ce763
+    tls: true
+    servername: deepl.com
+    client-fingerprint: qq
+    uuid: 5e679ccd-1586-4d5f-b87b-48251046cad8
+    reality-opts:
+      public-key: h85e28MxBgNyT9d9cNeOLVtWfHq6cT_1_oxZOTajtTg
+      short-id: 92c32de179e5d908
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15532142
+    type: vless
+    server: 54.169.200.246
+    port: 41688
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.intel.com
+    client-fingerprint: chrome
+    uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
+      short-id: 7f342137c20387
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1874689081
+    network: tcp
+    port: 24146
+    reality-opts:
+      public-key: VeluC9A7XDurAWQNgXKShS2SJSgoK79QHFgiAMYrvGo
+      short-id: 7205d9079521832c
+    server: 54.251.9.130
+    servername: www.intel.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 9d9a048b-3aea-4b3e-b106-1106bf301feb
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1853989178
+    network: tcp
+    port: 28573
+    reality-opts:
+      public-key: 1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg
+      short-id: 03653bc03be10c97
+    server: 18.183.215.124
+    servername: www.sony.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 871bfce7-8440-4394-8d82-56b51f20fdad
+  - client-fingerprint: random
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1855698223
+    network: tcp
+    port: 41688
+    reality-opts:
+      public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
+      short-id: 7f342137c20387
+    server: 54.169.200.246
+    servername: www.intel.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+    type: vless
+    server: 46.137.202.178
+    port: 12512
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.intel.com
+    client-fingerprint: firefox
+    uuid: 2a6c617d-98e4-49c3-95ab-76f02fcf0150
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: sO0RBMr_l8TLtZaYBX8n3NdI9AtaugUqJpCR1szNsyA
+      short-id: e692a8250d2e2fd0
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1853652494
+    network: tcp
+    port: 10574
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.0.111.82
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1843512976
+    network: raw
+    port: 41688
+    reality-opts:
+      public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
+      short-id: 7f342137c20387
+    server: 54.169.200.246
+    servername: www.intel.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1898602719
+    network: tcp
+    port: 41688
+    reality-opts:
+      public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
+      short-id: 7f342137c20387
+    server: 54.169.200.246
+    servername: www.intel.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
+  - client-fingerprint: qq
+    flow: xtls-rprx-vision
+    name: 🇰🇷 KR | vless-1832754798
+    network: tcp
+    port: 18967
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.39.4.109
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+    type: vless
+    server: 54.251.9.130
+    port: 24146
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.intel.com
+    client-fingerprint: chrome
+    uuid: 9d9a048b-3aea-4b3e-b106-1106bf301feb
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: VeluC9A7XDurAWQNgXKShS2SJSgoK79QHFgiAMYrvGo
+      short-id: 7205d9079521832c
+  - client-fingerprint: edge
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1855698221
+    network: tcp
+    port: 41688
+    reality-opts:
+      public-key: srwIElIGTPs0kshpN1vvPsn4wixV_pLd56y_v9m0sTk
+      short-id: 7f342137c20387
+    server: 54.169.200.246
+    servername: www.intel.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 49c0aac1-5e05-4f04-b624-248fc59e03c4
+  - client-fingerprint: firefox
+    flow: xtls-rprx-vision
+    name: 🇸🇬 SG | vless-1855701583
+    network: tcp
+    port: 12972
+    reality-opts:
+      public-key: k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0
+      short-id: 48050fab
+    server: 3.0.111.82
+    servername: www.apple.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 814bd064-544d-4255-a070-5705c03f6da9
+  - client-fingerprint: ios
+    flow: xtls-rprx-vision
+    name: 🇯🇵 JP | vless-1832754535
+    network: tcp
+    port: 28573
+    reality-opts:
+      public-key: 1DJr9toke7FRuSXjibBVuNvRnLnJnN5kXwUBG6Romzg
+      short-id: 03653bc03be10c97
+    server: 18.183.215.124
+    servername: www.sony.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 871bfce7-8440-4394-8d82-56b51f20fdad
+  - cipher: aes-256-cfb
+    name: 🇰🇷 KR | shadowsocks-1827145973
+    password: qwerREWQ@@
+    port: 6123
+    server: 211.178.105.134
+    type: ss
+    udp: true
+  - name: 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-16006216
+    type: vless
+    server: 45.132.75.213
+    port: 2053
+    udp: true
+    network: tcp
+    tls: true
+    servername: www.cloudflare.com
+    client-fingerprint: firefox
+    uuid: f46182d1-e13b-47d3-97e2-fa5426a93e7c
+    reality-opts:
+      public-key: TpWeZocgNOygOhMo0l7oJawPu7STkn9D-SOa0UppcyY
+      short-id: cd7e85995ae2afc9
+proxy-groups:
+  - name: 🚢 FREEPORT
+    type: select
+    proxies:
+      - ♻️ AUTO
+      - 🛟 FALLBACK
+      - 🇭🇰 香港
+      - 🇸🇬 新加坡
+      - 🇯🇵 日本
+      - 🇺🇸 美国
+      - 🇪🇺 欧洲
+      - 🌍 其他地区
+      - DIRECT
+      - 🇺🇸 US | shadowsocks-1827146815
+      - 🇺🇸 US | shadowsocks-1827146248
+      - 🇨🇦 CA | shadowsocks-1827147479
+      - 🇺🇸 US | shadowsocks-1875023016
+      - 🇺🇸 US | shadowsocks-1875129451
+      - 🇺🇸 US | shadowsocks-1870576345
+      - 🇺🇸 US | shadowsocks-1828227588
+      - 🇨🇦 CA | vmess-1842122476
+      - 🇨🇦 CA | vmess-1828338235
+      - 🇺🇸 US | shadowsocks-1827963676
+      - 🇯🇵 JP | trojan-1944047317
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1827
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇺🇸 US | shadowsocks-1875022945
+      - 🇺🇸 US | shadowsocks-1827963904
+      - 🇺🇸 US | vmess-1842122480
+      - 🇺🇸 US | shadowsocks-1875129452
+      - 🇳🇱 NL | shadowsocks-1827146766
+      - 🇳🇱 NL | shadowsocks-1827146015
+      - 🇳🇱 NL | shadowsocks-1827145928
+      - 🇳🇱 NL | shadowsocks-1827146684
+      - 🇳🇱 NL | shadowsocks-1827146783
+      - 🇳🇱 NL | shadowsocks-1827146202
+      - 🇩🇪 DE | shadowsocks-1870576356
+      - 🇯🇵 JP | shadowsocks-1827146270
+      - 🇯🇵 JP | shadowsocks-1827146197
+      - 🇯🇵 JP | shadowsocks-1827146287
+      - 🇯🇵 JP | vless-1854019640
+      - 🇯🇵 JP | vless-1832754752
+      - 🇯🇵 JP | vless-1832754511
+      - 🇯🇵 JP | vless-1851981706
+      - 🇯🇵 JP | vless-1851981544
+      - 🇯🇵 JP | vless-1855701578
+      - 🇰🇷 KR | trojan-1943747895
+      - 🇯🇵 JP | vless-1851981528
+      - 🇰🇷 KR | trojan-1939846054
+      - 🇯🇵 JP | vless-1832754455
+      - 🇯🇵 JP | vless-1832754572
+      - 🇰🇷 KR | vless-1853651703
+      - 🇰🇷 KR | vless-1828531953
+      - 🇰🇷 KR | vless-1856199582
+      - 🇯🇵 JP | vless-1832754659
+      - 🇰🇷 KR | vless-1875764254
+      - 🇰🇷 KR | vless-1828374456
+      - 🇰🇷 KR | vless-1856199737
+      - 🇰🇷 KR | vless-1853464490
+      - 🇰🇷 KR | vmess-1944355335
+      - 🇭🇰 HK | vless-1935804885
+      - 🇰🇷 KR | vless-1939847007
+      - 🇸🇬 SG | shadowsocks-1870576189
+      - 🇸🇬 SG | vmess-1828150806
+      - 🇸🇬 SG | shadowsocks-1870576350
+      - 🇸🇬 SG | vmess-1832844237
+      - 🇸🇬 SG | vless-1853978665
+      - 🇸🇬 SG | vmess-1827159485
+      - 🇸🇬 SG | vmess-1853356361
+      - 🇸🇬 SG | trojan-1828295227
+      - 🇸🇬 SG | vless-1938581973
+      - 🇸🇬 SG | shadowsocks-1828226862
+      - 🇸🇬 SG | vmess-1853354891
+      - 🇸🇬 SG | shadowsocks-1828227303
+      - 🇸🇬 SG | vmess-1853342649
+      - 🇸🇬 SG | shadowsocks-1827147315
+      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15532142
+      - 🇸🇬 SG | vless-1874689081
+      - 🇯🇵 JP | vless-1853989178
+      - 🇸🇬 SG | vless-1855698223
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+      - 🇸🇬 SG | vless-1853652494
+      - 🇸🇬 SG | vless-1843512976
+      - 🇸🇬 SG | vless-1898602719
+      - 🇰🇷 KR | vless-1832754798
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+      - 🇸🇬 SG | vless-1855698221
+      - 🇸🇬 SG | vless-1855701583
+      - 🇯🇵 JP | vless-1832754535
+      - 🇰🇷 KR | shadowsocks-1827145973
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-16006216
+  - name: ♻️ AUTO
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies: &a1
+      - 🇺🇸 US | shadowsocks-1827146815
+      - 🇺🇸 US | shadowsocks-1827146248
+      - 🇨🇦 CA | shadowsocks-1827147479
+      - 🇺🇸 US | shadowsocks-1875023016
+      - 🇺🇸 US | shadowsocks-1875129451
+      - 🇺🇸 US | shadowsocks-1870576345
+      - 🇺🇸 US | shadowsocks-1828227588
+      - 🇨🇦 CA | vmess-1842122476
+      - 🇨🇦 CA | vmess-1828338235
+      - 🇺🇸 US | shadowsocks-1827963676
+      - 🇯🇵 JP | trojan-1944047317
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1827
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇺🇸 US | shadowsocks-1875022945
+      - 🇺🇸 US | shadowsocks-1827963904
+      - 🇺🇸 US | vmess-1842122480
+      - 🇺🇸 US | shadowsocks-1875129452
+      - 🇳🇱 NL | shadowsocks-1827146766
+      - 🇳🇱 NL | shadowsocks-1827146015
+      - 🇳🇱 NL | shadowsocks-1827145928
+      - 🇳🇱 NL | shadowsocks-1827146684
+      - 🇳🇱 NL | shadowsocks-1827146783
+      - 🇳🇱 NL | shadowsocks-1827146202
+      - 🇩🇪 DE | shadowsocks-1870576356
+      - 🇯🇵 JP | shadowsocks-1827146270
+      - 🇯🇵 JP | shadowsocks-1827146197
+      - 🇯🇵 JP | shadowsocks-1827146287
+      - 🇯🇵 JP | vless-1854019640
+      - 🇯🇵 JP | vless-1832754752
+      - 🇯🇵 JP | vless-1832754511
+      - 🇯🇵 JP | vless-1851981706
+      - 🇯🇵 JP | vless-1851981544
+      - 🇯🇵 JP | vless-1855701578
+      - 🇰🇷 KR | trojan-1943747895
+      - 🇯🇵 JP | vless-1851981528
+      - 🇰🇷 KR | trojan-1939846054
+      - 🇯🇵 JP | vless-1832754455
+      - 🇯🇵 JP | vless-1832754572
+      - 🇰🇷 KR | vless-1853651703
+      - 🇰🇷 KR | vless-1828531953
+      - 🇰🇷 KR | vless-1856199582
+      - 🇯🇵 JP | vless-1832754659
+      - 🇰🇷 KR | vless-1875764254
+      - 🇰🇷 KR | vless-1828374456
+      - 🇰🇷 KR | vless-1856199737
+      - 🇰🇷 KR | vless-1853464490
+      - 🇰🇷 KR | vmess-1944355335
+      - 🇭🇰 HK | vless-1935804885
+      - 🇰🇷 KR | vless-1939847007
+      - 🇸🇬 SG | shadowsocks-1870576189
+      - 🇸🇬 SG | vmess-1828150806
+      - 🇸🇬 SG | shadowsocks-1870576350
+      - 🇸🇬 SG | vmess-1832844237
+      - 🇸🇬 SG | vless-1853978665
+      - 🇸🇬 SG | vmess-1827159485
+      - 🇸🇬 SG | vmess-1853356361
+      - 🇸🇬 SG | trojan-1828295227
+      - 🇸🇬 SG | vless-1938581973
+      - 🇸🇬 SG | shadowsocks-1828226862
+      - 🇸🇬 SG | vmess-1853354891
+      - 🇸🇬 SG | shadowsocks-1828227303
+      - 🇸🇬 SG | vmess-1853342649
+      - 🇸🇬 SG | shadowsocks-1827147315
+      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15532142
+      - 🇸🇬 SG | vless-1874689081
+      - 🇯🇵 JP | vless-1853989178
+      - 🇸🇬 SG | vless-1855698223
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+      - 🇸🇬 SG | vless-1853652494
+      - 🇸🇬 SG | vless-1843512976
+      - 🇸🇬 SG | vless-1898602719
+      - 🇰🇷 KR | vless-1832754798
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+      - 🇸🇬 SG | vless-1855698221
+      - 🇸🇬 SG | vless-1855701583
+      - 🇯🇵 JP | vless-1832754535
+      - 🇰🇷 KR | shadowsocks-1827145973
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-16006216
+  - name: 🛟 FALLBACK
+    type: fallback
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    proxies: *a1
+  - name: 🇭🇰 香港
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇭🇰 HK | vless-1935804885
+  - name: 🇸🇬 新加坡
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-7429
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1531
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-1827
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-3251
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-8105
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-9271
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-4382
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2504
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-2776
+      - 🇸🇬 SG | shadowsocks-1870576189
+      - 🇸🇬 SG | vmess-1828150806
+      - 🇸🇬 SG | shadowsocks-1870576350
+      - 🇸🇬 SG | vmess-1832844237
+      - 🇸🇬 SG | vless-1853978665
+      - 🇸🇬 SG | vmess-1827159485
+      - 🇸🇬 SG | vmess-1853356361
+      - 🇸🇬 SG | trojan-1828295227
+      - 🇸🇬 SG | vless-1938581973
+      - 🇸🇬 SG | shadowsocks-1828226862
+      - 🇸🇬 SG | vmess-1853354891
+      - 🇸🇬 SG | shadowsocks-1828227303
+      - 🇸🇬 SG | vmess-1853342649
+      - 🇸🇬 SG | shadowsocks-1827147315
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15532142
+      - 🇸🇬 SG | vless-1874689081
+      - 🇸🇬 SG | vless-1855698223
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15528654
+      - 🇸🇬 SG | vless-1853652494
+      - 🇸🇬 SG | vless-1843512976
+      - 🇸🇬 SG | vless-1898602719
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-15533664
+      - 🇸🇬 SG | vless-1855698221
+      - 🇸🇬 SG | vless-1855701583
+      - 🇸🇬 SG | [www.v2nodes.com] V2Ray Vless-SG-16006216
+  - name: 🇯🇵 日本
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇯🇵 JP | trojan-1944047317
+      - 🇯🇵 JP | shadowsocks-1827146270
+      - 🇯🇵 JP | shadowsocks-1827146197
+      - 🇯🇵 JP | shadowsocks-1827146287
+      - 🇯🇵 JP | vless-1854019640
+      - 🇯🇵 JP | vless-1832754752
+      - 🇯🇵 JP | vless-1832754511
+      - 🇯🇵 JP | vless-1851981706
+      - 🇯🇵 JP | vless-1851981544
+      - 🇯🇵 JP | vless-1855701578
+      - 🇯🇵 JP | vless-1851981528
+      - 🇯🇵 JP | vless-1832754455
+      - 🇯🇵 JP | vless-1832754572
+      - 🇯🇵 JP | vless-1832754659
+      - 🇯🇵 JP | vless-1853989178
+      - 🇯🇵 JP | vless-1832754535
+  - name: 🇺🇸 美国
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇺🇸 US | shadowsocks-1827146815
+      - 🇺🇸 US | shadowsocks-1827146248
+      - 🇺🇸 US | shadowsocks-1875023016
+      - 🇺🇸 US | shadowsocks-1875129451
+      - 🇺🇸 US | shadowsocks-1870576345
+      - 🇺🇸 US | shadowsocks-1828227588
+      - 🇺🇸 US | shadowsocks-1827963676
+      - 🇺🇸 US | shadowsocks-1875022945
+      - 🇺🇸 US | shadowsocks-1827963904
+      - 🇺🇸 US | vmess-1842122480
+      - 🇺🇸 US | shadowsocks-1875129452
+  - name: 🇪🇺 欧洲
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇳🇱 NL | shadowsocks-1827146766
+      - 🇳🇱 NL | shadowsocks-1827146015
+      - 🇳🇱 NL | shadowsocks-1827145928
+      - 🇳🇱 NL | shadowsocks-1827146684
+      - 🇳🇱 NL | shadowsocks-1827146783
+      - 🇳🇱 NL | shadowsocks-1827146202
+      - 🇩🇪 DE | shadowsocks-1870576356
+  - name: 🌍 其他地区
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    max-failed-times: 2
+    tolerance: 100
+    proxies:
+      - 🇨🇦 CA | shadowsocks-1827147479
+      - 🇨🇦 CA | vmess-1842122476
+      - 🇨🇦 CA | vmess-1828338235
+      - 🇰🇷 KR | trojan-1943747895
+      - 🇰🇷 KR | trojan-1939846054
+      - 🇰🇷 KR | vless-1853651703
+      - 🇰🇷 KR | vless-1828531953
+      - 🇰🇷 KR | vless-1856199582
+      - 🇰🇷 KR | vless-1875764254
+      - 🇰🇷 KR | vless-1828374456
+      - 🇰🇷 KR | vless-1856199737
+      - 🇰🇷 KR | vless-1853464490
+      - 🇰🇷 KR | vmess-1944355335
+      - 🇰🇷 KR | vless-1939847007
+      - 🇮🇳 IN | [www.v2nodes.com] vless-IN
+      - 🇰🇷 KR | vless-1832754798
+      - 🇰🇷 KR | shadowsocks-1827145973
+  - name: 💬 TELEGRAM
+    type: select
+    proxies:
+      - 🚢 FREEPORT
+      - 🇸🇬 新加坡
+      - 🇭🇰 香港
+      - 🇺🇸 美国
+      - ♻️ AUTO
+      - DIRECT
+  - name: 🛡️ ADS
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+rule-providers:
+  applications:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt
+    path: ./ruleset/applications.yaml
+    interval: 86400
+    size-limit: 10000000
+  private:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt
+    path: ./ruleset/private.yaml
+    interval: 86400
+    size-limit: 10000000
+  reject:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
+    path: ./ruleset/reject.yaml
+    interval: 86400
+    size-limit: 10000000
+  icloud:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+    size-limit: 10000000
+  apple:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt
+    path: ./ruleset/apple.yaml
+    interval: 86400
+    size-limit: 10000000
+  google:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt
+    path: ./ruleset/google.yaml
+    interval: 86400
+    size-limit: 10000000
+  proxy:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+    size-limit: 10000000
+  direct:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt
+    path: ./ruleset/direct.yaml
+    interval: 86400
+    size-limit: 10000000
+  lancidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+    size-limit: 10000000
+  cncidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+    size-limit: 10000000
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+    size-limit: 10000000
+rules:
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,🛡️ ADS
+  - RULE-SET,icloud,DIRECT
+  - RULE-SET,apple,DIRECT
+  - RULE-SET,google,🚢 FREEPORT
+  - RULE-SET,proxy,🚢 FREEPORT
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,lancidr,DIRECT,no-resolve
+  - RULE-SET,cncidr,DIRECT,no-resolve
+  - RULE-SET,telegramcidr,💬 TELEGRAM,no-resolve
+  - MATCH,🚢 FREEPORT
