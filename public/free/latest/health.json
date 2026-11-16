@@ -1,8 +1,8 @@
 {
   "schemaVersion": 3,
-  "manifest": "FP-20261115-01",
+  "manifest": "FP-20261116-01",
   "status": "tested",
-  "testedAt": "2026-11-15T15:43:21.630Z",
+  "testedAt": "2026-11-16T00:01:01.776Z",
   "thresholds": {
     "minimumHealthy": 10,
     "minimumRatio": 0.1
@@ -13,36 +13,34 @@
     "maximumLatencyMs": 2500
   },
   "summary": {
-    "candidateCount": 106,
-    "healthyCount": 59,
-    "failedCount": 47,
-    "publishedCount": 59,
-    "aliveRatio": 0.5566037735849056,
+    "candidateCount": 95,
+    "healthyCount": 50,
+    "failedCount": 45,
+    "publishedCount": 50,
+    "aliveRatio": 0.5263157894736842,
     "latencyMs": {
-      "min": 17,
-      "median": 131,
-      "p95": 240,
-      "max": 410
+      "min": 12,
+      "median": 161,
+      "p95": 204,
+      "max": 300
     },
     "failureReasons": {
-      "other": 33,
-      "timeout": 14
+      "other": 36,
+      "timeout": 9
     },
     "regionDetection": {
-      "detectedCount": 57,
+      "detectedCount": 48,
       "fallbackCount": 2,
       "otherCount": 0,
-      "mismatchCount": 10
+      "mismatchCount": 0
     }
   },
   "sources": [
     {
       "id": "bestclash",
-      "status": "ok",
+      "status": "failed",
       "nodeCount": 0,
-      "proxyCount": 11,
-      "discoveredNodeCount": 0,
-      "discoveredProxyCount": 11
+      "proxyCount": 0
     },
     {
       "id": "v2nodes-sg",
@@ -95,148 +93,6 @@
   ],
   "nodes": [
     {
-      "id": "183d6b03c1f83af9805a",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 185
-    },
-    {
-      "id": "30abaa59d80f5033fdff",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 125
-    },
-    {
-      "id": "ee056caf22271afc1d57",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 121
-    },
-    {
-      "id": "3865b886e06d2214458c",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 123
-    },
-    {
-      "id": "7366371f54094c949e0b",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 132
-    },
-    {
-      "id": "4df1a1c1c770948fe36d",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 171
-    },
-    {
-      "id": "8ed7cbd383e9abe5e8bb",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 138
-    },
-    {
-      "id": "0e47c92ae26fb2b10cd5",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 131
-    },
-    {
-      "id": "7fe42383878572c9619e",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 124
-    },
-    {
-      "id": "463d6dab83cedcfd0513",
-      "type": "ss",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "IT",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "regionMismatch": true,
-      "alive": true,
-      "delayMs": 160
-    },
-    {
-      "id": "032648df24a0db4aa75c",
-      "type": "trojan",
-      "sourceIds": [
-        "bestclash"
-      ],
-      "region": "TR",
-      "regionMethod": "previous",
-      "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
-    },
-    {
       "id": "3ec747fa3f61b12bf872",
       "type": "ss",
       "sourceIds": [
@@ -258,7 +114,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 212
+      "delayMs": 199
     },
     {
       "id": "d4004ab2cc7bbf0d52e8",
@@ -270,7 +126,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 56
+      "delayMs": 31,
+      "speedMbps": 2.061,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "22e57b59e756c60050c0",
@@ -282,8 +141,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 51,
-      "speedMbps": 4.418,
+      "delayMs": 28,
+      "speedMbps": 9.201,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -297,7 +156,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 53
+      "delayMs": 38,
+      "speedMbps": 5.258,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "e06e6fa459a0ce5cdd89",
@@ -309,7 +171,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 58
+      "delayMs": 25,
+      "speedMbps": 7.22,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "154ffa4953e08fc7fc5c",
@@ -321,7 +186,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 55
+      "delayMs": 24,
+      "speedMbps": 7.527,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "44410bbbcb074bace434",
@@ -333,8 +201,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 27,
-      "speedMbps": 7.33,
+      "delayMs": 64,
+      "speedMbps": 4.013,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -357,10 +225,12 @@
         "au1rxx-verified"
       ],
       "region": "US",
-      "regionMethod": "previous",
-      "regionConfidence": "medium",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
       "alive": true,
-      "delayMs": 70
+      "delayMs": 39,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
     },
     {
       "id": "60b18e513b0901e74d23",
@@ -372,8 +242,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 29,
-      "speedMbps": 8.727,
+      "delayMs": 61,
+      "speedMbps": 4.095,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -387,7 +257,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 55
+      "delayMs": 87
     },
     {
       "id": "c8acd513ec9a79b14c2c",
@@ -399,10 +269,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 34,
-      "speedMbps": 6.218,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "delayMs": 102
     },
     {
       "id": "9156c67076d92acc1812",
@@ -414,10 +281,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 21,
-      "speedMbps": 10.779,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "delayMs": 83
     },
     {
       "id": "ec4e42e10fdb5cba6162",
@@ -429,7 +293,7 @@
       "regionMethod": "previous",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "5cfa73d200d2b0c9039d",
@@ -441,7 +305,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 122
+      "delayMs": 176
     },
     {
       "id": "e3dcab350a94bb387462",
@@ -453,7 +317,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 114
+      "delayMs": 157
     },
     {
       "id": "0d26fdef016baaca746a",
@@ -465,7 +329,7 @@
       "regionMethod": "previous",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "43c420eb5b027b6ab90c",
@@ -477,7 +341,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 117
+      "delayMs": 172
     },
     {
       "id": "9c53769b0be495f25278",
@@ -489,7 +353,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 162
+      "delayMs": 168
     },
     {
       "id": "cd832784e7d188f811b2",
@@ -513,7 +377,7 @@
       "regionMethod": "previous",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "a1915d230d8e3ac7ca7f",
@@ -525,7 +389,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 102
+      "delayMs": 153
     },
     {
       "id": "0a32f31d17f205e6a2de",
@@ -537,7 +401,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 218
+      "delayMs": 167
     },
     {
       "id": "b72984b59e70019ddbc1",
@@ -561,7 +425,7 @@
       "regionMethod": "unknown",
       "regionConfidence": "none",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "cc49a020cc72c177d9a5",
@@ -585,7 +449,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 210
+      "delayMs": 196
     },
     {
       "id": "fcbc5d1cf98ab378a99e",
@@ -597,7 +461,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 208
+      "delayMs": 197
     },
     {
       "id": "518971bee25e303660f4",
@@ -609,7 +473,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 211
+      "delayMs": 201
     },
     {
       "id": "71b2d3ca76c07f2b747d",
@@ -621,7 +485,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 210
+      "delayMs": 200
     },
     {
       "id": "41dd8f463ecbbdfa1ddf",
@@ -632,8 +496,8 @@
       "region": "JP",
       "regionMethod": "previous",
       "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
+      "alive": true,
+      "delayMs": 118
     },
     {
       "id": "6783195dc813c85be652",
@@ -654,10 +518,12 @@
         "au1rxx-verified"
       ],
       "region": "CA",
-      "regionMethod": "previous",
-      "regionConfidence": "medium",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
       "alive": true,
-      "delayMs": 54
+      "delayMs": 16,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
     },
     {
       "id": "0940c1208f74cca842dc",
@@ -681,7 +547,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 179
+      "delayMs": 182
     },
     {
       "id": "82aa2b13ed30d73cdcfd",
@@ -693,7 +559,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 114
+      "delayMs": 152
     },
     {
       "id": "0f18edac33133fee5052",
@@ -705,7 +571,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 116
+      "delayMs": 171
     },
     {
       "id": "be7f1fa25c82c8489231",
@@ -729,7 +595,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 190
+      "delayMs": 179
     },
     {
       "id": "4684fcf1cee303a4fb62",
@@ -849,7 +715,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 213
+      "delayMs": 196
     },
     {
       "id": "f7f762cafe721f0e123e",
@@ -861,7 +727,10 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 59
+      "delayMs": 50,
+      "speedMbps": 6.294,
+      "speedSampleBytes": 250000,
+      "speedSampleStatus": "ok"
     },
     {
       "id": "5f244b4ad26320317ec4",
@@ -873,8 +742,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 52,
-      "speedMbps": 5.216,
+      "delayMs": 15,
+      "speedMbps": 17.611,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -888,8 +757,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 17,
-      "speedMbps": 14.703,
+      "delayMs": 65,
+      "speedMbps": 0.554,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -903,7 +772,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 410
+      "delayMs": 164
     },
     {
       "id": "93aee72e390b49c1498f",
@@ -915,7 +784,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 211
+      "delayMs": 204
     },
     {
       "id": "93c3cd0b7fc61a61b9f1",
@@ -927,8 +796,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 27,
-      "speedMbps": 0.271,
+      "delayMs": 62,
+      "speedMbps": 1.258,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -954,10 +823,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 21,
-      "speedMbps": 9.306,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "delayMs": 99
     },
     {
       "id": "7f7b021e4de46769fcee",
@@ -969,10 +835,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 38,
-      "speedMbps": 7.657,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "delayMs": 88
     },
     {
       "id": "19b3b217fe00a51fe253",
@@ -984,7 +847,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 236
+      "delayMs": 300
     },
     {
       "id": "5e645d9908a8422dde8d",
@@ -996,7 +859,7 @@
       "regionMethod": "previous",
       "regionConfidence": "medium",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "9641431a63da648c529e",
@@ -1044,8 +907,8 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 46,
-      "speedMbps": 2.742,
+      "delayMs": 64,
+      "speedMbps": 3.768,
       "speedSampleBytes": 250000,
       "speedSampleStatus": "ok"
     },
@@ -1095,10 +958,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 197,
-      "speedMbps": 0.904,
-      "speedSampleBytes": 250000,
-      "speedSampleStatus": "ok"
+      "delayMs": 131
     },
     {
       "id": "fa35522f927eb6fb8b10",
@@ -1206,7 +1066,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 211
+      "delayMs": 195
     },
     {
       "id": "5ffc4021a2e65c7fd5e0",
@@ -1218,7 +1078,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 211
+      "delayMs": 202
     },
     {
       "id": "8d7ee4df36d42f39b0db",
@@ -1230,43 +1090,7 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 214
-    },
-    {
-      "id": "a6b50220bd6f83c44850",
-      "type": "ss",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 219
-    },
-    {
-      "id": "06f81ab797d7ad2a4a3b",
-      "type": "vless",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 279
-    },
-    {
-      "id": "937ab2e7f9d5fc1b2c7d",
-      "type": "vless",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 360
+      "delayMs": 195
     },
     {
       "id": "a441b3f641f15c2693a3",
@@ -1278,43 +1102,19 @@
       "regionMethod": "egress",
       "regionConfidence": "high",
       "alive": true,
-      "delayMs": 211
+      "delayMs": 197
     },
     {
-      "id": "800d72f0eb8948380bf2",
-      "type": "ss",
+      "id": "06f81ab797d7ad2a4a3b",
+      "type": "vless",
       "sourceIds": [
         "v2nodes-sg"
       ],
       "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 211
-    },
-    {
-      "id": "e6aaa932a813887edc81",
-      "type": "ss",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 210
-    },
-    {
-      "id": "2f9390c7e279f0019163",
-      "type": "ss",
-      "sourceIds": [
-        "v2nodes-sg"
-      ],
-      "region": "SG",
-      "regionMethod": "egress",
-      "regionConfidence": "high",
-      "alive": true,
-      "delayMs": 208
+      "regionMethod": "source",
+      "regionConfidence": "medium",
+      "alive": false,
+      "reason": "timeout"
     },
     {
       "id": "862d42b6fe904e01406c",
@@ -1341,6 +1141,54 @@
       "reason": "other"
     },
     {
+      "id": "a6b50220bd6f83c44850",
+      "type": "ss",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 201
+    },
+    {
+      "id": "2f9390c7e279f0019163",
+      "type": "ss",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 206
+    },
+    {
+      "id": "800d72f0eb8948380bf2",
+      "type": "ss",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 201
+    },
+    {
+      "id": "e6aaa932a813887edc81",
+      "type": "ss",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 203
+    },
+    {
       "id": "b7bb3b6e9df6c83832fc",
       "type": "vless",
       "sourceIds": [
@@ -1353,6 +1201,18 @@
       "reason": "other"
     },
     {
+      "id": "937ab2e7f9d5fc1b2c7d",
+      "type": "vless",
+      "sourceIds": [
+        "v2nodes-sg"
+      ],
+      "region": "SG",
+      "regionMethod": "egress",
+      "regionConfidence": "high",
+      "alive": true,
+      "delayMs": 199
+    },
+    {
       "id": "b88e79355301af9de368",
       "type": "vless",
       "sourceIds": [
@@ -1361,8 +1221,10 @@
       "region": "SG",
       "regionMethod": "source",
       "regionConfidence": "medium",
-      "alive": false,
-      "reason": "other"
+      "alive": true,
+      "delayMs": 12,
+      "speedSampleStatus": "request-failed",
+      "speedSampleBytes": 250000
     },
     {
       "id": "294b22082e8386032c51",
@@ -1386,7 +1248,7 @@
       "regionMethod": "unknown",
       "regionConfidence": "none",
       "alive": false,
-      "reason": "timeout"
+      "reason": "other"
     },
     {
       "id": "2a0328c5beb028e697d2",
